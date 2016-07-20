@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>CodeMirror: Autocomplete Demo</title>
+    <meta charset="utf-8"/>
+
+    <link rel=stylesheet href="../doc/docs.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../CodeMirror/lib/codemirror.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="../CodeMirror/lib/codemirror.js"></script>
+    <script src="../CodeMirror/mode/javascript/javascript.js"></script>
+</head>
+<body>
+    <article>
+        <h1>Deserto dei Tartari</h1>
+
+        <div class="game" id="Game">
+            <h3>Missile Command</h3>
+            <div class="container game">
+                <div class="crosshair game"></div>
+            </div>
+            <canvas class="game" width="510" height="460"></canvas>
+        </div>
+
+        <div class="code" id="Code">
+            <form>
+                <h3>Editor</h3>
+                <textarea id="code" name="code">
+                    qui ci sara' il testo del codice da modificare
+                </textarea>
+            </form>
+        </div>
+    </article>
+
+<!-- script  -->
+    <script type="text/javascript" src="js/missile_command.js"></script>
+    <script type="text/javascript" src="js/editor.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
