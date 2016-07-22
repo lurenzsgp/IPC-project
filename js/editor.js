@@ -25,7 +25,7 @@ var editor = (function() {
              }
           });
           cm.refresh();
-    }, "text");
+        }, "text");
     }
 
     return {
