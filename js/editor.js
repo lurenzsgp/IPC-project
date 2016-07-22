@@ -1,20 +1,30 @@
 var editor = (function() {
     // varaibles
-    var ed = new Object;
+    var cm = {};
+    var editableLines = [];
 
     var initialize = function() {
-        ed = CodeMirror.fromTextArea(document.getElementById("code"), {
+        cm = CodeMirror.fromTextArea(document.getElementById("code"), {
           lineNumbers: true,
-          extraKeys: {"Ctrl-Space": "autocomplete"},
-          mode: {name: "javascript", globalVars: true}
+          mode: "javascript"
         });
-        ed.setSize(600,400);
+
+        cm.setSize(600,400);
     }
 
     var loadCode = function (lvl) {
         $.get( "lvl/lvl" + lvl + ".js", function( data ) {
-          ed.setValue(data);
-        // ed.setValue("inserisco il codice del livello 1!!")
+          cm.setValue(data);
+
+          editableLines = [3,4,5];
+
+          cm.eachLine(function (line) {
+             var i = cm.getLineNumber(line);
+             if (editableLines.indexOf(i) === -1) {
+                 cm.addLineClass(line, "wrap", "disabled");
+             }
+          });
+          cm.refresh();
     }, "text");
     }
 
