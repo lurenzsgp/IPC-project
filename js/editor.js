@@ -1,5 +1,5 @@
 var editor = (function() {
-    // varaibles
+    // variables
     var ed = new Object;
 
     var initialize = function() {
