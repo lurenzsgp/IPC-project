@@ -32,3 +32,8 @@ h1.game {
   left: 20px;
   cursor: crosshair;
 }
+
+/* Uneditable editor line */
+.CodeMirror-lines .disabled {
+    background: #BDBDBD !important;
+}
