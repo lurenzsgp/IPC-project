@@ -16,7 +16,13 @@ var editor = (function() {
         $.get( "lvl/lvl" + lvl + ".js", function( data ) {
           cm.setValue(data);
 
-          editableLines = [3,4,5];
+          cm.on('beforeChange',function(cm,change) {
+              if ( editableLines.indexOf(change.from.line) === -1 ) {
+                  change.cancel();
+              }
+          });
+
+          editableLines = [2,3,4];
 
           cm.eachLine(function (line) {
              var i = cm.getLineNumber(line);
