@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    editor.initialize();
+    var editor = new Editor();
+    editor.resize(400,600);
     editor.loadCode(1);
 
     missileCommand.initialize();
