@@ -83,21 +83,21 @@ var missileCommand = (function() {
 
   // Show current score
   var drawScore = function() {
-    ctx.fillStyle = 'red';
-    ctx.font = 'bold 20px arial';
-    ctx.fillText( 'Score ' + score, 80, 15 );
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 20px consolas';
+    ctx.fillText( 'Score ' + score, 80, 25 );
   };
 
   // Show message before a level begins
   var drawLevelMessage = function() {
-    ctx.fillStyle = 'blue';
-    ctx.font = 'bold 20px arial';
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 20px consolas';
     ctx.fillText( 'CLICK TO START LEVEL', 130, 180 );
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'white';
     ctx.fillText( ' ' + level, 370, 180 );
 
     ctx.fillText( '' + getMultiplier(), 195, 245 );
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = 'white';
     ctx.fillText( 'X  POINTS', 215, 245 );
 
     ctx.fillText( 'DEFEND', 100, 355 );
@@ -108,16 +108,16 @@ var missileCommand = (function() {
   var drawEndLevel = function( missilesLeft, missilesBonus,
                                citiesSaved, citiesBonus ) {
     drawGameState();
-    ctx.fillStyle = 'blue';
-    ctx.font = 'bold 20px arial';
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 20px consolas';
     ctx.fillText( 'BONUS POINTS', 150, 149 );
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'white';
     ctx.fillText( '' + missilesBonus, 170, 213 );
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = 'white';
     ctx.fillText( 'Missiles Left: ' + missilesLeft, 230, 213 );
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'white';
     ctx.fillText( '' + citiesBonus, 170, 277 );
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = 'white';
     ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
   };
 
@@ -141,11 +141,11 @@ var missileCommand = (function() {
     ctx.fill();
 
     ctx.fillStyle = 'red';
-    ctx.font = 'bold 85px arial';
+    ctx.font = 'bold 85px consolas';
     ctx.fillText( 'THE END', 70, 260 );
 
     ctx.fillStyle = 'yellow';
-    ctx.font = 'bold 26px arial';
+    ctx.font = 'bold 26px consolas';
     ctx.fillText( 'Final Score: ' + score, 80, 20 );
     ctx.fillText( 'CLICK TO PLAY NEW GAME', 80, 458 );
   };
@@ -174,13 +174,22 @@ var missileCommand = (function() {
 
   // Show the basic game background
   var drawBackground = function() {
-    // Black background
-    ctx.fillStyle = 'black';
+    // Black background -> gradient sky
+
+    var grd=ctx.createLinearGradient(0,1000,0,0);
+    grd.addColorStop(0,"#a44");
+    grd.addColorStop(1,"#134");
+    
+    ctx.fillStyle = grd;
     ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
     // Yellow area at bottom of screen for cities and
     // anti missile batteries
-    ctx.fillStyle = 'yellow';
+    var grdd=ctx.createLinearGradient(0,340,0,500);
+    grdd.addColorStop(0,"red");
+    grdd.addColorStop(1,"orange");
+
+    ctx.fillStyle = grdd;
     ctx.beginPath();
     ctx.moveTo( 0, 460 );
     ctx.lineTo( 0,  430 );
@@ -212,7 +221,7 @@ var missileCommand = (function() {
     var x = this.x,
         y = this.y;
 
-    ctx.fillStyle = 'cyan';
+    ctx.fillStyle = 'darkorange';
     ctx.beginPath();
     ctx.moveTo( x, y );
     ctx.lineTo( x, y - 10 );
@@ -247,7 +256,7 @@ var missileCommand = (function() {
       y = this.y + delta[i][1];
 
       // Draw a missile
-      ctx.strokeStyle = 'blue';
+      ctx.strokeStyle = 'brown';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo( x, y );
@@ -294,7 +303,7 @@ var missileCommand = (function() {
       ctx.fillRect( this.x - 1, this.y - 1, this.width, this.height );
     } else if( this.state === MISSILE.exploding ||
                this.state === MISSILE.imploding ) {
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = 'rgba(255,255,0,0.5)';
       ctx.beginPath();
       ctx.arc( this.x, this.y, this.explodeRadius, 0, 2 * Math.PI );
       ctx.closePath();
@@ -333,7 +342,7 @@ var missileCommand = (function() {
 
     Missile.call( this, { startX: amb.x,  startY: amb.y,
                           endX: endX,     endY: endY,
-                          color: 'green', trailColor: 'blue' } );
+                          color: 'green', trailColor: '#33f' } );
 
     var xDistance = this.endX - this.startX,
         yDistance = this.endY - this.startY;
@@ -401,7 +410,7 @@ var missileCommand = (function() {
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'yellow', trailColor: 'red' } );
+                          color: 'yellow', trailColor: 'grey' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {

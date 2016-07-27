@@ -1,42 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>IPC: Deserto dei Barbari</title>
-    <meta charset="utf-8"/>
+	<head>
+		<title>IPC: Deserto dei Barbari</title>
+		<meta charset="utf-8"/>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/codemirror.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/codemirror.css">
 
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="js/CodeMirror/codemirror.js"></script>
-    <script src="js/CodeMirror/javascript.js"></script>
-</head>
-<body>
-    <article>
-        <h1>Deserto dei Tartari</h1>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="js/CodeMirror/codemirror.js"></script>
+		<script src="js/CodeMirror/javascript.js"></script>
+    
+		<!--logo-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> 
+	</head>
+	<body>
+		<article>
+			<header class="header">
+					<i id="icon" class="fa fa-rocket"></i> 
+					<h3>Deserto dei Barbari</h3>
+			</header>
 
-        <div class="game" id="Game">
-            <h3>Missile Command</h3>
-            <div class="container game">
-                <div class="crosshair game"></div>
-            </div>
-            <canvas class="game" width="510" height="460"></canvas>
-        </div>
+			<section>
+				<div class="game" id="Game">
+					<h3>Missile Command</h3>
+					<div class="container game">
+						<div class="crosshair game"></div>
+					</div>
+					<canvas class="game" width="510" height="460"></canvas>
+				</div>
+			</section>
+			
+			<section>
+			<div class="code" id="Code" style="background-color: brown; float: left; margin: 15em 10em auto; position: relative; border-radius: 5px; height: 100%; box-shadow: 0 .1em .2em .2em #999">
+				<form>
+					<h3 style="font: Roboto">Editor</h3>
+					<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
+				</form>
+			</div>
+			</section>
+		</article>
 
-        <div class="code" id="Code">
-            <form>
-                <h3>Editor</h3>
-                <textarea id="code" name="code">
-                    qui ci sara' il testo del codice da modificare
-                </textarea>
-            </form>
-        </div>
-    </article>
-
-<!-- script  -->
-    <script type="text/javascript" src="js/missile_command.js"></script>
-    <script type="text/javascript" src="js/editor.js"></script>
-
-    <script type="text/javascript" src="js/app.js"></script>
-</body>
+		<!-- script  -->
+		<script type="text/javascript" src="js/missile_command.js"></script>
+		<script type="text/javascript" src="js/editor.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
 </html>
