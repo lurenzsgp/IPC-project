@@ -39,6 +39,9 @@ var missileCommand = (function() {
     initializeLevel();
   };
 
+
+
+//LIVELLO: si potrebbero azzerare il numero di missili per batteria
   // Reset various variables at the start of a new level
   var initializeLevel = function() {
     $.each( antiMissileBatteries, function( index, amb ) {
@@ -50,6 +53,7 @@ var missileCommand = (function() {
     drawBeginLevel();
   };
 
+//LIVELLO: si possono aumentare il numero di missili che arrivano
   // Create a certain number of enemy missiles based on the game level
   var createEmemyMissiles = function() {
     var targets = viableTargets(),
@@ -354,6 +358,8 @@ var missileCommand = (function() {
   PlayerMissile.prototype = Object.create( Missile.prototype );
   PlayerMissile.prototype.constructor = PlayerMissile;
 
+
+//LIVELLO: si puo' non far esplodere il missile
   // Update the location and/or state of this missile of the player
   PlayerMissile.prototype.update = function() {
     if( this.state === MISSILE.active && this.y <= this.endY ) {
@@ -370,6 +376,7 @@ var missileCommand = (function() {
     }
   };
 
+//LIVELLO: si possono modificare le coordinate di puntamento aggiungendo un numero random
   // Create a missile that will be shot at indicated location
   var playerShoot = function( x, y ) {
     if( y >= 50 && y <= 370 ) {
