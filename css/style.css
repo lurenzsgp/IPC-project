@@ -91,3 +91,9 @@ h1.game {
   cursor: crosshair;
   box-shadow: 0em 0em 0 0 black;
 }
+
+
+/* Editor */
+.disabled {
+	background-color: #999 !important;
+}
