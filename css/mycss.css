@@ -1,6 +1,12 @@
 body{
 }
 
+/* Editor  NON CANCELLARE*/
+.disabled {
+	background-color: #999 !important;
+}
+
+
 body,
 h1, .h1,
 h2, .h2,
