@@ -14,6 +14,7 @@ var Editor = function () {
 	    matchBrackets: true,
 		showTrailingSpace: true,
 	    autoCloseBrackets: true,
+		extraKeys: {"Ctrl-Space": "autocomplete"},
         mode: "javascript"
     });
 }
