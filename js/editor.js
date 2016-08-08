@@ -10,7 +10,10 @@ var Editor = function () {
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        mode: "javascript"
+        mode: "javascript",
+		styleActiveLine: true,
+	    matchBrackets: true,
+	    autoCloseBrackets: true
     });
 }
 
