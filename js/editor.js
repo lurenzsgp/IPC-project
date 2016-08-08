@@ -1,6 +1,6 @@
 // Editor class
 var Editor = function () {
-    // varaibles
+    // variables
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
@@ -15,10 +15,15 @@ var Editor = function () {
 		showTrailingSpace: true,
 	    autoCloseBrackets: true,
 		extraKeys: {"Ctrl-Space": "autocomplete"},
+		gutters: ["CodeMirror-lint-markers"],
+		lint: true,
         mode: "javascript"
     });
+	this.panels = {};
+	this.numPanels = 0;
 }
 
+// functions
 Editor.prototype.resize = function (h,w) {
     this.cm.setSize(w,h);
 }
@@ -109,3 +114,36 @@ Editor.prototype.preprocessor = function (code) {
     return lineArray.join("\n");
 }
 
+// addon Panels
+Editor.prototype.makePanel = function(where) {
+	var node = document.createElement("div");
+	var id = ++this.numPanels;
+	var widget, close, label;
+
+	node.id = "panel-" + id;
+	node.className = "cm-panel " + where;
+	close = node.appendChild(document.createElement("a"));
+	close.setAttribute("title", "Remove me!");
+	close.setAttribute("class", "remove-panel");
+	close.textContent = "✖";
+	CodeMirror.on(close, "click", function() {
+	this.panels[node.id].clear();
+	});
+	label = node.appendChild(document.createElement("span"));
+	label.textContent = "I'm panel n°" + id;
+	return node;
+}
+
+Editor.prototype.addPanel = function(where) {
+	var node = this.makePanel(where);
+	this.panels[node.id] = this.cm.addPanel(node, {position: where});
+}
+
+Editor.prototype.replacePanel = function(form) {
+	var id = form.elements.panel_id.value;
+	var panel = this.panels["panel-" + id];
+	var node = makePanel("");
+
+	this.panels[node.id] = this.addPanel(node, {replace: panel, position: "after-top"});
+	return false;
+}
