@@ -10,10 +10,11 @@ var Editor = function () {
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        mode: "javascript",
 		styleActiveLine: true,
 	    matchBrackets: true,
-	    autoCloseBrackets: true
+		showTrailingSpace: true,
+	    autoCloseBrackets: true,
+        mode: "javascript"
     });
 }
 
@@ -106,3 +107,4 @@ Editor.prototype.preprocessor = function (code) {
 
     return lineArray.join("\n");
 }
+
