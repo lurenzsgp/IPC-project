@@ -28,6 +28,10 @@ Editor.prototype.resize = function (h,w) {
     this.cm.setSize(w,h);
 }
 
+Editor.prototype.setHeight = function(h) {
+    this.cm.setSize(this.cm.width, h);
+}
+
 Editor.prototype.loadCode = function (lvl) {
     var code = "";
     var scope = this; // serve a fissare lo scope per utilizzare variabili della classe all'interno di funzioni che cambiano il contesto

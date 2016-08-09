@@ -1,10 +1,16 @@
 $(document).ready(function () {
-    var editor = new Editor();
-    //editor.resize(400,600);
-    editor.loadCode(1);
-
+	// Missile Command
     missileCommand.initialize();
     missileCommand.setupListeners();
+    
+	// CodeMirror
+    var editor = new Editor();
+    editor.setHeight(500);
+    editor.loadCode(1);
+
+	// CodeMirror: addon Panel
+	editor.addPanel("top");
+	editor.addPanel("bottom");
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -37,8 +43,4 @@ $(document).ready(function () {
 		})
 	  }
 	}
-
-	// CodeMirror: addon Panel
-	editor.addPanel("top");
-	editor.addPanel("bottom");
 });
