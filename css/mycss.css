@@ -6,7 +6,8 @@ body{
   background: -o-linear-gradient(top, #212121 0%, #113344 100%);
   background: -ms-linear-gradient(top, #212121 0%, #113344 100%);
   background: linear-gradient(to bottom, #212121 0%, #113344 100%);
-  background-size: 150% 150%;
+  background-size: 150% 150%; /*perchè?
+  /*background: #grey;*/
   z-index: 3;
   opacity: 1;
 }
@@ -47,17 +48,32 @@ card {
 }
 
 .chat{
-	background: #FF4900;
-	color: white;
-	padding-bottom:20px;
-	padding-left: 5px;
-	margin-bottom:5px;
-	border: 1px solid grey;
-	border-radius: 5px;
+	background: #efefef;
+	color: #333;
+	padding: 1em;
+	margin-bottom:1em;
+  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  box-shadow: 0em 0.1em .5em  #aaa;
+  display: inline-block;
+  width: 100%;
+
+}
+img.portrait{
+  display: inline-block;
+  height: 10em;
+  width: auto;
+  background: #fff;
+  float: left;
+  margin-right: 1em;
+  border-radius: 100%;
+
 }
 
 .chat .h5{
-	color:black;
+  float: right;
+  padding: 1em;
+	color:#999;
 }
 
 .foto-chat{
@@ -116,9 +132,8 @@ p {
 
 /*   navbar    */
 .navbar {
-  border: 0;
   font-size: 16px;
-  border-radius: 0;
+
   /*background-color: #AA4444;
   color:#FF4900;
   background: #FF4900;
@@ -129,11 +144,12 @@ p {
   background: -ms-linear-gradient(top, #AA4444 0%, #FF4900 100%);
   background: linear-gradient(to bottom, #AA4444 0%, #FF4900 100%);
   background-size: 150% 150%; */
-background: #ff4900; /* Old browsers */
-background: -moz-linear-gradient(top,  #ff4900 0%, #ff7b00 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  #ff4900 0%,#ff7b00 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  #ff4900 0%,#ff7b00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4900', endColorstr='#ff7b00',GradientType=0 ); /* IE6-9 */
+/*background: #ff4900; 
+/* Old browsers */
+/*background: -moz-linear-gradient(top,  #ff4900 0%, #ff7b00 100%); /* FF3.6-15 */
+/*background: -webkit-linear-gradient(top,  #ff4900 0%,#ff7b00 100%); /* Chrome10-25,Safari5.1-6 */
+/*background: linear-gradient(to bottom,  #ff4900 0%,#ff7b00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4900', endColorstr='#ff7b00',GradientType=0 ); /* IE6-9 */
 
 }
   
@@ -142,14 +158,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4900', end
   font-weight: 400;
   margin: 5px 0px;
   padding: 15px 15px;
-  font-size: 20px;
-  color: #424242;
+  font-size: 2em;
+  color: #eee;
+  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
 }
 .navbar .navbar-nav > li > a {
   padding: 10px 15px;
   margin: 10px 5px;
   position: relative;
-  color: #424242;
+  color: #eee;
 }
 .navbar .navbar-nav > li > a.btn {
   margin: 15px 3px;
