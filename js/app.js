@@ -5,7 +5,6 @@ $(document).ready(function () {
     
 	// CodeMirror
     var editor = new Editor();
-    editor.setHeight(500);
     editor.loadCode(1);
 
 	// CodeMirror: addon Panel
