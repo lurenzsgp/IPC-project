@@ -4,7 +4,6 @@
 	<title>IPC: Deserto dei Barbari</title>
 	<meta charset="utf-8"/>
 
-	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/codemirror.css">
 
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
@@ -27,7 +26,7 @@
 </head>
 <body>	
 		<div class="main-panel">
-			<nav class="navbar navbar-default navbar-inverse" >
+			<nav class="navbar navbar-default navbar-inverse">
 				<div class="container">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="#">Deserto dei barbari</a>
@@ -49,6 +48,18 @@
 		<div class="content">
 			<div class="container">
 				<div class="row">
+					<div class="col-lg-10">
+						<div class="chat">
+							<h5> chat (da rendere più carino - magari trasparente)</h5>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="foto-chat nopadding">
+							Foto
+						</div>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-lg-6">
 						<div class="content">
 							<canvas class="game" width="510" height="460"></canvas>
@@ -57,7 +68,17 @@
 					
 					<div class="col-lg-6">
 						<div class="content">
-							<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
+						<div class="row">
+							<div class="col-lg-12">
+								<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
+							</div>
+							<div class="col-lg-12 vcenters">
+								<div align='center'>
+									<button type="button" class="btn btn-success btn-lg">Execute code</button>
+									<button type="button" class="btn btn-danger btn-lg">Reset</button>
+								</div>
+							</div>
+						</div>
 						</div>
 					</div>
 				</div>
