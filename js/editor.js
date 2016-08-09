@@ -67,6 +67,27 @@ Editor.prototype.loadCode = function (lvl) {
     this.cm.refresh();
 }
 
+Editor.prototype.getCode = function () {
+    var codeArray = this.cm.getValue('\n');
+
+    //cerco il nome della funzione e la lista degli argomenti
+    while (codearray[0].indexOf("function") === -1) {
+            codeArray.shift();
+    }
+
+    var funDef = codeArray[0].split(" ");
+    var fName = funDef[funDef.indexOf('var') + 1];
+    var arglist = codeArray.split("(")[1].split(")")[0].split(",");
+    codeArray.shift();
+
+    //cerco il corpo della funzione
+    var i = codeArray.indexOf("};");
+    codeArray.splice(i, codeArray.length - i);
+    var code = codeArray.join();
+
+    return {fName, argList, code};
+}
+
 
 // preprocesses code,determines the location
 // of editable lines, loads goal function

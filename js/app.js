@@ -43,3 +43,14 @@ $(document).ready(function () {
 	  }
 	}
 });
+
+
+function execCode (ed) {
+    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
+    var f = editor.getCode();
+    // crea la nuova funzione
+    new Function (f.argList, f.code);// devo sovrascrivere la funzione con nome in f.fname
+
+    // esegui la goal function per vedere se il livello puo' ritenersi superato
+    ed.goalFunction(); // restituira un valore boleano che indica il superamento del livello
+}

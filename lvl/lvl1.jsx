@@ -12,7 +12,6 @@ var playerShoot = function( x, y ) {
 #END_EDITABLE#
   }
 };
-
 #START_OF_GOAL_FUNCTION#
 console.log("goal function del livello di prova");
 #END_OF_GOAL_FUNCTION#
