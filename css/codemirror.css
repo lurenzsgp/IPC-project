@@ -3,7 +3,7 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 400px;
+  height: 500px;
   color: white;
 }
 
@@ -394,25 +394,30 @@ span.CodeMirror-selectedtext { background: none; }
 	border-radius: 3px;
 }
 
-.add-panel, .remove-panel {
+.add-panel,
+.remove-panel {
 	cursor: pointer;
 }
 
 .remove-panel {
 	float: right;
+	color: #c9302c;
 }
 
 .cm-panel {
-	background: #f7f7f7;
+	background: #626262;
 	padding: 3px 7px;
 	font-size: 0.85em;
+	color: white;
 }
 
-.cm-panel.top, .cm-panel.after-top {
+.cm-panel.top,
+.cm-panel.after-top {
 	border-bottom: 1px solid #ddd;
 }
 
-.cm-panel.bottom, .cm-panel.before-bottom {
+.cm-panel.bottom,
+.cm-panel.before-bottom {
 	border-top: 1px solid #ddd;
 }
 /* classi rinominate in 'cm-panel' per evitare conflitti con Bootstrap */
