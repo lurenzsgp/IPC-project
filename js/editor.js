@@ -1,6 +1,8 @@
 // Editor class
 var Editor = function () {
     // variables
+	this.panels = {};
+	this.numPanels = 0;
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
@@ -19,8 +21,6 @@ var Editor = function () {
 		lint: true,
         mode: "javascript"
     });
-	this.panels = {};
-	this.numPanels = 0;
 }
 
 // functions
@@ -30,6 +30,10 @@ Editor.prototype.resize = function (h,w) {
 
 Editor.prototype.setHeight = function(h) {
     this.cm.setSize(this.cm.width, h);
+}
+
+Editor.prototype.setWidth = function(w) {
+    this.cm.setSize(w, this.cm.height);
 }
 
 Editor.prototype.loadCode = function (lvl) {
@@ -122,17 +126,21 @@ Editor.prototype.preprocessor = function (code) {
 Editor.prototype.makePanel = function(where) {
 	var node = document.createElement("div");
 	var id = ++this.numPanels;
+	var localPanels = this.panels;
 	var widget, close, label;
 
 	node.id = "panel-" + id;
 	node.className = "cm-panel " + where;
+	
 	close = node.appendChild(document.createElement("a"));
 	close.setAttribute("title", "Remove me!");
 	close.setAttribute("class", "remove-panel");
 	close.textContent = "✖";
 	CodeMirror.on(close, "click", function() {
-	this.panels[node.id].clear();
+		localPanels[node.id].clear();
 	});
+	
+	this.panels = localPanels;
 	label = node.appendChild(document.createElement("span"));
 	label.textContent = "I'm panel n°" + id;
 	return node;
@@ -143,11 +151,16 @@ Editor.prototype.addPanel = function(where) {
 	this.panels[node.id] = this.cm.addPanel(node, {position: where});
 }
 
+Editor.prototype.updatePanels = function(id) {
+	console.log("Removing...");
+	this.panels[id].clear();
+}
+
 Editor.prototype.replacePanel = function(form) {
 	var id = form.elements.panel_id.value;
 	var panel = this.panels["panel-" + id];
 	var node = makePanel("");
 
-	this.panels[node.id] = this.addPanel(node, {replace: panel, position: "after-top"});
+	this.panels[node.id] = this.cm.addPanel(node, {replace: panel, position: "after-top"});
 	return false;
 }
