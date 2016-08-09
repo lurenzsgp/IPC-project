@@ -11,9 +11,6 @@
 	
 		<!-- Bootstrap core CSS     -->
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-	
-		<!--  Light Bootstrap Table core CSS   
-		<link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/> -->
 
 		<!--Fonts-->
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -57,39 +54,33 @@
 			</nav>
 		</div>
 
-		<div class="content">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10">
-						<div class="chat">
-							<h5> chat (da rendere più carino - magari trasparente)</h5>
-						</div>
-					</div>
-					<div class="col-lg-2">
-						<div class="foto-chat nopadding">
-							Foto
-						</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10">
+					<div class="chat">
+						<h5> chat (da rendere più carino - magari trasparente)</h5>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="content">
-							<canvas class="game" width="510" height="460"></canvas>
-						</div>
+				<div class="col-lg-2">
+					<div class="foto-chat nopadding">
+						Foto
 					</div>
-					
-					<div class="col-lg-6">
-						<div class="content">
-							<div class="row">
-								<div class="col-lg-12">
-									<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
-								</div>
-								<div class="col-lg-12 vcenters">
-									<div align='center'>
-										<button type="button" class="btn btn-success btn-lg">Execute code</button>
-										<button type="button" class="btn btn-danger btn-lg">Reset</button>
-									</div>
-								</div>
+				</div>
+			</div>
+			<div class="row">
+				<div id="mc-container" class="col-lg-6">
+					<canvas class="game" width="510" height="460">Missile Command</canvas>
+				</div>
+				
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-lg-12">
+							<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
+						</div>
+						<div class="col-lg-12 vcenters">
+							<div align='center'>
+								<button type="button" class="btn btn-success btn-lg">Execute code</button>
+								<button type="button" class="btn btn-danger btn-lg">Reset</button>
 							</div>
 						</div>
 					</div>
