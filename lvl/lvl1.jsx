@@ -6,7 +6,9 @@ var playerShoot = function( x, y ) {
       return;
     }
 #BEGIN_EDITABLE#
-    playerMissiles.push( new PlayerMissile( source, x + rand(0,50), y + rand(0,50)) );
+	playerMissiles.push(
+		new PlayerMissile(source, x + rand(0,50), y + rand(0,50))
+	);
 #END_EDITABLE#
   }
 };

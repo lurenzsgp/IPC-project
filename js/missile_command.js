@@ -662,10 +662,10 @@ var missileCommand = (function() {
 
   // Attach event Listeners to handle the player's input
   var setupListeners = function() {
-    $( '.container' ).one( 'click', function() {
+    $( '#mc-container' ).one( 'click', function() {
       startLevel();
 
-      $( '.container' ).on( 'click', function( event ) {
+      $( '#mc-container' ).on( 'click', function( event ) {
         playerShoot( event.pageX - this.offsetLeft,
                      event.pageY - this.offsetTop );
       });

@@ -374,3 +374,45 @@ div.CodeMirror-dragcursors {
 
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
+
+/* addon Trailing Space */
+.cm-trailingspace {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUXCToH00Y1UgAAACFJREFUCNdjPMDBUc/AwNDAAAFMTAwMDA0OP34wQgX/AQBYgwYEx4f9lQAAAABJRU5ErkJggg==);
+	background-position: bottom left;
+	background-repeat: repeat-x;
+}
+
+/* addon Panel */
+.border {
+	border: 1px solid #f7f7f7;
+}
+
+.add-panel {
+	background: orange;
+	padding: 3px 6px;
+	color: white !important; 
+	border-radius: 3px;
+}
+
+.add-panel, .remove-panel {
+	cursor: pointer;
+}
+
+.remove-panel {
+	float: right;
+}
+
+.cm-panel {
+	background: #f7f7f7;
+	padding: 3px 7px;
+	font-size: 0.85em;
+}
+
+.cm-panel.top, .cm-panel.after-top {
+	border-bottom: 1px solid #ddd;
+}
+
+.cm-panel.bottom, .cm-panel.before-bottom {
+	border-top: 1px solid #ddd;
+}
+/* classi rinominate in 'cm-panel' per evitare conflitti con Bootstrap */

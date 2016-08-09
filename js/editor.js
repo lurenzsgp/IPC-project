@@ -1,6 +1,8 @@
 // Editor class
 var Editor = function () {
-    // varaibles
+    // variables
+	this.panels = {};
+	this.numPanels = 0;
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
@@ -10,12 +12,28 @@ var Editor = function () {
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
+		styleActiveLine: true,
+	    matchBrackets: true,
+		showTrailingSpace: true,
+	    autoCloseBrackets: true,
+		extraKeys: {"Ctrl-Space": "autocomplete"},
+		gutters: ["CodeMirror-lint-markers"],
+		lint: true,
         mode: "javascript"
     });
 }
 
+// functions
 Editor.prototype.resize = function (h,w) {
     this.cm.setSize(w,h);
+}
+
+Editor.prototype.setHeight = function(h) {
+    this.cm.setSize(this.cm.width, h);
+}
+
+Editor.prototype.setWidth = function(w) {
+    this.cm.setSize(w, this.cm.height);
 }
 
 Editor.prototype.loadCode = function (lvl) {
@@ -102,4 +120,47 @@ Editor.prototype.preprocessor = function (code) {
     }
 
     return lineArray.join("\n");
+}
+
+// addon Panels
+Editor.prototype.makePanel = function(where) {
+	var node = document.createElement("div");
+	var id = ++this.numPanels;
+	var localPanels = this.panels;
+	var widget, close, label;
+
+	node.id = "panel-" + id;
+	node.className = "cm-panel " + where;
+	
+	close = node.appendChild(document.createElement("a"));
+	close.setAttribute("title", "Remove me!");
+	close.setAttribute("class", "remove-panel");
+	close.textContent = "✖";
+	CodeMirror.on(close, "click", function() {
+		localPanels[node.id].clear();
+	});
+	
+	this.panels = localPanels;
+	label = node.appendChild(document.createElement("span"));
+	label.textContent = "I'm panel n°" + id;
+	return node;
+}
+
+Editor.prototype.addPanel = function(where) {
+	var node = this.makePanel(where);
+	this.panels[node.id] = this.cm.addPanel(node, {position: where});
+}
+
+Editor.prototype.updatePanels = function(id) {
+	console.log("Removing...");
+	this.panels[id].clear();
+}
+
+Editor.prototype.replacePanel = function(form) {
+	var id = form.elements.panel_id.value;
+	var panel = this.panels["panel-" + id];
+	var node = makePanel("");
+
+	this.panels[node.id] = this.cm.addPanel(node, {replace: panel, position: "after-top"});
+	return false;
 }
