@@ -1,11 +1,14 @@
 $(document).ready(function () {
+    // variable
+    var lvl = 1;
+
 	// Missile Command
     missileCommand.initialize();
     missileCommand.setupListeners();
-    
+
 	// CodeMirror
     var editor = new Editor();
-    editor.loadCode(1);
+    editor.loadCode(lvl);
 
 	// CodeMirror: addon Panel
 	editor.addPanel("top");
@@ -42,15 +45,29 @@ $(document).ready(function () {
 		})
 	  }
 	}
+
+
+    missileCommand.initialize();
+    missileCommand.setupListeners();
+
+    function execCode () {
+        // leggi il codice dall'editor e sostituiscilo all'interno di missile command
+        var line = editor.getCode();
+        // eseguo la funzione
+        line.foreach(function(element, index, array) {
+            console.log(element);
+            eval("with(missileCommand.this){" + element + "}");
+        });
+
+        // esegui la goal function per vedere se il livello puo' ritenersi superato
+        ed.goalFunction(); // restituira un valore boleano che indica il superamento del livello
+    }
+
+    function resetCode () {
+        editor.loadCode(lvl);
+    }
+
+    $("#ButtonExecCode").click(execCode);
+    $("#ButtonResetCode").click(resetCode);
+
 });
-
-
-function execCode (ed) {
-    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-    var f = editor.getCode();
-    // crea la nuova funzione
-    new Function (f.argList, f.code);// devo sovrascrivere la funzione con nome in f.fname
-
-    // esegui la goal function per vedere se il livello puo' ritenersi superato
-    ed.goalFunction(); // restituira un valore boleano che indica il superamento del livello
-}

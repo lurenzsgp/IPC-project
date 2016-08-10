@@ -10,6 +10,7 @@ var Editor = function () {
         'end_goal_function':'#END_OF_GOAL_FUNCTION#'
     };
     this.editableLines = [];
+    this.enableChange = false;
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
 		styleActiveLine: true,
@@ -48,10 +49,17 @@ Editor.prototype.loadCode = function (lvl) {
       }
     });
 
+    this.enableChange = true;
+    // used for reset code
+    this.cm.clearHistory();
+
     code = this.preprocessor(code);
     this.cm.setValue(code);
 
-    this.cm.on('beforeChange',function(cm,change) {
+    this.cm.on('beforeChange', function (cm,change) {
+        console.log("--- before change ---");
+        if (scope.enableChange)
+            return;
         if (scope.editableLines.indexOf(change.from.line) === -1 ) {
             change.cancel();
         }
@@ -65,27 +73,18 @@ Editor.prototype.loadCode = function (lvl) {
     });
 
     this.cm.refresh();
+    this.enableChange = false;
 }
 
 Editor.prototype.getCode = function () {
-    var codeArray = this.cm.getValue('\n');
+    var codeLine = this.cm.getValue('\n');
 
     //cerco il nome della funzione e la lista degli argomenti
-    while (codearray[0].indexOf("function") === -1) {
-            codeArray.shift();
+    while (codeLine[0].indexOf("function") === -1) {
+            codeLine.shift();
     }
 
-    var funDef = codeArray[0].split(" ");
-    var fName = funDef[funDef.indexOf('var') + 1];
-    var arglist = codeArray.split("(")[1].split(")")[0].split(",");
-    codeArray.shift();
-
-    //cerco il corpo della funzione
-    var i = codeArray.indexOf("};");
-    codeArray.splice(i, codeArray.length - i);
-    var code = codeArray.join();
-
-    return {fName, argList, code};
+    return codeLine;
 }
 
 
@@ -152,7 +151,7 @@ Editor.prototype.makePanel = function(where) {
 
 	node.id = "panel-" + id;
 	node.className = "cm-panel " + where;
-	
+
 	close = node.appendChild(document.createElement("a"));
 	close.setAttribute("title", "Remove me!");
 	close.setAttribute("class", "remove-panel");
@@ -160,7 +159,7 @@ Editor.prototype.makePanel = function(where) {
 	CodeMirror.on(close, "click", function() {
 		localPanels[node.id].clear();
 	});
-	
+
 	this.panels = localPanels;
 	label = node.appendChild(document.createElement("span"));
 	label.textContent = "I'm panel n°" + id;
