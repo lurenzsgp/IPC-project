@@ -57,7 +57,6 @@ Editor.prototype.loadCode = function (lvl) {
     this.cm.setValue(code);
 
     this.cm.on('beforeChange', function (cm,change) {
-        console.log("--- before change ---");
         if (scope.enableChange)
             return;
         if (scope.editableLines.indexOf(change.from.line) === -1 ) {
@@ -75,18 +74,6 @@ Editor.prototype.loadCode = function (lvl) {
     this.cm.refresh();
     this.enableChange = false;
 }
-
-Editor.prototype.getCode = function () {
-    var codeLine = this.cm.getValue('\n');
-
-    //cerco il nome della funzione e la lista degli argomenti
-    while (codeLine[0].indexOf("function") === -1) {
-            codeLine.shift();
-    }
-
-    return codeLine;
-}
-
 
 // preprocesses code,determines the location
 // of editable lines, loads goal function

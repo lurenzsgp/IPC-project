@@ -52,15 +52,14 @@ $(document).ready(function () {
 
     function execCode () {
         // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-        var line = editor.getCode();
+        var code = editor.cm.getValue();
+        var line = code.split("\n");
         // eseguo la funzione
         line.foreach(function(element, index, array) {
-            console.log(element);
-            eval("with(missileCommand.this){" + element + "}");
+            eval("with(missileCommand.this){" + line + "}");
         });
-
         // esegui la goal function per vedere se il livello puo' ritenersi superato
-        ed.goalFunction(); // restituira un valore boleano che indica il superamento del livello
+        editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
     }
 
     function resetCode () {
