@@ -22,6 +22,8 @@ var Editor = function () {
 		lint: true,
         mode: "javascript"
     });
+
+    this.cm.on('change', this.trackUndoRedo);
 }
 
 // functions
@@ -56,13 +58,13 @@ Editor.prototype.loadCode = function (lvl) {
     code = this.preprocessor(code);
     this.cm.setValue(code);
 
-    this.cm.on('beforeChange', function (cm,change) {
-        if (scope.enableChange)
-            return;
-        if (scope.editableLines.indexOf(change.from.line) === -1 ) {
-            change.cancel();
-        }
-    });
+    // this.cm.on('beforeChange', function (cm,change) {
+    //     if (scope.enableChange)
+    //         return;
+    //     if (scope.editableLines.indexOf(change.from.line) === -1 ) {
+    //         change.cancel();
+    //     }
+    // });
 
     this.cm.eachLine(function (line) {
         var i = scope.cm.getLineNumber(line);
@@ -128,6 +130,121 @@ Editor.prototype.preprocessor = function (code) {
 
     return lineArray.join("\n");
 }
+
+// editable line
+Editro.prototype.findEndOfSegment = function(line) {
+    // Given an editable line number, returns the last line of the
+    // given line's editable segment.
+
+    if (this.editableLines.indexOf(line + 1) === -1) {
+        return line;
+    }
+
+    return findEndOfSegment(line + 1);
+};
+
+Editor.prototype.shiftLinesBy = function(array, after, shiftAmount) {
+    // Shifts all line numbers strictly after the given line by
+    // the provided amount.
+
+    return array.map(function(line) {
+        if (line > after) {
+            log('Shifting ' + line + ' to ' + (line + shiftAmount));
+            return line + shiftAmount;
+        }
+        return line;
+    });
+};
+
+// enforces editing restrictions when set as the handler
+// for the 'beforeChange' event
+Editor.prototype.enforceRestrictions = function(instance, change) {
+    lastChange = change;
+
+    var inEditableArea = function(c) {
+        if (scope.enableChange)
+                return true;
+        var lineNum = c.to.line;
+        if (this.editableLines.indexOf(lineNum) !== -1 && this.editableLines.indexOf(c.from.line) !== -1) {
+            // editable lines?
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    log(
+        '---Editor input (beforeChange) ---\n' +
+        'Kind: ' + change.origin + '\n' +
+        'Number of lines: ' + change.text.length + '\n' +
+        'From line: ' + change.from.line + '\n' +
+        'To line: ' + change.to.line
+    );
+
+    if (!inEditableArea(change)) {
+        change.cancel();
+    } else if (change.to.line < change.from.line ||
+               change.to.line - change.from.line + 1 > change.text.length) { // Deletion
+        this.updateEditableLinesOnDeletion(change);
+    } else { // Insert/paste
+        // First line already editable
+        var newLines = change.text.length - (change.to.line - change.from.line + 1);
+
+        if (newLines > 0) {
+            if (this.editableLines.indexOf(change.to.line) < 0) {
+                change.cancel();
+                return;
+            }
+
+            // updating line count
+            newLines = change.text.length - (change.to.line - change.from.line + 1);
+
+            this.updateEditableLinesOnInsert(change, newLines);
+        }
+    }
+
+    log(editableLines);
+}
+
+Editor.prototype.updateEditableLinesOnInsert = function(change, newLines) {
+    var lastLine = findEndOfSegment(change.to.line);
+
+    // Shift editable line numbers after this segment
+    this.editableLines = this.shiftLinesBy(this.editableLines, lastLine, newLines);
+
+
+    log("Appending " + newLines + " lines");
+
+    // Append new lines
+    for (var i = lastLine + 1; i <= lastLine + newLines; i++) {
+        this.editableLines.push(i);
+    }
+};
+
+Editor.prototype.updateEditableLinesOnDeletion = function(changeInput) {
+    // Figure out how many lines just got removed
+    var numRemoved = changeInput.to.line - changeInput.from.line - changeInput.text.length + 1;
+    // Find end of segment
+    var editableSegmentEnd = findEndOfSegment(changeInput.to.line);
+    // Remove that many lines from its end, one by one
+    for (var i = editableSegmentEnd; i > editableSegmentEnd - numRemoved; i--) {
+        log('Removing\t' + i);
+        this.editableLines.remove(i);
+    }
+    // Shift lines that came after
+    editableLines = this.shiftLinesBy(this.editableLines, editableSegmentEnd, -numRemoved);
+
+};
+
+// beforeChange events don't pick up undo/redo
+// so we track them on change event
+Editor.prototype.trackUndoRedo = function(instance, change) {
+    if (change.origin === 'undo' || change.origin === 'redo') {
+        this.enforceRestrictions(instance, change);
+    }
+}
+
+//---------------------
 
 // addon Panels
 Editor.prototype.makePanel = function(where) {
