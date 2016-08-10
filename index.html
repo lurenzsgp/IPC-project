@@ -66,7 +66,44 @@
 				</div>
 			</nav>
 		</div>
-		
+
+		<!-- BRIEFING Modal -->
+		<div class="modal fade" id="briefingModal" tabindex="-1" role="dialog" aria-labelledby="briefingModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="briefingModalLabel">Briefing</h4>
+		      </div>
+		      <div class="modal-body">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- HINTS Modal -->
+		<div class="modal fade" id="hintsModal" tabindex="-1" role="dialog" aria-labelledby="hintsModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="hintsModalLabel">Hints</h4>
+		      </div>
+		      <div class="modal-body">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- ACCOUNT Modal -->
 		<!-- Modal -->
 		<div id="accountModal" class="modal fade" role="document">
 			<div class="modal-dialog modal-lg" >
@@ -145,15 +182,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<img class="portrait" src="soldier.png" data-toggle="collapse" data-target="#chattext">
-					<div id="chattext" class="chat collapse width" >
-						<h5>
-							A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic.
-						</h5>
-						</div>
-					<div>
+				<div class="portrait">
+					<img src="soldier.png" data-toggle="modal" data-target="#briefingModal">
+					<h4>Orders</h4>
 				</div>
-			</div>
+				<div class="portrait">
+					<img src="oldman.png" data-toggle="modal" data-target="#hintsModal">
+					<h4>Hints</h4>
+				</div>
+				</div>
 			<div class="row">
 				<div class="col-lg-6" id="mc-container">
 					<canvas class="game" width="510" height="460">Missile Command</canvas>

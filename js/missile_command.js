@@ -185,9 +185,9 @@ var missileCommand = (function() {
 
     // Yellow area at bottom of screen for cities and
     // anti missile batteries
-    var grdd=ctx.createLinearGradient(0,340,0,500);
-    grdd.addColorStop(0,"#a33");
-    grdd.addColorStop(1,"#da4");
+    var grdd=ctx.createLinearGradient(0,340,0,550);
+    grdd.addColorStop(0,"tan");
+    grdd.addColorStop(1,"orange");
 
     ctx.fillStyle = grdd;
     ctx.beginPath();
@@ -207,7 +207,33 @@ var missileCommand = (function() {
     ctx.lineTo( 510, 460 );
     ctx.closePath();
     ctx.fill();
+    //sand dunes shadows
+    ctx.fillStyle = '#fdce7e';
+    ctx.beginPath();
+    ctx.lineTo( 0, 430 );
+    ctx.lineTo( 25, 410 );
+    ctx.lineTo( 35, 410 );
+    ctx.lineTo( 10, 430)
+    ctx.closePath();
+    ctx.fill(); 
+
+    ctx.beginPath();
+    ctx.lineTo( 220, 430 );
+    ctx.lineTo( 245, 410 );
+    ctx.lineTo( 255, 410 );
+    ctx.lineTo( 230, 430 );
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.lineTo( 440, 430 );
+    ctx.lineTo( 465, 410 );
+    ctx.lineTo( 475, 410 );
+    ctx.lineTo( 450, 430 );
+    ctx.closePath();
+    ctx.fill();  
   };
+
 
   // Constructor for a City
   function City( x, y ) {
@@ -234,7 +260,8 @@ var missileCommand = (function() {
     ctx.lineTo( x + 3, y + 3);
     ctx.closePath();
     ctx.fill();
-    //shadows?
+    
+    //city shadows
     ctx.fillStyle = '#411';
     ctx.beginPath();
     x = x+3;
@@ -268,20 +295,26 @@ var missileCommand = (function() {
                   [12, 12], [-18, 18], [-6, 18], [6, 18], [18, 18] ];
 
     for( var i = 0, len = this.missilesLeft; i < len; i++ ) {
-      x = this.x + delta[i][0];
-      y = this.y + delta[i][1];
+      x = this.x + delta[i][0] + 0;
+      y = this.y + delta[i][1] - 4;
 
       // Draw a missile-launcher
-      ctx.strokeStyle = '#722';
-      ctx.lineWidth = 2;
+      ctx.fillStyle = '#833';
       ctx.beginPath();
       ctx.moveTo( x, y );
-      ctx.lineTo( x, y + 8 );
-      ctx.moveTo( x - 2, y + 10 );
-      ctx.lineTo( x - 2, y + 6 );
-      ctx.moveTo( x + 2, y + 10 );
-      ctx.lineTo( x + 2, y + 6 );
-      ctx.stroke();
+      ctx.lineTo( x - 5, y + 5);
+      ctx.lineTo( x , y + 7);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#411';
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      ctx.lineTo( x , y + 7);
+      ctx.lineTo( x + 5, y + 5);
+      ctx.closePath();
+      ctx.fill();
+      
     }
   };
 
