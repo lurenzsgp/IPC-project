@@ -179,7 +179,7 @@ var missileCommand = (function() {
     var grd=ctx.createLinearGradient(0,1000,0,0);
     grd.addColorStop(0,"#a44");
     grd.addColorStop(1,"#134");
-    
+
     ctx.fillStyle = grd;
     ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
@@ -501,6 +501,7 @@ var missileCommand = (function() {
     }
   };
 
+//LIVELLO: compromettere l'esplosione rende impossibile intercettare i missili nemici
   // When a missile that did not hit the ground is exploding, check if
   // any enemy missile is in the explosion radius; if so, cause that
   // enemy missile to begin exploding too.
