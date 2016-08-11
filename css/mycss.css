@@ -79,13 +79,17 @@ card {
   border-radius: 100%;
   z-index: 2;
   margin: 1em;
+  margin-left: 5em;
+  margin-right: 5em;
   vertical-align: middle;
+  width: auto;
+  height: 5em;
 }
 
 .chat .h5{
   float: right;
   padding: 1em;
-	color:#999;
+  color:#999;
   vertical-align: middle;
 }
 
