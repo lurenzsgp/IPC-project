@@ -25,8 +25,6 @@ var Editor = function () {
     });
 
 	scope = this;
-
-    this.cm.on('change', this.trackUndoRedo);
 }
 
 // functions
@@ -133,7 +131,7 @@ Editor.prototype.findEndOfSegment = function(line) {
     // given line's editable segment.
 
     if (this.editableLines.indexOf(line + 1) === -1) {
-        console.log("find end of segment");
+        // console.log("find end of segment");
         return line;
     }
 
@@ -141,7 +139,6 @@ Editor.prototype.findEndOfSegment = function(line) {
 };
 
 var shiftLinesBy = function(array, after, shiftAmount) {
-    console.log("shift line");
     // Shifts all line numbers strictly after the given line by
     // the provided amount.
 
@@ -157,7 +154,6 @@ var shiftLinesBy = function(array, after, shiftAmount) {
 // enforces editing restrictions when set as the handler
 // for the 'beforeChange' event
 Editor.prototype.enforceRestrictions = function(instance, change) {
-    console.log("enforce restrictions");
     lastChange = change;
 
     var inEditableArea = function(c) {
@@ -169,13 +165,13 @@ Editor.prototype.enforceRestrictions = function(instance, change) {
         }
     };
 
-    console.log(
-        '---Editor input (beforeChange) ---\n' +
-        'Kind: ' + change.origin + '\n' +
-	    'Number of lines: ' + change.text.length + '\n' +
-        'From line: ' + change.from.line + '\n' +
-        'To line: ' + change.to.line
-    );
+    // console.log(
+    //     '---Editor input (beforeChange) ---\n' +
+    //     'Kind: ' + change.origin + '\n' +
+	//     'Number of lines: ' + change.text.length + '\n' +
+    //     'From line: ' + change.from.line + '\n' +
+    //     'To line: ' + change.to.line
+    // );
 
 
     if (!inEditableArea(change)) {
@@ -200,18 +196,18 @@ Editor.prototype.enforceRestrictions = function(instance, change) {
         }
     }
 
-    console.log(scope.editableLines);
+    // console.log(scope.editableLines);
 }
 
 Editor.prototype.updateEditableLinesOnInsert = function(change, newLines) {
-    console.log("update editable line on insert");
     var lastLine = this.findEndOfSegment(change.to.line, this);
 
     // Shift editable line numbers after this segment
     this.editableLines = shiftLinesBy(this.editableLines, lastLine, newLines);
 
 
-    console.log("Appending " + newLines + " lines");
+	if (change.origin !== 'undo' && change.origin !== 'redo')
+    // console.log("Appending " + newLines + " lines");
 
     // Append new lines
     for (var i = lastLine + 1; i <= lastLine + newLines; i++) {
@@ -220,29 +216,18 @@ Editor.prototype.updateEditableLinesOnInsert = function(change, newLines) {
 };
 
 Editor.prototype.updateEditableLinesOnDeletion = function(changeInput) {
-    console.log("update editable line on deletion");
     // Figure out how many lines just got removed
     var numRemoved = changeInput.to.line - changeInput.from.line - changeInput.text.length + 1;
     // Find end of segment
     var editableSegmentEnd = this.findEndOfSegment(changeInput.to.line);
     // Remove that many lines from its end, one by one
     for (var i = editableSegmentEnd; i > editableSegmentEnd - numRemoved; i--) {
-        console.log('Removing\t' + i);
+        // console.log('Removing\t' + i);
         this.editableLines.splice(this.editableLines.indexOf(i),1);
     }
     // Shift lines that came after
     this.editableLines = shiftLinesBy(this.editableLines, editableSegmentEnd, -numRemoved);
-
 };
-
-// beforeChange events don't pick up undo/redo
-// so we track them on change event
-Editor.prototype.trackUndoRedo = function(instance, change) {
-    // console.log("track undo redo");
-    if (change.origin === 'undo' || change.origin === 'redo') {
-        scope.enforceRestrictions(instance, change);
-    }
-}
 
 //---------------------
 
