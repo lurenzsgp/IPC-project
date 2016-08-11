@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	// attiva i popover
+	$('[data-toggle="popover"]').popover(); 
+
     // variable
     var lvl = 1;
 
@@ -11,7 +14,6 @@ $(document).ready(function () {
     editor.loadCode(lvl);
 
 	// CodeMirror: addon Panel
-	editor.addPanel("top");
 	editor.addPanel("bottom");
 
 	// CodeMirror: addon Autocomplete
@@ -45,10 +47,6 @@ $(document).ready(function () {
 		})
 	  }
 	}
-
-
-    missileCommand.initialize();
-    missileCommand.setupListeners();
 
     function execCode () {
         // leggi il codice dall'editor e sostituiscilo all'interno di missile command
