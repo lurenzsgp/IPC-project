@@ -1,12 +1,12 @@
 body{
   background: #999;
-  background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #bbb 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1ABC9C), color-stop(100%, #113344));
-  background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
-  background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
-  background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
-  background: linear-gradient(to bottom, #fff 0%, #ddd 100%);
-  background-size: 150% 150%; /*perchè?*/
+  background: -webkit-linear-gradient(top, #fff 0%, #bbb 100%);
+  background: -o-linear-gradient(top, #fff 0%, #bbb 100%);
+  background: -ms-linear-gradient(top, #fff 0%, #bbb 100%);
+  background: linear-gradient(to bottom, #fff 0%, #bbb 100%);
+  background-size: 150% 150%;
   z-index: 3;
   opacity: 1;
 }
@@ -106,7 +106,7 @@ card {
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   font-weight: 300;
-  margin: 30px 0 15px;
+  margin: 20px 0 15px;
 }
 
 h1, .h1 {
@@ -123,8 +123,8 @@ h3, .h3 {
 }
 
 h4, .h4 {
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 20px;
+  line-height: 18px;
 }
 
 h5, .h5 {
