@@ -41,10 +41,17 @@ button.close {
 
 .avatar-circle {
     border-radius: 50%;
+	border: 1px;
+	width: auto;
+	height: 9em;
 }
 
 .btn{
 	margin: .5em;
+}
+
+.modal-body .row, .modal-body .progress, .modal-body .table{
+	margin-bottom: 3em;
 }
 
 .chat{
