@@ -50,12 +50,16 @@ $(document).ready(function () {
 
     function execCode () {
         // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-        var code = editor.cm.getValue();
-        var line = code.split("\n");
-        // eseguo la funzione
-        line.foreach(function(element, index, array) {
-            eval("with(missileCommand.this){" + line + "}");
-        });
+
+        var f = editor.getCode();
+
+        // devo ridefinire la funzione
+        console.log(f.name);
+        console.log(f.args);
+        console.log(f.body);
+
+        eval("missileCommand.prototype." + f.name + " = new Function(" + f.args +", " + f.body +")");
+
         // esegui la goal function per vedere se il livello puo' ritenersi superato
         editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
     }
