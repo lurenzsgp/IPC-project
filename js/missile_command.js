@@ -185,6 +185,8 @@ var missileCommand = (function() {
 
     // Yellow area at bottom of screen for cities and
     // anti missile batteries
+    
+
     var grdd=ctx.createLinearGradient(0,340,0,550);
     grdd.addColorStop(0,"tan");
     grdd.addColorStop(1,"orange");
@@ -213,25 +215,34 @@ var missileCommand = (function() {
     ctx.lineTo( 0, 430 );
     ctx.lineTo( 25, 410 );
     ctx.lineTo( 35, 410 );
-    ctx.lineTo( 10, 430)
+    ctx.lineTo( 55, 430);
+    ctx.lineTo( 45, 440);
+
+    ctx.lineTo( 0 ,440);
     ctx.closePath();
     ctx.fill(); 
 
     ctx.beginPath();
+    ctx.lineTo( 70, 430 );
     ctx.lineTo( 220, 430 );
     ctx.lineTo( 245, 410 );
     ctx.lineTo( 255, 410 );
-    ctx.lineTo( 230, 430 );
+    ctx.lineTo( 275, 430 );
+    ctx.lineTo( 265, 440 );  
+    ctx.lineTo( 80, 440 );
     ctx.closePath();
     ctx.fill();
 
     ctx.beginPath();
+    ctx.lineTo( 290, 430 );
     ctx.lineTo( 440, 430 );
     ctx.lineTo( 465, 410 );
     ctx.lineTo( 475, 410 );
-    ctx.lineTo( 450, 430 );
+    ctx.lineTo( 495, 430 );
+    ctx.lineTo( 485, 440 );    
+    ctx.lineTo( 305, 440 );
     ctx.closePath();
-    ctx.fill();  
+    ctx.fill(); 
   };
 
 
@@ -255,17 +266,17 @@ var missileCommand = (function() {
     ctx.lineTo( x + 15, y - 15 );
     ctx.lineTo( x + 20, y - 10 );
     ctx.lineTo( x + 30, y - 10 );
-    ctx.lineTo( x + 33, y - 7);
+    ctx.lineTo( x + 35, y - 5);
     ctx.lineTo( x + 30, y );
-    ctx.lineTo( x + 3, y + 3);
+    ctx.lineTo( x + 5, y + 5);
     ctx.closePath();
     ctx.fill();
     
     //city shadows
     ctx.fillStyle = '#411';
     ctx.beginPath();
-    x = x+3;
-    y = y+3;
+    x = x+5;
+    y = y+5;
     ctx.moveTo( x , y );
     ctx.lineTo( x, y - 10 );
     ctx.lineTo( x + 10, y - 10 );
@@ -295,11 +306,11 @@ var missileCommand = (function() {
                   [12, 12], [-18, 18], [-6, 18], [6, 18], [18, 18] ];
 
     for( var i = 0, len = this.missilesLeft; i < len; i++ ) {
-      x = this.x + delta[i][0] + 0;
-      y = this.y + delta[i][1] - 4;
+      x = this.x + delta[i][0] + 2;
+      y = this.y + delta[i][1] + 2;
 
       // Draw a missile-launcher
-      ctx.fillStyle = '#833';
+      ctx.fillStyle = '#8f3f3f';
       ctx.beginPath();
       ctx.moveTo( x, y );
       ctx.lineTo( x - 5, y + 5);
@@ -307,7 +318,7 @@ var missileCommand = (function() {
       ctx.closePath();
       ctx.fill();
 
-      ctx.fillStyle = '#411';
+      ctx.fillStyle = '#441111';
       ctx.beginPath();
       ctx.moveTo(x,y);
       ctx.lineTo( x , y + 7);
@@ -392,7 +403,7 @@ var missileCommand = (function() {
 
     Missile.call( this, { startX: amb.x,  startY: amb.y,
                           endX: endX,     endY: endY,
-                          color: 'green', trailColor: '#33f' } );
+                          color: 'brown', trailColor: '#833' } );
 
     var xDistance = this.endX - this.startX,
         yDistance = this.endY - this.startY;
@@ -460,7 +471,7 @@ var missileCommand = (function() {
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'yellow', trailColor: 'grey' } );
+                          color: 'yellow', trailColor: '#aaa' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {
