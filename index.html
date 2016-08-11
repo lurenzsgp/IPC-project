@@ -171,24 +171,27 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-				<div class="portrait">
-					<img src="assets/img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
-					<h4>Ufficiale</h4>
-				</div>
-				<div class="portrait">
-					<img src="assets/img/oldman.png" data-toggle="modal" data-target="#hintsModal" alt="Anziano programmatore">
-					<h4>Anziano programmatore</h4>
-				</div>
-				</div>
-			<div class="row">
-				<div class="col-lg-6" id="mc-container">
-					<canvas class="game" width="510" height="460">Missile Command</canvas>
-				</div>
+				<!-- Parte sx -->
+				<div class="col-lg-6">
+					<div class="portrait">
+						<img src="assets/img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
+						<p>Ufficiale</p>
+					</div>
+					<div class="portrait">
+						<img src="assets/img/oldman.png" data-toggle="modal" data-target="#hintsModal" alt="Anziano programmatore">
+						<p>Anziano programmatore</p>
+					</div>
 
+					<div class="col-lg-6" id="mc-container">
+						<canvas class="game" width="510" height="460">Missile Command</canvas>
+					</div>
+				</div>
+				
+				<!-- Parte dx -->
 				<div class="col-lg-6">
 					<div class="row">
 						<div class="col-lg-12">
+							<!-- editor -->
 							<textarea id="code" name="code">qui ci sara' il testo del codice da modificare</textarea>
 						</div>
 					</div>
@@ -196,7 +199,6 @@
 						<div class="col-lg-12 vcenters" align="center">
 							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg">Execute code</button>
 							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg">Reset</button>
-							</div>
 						</div>
 					</div>
 				</div>
