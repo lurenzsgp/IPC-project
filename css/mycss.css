@@ -64,7 +64,7 @@ button.close {
 .portrait > img{
   box-shadow: 0 0.2em 0.5em grey;
   display: inline-block;
-  background: #f5f5f5;
+  background: #635e77;
   position: relative;
   top: 0em;
   left: 0em;
@@ -77,7 +77,8 @@ button.close {
 }
 
 .portrait>img:hover{
-  background: white;
+  background: #b8b5c5;
+  box-shadow: 0 0.2em .5em 0.1em grey;
 }
 .portrait > p{
 	margin: 0.5em auto;
