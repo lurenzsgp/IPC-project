@@ -78,7 +78,7 @@ Editor.prototype.loadCode = function (lvl) {
 Editor.prototype.getCode = function () {
 	var line = this.cm.getValue('\n');
 
-	// le linee non sono divise ma sono una stringa unica
+	// TODO le linee non sono divise ma sono una stringa unica
 	while (line[0].indexOf('function') === -1) {
 		line.slice();
 	}
