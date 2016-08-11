@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	// attiva i popover
+	$('[data-toggle="popover"]').popover(); 
+				
 	// Missile Command
     missileCommand.initialize();
     missileCommand.setupListeners();
@@ -8,7 +11,6 @@ $(document).ready(function () {
     editor.loadCode(1);
 
 	// CodeMirror: addon Panel
-	editor.addPanel("top");
 	editor.addPanel("bottom");
 
 	// CodeMirror: addon Autocomplete
