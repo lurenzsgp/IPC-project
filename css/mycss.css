@@ -43,6 +43,10 @@ button.close {
     border-radius: 50%;
 }
 
+.btn{
+	margin: .5em;
+}
+
 .chat{
 	background: #efefef;
 	color: #333;
