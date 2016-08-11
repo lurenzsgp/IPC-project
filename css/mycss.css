@@ -41,9 +41,9 @@ button.close {
 
 .avatar-circle {
     border-radius: 50%;
-	border: 1px;
 	width: auto;
 	height: 9em;
+	border: 2px solid grey;
 }
 
 .btn{
