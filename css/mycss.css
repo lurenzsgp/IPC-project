@@ -188,11 +188,15 @@ p {
   width: 100px;
   height: auto;
   padding: 0em;
-  vertical-align: middle;
+  vertical-align: top;
   margin: 0em 1em;
-  position: absolute;
-  top: 0px;
-  left: 100px;
+  position: relative;
+  top: -40px;
+  background-color: #383448;
+  border-radius: 100%;
+}
+.navbar-brand > img:hover{
+    background-color: #433d58;
 }
 .navbar .navbar-nav > li > a {
   padding: 10px 15px;
