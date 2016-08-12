@@ -98,6 +98,33 @@ Editor.prototype.getCode = function () {
 	};
 }
 
+Editor.prototype.getCode = function () {
+	var line = this.cm.getValue('\n');
+
+	// TODO le linee non sono divise ma sono una stringa unica
+	while (line[0].indexOf('function') === -1) {
+		line.slice();
+	}
+
+	// nome della funzione
+	var part = line[0].split(" ");
+	var fName = part[part.indexOf('var') + 1];
+
+	// lista degli argomenti
+	var argList = line.split('(')[1].split(')')[0].split(',');
+
+	// corpo della funzione
+	var endFunction = line.indexOf('};');
+	line.splice(endFunction, line.length - endFunction);
+	var code = line.join();
+
+	return {
+		name: fName,
+		args: argList,
+		body: code
+	};
+}
+
 // preprocesses code,determines the location
 // of editable lines, loads goal function
 Editor.prototype.preprocessor = function (code) {
