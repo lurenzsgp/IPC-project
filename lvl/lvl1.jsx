@@ -1,4 +1,4 @@
-// Create a missile that will be shot at indicated location
+// Create a missile that will be shot at indicated location 
 var playerShoot = function( x, y ) {
   if( y >= 50 && y <= 370 ) {
     var source = whichAntiMissileBattery( x );

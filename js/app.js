@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	// attiva i popover
-	$('[data-toggle="popover"]').popover(); 
+	$('[data-toggle="popover"]').popover();
 
     // variable
     var lvl = 1;
@@ -54,11 +54,11 @@ $(document).ready(function () {
         var f = editor.getCode();
 
         // devo ridefinire la funzione
-        console.log(f.name);
-        console.log(f.args);
-        console.log(f.body);
-
-        eval("missileCommand.prototype." + f.name + " = new Function(" + f.args +", " + f.body +")");
+        // console.log(f.name);
+        // console.log(f.args);
+        // console.log(f.body);
+        console.log("eval --> missileCommand.prototype." + f.name + " = new Function(" + f.args.join(',') +", '" + f.body +"')");
+        eval("missileCommand.prototype." + f.name + " = new Function(" + f.args.join(',') +", '" + f.body +"')");
 
         // esegui la goal function per vedere se il livello puo' ritenersi superato
         editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
