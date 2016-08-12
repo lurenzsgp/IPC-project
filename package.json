@@ -1,0 +1,24 @@
+{
+  "name": "ildesertodeibarbari",
+  "version": "1.0.0",
+  "description": "il deserto dei barbari",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lurenzsgp/IPC-project.git"
+  },
+  "keywords": [
+    "javascript",
+    "learn",
+    "barbari"
+  ],
+  "author": "A. Valentini, M. Giordano, L. Casini, L. Cazzoli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lurenzsgp/IPC-project/issues"
+  },
+  "homepage": "https://github.com/lurenzsgp/IPC-project#readme"
+}
