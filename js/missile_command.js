@@ -724,7 +724,7 @@ var missileCommand = (function() {
 
   // Attach event Listeners to handle the player's input
   var setupListeners = function() {
-    $( '#mc-container' ).one( 'click', function() {
+    $( '.game' ).one( 'click', function() {
       startLevel();
 
       $( '#mc-container' ).on( 'click', function( event ) {
