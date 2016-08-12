@@ -6,8 +6,8 @@ $(document).ready(function () {
     var lvl = 1;
 
 	// Missile Command
-    missileCommand.initialize();
-    missileCommand.setupListeners();
+    missileCommand();
+    setupListeners();
 
 	// CodeMirror
     var editor = new Editor();
@@ -58,7 +58,8 @@ $(document).ready(function () {
         // console.log(f.args);
         // console.log(f.body);
         console.log("eval --> missileCommand.prototype." + f.name + " = new Function(" + f.args.join(',') +", '" + f.body +"')");
-        eval("missileCommand.prototype." + f.name + " = new Function(" + f.args.join(',') +", '" + f.body +"')");
+        eval("missileCommand.prototype." + f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+
 
         // esegui la goal function per vedere se il livello puo' ritenersi superato
         editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
