@@ -83,24 +83,26 @@ drawLevelMessage();
 // Show current score
 var drawScore = function() {
 ctx.fillStyle = 'white';
-ctx.font = 'bold 20px consolas';
-ctx.fillText( 'Score ' + score, 80, 25 );
+ctx.font =  '20px consolas';
+ctx.fillText( 'game.score = ' + score, 50, 25 );
 };
 
 // Show message before a level begins
 var drawLevelMessage = function() {
+ctx.fillStyle = '#6d6';
+ctx.font =  '20px consolas';
+ctx.fillText( 'onclick(lvl.start())', 130, 150 );
 ctx.fillStyle = 'white';
+ctx.fillText( 'lvl == ' + level, 160, 180 );
+
+ctx.fillText( '' + getMultiplier(), 160, 215 );
+ctx.fillStyle = 'white';
+ctx.fillText( '  * points.count()', 160, 215 );
+
 ctx.font = 'bold 20px consolas';
-ctx.fillText( 'CLICK TO START LEVEL', 130, 180 );
-ctx.fillStyle = 'white';
-ctx.fillText( ' ' + level, 370, 180 );
+ctx.fillStyle = '#d66';
+ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 
-ctx.fillText( '' + getMultiplier(), 195, 245 );
-ctx.fillStyle = 'white';
-ctx.fillText( 'X  POINTS', 215, 245 );
-
-ctx.fillText( 'DEFEND', 100, 355 );
-ctx.fillText( 'CITIES', 330, 355 );
 };
 
 // Show bonus points at end of a level
@@ -214,8 +216,8 @@ ctx.beginPath();
 ctx.lineTo( 0, 430 );
 ctx.lineTo( 25, 410 );
 ctx.lineTo( 35, 410 );
-ctx.lineTo( 55, 430);
-ctx.lineTo( 45, 440);
+ctx.lineTo( 60, 435);
+ctx.lineTo( 55, 440);
 
 ctx.lineTo( 0 ,440);
 ctx.closePath();
@@ -226,9 +228,9 @@ ctx.lineTo( 70, 430 );
 ctx.lineTo( 220, 430 );
 ctx.lineTo( 245, 410 );
 ctx.lineTo( 255, 410 );
-ctx.lineTo( 275, 430 );
-ctx.lineTo( 265, 440 );
-ctx.lineTo( 80, 440 );
+ctx.lineTo( 280, 435 );
+ctx.lineTo( 275, 440 );
+ctx.lineTo( 85, 440 );
 ctx.closePath();
 ctx.fill();
 
@@ -237,8 +239,8 @@ ctx.lineTo( 290, 430 );
 ctx.lineTo( 440, 430 );
 ctx.lineTo( 465, 410 );
 ctx.lineTo( 475, 410 );
-ctx.lineTo( 495, 430 );
-ctx.lineTo( 485, 440 );
+ctx.lineTo( 500, 435 );
+ctx.lineTo( 495, 440 );
 ctx.lineTo( 305, 440 );
 ctx.closePath();
 ctx.fill();
@@ -726,9 +728,18 @@ var setupListeners = function() {
 $( '#mc-container' ).one( 'click', function() {
   startLevel();
 
-  $( '#mc-container' ).on( 'click', function( event ) {
-    playerShoot( event.pageX - this.offsetLeft,
-                 event.pageY - this.offsetTop );
+  $( '#miscom' ).on( 'click', function( event ) {
+    var mousePos = getMousePos(this, event);
+    playerShoot( mousePos.x, mousePos.y);
   });
+
 });
 };
+
+function getMousePos(canvas, evt){
+  var rect = canvas.getBoundingClientRect();
+  return{
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  }
+}
