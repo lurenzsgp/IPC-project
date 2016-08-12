@@ -171,19 +171,19 @@ p {
 
 .navbar .navbar-brand {
   font-weight: 400;
-  margin: 25px 0px;
+  margin: 18px 0px 18px;
   padding: 15px 15px;
-  font-size: 2em;
+  font-size: 1.6em;
   color: #eee;
   font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
 }
 .navbar-brand > img{
   display: inline-block;
-  width: 100px;
+  width: 70px;
   height: auto;
   padding: 0em;
   vertical-align: top;
-  margin: 0em 1em;
+  margin: 0.5em 1em;
   position: relative;
   top: -40px;
   background-color: #383448;
