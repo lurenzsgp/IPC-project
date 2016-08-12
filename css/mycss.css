@@ -54,32 +54,24 @@ button.close {
 	margin-bottom: 3em;
 }
 
-
-}
-.portrait{
-  float: left;
+.panel{
   text-align: center;
 }
-
-.portrait > img{
-  box-shadow: 0 0.2em 0.5em grey;
+.portrait{
+  box-shadow: 0 0.1em 0.3em grey;
   display: inline-block;
   background: #635e77;
-  position: relative;
-  top: 0em;
-  left: 0em;
   border-radius: 100%;
   z-index: 2;
-  margin: auto 2em;
-  vertical-align: middle;
+  margin: auto;
   width: auto;
   height: 8em;
   cursor: pointer;
 }
 
-.portrait>img:hover{
+.portrait:hover{
   background: #b8b5c5;
-  box-shadow: 0 0.2em .5em 0.1em grey;
+  box-shadow: 0 0.2em .5em grey;
 }
 .portrait > p{
 	margin: 0.5em auto;
@@ -220,50 +212,7 @@ p {
   top: 1px;
 }
 
-/*
-collapse horizzontaly stuff
-*/
-.collapse {
-  height: auto;
-  width: auto;
-}
-
-.collapse.height {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  -webkit-transition: height 0.35s ease;
-  -moz-transition: height 0.35s ease;
-  -o-transition: height 0.35s ease;
-  transition: height 0.35s ease;
-}
-
-.collapse.width {
-  position: relative;
-  right: 0;
-  width: 0;
-  overflow: hidden;
-  visibility: hidden;
-  -webkit-transition: width 0.60s ease;
-  -moz-transition: width 0.35s ease;
-  -o-transition: width 0.35s ease;
-  transition: width 0.60s ease;
-}
-
-.collapse.in.width {
-  width: auto;
-  visibility: visible;
-  left: 0;
-}
-
-.collapse.in.height {
-  height: auto;
-}
-
-.portrait > p {
-	vertical-align: middle;
-}
-
 .game {
 	cursor: crosshair;
+  margin: 1em auto;
 }
