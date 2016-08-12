@@ -74,6 +74,7 @@ button.close {
   vertical-align: middle;
   width: auto;
   height: 8em;
+  cursor: pointer;
 }
 
 .portrait>img:hover{
