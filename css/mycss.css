@@ -5,7 +5,7 @@ body{
   background: -webkit-linear-gradient(top, #fff 0%, #bbb 100%);
   background: -o-linear-gradient(top, #fff 0%, #bbb 100%);
   background: -ms-linear-gradient(top, #fff 0%, #bbb 100%);
-  background: linear-gradient(to bottom, #fff 0%, #bbb 100%);
+  background: linear-gradient(to bottom, #eee 0%, #bbb 100%);
   background-size: 150% 150%;
   z-index: 3;
   opacity: 1;
@@ -261,4 +261,8 @@ collapse horizzontaly stuff
 
 .portrait > p {
 	vertical-align: middle;
+}
+
+.game {
+	cursor: crosshair;
 }
