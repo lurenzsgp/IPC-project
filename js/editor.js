@@ -71,6 +71,38 @@ Editor.prototype.loadCode = function (lvl) {
     this.cm.refresh();
 }
 
+Editor.prototype.getCode = function () {
+	var code = this.cm.getValue("\n");
+	var line = code.split("\n");
+
+	while (line[0].indexOf('function') === -1) {
+		line.shift();
+	}
+	// console.log(line[0]);
+
+	// nome della funzione
+	var part = line[0].split(" ");
+	var fName = part[part.indexOf('var') + 1];
+
+	// lista degli argomenti
+	var argList = code.split('(')[1].split(')')[0].split(',');
+
+	//rimuovo la definizione della funzione
+	line.shift();
+
+	var codeLine = [];
+	while (line[0].indexOf('};') === -1) {
+		codeLine.push(line.shift());
+	}
+	var body = codeLine.join(" ");
+
+	return {
+		name: fName,
+		args: argList,
+		body: body
+	};
+}
+
 // preprocesses code,determines the location
 // of editable lines, loads goal function
 Editor.prototype.preprocessor = function (code) {
