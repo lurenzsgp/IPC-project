@@ -396,33 +396,35 @@ if( this.explodeRadius < 0 ) {
 }
 };
 
+// Calculate the missile speed
+var missileSpeed = function (xDistance, yDistance) {
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+
+    var distancePerFrame = 12;
+
+    return distance / distancePerFrame;
+};
+
 // Constructor for the Player's Missile, which is a subclass of Missile
 // and uses Missile's constructor
 function PlayerMissile( source, endX, endY ) {
-// Anti missile battery this missile will be fired from
-var amb = antiMissileBatteries[source];
+    // Anti missile battery this missile will be fired from
+    var amb = antiMissileBatteries[source];
 
-Missile.call( this, { startX: amb.x,  startY: amb.y,
-                      endX: endX,     endY: endY,
-                      color: 'brown', trailColor: '#833' } );
+    Missile.call( this, { startX: amb.x,  startY: amb.y,
+                          endX: endX,     endY: endY,
+                          color: 'brown', trailColor: '#833' } );
 
-var xDistance = this.endX - this.startX,
-    yDistance = this.endY - this.startY;
-// Determine a value to be used to scale the orthogonal directions
-// of travel so the missiles travel at a constant speed and in the
-// right direction
-var scale = (function() {
-  var distance = Math.sqrt( Math.pow(xDistance, 2) +
-                            Math.pow(yDistance, 2) ),
-      // Make missile fired from central anti missile battery faster
-      distancePerFrame = ( source === 1 ) ? 20 : 12;
+    var xDistance = this.endX - this.startX,
+        yDistance = this.endY - this.startY;
+    // Determine a value to be used to scale the orthogonal directions
+    // of travel so the missiles travel at a constant speed and in the
+    // right direction
+    var scale = missileSpeed(xDistance, yDistance);
 
-  return distance / distancePerFrame;
-})();
-
-this.dx = xDistance / scale;
-this.dy = yDistance / scale;
-amb.missilesLeft--;
+    this.dx = xDistance / scale;
+    this.dy = yDistance / scale;
+    amb.missilesLeft--;
 }
 
 // Make PlayerMissile inherit from Missile
@@ -430,21 +432,20 @@ PlayerMissile.prototype = Object.create( Missile.prototype );
 PlayerMissile.prototype.constructor = PlayerMissile;
 
 
-//LIVELLO: si puo' non far esplodere il missile
 // Update the location and/or state of this missile of the player
 PlayerMissile.prototype.update = function() {
-if( this.state === MISSILE.active && this.y <= this.endY ) {
-  // Target reached
-  this.x = this.endX;
-  this.y = this.endY;
-  this.state = MISSILE.exploding;
-}
-if( this.state === MISSILE.active ) {
-  this.x += this.dx;
-  this.y += this.dy;
-} else {
-  this.explode();
-}
+    if( this.state === MISSILE.active && this.y <= this.endY ) {
+      // Target reached
+      this.x = this.endX;
+      this.y = this.endY;
+      this.state = MISSILE.exploding;
+    }
+    if( this.state === MISSILE.active ) {
+      this.x += this.dx;
+      this.y += this.dy;
+    } else {
+      this.explode();
+    }
 };
 
 //LIVELLO: si possono modificare le coordinate di puntamento aggiungendo un numero random

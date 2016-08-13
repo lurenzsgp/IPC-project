@@ -83,7 +83,7 @@ Editor.prototype.getCode = function () {
 
 	// nome della funzione
 	var part = line[0].split(" ");
-	var fName = part[part.indexOf('var') + 1];
+	var fName = part[part.indexOf('=') - 1];
 
 	// lista degli argomenti
 	var argList = code.split('(')[1].split(')')[0].split(',');
@@ -92,6 +92,7 @@ Editor.prototype.getCode = function () {
 	line.shift();
 
 	var codeLine = [];
+
 	while (line[0].indexOf('};') === -1) {
 		var l = line.shift();
 		l = l.replace(/'/g, "\\'");
