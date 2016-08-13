@@ -92,7 +92,11 @@ Editor.prototype.getCode = function () {
 
 	var codeLine = [];
 	while (line[0].indexOf('};') === -1) {
-		codeLine.push(line.shift());
+		var l = line.shift();
+		l = l.replace(/'/g, "\\'");
+		l = l.replace(/"/g, "\\\"");
+		l = l.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+		codeLine.push(l);
 	}
 	var body = codeLine.join(" ");
 
@@ -261,7 +265,6 @@ Editor.prototype.updateEditableLinesOnDeletion = function(changeInput) {
     this.editableLines = shiftLinesBy(this.editableLines, editableSegmentEnd, -numRemoved);
 };
 
-//---------------------
 
 // addon Panels
 Editor.prototype.makePanel = function(where) {
