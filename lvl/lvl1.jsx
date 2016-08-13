@@ -6,8 +6,6 @@ var playerShoot = function( x, y ) {
       return;
     }
 #BEGIN_EDITABLE#
-    console.log('sto sparando');
-
 	playerMissiles.push(
 		new PlayerMissile(source, x + rand(0,150), y + rand(0,150))
 	);
@@ -15,5 +13,6 @@ var playerShoot = function( x, y ) {
   }
 };
 #START_OF_GOAL_FUNCTION#
-console.log("goal function del livello di prova");
+
+console.log("goal function");
 #END_OF_GOAL_FUNCTION#

@@ -48,28 +48,8 @@ $(document).ready(function () {
 	  }
 	}
 
-    function execCode () {
-        // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-
-        var f = editor.getCode();
-
-        // devo ridefinire la funzione
-        // console.log(f.name);
-        // console.log(f.args);
-        // console.log(f.body);
-
-        console.log("eval --> " + f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-        eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-
-        // esegui la goal function per vedere se il livello puo' ritenersi superato
-        editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
-    }
-
-    function resetCode () {
-        editor.loadCode(lvl);
-    }
-
-    $("#ButtonExecCode").click(execCode);
-    $("#ButtonResetCode").click(resetCode);
+	editor.execCode = editor.execCode.bind(editor);
+    $("#ButtonExecCode").click({user: true}, editor.execCode);
+    $("#ButtonResetCode").click(editor.resetCode);
 
 });
