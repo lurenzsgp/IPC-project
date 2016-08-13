@@ -3,7 +3,7 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
     // variable
-    var lvl = 3;
+    var lvl = 2;
 
 	// Missile Command
     missileCommand();

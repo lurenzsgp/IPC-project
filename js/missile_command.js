@@ -729,7 +729,7 @@ var setupListeners = function() {
 $( '#mc-container' ).one( 'click', function() {
   startLevel();
 
-  $( '#miscom' ).on( 'click', function( event ) {
+  $( '#miscom' ).unbind().click(function( event ) {
     var mousePos = getMousePos(this, event);
     playerShoot( mousePos.x, mousePos.y);
   });
