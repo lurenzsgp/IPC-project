@@ -1,3 +1,5 @@
+// TODO collegare livelli gioco con livelli editor
+
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
   ctx = canvas.getContext( '2d' );
@@ -726,15 +728,16 @@ if( x <= CANVAS_WIDTH / 3 ){
 
 // Attach event Listeners to handle the player's input
 var setupListeners = function() {
-$( '#mc-container' ).one( 'click', function() {
-  startLevel();
+    $( '#miscom' ).unbind();
+    $( '#mc-container' ).one( 'click', function() {
+      startLevel();
 
-  $( '#miscom' ).unbind().click(function( event ) {
-    var mousePos = getMousePos(this, event);
-    playerShoot( mousePos.x, mousePos.y);
-  });
+      $( '#miscom' ).unbind().click(function( event ) {
+        var mousePos = getMousePos(this, event);
+        playerShoot( mousePos.x, mousePos.y);
+      });
 
-});
+    });
 };
 
 function getMousePos(canvas, evt){
