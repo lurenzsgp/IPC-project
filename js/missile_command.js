@@ -1,5 +1,4 @@
-// TODO collegare livelli gioco con livelli editor
-// TODO ad ogni livello bisogna caricare il file corrispondente
+// TODO controllare i punteggi
 
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
@@ -125,14 +124,14 @@ drawLevelMessage();
 // Show current score
 var drawScore = function() {
 ctx.fillStyle = 'white';
-ctx.font =  '20px monaco, consolas';
+ctx.font =  '20px consolas';
 ctx.fillText( 'game.score = ' + score, 50, 25 );
 };
 
 // Show message before a level begins
 var drawLevelMessage = function() {
 ctx.fillStyle = '#6d6';
-ctx.font =  '20px monaco, consolas';
+ctx.font =  '20px consolas';
 ctx.fillText( 'onclick(lvl.start())', 130, 150 );
 ctx.fillStyle = 'white';
 ctx.fillText( 'lvl == ' + level, 160, 180 );
@@ -141,7 +140,7 @@ ctx.fillText( '' + getMultiplier(), 160, 215 );
 ctx.fillStyle = 'white';
 ctx.fillText( '  * points.count()', 160, 215 );
 
-ctx.font =  'bold 20px monaco, consolas';
+ctx.font = 'bold 20px consolas';
 ctx.fillStyle = '#d66';
 ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 
@@ -151,7 +150,7 @@ ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
 drawGameState();
 ctx.fillStyle = 'white';
-ctx.font =  '20px monaco, consolas';
+ctx.font = 'bold 20px consolas';
 ctx.fillText( 'BONUS POINTS', 150, 149 );
 ctx.fillStyle = 'white';
 ctx.fillText( '' + missilesBonus, 170, 213 );
@@ -165,11 +164,11 @@ ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 
 // Show simple graphic at end of game
 var drawEndGame = function() {
-ctx.fillStyle = '#635e77';
+ctx.fillStyle = 'red';
 ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
 // Yellow hexagon
-ctx.fillStyle = '#a24a4a';
+ctx.fillStyle = 'yellow';
 ctx.beginPath();
 ctx.moveTo( 255, 30  );
 ctx.lineTo( 396, 89  );
@@ -182,14 +181,14 @@ ctx.lineTo( 114, 89  );
 ctx.closePath();
 ctx.fill();
 
-ctx.fillStyle = 'white';
-ctx.font =  '60px monaco, consolas';
-ctx.fillText( 'game == over', 70, 260 );
+ctx.fillStyle = 'red';
+ctx.font = 'bold 85px consolas';
+ctx.fillText( 'THE END', 70, 260 );
 
 ctx.fillStyle = 'yellow';
-ctx.font =  '26px monaco, consolas';
-ctx.fillText( 'game.score == ' + score, 80, 20 );
-ctx.fillText( 'onclick(game.restart())', 80, 458 );
+ctx.font = 'bold 26px consolas';
+ctx.fillText( 'Final Score: ' + score, 80, 20 );
+ctx.fillText( 'CLICK TO PLAY NEW GAME', 80, 458 );
 };
 
 // Draw all active cities
@@ -602,34 +601,39 @@ checkEndLevel();
 
 // Check for the end of a Level, and then if the game is also ended
 var checkEndLevel = function() {
-if( !enemyMissiles.length ) {
-  // Stop animation
-  stopLevel();
-  $( '.container' ).off( 'click' );
-  var missilesLeft = totalMissilesLeft(),
-      citiesSaved  = totalCitiesSaved();
+    if( !enemyMissiles.length ) {
+        // Stop animation
+        stopLevel();
+        $( '.container' ).off( 'click' );
+        var missilesLeft = totalMissilesLeft(),
+          citiesSaved  = totalCitiesSaved();
 
-  !citiesSaved ? endGame( missilesLeft )
-               : endLevel( missilesLeft, citiesSaved );
-}
+        $("#ButtonExecCode").prop("disabled",false);
+        $("#ButtonResetCode").prop("disabled",false); 
+
+        !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
+    }
 };
 
 // Handle the end of a level
 var endLevel = function( missilesLeft, citiesSaved ) {
-var missilesBonus = missilesLeft * 5 * getMultiplier(),
-    citiesBonus = citiesSaved * 100 * getMultiplier();
+    var missilesBonus = missilesLeft * 5 * getMultiplier(),
+        citiesBonus = citiesSaved * 100 * getMultiplier();
 
-drawEndLevel( missilesLeft, missilesBonus,
-              citiesSaved, citiesBonus );
+    drawEndLevel( missilesLeft, missilesBonus,
+                  citiesSaved, citiesBonus );
 
-// Show the new game score after 2 seconds
-setTimeout( function() {
-  score += missilesBonus + citiesBonus;
-  drawEndLevel( missilesLeft, missilesBonus,
-                citiesSaved, citiesBonus );
-}, 2000 );
+    // Show the new game score after 2 seconds
+    setTimeout( function() {
+      score += missilesBonus + citiesBonus;
+      drawEndLevel( missilesLeft, missilesBonus,
+                    citiesSaved, citiesBonus );
+    }, 2000 );
 
-setTimeout( setupNextLevel, 4000 );
+    if (citiesSaved !== 6) {
+        level--;
+    }
+    setTimeout( setupNextLevel, 4000 );
 };
 
 // Move to the next level
@@ -641,22 +645,25 @@ var setupNextLevel = function() {
 
 // Handle the end of the game
 var endGame = function( missilesLeft ) {
-score += missilesLeft * 5 * getMultiplier();
-drawEndGame();
+    score += missilesLeft * 5 * getMultiplier();
+    drawEndGame();
 
-//TODO modificare in base alla dinamica di gioco scelta
-$( 'body' ).on( 'click', 'div', function() {
-  location.reload();
-});
-};
+    //TODO modificare in base alla dinamica di gioco scelta
+    $( '#mc-container' ).one( 'click', function() {
+        // possibilita' di penalita' nel punteggio
+        missileCommand();
+        //   location.reload();
 
-// Get missiles left in all anti missile batteries at the end of a level
+        });
+    };
+
+    // Get missiles left in all anti missile batteries at the end of a level
 var totalMissilesLeft = function() {
-var total = 0;
-$.each( antiMissileBatteries, function(index, amb) {
-  total += amb.missilesLeft;
-});
-return total;
+    var total = 0;
+    $.each( antiMissileBatteries, function(index, amb) {
+      total += amb.missilesLeft;
+    });
+    return total;
 };
 
 // Get count of undestroyed cities
@@ -762,6 +769,9 @@ var setupListeners = function() {
     $( '#miscom' ).unbind();
     $( '#mc-container' ).one( 'click', function() {
       startLevel();
+
+      $("#ButtonExecCode").prop("disabled",true);
+      $("#ButtonResetCode").prop("disabled",true);
 
       $( '#miscom' ).unbind().click(function( event ) {
         var mousePos = getMousePos(this, event);
