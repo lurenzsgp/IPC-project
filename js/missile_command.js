@@ -124,14 +124,14 @@ drawLevelMessage();
 // Show current score
 var drawScore = function() {
 ctx.fillStyle = 'white';
-ctx.font =  '20px consolas';
+ctx.font =  '20px monaco, consolas';
 ctx.fillText( 'game.score = ' + score, 50, 25 );
 };
 
 // Show message before a level begins
 var drawLevelMessage = function() {
 ctx.fillStyle = '#6d6';
-ctx.font =  '20px consolas';
+ctx.font =  '20px monaco, consolas';
 ctx.fillText( 'onclick(lvl.start())', 130, 150 );
 ctx.fillStyle = 'white';
 ctx.fillText( 'lvl == ' + level, 160, 180 );
@@ -140,7 +140,7 @@ ctx.fillText( '' + getMultiplier(), 160, 215 );
 ctx.fillStyle = 'white';
 ctx.fillText( '  * points.count()', 160, 215 );
 
-ctx.font = 'bold 20px consolas';
+ctx.font = 'bold 20px monaco, consolas';
 ctx.fillStyle = '#d66';
 ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 
@@ -150,7 +150,7 @@ ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
 drawGameState();
 ctx.fillStyle = 'white';
-ctx.font = 'bold 20px consolas';
+ctx.font = '20px monaco, consolas';
 ctx.fillText( 'BONUS POINTS', 150, 149 );
 ctx.fillStyle = 'white';
 ctx.fillText( '' + missilesBonus, 170, 213 );
@@ -164,11 +164,11 @@ ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 
 // Show simple graphic at end of game
 var drawEndGame = function() {
-ctx.fillStyle = 'red';
+ctx.fillStyle = '#635e77';
 ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
 // Yellow hexagon
-ctx.fillStyle = 'yellow';
+ctx.fillStyle = '#a24a4a';
 ctx.beginPath();
 ctx.moveTo( 255, 30  );
 ctx.lineTo( 396, 89  );
@@ -181,14 +181,14 @@ ctx.lineTo( 114, 89  );
 ctx.closePath();
 ctx.fill();
 
-ctx.fillStyle = 'red';
-ctx.font = 'bold 85px consolas';
-ctx.fillText( 'THE END', 70, 260 );
+ctx.fillStyle = 'white';
+ctx.font = '60px monaco, consolas';
+ctx.fillText( 'game == over', 70, 260 );
 
 ctx.fillStyle = 'yellow';
-ctx.font = 'bold 26px consolas';
-ctx.fillText( 'Final Score: ' + score, 80, 20 );
-ctx.fillText( 'CLICK TO PLAY NEW GAME', 80, 458 );
+ctx.font = '26px monaco, consolas';
+ctx.fillText( 'game.score == ' + score, 80, 20 );
+ctx.fillText( 'onclick(game.restart())', 80, 458 );
 };
 
 // Draw all active cities
@@ -609,7 +609,7 @@ var checkEndLevel = function() {
           citiesSaved  = totalCitiesSaved();
 
         $("#ButtonExecCode").prop("disabled",false);
-        $("#ButtonResetCode").prop("disabled",false); 
+        $("#ButtonResetCode").prop("disabled",false);
 
         !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
     }
