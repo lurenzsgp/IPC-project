@@ -3,7 +3,7 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
     // variable
-    var lvl = 2;
+    var lvl = 4;
 
 	// Missile Command
     missileCommand();
@@ -49,7 +49,7 @@ $(document).ready(function () {
 	}
 
 	editor.execCode = editor.execCode.bind(editor);
-    $("#ButtonExecCode").click({user: true}, editor.execCode);
+    $("#ButtonExecCode").click(true, editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
 
 });

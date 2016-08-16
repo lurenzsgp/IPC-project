@@ -69,7 +69,7 @@ Editor.prototype.loadCode = function (lvl) {
     });
 
     this.cm.refresh();
-	this.execCode({user: false});
+	this.execCode(false);
 }
 
 Editor.prototype.getCode = function () {
@@ -156,7 +156,7 @@ Editor.prototype.preprocessor = function (code) {
                 i--;
             }
         }
-
+		// console.log(goalString);
         Editor.prototype.goalFunction = new Function(goalString);
     }
 
@@ -316,7 +316,7 @@ Editor.prototype.resetCode = function () {
 }
 
 
-Editor.prototype.execCode = function (event) {
+Editor.prototype.execCode = function (user) {
 	// leggi il codice dall'editor e sostituiscilo all'interno di missile command
 	var f = this.getCode();
 
@@ -329,7 +329,7 @@ Editor.prototype.execCode = function (event) {
 	eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
 
 	// esegui la goal function per vedere se il livello puo' ritenersi superato
-	if (event.user) {
+	if (user) {
 		this.goalFunction(); // restituira un valore boleano che indica il superamento del livello
 	}
 }
