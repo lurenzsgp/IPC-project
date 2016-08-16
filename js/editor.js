@@ -1,5 +1,5 @@
 // Editor class
-var scope;
+var self;
 
 var Editor = function () {
     // variables
@@ -24,7 +24,7 @@ var Editor = function () {
         mode: "javascript"
     });
 
-	scope = this;
+	self = this;
 }
 
 // functions
@@ -42,7 +42,7 @@ Editor.prototype.setWidth = function(w) {
 
 Editor.prototype.loadCode = function (lvl) {
     var code = "";
-    // var scope = this; // serve a fissare lo scope per utilizzare variabili della classe all'interno di funzioni che cambiano il contesto
+    // var self = this; // serve a fissare lo self per utilizzare variabili della classe all'interno di funzioni che cambiano il contesto
     $.ajax({
       url: "lvl/lvl" + lvl + ".jsx",
       async: false,
@@ -62,13 +62,14 @@ Editor.prototype.loadCode = function (lvl) {
 	this.cm.on('beforeChange', this.enforceRestrictions);
 
     this.cm.eachLine(function (line) {
-        var i = scope.cm.getLineNumber(line);
-        if (scope.editableLines.indexOf(i) === -1) {
-            scope.cm.addLineClass(line, "wrap", "disabled");
+        var i = self.cm.getLineNumber(line);
+        if (self.editableLines.indexOf(i) === -1) {
+            self.cm.addLineClass(line, "wrap", "disabled");
         }
     });
 
     this.cm.refresh();
+	this.execCode(false);
 }
 
 Editor.prototype.getCode = function () {
@@ -82,7 +83,7 @@ Editor.prototype.getCode = function () {
 
 	// nome della funzione
 	var part = line[0].split(" ");
-	var fName = part[part.indexOf('var') + 1];
+	var fName = part[part.indexOf('=') - 1];
 
 	// lista degli argomenti
 	var argList = code.split('(')[1].split(')')[0].split(',');
@@ -91,6 +92,7 @@ Editor.prototype.getCode = function () {
 	line.shift();
 
 	var codeLine = [];
+
 	while (line[0].indexOf('};') === -1) {
 		var l = line.shift();
 		l = l.replace(/'/g, "\\'");
@@ -149,14 +151,17 @@ Editor.prototype.preprocessor = function (code) {
             }
             // save goalFunction() code
             if (inGoalFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
                 goalString += currentLine;
                 lineArray.splice(i,1);
                 i--;
             }
         }
-
-        Editor.prototype.goalFunction = new Function(goalString);
     }
+
+	Editor.prototype.goalFunction = new Function(goalString);
 
     return lineArray.join("\n");
 }
@@ -193,7 +198,7 @@ Editor.prototype.enforceRestrictions = function(instance, change) {
     lastChange = change;
 
     var inEditableArea = function(c) {
-        if (scope.editableLines.indexOf(c.to.line) !== -1 && scope.editableLines.indexOf(c.from.line) !== -1) {
+        if (self.editableLines.indexOf(c.to.line) !== -1 && self.editableLines.indexOf(c.from.line) !== -1) {
             // editable lines?
             return true;
         } else {
@@ -214,13 +219,13 @@ Editor.prototype.enforceRestrictions = function(instance, change) {
         change.cancel();
     } else if (change.to.line < change.from.line ||
                change.to.line - change.from.line + 1 > change.text.length) { // Deletion
-        scope.updateEditableLinesOnDeletion(change);
+        self.updateEditableLinesOnDeletion(change);
     } else { // Insert/paste
         // First line already editable
         var newLines = change.text.length - (change.to.line - change.from.line + 1);
 
         if (newLines > 0) {
-            if (scope.editableLines.indexOf(change.to.line) < 0) {
+            if (self.editableLines.indexOf(change.to.line) < 0) {
                 change.cancel();
                 return;
             }
@@ -228,11 +233,11 @@ Editor.prototype.enforceRestrictions = function(instance, change) {
             // updating line count
             newLines = change.text.length - (change.to.line - change.from.line + 1);
 
-            scope.updateEditableLinesOnInsert(change, newLines);
+            self.updateEditableLinesOnInsert(change, newLines);
         }
     }
 
-    // console.log(scope.editableLines);
+    // console.log(self.editableLines);
 }
 
 Editor.prototype.updateEditableLinesOnInsert = function(change, newLines) {
@@ -307,4 +312,27 @@ Editor.prototype.replacePanel = function(form) {
 
 	this.panels[node.id] = this.cm.addPanel(node, {replace: panel, position: "after-top"});
 	return false;
+}
+
+Editor.prototype.resetCode = function () {
+	this.loadCode(level);
+}
+
+
+Editor.prototype.execCode = function (user) {
+	// leggi il codice dall'editor e sostituiscilo all'interno di missile command
+	var f = this.getCode();
+
+	// devo ridefinire la funzione
+	// console.log(f.name);
+	// console.log(f.args);
+	// console.log(f.body);
+
+	// console.log("eval --> " + f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+	eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+
+	// esegui la goal function per vedere se il livello puo' ritenersi superato
+	if (user) {
+		this.goalFunction(); // restituira un valore boleano che indica il superamento del livello
+	}
 }

@@ -1,19 +1,15 @@
-// Create a missile that will be shot at indicated location
-var playerShoot = function( x, y ) {
-  if( y >= 50 && y <= 370 ) {
-    var source = whichAntiMissileBattery( x );
-    if( source === -1 ){
-      return;
-    }
+// Calculate the missile speed
+var missileSpeed = function (xDistance, yDistance) {
 #BEGIN_EDITABLE#
-    console.log('sto sparando');
 
-	playerMissiles.push(
-		new PlayerMissile(source, x + rand(0,150), y + rand(0,150))
-	);
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+
+    var distancePerFrame = 1;
 #END_EDITABLE#
-  }
+
+    return distance / distancePerFrame;
 };
 #START_OF_GOAL_FUNCTION#
-console.log("goal function del livello di prova");
+
+console.log("goal function");
 #END_OF_GOAL_FUNCTION#

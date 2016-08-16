@@ -1,17 +1,18 @@
+var editor = {};
+
 $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
     // variable
-    var lvl = 1;
+    // var lvl = 4;
 
 	// Missile Command
     missileCommand();
-    setupListeners();
 
 	// CodeMirror
-    var editor = new Editor();
-    editor.loadCode(lvl);
+    editor = new Editor();
+    editor.loadCode(level);
 
 	// CodeMirror: addon Panel
 	editor.addPanel("bottom");
@@ -48,28 +49,9 @@ $(document).ready(function () {
 	  }
 	}
 
-    function execCode () {
-        // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-
-        var f = editor.getCode();
-
-        // devo ridefinire la funzione
-        // console.log(f.name);
-        // console.log(f.args);
-        // console.log(f.body);
-
-        console.log("eval --> " + f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-        eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-
-        // esegui la goal function per vedere se il livello puo' ritenersi superato
-        editor.goalFunction(); // restituira un valore boleano che indica il superamento del livello
-    }
-
-    function resetCode () {
-        editor.loadCode(lvl);
-    }
-
-    $("#ButtonExecCode").click(execCode);
-    $("#ButtonResetCode").click(resetCode);
+	editor.execCode = editor.execCode.bind(editor);
+	editor.resetCode = editor.resetCode.bind(editor);
+    $("#ButtonExecCode").click(true, editor.execCode);
+    $("#ButtonResetCode").click(editor.resetCode);
 
 });
