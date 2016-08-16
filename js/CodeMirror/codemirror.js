@@ -5420,7 +5420,7 @@
   option("rtlMoveVisually", !windows);
   option("wholeLineUpdateBefore", true);
 
-  option("theme", "twilight", function(cm) {
+  option("theme", "isotope", function(cm) {
     themeChanged(cm);
     guttersChanged(cm);
   }, true);
