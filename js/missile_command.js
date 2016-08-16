@@ -619,7 +619,7 @@ var checkEndLevel = function() {
 var endLevel = function( missilesLeft, citiesSaved ) {
     var missilesBonus = missilesLeft * 5 * getMultiplier(),
         citiesBonus = citiesSaved * 100 * getMultiplier();
-
+    var nextLevel = true;
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
 
@@ -631,16 +631,19 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     }, 2000 );
 
     if (citiesSaved !== 6) {
-        level--;
+        nextLevel = false;
+        console.log("Riprova, non devi perdere nessuna torretta");
     }
-    setTimeout( setupNextLevel, 4000 );
+    setTimeout( setupNextLevel, 4000, nextLevel );
 };
 
 // Move to the next level
-var setupNextLevel = function() {
-    level++;
+var setupNextLevel = function(next) {
+    if (next) {
+        level++;
+        editor.loadCode(level);
+    }
     missileCommand();
-    editor.loadCode(level);
 };
 
 // Handle the end of the game
