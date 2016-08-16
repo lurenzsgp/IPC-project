@@ -3,7 +3,7 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
     // variable
-    var lvl = 4;
+    // var lvl = 4;
 
 	// Missile Command
     missileCommand();
@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 	// CodeMirror
     var editor = new Editor();
-    editor.loadCode(lvl);
+    editor.loadCode(level);
 
 	// CodeMirror: addon Panel
 	editor.addPanel("bottom");
@@ -49,6 +49,7 @@ $(document).ready(function () {
 	}
 
 	editor.execCode = editor.execCode.bind(editor);
+	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(true, editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
 

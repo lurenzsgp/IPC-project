@@ -17,6 +17,9 @@ if (f.body.indexOf('for') === -1) {
     return;
 }
 
+console.log("invoco la funzione definita nell'editor");
+initCities();
+
 if (cities.length != 6) {
     console.log("Le citta' devono essere 6");
     return;
@@ -27,8 +30,6 @@ if (cities[0].x !== elementPos[3].x || cities[5].x !== elementPos[8].x) {
     return;
 }
 
-console.log("invoco la funzione definita nell'editor");
-initCities();
 
 console.log("Ridisegno il livello");
 drawBeginLevel();

@@ -151,14 +151,17 @@ Editor.prototype.preprocessor = function (code) {
             }
             // save goalFunction() code
             if (inGoalFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
                 goalString += currentLine;
                 lineArray.splice(i,1);
                 i--;
             }
         }
-		// console.log(goalString);
-        Editor.prototype.goalFunction = new Function(goalString);
     }
+
+	Editor.prototype.goalFunction = new Function(goalString);
 
     return lineArray.join("\n");
 }
@@ -312,7 +315,7 @@ Editor.prototype.replacePanel = function(form) {
 }
 
 Editor.prototype.resetCode = function () {
-	this.loadCode(lvl);
+	this.loadCode(level);
 }
 
 

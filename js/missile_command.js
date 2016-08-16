@@ -16,7 +16,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 4,
+  level = 1,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -54,25 +54,25 @@ var initDebugLevel = function () {
 var initRefactLevel = function () {
 
     // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery( 35,  410 ) );
-    antiMissileBatteries.push( new AntiMissileBattery( 255, 410 ) );
-    antiMissileBatteries.push( new AntiMissileBattery( 475, 410 ) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
 }
 
 var initDesignLevel = function () {
     // Bottom left position of city
-    cities.push( new City( 80,  430 ) );
-    cities.push( new City( 130, 430 ) );
-    cities.push( new City( 180, 430 ) );
-    cities.push( new City( 300, 430 ) );
-    cities.push( new City( 350, 430 ) );
-    cities.push( new City( 400, 430 ) );
+    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
+    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
+    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
+    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
+    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
+    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 
     // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery( 35,  410 ) );
-    antiMissileBatteries.push( new AntiMissileBattery( 255, 410 ) );
-    antiMissileBatteries.push( new AntiMissileBattery( 475, 410 ) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
 }
 
