@@ -1,4 +1,5 @@
 // TODO collegare livelli gioco con livelli editor
+// TODO ad ogni livello bisogna caricare il file corrispondente
 
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
@@ -33,9 +34,13 @@ var missileCommand = function() {
     } else {
         initDebugLevel();
     }
+
+    setupListeners();
 };
 
 var initDebugLevel = function () {
+    cities = [];
+    antiMissileBatteries = [];
     // Bottom left position of city
     cities.push( new City( elementPos[3].x,  elementPos[3].y) );
     cities.push( new City( elementPos[4].x,  elementPos[4].y) );
@@ -52,7 +57,8 @@ var initDebugLevel = function () {
 }
 
 var initRefactLevel = function () {
-
+    cities = [];
+    antiMissileBatteries = [];
     // Top middle position of anti missile battery
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
@@ -61,6 +67,8 @@ var initRefactLevel = function () {
 }
 
 var initDesignLevel = function () {
+    cities = [];
+    antiMissileBatteries = [];
     // Bottom left position of city
     cities.push( new City( elementPos[3].x,  elementPos[3].y) );
     cities.push( new City( elementPos[4].x,  elementPos[4].y) );
@@ -626,9 +634,9 @@ setTimeout( setupNextLevel, 4000 );
 
 // Move to the next level
 var setupNextLevel = function() {
-level++;
-initializeLevel();
-setupListeners();
+    level++;
+    missileCommand();
+    editor.loadCode(level);
 };
 
 // Handle the end of the game

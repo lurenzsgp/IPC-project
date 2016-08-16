@@ -1,3 +1,5 @@
+var editor = {};
+
 $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
@@ -7,10 +9,9 @@ $(document).ready(function () {
 
 	// Missile Command
     missileCommand();
-    setupListeners();
 
 	// CodeMirror
-    var editor = new Editor();
+    editor = new Editor();
     editor.loadCode(level);
 
 	// CodeMirror: addon Panel
