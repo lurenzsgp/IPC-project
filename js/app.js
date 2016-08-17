@@ -4,15 +4,14 @@ $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
-    // variable
-    // var lvl = 4;
+	// CodeMirror
+    editor = new Editor();
+    editor.loadCode(level);
 
 	// Missile Command
     missileCommand();
 
-	// CodeMirror
-    editor = new Editor();
-    editor.loadCode(level);
+
 
 	// CodeMirror: addon Panel
 	editor.addPanel("bottom");

@@ -31,6 +31,6 @@ if (cities[0].x !== elementPos[3].x || cities[5].x !== elementPos[8].x) {
 }
 
 
-console.log("Ridisegno il livello");
-drawBeginLevel();
+console.log("Reinizializzo il livello");
+initializeLevel();
 #END_OF_GOAL_FUNCTION#

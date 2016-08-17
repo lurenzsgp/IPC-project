@@ -1,4 +1,5 @@
 // TODO controllare i punteggi
+// TODO controllare selezione della torretta che spara
 
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
@@ -16,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 1,
+  level = 5,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -53,17 +54,38 @@ var initDebugLevel = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
+};
+
+var initCities = function () {
+    return;
 }
 
 var initRefactLevel = function () {
     cities = [];
     antiMissileBatteries = [];
+
+    if (level === 4) {
+        initCities();
+    } else {
+        // Bottom left position of city
+        cities.push( new City( elementPos[3].x,  elementPos[3].y) );
+        cities.push( new City( elementPos[4].x,  elementPos[4].y) );
+        cities.push( new City( elementPos[5].x,  elementPos[5].y) );
+        cities.push( new City( elementPos[6].x,  elementPos[6].y) );
+        cities.push( new City( elementPos[7].x,  elementPos[7].y) );
+        cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+    }
     // Top middle position of anti missile battery
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+
     initializeLevel();
-}
+
+    if (level === 5) {
+        editor.execCode(true);
+    }
+};
 
 var initDesignLevel = function () {
     cities = [];
@@ -81,17 +103,21 @@ var initDesignLevel = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
-}
+};
+
+var rechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 10;
+    });
+};
 
 // Reset various variables at the start of a new level
 var initializeLevel = function() {
-$.each( antiMissileBatteries, function( index, amb ) {
-  amb.missilesLeft = 10;
-});
-playerMissiles = [];
-enemyMissiles = [];
-createEmemyMissiles();
-drawBeginLevel();
+    rechargeAntiMissileBatteries();
+    playerMissiles = [];
+    enemyMissiles = [];
+    createEmemyMissiles();
+    drawBeginLevel();
 };
 
 // Create a certain number of enemy missiles based on the game level
