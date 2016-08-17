@@ -5420,7 +5420,8 @@
   option("rtlMoveVisually", !windows);
   option("wholeLineUpdateBefore", true);
 
-  option("theme", "isotope", function(cm) {
+  //TEMA MONOKAI IMPOSTATO DA LUCA :)
+  option("theme", "monokai", function(cm) {
     themeChanged(cm);
     guttersChanged(cm);
   }, true);
