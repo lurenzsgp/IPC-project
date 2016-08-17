@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 5,
+  level = 6,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -122,11 +122,11 @@ var initializeLevel = function() {
 
 // Create a certain number of enemy missiles based on the game level
 var createEmemyMissiles = function() {
-var targets = viableTargets(),
-    numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
-for( var i = 0; i < numMissiles; i++ ) {
-  enemyMissiles.push( new EnemyMissile(targets) );
-}
+    var targets = viableTargets(),
+        numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
+    for( var i = 0; i < numMissiles; i++ ) {
+        enemyMissiles.push( new EnemyMissile(targets) );
+    }
 };
 
 // Get a random number between min and max, inclusive
@@ -444,21 +444,21 @@ if( this.state === MISSILE.active ){
 
 // Handle update to help with animating an explosion
 Missile.prototype.explode = function() {
-if( this.state === MISSILE.exploding ) {
-  this.explodeRadius++;
-}
-if( this.explodeRadius > 30 ) {
-  this.state = MISSILE.imploding;
-}
-if( this.state === MISSILE.imploding ) {
-  this.explodeRadius--;
-  if( this.groundExplosion ) {
-    ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
-  }
-}
-if( this.explodeRadius < 0 ) {
-  this.state = MISSILE.exploded;
-}
+    if( this.state === MISSILE.exploding ) {
+      this.explodeRadius++;
+    }
+    if( this.explodeRadius > 30 ) {
+      this.state = MISSILE.imploding;
+    }
+    if( this.state === MISSILE.imploding ) {
+      this.explodeRadius--;
+      if( this.groundExplosion ) {
+        ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
+      }
+    }
+    if( this.explodeRadius < 0 ) {
+      this.state = MISSILE.exploded;
+    }
 };
 
 // Calculate the missile speed
@@ -515,13 +515,13 @@ PlayerMissile.prototype.update = function() {
 
 // Create a missile that will be shot at indicated location
 var playerShoot = function( x, y ) {
-if( y >= 50 && y <= 370 ) {
-  var source = whichAntiMissileBattery( x );
-  if( source === -1 ){ // No missiles left
-    return;
-  }
-  playerMissiles.push( new PlayerMissile( source, x, y ) );
-}
+    if( y >= 50 && y <= 370 ) {
+      var source = whichAntiMissileBattery( x );
+      if( source === -1 ){ // No missiles left
+        return;
+      }
+      playerMissiles.push( new PlayerMissile( source, x, y ) );
+    }
 };
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile

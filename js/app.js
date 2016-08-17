@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 
 	// CodeMirror: addon Panel
-	editor.addPanel("bottom");
+	editor.addPanel("bottom", "Panel per feedback ad editor");
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
