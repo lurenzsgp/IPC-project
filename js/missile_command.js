@@ -1,4 +1,5 @@
 // TODO controllare i punteggi
+// TODO controllare selezione della torretta che spara
 
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
@@ -16,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 1,
+  level = 6,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -33,6 +34,7 @@ var missileCommand = function() {
     } else {
         initDebugLevel();
     }
+<<<<<<< HEAD
 
     setupListeners();
 };
@@ -76,31 +78,100 @@ var initDesignLevel = function () {
     cities.push( new City( elementPos[7].x,  elementPos[7].y) );
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 
+=======
+
+    setupListeners();
+};
+
+var initDebugLevel = function () {
+    cities = [];
+    antiMissileBatteries = [];
+    // Bottom left position of city
+    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
+    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
+    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
+    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
+    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
+    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+
     // Top middle position of anti missile battery
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
+};
+
+var initCities = function () {
+    return;
 }
+
+var initRefactLevel = function () {
+    cities = [];
+    antiMissileBatteries = [];
+
+    if (level === 4) {
+        initCities();
+    } else {
+        // Bottom left position of city
+        cities.push( new City( elementPos[3].x,  elementPos[3].y) );
+        cities.push( new City( elementPos[4].x,  elementPos[4].y) );
+        cities.push( new City( elementPos[5].x,  elementPos[5].y) );
+        cities.push( new City( elementPos[6].x,  elementPos[6].y) );
+        cities.push( new City( elementPos[7].x,  elementPos[7].y) );
+        cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+    }
+    // Top middle position of anti missile battery
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+
+    initializeLevel();
+
+    if (level === 5 || level === 6) {
+        editor.execCode(true);
+    }
+};
+
+var initDesignLevel = function () {
+    cities = [];
+    antiMissileBatteries = [];
+    // Bottom left position of city
+    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
+    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
+    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
+    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
+    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
+    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+
+    // Top middle position of anti missile battery
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+    initializeLevel();
+};
+
+var rechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 10;
+    });
+};
 
 // Reset various variables at the start of a new level
 var initializeLevel = function() {
-$.each( antiMissileBatteries, function( index, amb ) {
-  amb.missilesLeft = 10;
-});
-playerMissiles = [];
-enemyMissiles = [];
-createEmemyMissiles();
-drawBeginLevel();
+    rechargeAntiMissileBatteries();
+    playerMissiles = [];
+    enemyMissiles = [];
+    createEmemyMissiles();
+    drawBeginLevel();
 };
 
 // Create a certain number of enemy missiles based on the game level
 var createEmemyMissiles = function() {
-var targets = viableTargets(),
-    numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
-for( var i = 0; i < numMissiles; i++ ) {
-  enemyMissiles.push( new EnemyMissile(targets) );
-}
+    var targets = viableTargets(),
+        numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
+    for( var i = 0; i < numMissiles; i++ ) {
+        enemyMissiles.push( new EnemyMissile(targets) );
+    }
 };
 
 // Get a random number between min and max, inclusive
@@ -418,6 +489,7 @@ Missile.prototype.draw = function() {
 
 // Handle update to help with animating an explosion
 Missile.prototype.explode = function() {
+<<<<<<< HEAD
 	if( this.state === MISSILE.exploding ) {
 	  this.explodeRadius++;
 	}
@@ -546,13 +618,21 @@ Missile.prototype.explode = function() {
     if( this.state === MISSILE.imploding ) {
       this.explodeRadius--;
       if( this.groundExplosion ) {
-        ( this.target[2] instanceof City ) ? this.target[2].active = false
-                                        : this.target[2].missilesLeft = 0;
+        ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
       }
     }
     if( this.explodeRadius < 0 ) {
       this.state = MISSILE.exploded;
     }
+};
+
+// Calculate the missile speed
+var missileSpeed = function (xDistance, yDistance) {
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+
+    var distancePerFrame = 12;
+
+    return distance / distancePerFrame;
 };
 
 // Constructor for the Player's Missile, which is a subclass of Missile
@@ -563,21 +643,14 @@ function PlayerMissile( source, endX, endY ) {
 
     Missile.call( this, { startX: amb.x,  startY: amb.y,
                           endX: endX,     endY: endY,
-                          color: 'green', trailColor: '#33f' } );
+                          color: 'brown', trailColor: '#833' } );
 
     var xDistance = this.endX - this.startX,
         yDistance = this.endY - this.startY;
     // Determine a value to be used to scale the orthogonal directions
     // of travel so the missiles travel at a constant speed and in the
     // right direction
-    var scale = (function() {
-      var distance = Math.sqrt( Math.pow(xDistance, 2) +
-                                Math.pow(yDistance, 2) ),
-          // Make missile fired from central anti missile battery faster
-          distancePerFrame = ( source === 1 ) ? 20 : 12;
-
-      return distance / distancePerFrame;
-    })();
+    var scale = missileSpeed(xDistance, yDistance);
 
     this.dx = xDistance / scale;
     this.dy = yDistance / scale;
@@ -607,41 +680,41 @@ PlayerMissile.prototype.update = function() {
 
 // Create a missile that will be shot at indicated location
 var playerShoot = function( x, y ) {
-	if( y >= 50 && y <= 370 ) {
-	  var source = whichAntiMissileBattery( x );
-	  if( source === -1 ){ // No missiles left
-		return;
-	  }
-	  playerMissiles.push( new PlayerMissile( source, x, y ) );
-	}
+    if( y >= 50 && y <= 370 ) {
+      var source = whichAntiMissileBattery( x );
+      if( source === -1 ){ // No missiles left
+        return;
+      }
+      playerMissiles.push( new PlayerMissile( source, x, y ) );
+    }
 };
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
 function EnemyMissile( targets ) {
-	var startX = rand( 0, CANVAS_WIDTH ),
-		startY = -1,
-		// Create some variation in the speed of missiles
-		offSpeed = rand(80, 120) / 100,
-		// Randomly pick a target for this missile
-		target = targets[ rand(0, targets.length - 1) ],
-		framesToTarget;
+var startX = rand( 0, CANVAS_WIDTH ),
+    startY = -1,
+    // Create some variation in the speed of missiles
+    offSpeed = rand(80, 120) / 100,
+    // Randomly pick a target for this missile
+    target = targets[ rand(0, targets.length - 1) ],
+    framesToTarget;
 
-	Missile.call( this, { startX: startX,  startY: startY,
-						  endX: target[0], endY: target[1],
-						  color: 'yellow', trailColor: '#aaa' } );
+Missile.call( this, { startX: startX,  startY: startY,
+                      endX: target[0], endY: target[1],
+                      color: 'yellow', trailColor: '#aaa' } );
 
-	framesToTarget = ( 650 - 30 * level ) / offSpeed;
-	if( framesToTarget < 20 ) {
-	  framesToTarget = 20;
-	}
-	this.dx = ( this.endX - this.startX ) / framesToTarget;
-	this.dy = ( this.endY - this.startY ) / framesToTarget;
+framesToTarget = ( 650 - 30 * level ) / offSpeed;
+if( framesToTarget < 20 ) {
+  framesToTarget = 20;
+}
+this.dx = ( this.endX - this.startX ) / framesToTarget;
+this.dy = ( this.endY - this.startY ) / framesToTarget;
 
-	this.target = target;
-	// Make missiles heading to their target at random times
-	this.delay = rand( 0, 50 + level * 20 );
-	this.groundExplosion = false;
+this.target = target;
+// Make missiles heading to their target at random times
+this.delay = rand( 0, 50 + level * 20 );
+this.groundExplosion = false;
 }
 
 // Make EnemyMissile inherit from Missile
@@ -698,12 +771,12 @@ var viableTargets = function() {
 	  }
 	});
 
-	// Include all anti missile batteries
-	$.each( antiMissileBatteries, function( index, amb ) {
-	  targets.push( [amb.x, amb.y, amb]);
-	});
+// Include all anti missile batteries
+$.each( antiMissileBatteries, function( index, amb ) {
+  targets.push( [amb.x, amb.y, amb]);
+});
 
-	return targets;
+return targets;
 };
 
 // Operations to be performed on each game frame leading to the
@@ -737,7 +810,8 @@ var checkEndLevel = function() {
 var endLevel = function( missilesLeft, citiesSaved ) {
     var missilesBonus = missilesLeft * 5 * getMultiplier(),
         citiesBonus = citiesSaved * 100 * getMultiplier();
-
+    var nextLevel = true;
+    
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
 
@@ -749,16 +823,19 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     }, 2000 );
 
     if (citiesSaved !== 6) {
-        level--;
+        nextLevel = false;
+        console.log("Riprova, non devi perdere nessuna torretta");
     }
-    setTimeout( setupNextLevel, 4000 );
+    setTimeout( setupNextLevel, 4000, nextLevel );
 };
 
 // Move to the next level
-var setupNextLevel = function() {
-    level++;
+var setupNextLevel = function(next) {
+    if (next) {
+        level++;
+        editor.loadCode(level);
+    }
     missileCommand();
-    editor.loadCode(level);
 };
 
 // Handle the end of the game
@@ -771,11 +848,10 @@ var endGame = function( missilesLeft ) {
         // possibilita' di penalita' nel punteggio
         missileCommand();
         //   location.reload();
-
         });
     };
 
-// Get missiles left in all anti missile batteries at the end of a level
+    // Get missiles left in all anti missile batteries at the end of a level
 var totalMissilesLeft = function() {
     var total = 0;
     $.each( antiMissileBatteries, function(index, amb) {

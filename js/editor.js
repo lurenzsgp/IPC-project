@@ -94,12 +94,14 @@ Editor.prototype.getCode = function () {
 		l = l.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
 		codeLine.push(l);
 	}
+	var nLines = codeLine.length;
 	var body = codeLine.join(" ");
 
 	return {
 		name: fName,
 		args: argList,
-		body: body
+		body: body,
+		numLines: nLines
 	};
 }
 
@@ -266,7 +268,7 @@ Editor.prototype.updateEditableLinesOnDeletion = function(changeInput) {
 
 
 // addon Panels
-Editor.prototype.makePanel = function(where) {
+Editor.prototype.makePanel = function(where, text) {
 	var node = document.createElement("div");
 	var id = ++this.numPanels;
 	var localPanels = this.panels;
@@ -285,12 +287,12 @@ Editor.prototype.makePanel = function(where) {
 
 	this.panels = localPanels;
 	label = node.appendChild(document.createElement("span"));
-	label.textContent = "I'm panel n°" + id;
+	label.textContent = text;
 	return node;
 }
 
-Editor.prototype.addPanel = function(where) {
-	var node = this.makePanel(where);
+Editor.prototype.addPanel = function(where, text) {
+	var node = this.makePanel(where, text);
 	this.panels[node.id] = this.cm.addPanel(node, {position: where});
 }
 
@@ -305,6 +307,10 @@ Editor.prototype.replacePanel = function(form) {
 
 	this.panels[node.id] = this.cm.addPanel(node, {replace: panel, position: "after-top"});
 	return false;
+}
+
+Editor.prototype.resetCode = function () {
+	this.loadCode(level);
 }
 
 Editor.prototype.execCode = function (user) {
