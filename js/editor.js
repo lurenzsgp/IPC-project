@@ -22,6 +22,8 @@ var Editor = function () {
 		lineWrapping: true,
         mode: "javascript"
     });
+    this.numPanels = 0;
+    this.panels = {};
 
 	self = this;
 }
@@ -293,7 +295,6 @@ Editor.prototype.addPanel = function(where) {
 }
 
 Editor.prototype.updatePanels = function(id) {
-	console.log("Removing...");
 	this.panels[id].clear();
 }
 
