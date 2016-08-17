@@ -82,7 +82,7 @@ var initRefactLevel = function () {
 
     initializeLevel();
 
-    if (level === 5) {
+    if (level === 5 || level === 6) {
         editor.execCode(true);
     }
 };
