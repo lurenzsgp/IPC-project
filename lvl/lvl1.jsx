@@ -10,6 +10,16 @@ var missileSpeed = function (xDistance, yDistance) {
     return distance / distancePerFrame;
 };
 #START_OF_GOAL_FUNCTION#
+console.log("definisco la funzione corretta");
+var correctMissileSpeed = function (xDistance, yDistance) {
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+    var distancePerFrame = 15;
+    return distance / distancePerFrame;
+};
 
-console.log("goal function");
+console.log("confronto le 2 funzioni");
+if (correctMissileSpeed(100,100) > missileSpeed(100,100)) {
+    console.log("funzione settata ai parametri corretti");
+    missileSpeed = correctMissileSpeed;
+}
 #END_OF_GOAL_FUNCTION#
