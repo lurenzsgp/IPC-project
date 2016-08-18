@@ -72,9 +72,6 @@ Editor.prototype.getCode = function () {
 	while (line[0].indexOf('function') === -1) {
 		line.shift();
 	}
-// 	for (var s in line) {
-// 		console.log(line[s]);
-// 	}
 
 	// nome della funzione
 	var part = line[0].split(" ");

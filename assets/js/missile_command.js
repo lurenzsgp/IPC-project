@@ -53,48 +53,6 @@ var initDebugLevel = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
     initializeLevel();
-}
-
-var initRefactLevel = function () {
-    cities = [];
-    antiMissileBatteries = [];
-    // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
-    initializeLevel();
-}
-
-var initDesignLevel = function () {
-    cities = [];
-    antiMissileBatteries = [];
-    // Bottom left position of city
-    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
-    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
-    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
-    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
-    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
-    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
-
-    setupListeners();
-};
-
-var initDebugLevel = function () {
-    cities = [];
-    antiMissileBatteries = [];
-    // Bottom left position of city
-    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
-    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
-    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
-    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
-    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
-    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
-
-    // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
-    initializeLevel();
 };
 
 var initCities = function () {
@@ -199,185 +157,184 @@ var createBonusMissiles = function(n) {
 
 // Get a random number between min and max, inclusive
 var rand = function( min, max ) {
-return Math.floor( Math.random() * (max - min + 1) ) + min;
+    return Math.floor( Math.random() * (max - min + 1) ) + min;
 };
 
 // Show various graphics shown on most game screens
 var drawGameState = function() {
-drawBackground();
-drawCities();
-drawAntiMissileBatteries();
-drawScore();
+    drawBackground();
+    drawCities();
+    drawAntiMissileBatteries();
+    drawScore();
 };
 
 var drawBeginLevel = function() {
-drawGameState();
-drawLevelMessage();
+    drawGameState();
+    drawLevelMessage();
 };
 
 // Show current score
 var drawScore = function() {
-ctx.fillStyle = 'white';
-ctx.font =  '20px monaco, consolas';
-ctx.fillText( 'game.score = ' + score, 50, 25 );
+    ctx.fillStyle = 'white';
+    ctx.font =  '20px monaco, consolas';
+    ctx.fillText( 'game.score = ' + score, 50, 25 );
 };
 
 // Show message before a level begins
 var drawLevelMessage = function() {
-ctx.fillStyle = '#6d6';
-ctx.font =  '20px monaco, consolas';
-ctx.fillText( 'onclick(lvl.start())', 130, 150 );
-ctx.fillStyle = 'white';
-ctx.fillText( 'lvl == ' + level, 160, 180 );
+    ctx.fillStyle = '#6d6';
+    ctx.font =  '20px monaco, consolas';
+    ctx.fillText( 'onclick(lvl.start())', 130, 150 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( 'lvl == ' + level, 160, 180 );
 
-ctx.fillText( '' + getMultiplier(), 160, 215 );
-ctx.fillStyle = 'white';
-ctx.fillText( '  * points.count()', 160, 215 );
+    ctx.fillText( '' + getMultiplier(), 160, 215 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( '  * points.count()', 160, 215 );
 
-ctx.font = 'bold 20px monaco, consolas';
-ctx.fillStyle = '#d66';
-ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
-
+    ctx.font = 'bold 20px monaco, consolas';
+    ctx.fillStyle = '#d66';
+    ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
 };
 
 // Show bonus points at end of a level
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
-drawGameState();
-ctx.fillStyle = 'white';
-ctx.font = '20px monaco, consolas';
-ctx.fillText( 'BONUS POINTS', 150, 149 );
-ctx.fillStyle = 'white';
-ctx.fillText( '' + missilesBonus, 170, 213 );
-ctx.fillStyle = 'white';
-ctx.fillText( 'Missiles Left: ' + missilesLeft, 230, 213 );
-ctx.fillStyle = 'white';
-ctx.fillText( '' + citiesBonus, 170, 277 );
-ctx.fillStyle = 'white';
-ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
+    drawGameState();
+    ctx.fillStyle = 'white';
+    ctx.font = '20px monaco, consolas';
+    ctx.fillText( 'BONUS POINTS', 150, 149 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( '' + missilesBonus, 170, 213 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( 'Missiles Left: ' + missilesLeft, 230, 213 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( '' + citiesBonus, 170, 277 );
+    ctx.fillStyle = 'white';
+    ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 };
 
 // Show simple graphic at end of game
 var drawEndGame = function() {
-ctx.fillStyle = '#635e77';
-ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
+    ctx.fillStyle = '#635e77';
+    ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
-// Yellow hexagon
-ctx.fillStyle = '#a24a4a';
-ctx.beginPath();
-ctx.moveTo( 255, 30  );
-ctx.lineTo( 396, 89  );
-ctx.lineTo( 455, 230 );
-ctx.lineTo( 396, 371 );
-ctx.lineTo( 255, 430 );
-ctx.lineTo( 114, 371 );
-ctx.lineTo( 55,  230 );
-ctx.lineTo( 114, 89  );
-ctx.closePath();
-ctx.fill();
+    // Yellow hexagon
+    ctx.fillStyle = '#a24a4a';
+    ctx.beginPath();
+    ctx.moveTo( 255, 30  );
+    ctx.lineTo( 396, 89  );
+    ctx.lineTo( 455, 230 );
+    ctx.lineTo( 396, 371 );
+    ctx.lineTo( 255, 430 );
+    ctx.lineTo( 114, 371 );
+    ctx.lineTo( 55,  230 );
+    ctx.lineTo( 114, 89  );
+    ctx.closePath();
+    ctx.fill();
 
-ctx.fillStyle = 'white';
-ctx.font = '60px monaco, consolas';
-ctx.fillText( 'game == over', 70, 260 );
+    ctx.fillStyle = 'white';
+    ctx.font = '60px monaco, consolas';
+    ctx.fillText( 'game == over', 70, 260 );
 
-ctx.fillStyle = 'yellow';
-ctx.font = '26px monaco, consolas';
-ctx.fillText( 'game.score == ' + score, 80, 20 );
-ctx.fillText( 'onclick(game.restart())', 80, 458 );
+    ctx.fillStyle = 'yellow';
+    ctx.font = '26px monaco, consolas';
+    ctx.fillText( 'game.score == ' + score, 80, 20 );
+    ctx.fillText( 'onclick(game.restart())', 80, 458 );
 };
 
 // Draw all active cities
 var drawCities = function() {
-$.each( cities, function( index, city ) {
-  if( city.active ) {
-    city.draw();
-  }
-});
+    $.each( cities, function( index, city ) {
+      if( city.active ) {
+        city.draw();
+      }
+    });
 };
 
 // Draw missiles in all anti missile batteries
 var drawAntiMissileBatteries = function() {
-$.each( antiMissileBatteries, function( index, amb ) {
-  amb.draw();
-});
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.draw();
+    });
 };
 
 // Get the factor by which the score earned in a level will
 // be multiplied by (maximum factor of 6)
 var getMultiplier = function() {
-return ( level > 10 ) ? 6 : Math.floor( (level + 1) / 2 );
+    return ( level > 10 ) ? 6 : Math.floor( (level + 1) / 2 );
 };
 
 // Show the basic game background
 var drawBackground = function() {
-// Black background -> gradient sky
+    // Black background -> gradient sky
 
-var grd=ctx.createLinearGradient(0,1000,0,0);
-grd.addColorStop(0,"#a44");
-grd.addColorStop(1,"#134");
+    var grd=ctx.createLinearGradient(0,1000,0,0);
+    grd.addColorStop(0,"#a44");
+    grd.addColorStop(1,"#134");
 
-ctx.fillStyle = grd;
-ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
+    ctx.fillStyle = grd;
+    ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
 
-// Yellow area at bottom of screen for cities and
-// anti missile batteries
+    // Yellow area at bottom of screen for cities and
+    // anti missile batteries
 
 
-var grdd=ctx.createLinearGradient(0,340,0,550);
-grdd.addColorStop(0,"tan");
-grdd.addColorStop(1,"orange");
+    var grdd=ctx.createLinearGradient(0,340,0,550);
+    grdd.addColorStop(0,"tan");
+    grdd.addColorStop(1,"orange");
 
-ctx.fillStyle = grdd;
-ctx.beginPath();
-ctx.moveTo( 0, 460 );
-ctx.lineTo( 0,  430 );
-ctx.lineTo( 25, 410 );
-ctx.lineTo( 45, 410 );
-ctx.lineTo( 70, 430 );
-ctx.lineTo( 220, 430 );
-ctx.lineTo( 245, 410 );
-ctx.lineTo( 265, 410 );
-ctx.lineTo( 290, 430 );
-ctx.lineTo( 440, 430 );
-ctx.lineTo( 465, 410 );
-ctx.lineTo( 485, 410 );
-ctx.lineTo( 510, 430 );
-ctx.lineTo( 510, 460 );
-ctx.closePath();
-ctx.fill();
-//sand dunes shadows
-ctx.fillStyle = '#fdce7e';
-ctx.beginPath();
-ctx.lineTo( 0, 430 );
-ctx.lineTo( 25, 410 );
-ctx.lineTo( 35, 410 );
-ctx.lineTo( 60, 435);
-ctx.lineTo( 55, 440);
+    ctx.fillStyle = grdd;
+    ctx.beginPath();
+    ctx.moveTo( 0, 460 );
+    ctx.lineTo( 0,  430 );
+    ctx.lineTo( 25, 410 );
+    ctx.lineTo( 45, 410 );
+    ctx.lineTo( 70, 430 );
+    ctx.lineTo( 220, 430 );
+    ctx.lineTo( 245, 410 );
+    ctx.lineTo( 265, 410 );
+    ctx.lineTo( 290, 430 );
+    ctx.lineTo( 440, 430 );
+    ctx.lineTo( 465, 410 );
+    ctx.lineTo( 485, 410 );
+    ctx.lineTo( 510, 430 );
+    ctx.lineTo( 510, 460 );
+    ctx.closePath();
+    ctx.fill();
+    //sand dunes shadows
+    ctx.fillStyle = '#fdce7e';
+    ctx.beginPath();
+    ctx.lineTo( 0, 430 );
+    ctx.lineTo( 25, 410 );
+    ctx.lineTo( 35, 410 );
+    ctx.lineTo( 60, 435);
+    ctx.lineTo( 55, 440);
 
-ctx.lineTo( 0 ,440);
-ctx.closePath();
-ctx.fill();
+    ctx.lineTo( 0 ,440);
+    ctx.closePath();
+    ctx.fill();
 
-ctx.beginPath();
-ctx.lineTo( 70, 430 );
-ctx.lineTo( 220, 430 );
-ctx.lineTo( 245, 410 );
-ctx.lineTo( 255, 410 );
-ctx.lineTo( 280, 435 );
-ctx.lineTo( 275, 440 );
-ctx.lineTo( 85, 440 );
-ctx.closePath();
-ctx.fill();
+    ctx.beginPath();
+    ctx.lineTo( 70, 430 );
+    ctx.lineTo( 220, 430 );
+    ctx.lineTo( 245, 410 );
+    ctx.lineTo( 255, 410 );
+    ctx.lineTo( 280, 435 );
+    ctx.lineTo( 275, 440 );
+    ctx.lineTo( 85, 440 );
+    ctx.closePath();
+    ctx.fill();
 
-ctx.beginPath();
-ctx.lineTo( 290, 430 );
-ctx.lineTo( 440, 430 );
-ctx.lineTo( 465, 410 );
-ctx.lineTo( 475, 410 );
-ctx.lineTo( 500, 435 );
-ctx.lineTo( 495, 440 );
-ctx.lineTo( 305, 440 );
-ctx.closePath();
-ctx.fill();
+    ctx.beginPath();
+    ctx.lineTo( 290, 430 );
+    ctx.lineTo( 440, 430 );
+    ctx.lineTo( 465, 410 );
+    ctx.lineTo( 475, 410 );
+    ctx.lineTo( 500, 435 );
+    ctx.lineTo( 495, 440 );
+    ctx.lineTo( 305, 440 );
+    ctx.closePath();
+    ctx.fill();
 };
 
 
@@ -427,7 +384,7 @@ City.prototype.draw = function() {
 function AntiMissileBattery( x, y ) {
 	this.x = x;
 	this.y = y;
-	this.missilesLeft = 10;
+	this.missilesLeft = 1;
 }
 
 AntiMissileBattery.prototype.hasMissile = function() {
@@ -460,7 +417,6 @@ AntiMissileBattery.prototype.draw = function() {
 	  ctx.lineTo( x + 5, y + 5);
 	  ctx.closePath();
 	  ctx.fill();
-
 	}
 };
 
@@ -529,37 +485,6 @@ Missile.prototype.explode = function() {
 	}
 };
 
-// Calculate the missile speed
-var missileSpeed = function (xDistance, yDistance) {
-    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
-
-    var distancePerFrame = 12;
-
-    return distance / distancePerFrame;
-};
-
-// Constructor for the Player's Missile, which is a subclass of Missile
-// and uses Missile's constructor
-function PlayerMissile( source, endX, endY ) {
-    // Anti missile battery this missile will be fired from
-    var amb = antiMissileBatteries[source];
-
-    Missile.call( this, { startX: amb.x,  startY: amb.y,
-                          endX: endX,     endY: endY,
-                          color: 'brown', trailColor: '#833' } );
-
-    var xDistance = this.endX - this.startX,
-        yDistance = this.endY - this.startY;
-    // Determine a value to be used to scale the orthogonal directions
-    // of travel so the missiles travel at a constant speed and in the
-    // right direction
-    var scale = missileSpeed(xDistance, yDistance);
-
-    this.dx = xDistance / scale;
-    this.dy = yDistance / scale;
-    amb.missilesLeft--;
-}
-
 // Show the missiles left in an anti missile battery
 AntiMissileBattery.prototype.draw = function() {
     var x, y;
@@ -567,20 +492,20 @@ AntiMissileBattery.prototype.draw = function() {
                   [12, 12], [-18, 18], [-6, 18], [6, 18], [18, 18] ];
 
     for( var i = 0, len = this.missilesLeft; i < len; i++ ) {
-		  x = this.x + delta[i][0];
-		  y = this.y + delta[i][1];
+        x = this.x + delta[i][0];
+        y = this.y + delta[i][1];
 
-		  // Draw a missile
-		  ctx.strokeStyle = 'brown';
-		  ctx.lineWidth = 2;
-		  ctx.beginPath();
-		  ctx.moveTo( x, y );
-		  ctx.lineTo( x, y + 8 );
-		  ctx.moveTo( x - 2, y + 10 );
-		  ctx.lineTo( x - 2, y + 6 );
-		  ctx.moveTo( x + 2, y + 10 );
-		  ctx.lineTo( x + 2, y + 6 );
-		  ctx.stroke();
+        // Draw a missile
+        ctx.strokeStyle = 'brown';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo( x, y );
+        ctx.lineTo( x, y + 8 );
+        ctx.moveTo( x - 2, y + 10 );
+        ctx.lineTo( x - 2, y + 6 );
+        ctx.moveTo( x + 2, y + 10 );
+        ctx.lineTo( x + 2, y + 6 );
+        ctx.stroke();
     }
 };
 
@@ -908,7 +833,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     var missilesBonus = missilesLeft * 5 * getMultiplier(),
         citiesBonus = citiesSaved * 100 * getMultiplier();
     var nextLevel = true;
-    
+
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
 
@@ -940,11 +865,9 @@ var endGame = function( missilesLeft ) {
     score += missilesLeft * 5 * getMultiplier();
     drawEndGame();
 
-    //TODO modificare in base alla dinamica di gioco scelta
     $( '#mc-container' ).one( 'click', function() {
         // possibilita' di penalita' nel punteggio
         missileCommand();
-        //   location.reload();
         });
     };
 
