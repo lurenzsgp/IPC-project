@@ -76,8 +76,6 @@ var initDesignLevel = function () {
     cities.push( new City( elementPos[7].x,  elementPos[7].y) );
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 
-=======
-
     setupListeners();
 };
 

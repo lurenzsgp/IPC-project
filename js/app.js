@@ -50,7 +50,4 @@ $(document).ready(function () {
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(true, editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
-
-    missileCommand.initialize();
-    missileCommand.setupListeners();
 });
