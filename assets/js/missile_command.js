@@ -109,12 +109,17 @@ var initDesignLevel = function () {
         }
     }
 
-    initializeLevel();
-
     if (level >= 8) {
-    // TODO diminuire il numero di missili disponibili inizialmente delle postazioni antimissilistiche
-        createBonusMissiles(2);
+        initializeHandicapLevel();
+    } else {
+        initializeLevel();
     }
+};
+
+var handicapRechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 5;
+    });
 };
 
 var penaltyRechargeAntiMissileBatteries = function () {
@@ -135,6 +140,16 @@ var initializeLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
+    drawBeginLevel();
+};
+
+// Reset various variables at the start of a new level
+var initializeHandicapLevel = function() {
+    handicapRechargeAntiMissileBatteries();
+    playerMissiles = [];
+    enemyMissiles = [];
+    createEmemyMissiles();
+    createBonusMissiles(2);
     drawBeginLevel();
 };
 
