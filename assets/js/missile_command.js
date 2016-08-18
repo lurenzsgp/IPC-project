@@ -466,25 +466,6 @@ Missile.prototype.draw = function() {
 	}
 };
 
-// Handle update to help with animating an explosion
-Missile.prototype.explode = function() {
-	if( this.state === MISSILE.exploding ) {
-	  this.explodeRadius++;
-	}
-	if( this.explodeRadius > 30 ) {
-	  this.state = MISSILE.imploding;
-	}
-	if( this.state === MISSILE.imploding ) {
-	  this.explodeRadius--;
-	  if( this.groundExplosion ) {
-		( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
-	  }
-	}
-	if( this.explodeRadius < 0 ) {
-	  this.state = MISSILE.exploded;
-	}
-};
-
 // Show the missiles left in an anti missile battery
 AntiMissileBattery.prototype.draw = function() {
     var x, y;
@@ -566,6 +547,7 @@ Missile.prototype.explode = function() {
         this.explodeRadius--;
         if( this.groundExplosion ) {
             if ( this instanceof BonusMissile) {
+                console.log("missileBonus");
                 this.bonus();
             } else {
                 ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
