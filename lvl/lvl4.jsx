@@ -30,7 +30,6 @@ if (cities[0].x !== elementPos[3].x || cities[5].x !== elementPos[8].x) {
     return;
 }
 
-
 console.log("Reinizializzo il livello");
 initializeLevel();
 #END_OF_GOAL_FUNCTION#

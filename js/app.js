@@ -11,8 +11,6 @@ $(document).ready(function () {
 	// Missile Command
     missileCommand();
 
-
-
 	// CodeMirror: addon Panel
 	editor.addPanel("bottom", "Panel per feedback ad editor");
 
@@ -53,4 +51,6 @@ $(document).ready(function () {
     $("#ButtonExecCode").click(true, editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
 
+    missileCommand.initialize();
+    missileCommand.setupListeners();
 });
