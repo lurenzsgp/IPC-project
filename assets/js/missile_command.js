@@ -111,7 +111,7 @@ var initDesignLevel = function () {
 
     initializeLevel();
 
-    if (level > 8) {
+    if (level >= 8) {
     // TODO diminuire il numero di missili disponibili inizialmente delle postazioni antimissilistiche
         createBonusMissiles(2);
     }
@@ -547,7 +547,6 @@ Missile.prototype.explode = function() {
         this.explodeRadius--;
         if( this.groundExplosion ) {
             if ( this instanceof BonusMissile) {
-                console.log("missileBonus");
                 this.bonus();
             } else {
                 ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
