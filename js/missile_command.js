@@ -1,5 +1,4 @@
 // TODO controllare i punteggi
-// TODO controllare selezione della torretta che spara
 
 // Missile Command
 var canvas = document.querySelector( 'canvas' ),
@@ -17,13 +16,13 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 7,
+  level = 8,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
   enemyMissiles = [],
   timerID;
-var elementPos = [{x: 35, y:410}, {x: 475, y:410}, {x: 255, y:410},
+var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
 // Create cities and anti missile batteries at the start of the game
 var missileCommand = function() {
@@ -111,6 +110,11 @@ var initDesignLevel = function () {
     }
 
     initializeLevel();
+
+    if (level > 8) {
+    // TODO diminuire il numero di missili disponibili inizialmente delle postazioni antimissilistiche
+        createBonusMissiles(2);
+    }
 };
 
 var penaltyRechargeAntiMissileBatteries = function () {
@@ -140,6 +144,14 @@ var createEmemyMissiles = function() {
         numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
     for( var i = 0; i < numMissiles; i++ ) {
         enemyMissiles.push( new EnemyMissile(targets) );
+    }
+};
+
+// Create a certain number of bonus missiles
+var createBonusMissiles = function(n) {
+    var targets = viableTargets();
+    for( var i = 0; i < n; i++ ) {
+        enemyMissiles.push( new BonusMissile(targets) );
     }
 };
 
@@ -459,19 +471,23 @@ if( this.state === MISSILE.active ){
 // Handle update to help with animating an explosion
 Missile.prototype.explode = function() {
     if( this.state === MISSILE.exploding ) {
-      this.explodeRadius++;
+        this.explodeRadius++;
     }
     if( this.explodeRadius > 30 ) {
-      this.state = MISSILE.imploding;
+        this.state = MISSILE.imploding;
     }
     if( this.state === MISSILE.imploding ) {
-      this.explodeRadius--;
-      if( this.groundExplosion ) {
-        ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
-      }
+        this.explodeRadius--;
+        if( this.groundExplosion ) {
+            if ( this instanceof BonusMissile) {
+                this.bonus();
+            } else {
+                ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
+            }
+        }
     }
     if( this.explodeRadius < 0 ) {
-      this.state = MISSILE.exploded;
+        this.state = MISSILE.exploded;
     }
 };
 
@@ -598,14 +614,14 @@ function BonusMissile( targets ) {
     var startX = rand( 0, CANVAS_WIDTH ),
         startY = -1,
         // Create some variation in the speed of missiles
-        offSpeed = rand(80, 120) / 100,
+        offSpeed = rand(200, 250) / 100,
         // Randomly pick a target for this missile
         target = targets[ rand(0, targets.length - 1) ],
         framesToTarget;
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'yellow', trailColor: '#aaa' } );
+                          color: 'blue', trailColor: '#00ffff' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {
@@ -613,11 +629,54 @@ function BonusMissile( targets ) {
     }
     this.dx = ( this.endX - this.startX ) / framesToTarget;
     this.dy = ( this.endY - this.startY ) / framesToTarget;
-
+    this.bonuscatched = false;
     this.target = target;
     // Make missiles heading to their target at random times
-    this.delay = rand( 0, 50 + level * 20 );
+    this.delay = 20 + rand( 0, 50 + level * 20 );
     this.groundExplosion = false;
+}
+
+// Make BonusMissile inherit from Missile
+BonusMissile.prototype = Object.create( Missile.prototype );
+BonusMissile.prototype.constructor = BonusMissile;
+
+// Update the location and/or state of an enemy missile.
+// The missile doesn't begin it's flight until its delay is past.
+BonusMissile.prototype.update = function() {
+    if( this.delay ) {
+      this.delay--;
+      return;
+    }
+    if( this.state === MISSILE.active && this.y >= this.endY ) {
+      // Missile has hit a ground target (City or Anti Missile Battery)
+      this.x = this.endX;
+      this.y = this.endY;
+      this.state = MISSILE.exploding;
+      this.groundExplosion = true;
+    }
+    if( this.state === MISSILE.active ) {
+      this.x += this.dx;
+      this.y += this.dy;
+    } else {
+      this.explode();
+    }
+};
+
+BonusMissile.prototype.bonus = function () {
+    if (!this.bonuscatched) {
+        this.bonuscatched = true;
+        // bonus in punti
+        addMissile(3);
+    }
+}
+
+var addMissile = function (n) {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft += n;
+      if (amb.missilesLeft > 10) {
+          amb.missilesLeft = 10;
+      }
+    });
 }
 
 // When a missile that did not hit the ground is exploding, check if
@@ -639,21 +698,21 @@ if( !missile.groundExplosion ){
 // selected here may not be attacked, but no target other than those
 // selected here will be attacked in a game level.
 var viableTargets = function() {
-var targets = [];
+    var targets = [];
 
-// Include all active cities
-$.each( cities, function( index, city ) {
-  if( city.active ) {
-    targets.push( [city.x + 15, city.y - 10, city] );
-  }
-});
+    // Include all active cities
+    $.each( cities, function( index, city ) {
+      if( city.active ) {
+        targets.push( [city.x + 15, city.y - 10, city] );
+      }
+    });
 
-// Include all anti missile batteries
-$.each( antiMissileBatteries, function( index, amb ) {
-  targets.push( [amb.x, amb.y, amb]);
-});
+    // Include all anti missile batteries
+    $.each( antiMissileBatteries, function( index, amb ) {
+      targets.push( [amb.x, amb.y, amb]);
+    });
 
-return targets;
+    return targets;
 };
 
 // Operations to be performed on each game frame leading to the
