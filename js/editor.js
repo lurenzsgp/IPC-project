@@ -3,8 +3,6 @@ var self;
 
 var Editor = function () {
     // variables
-	this.panels = {};
-	this.numPanels = 0;
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
@@ -24,6 +22,8 @@ var Editor = function () {
 		lineWrapping: true,
         mode: "javascript"
     });
+    this.numPanels = 0;
+    this.panels = {};
 
 	self = this;
 }
@@ -31,14 +31,6 @@ var Editor = function () {
 // functions
 Editor.prototype.resize = function (h,w) {
     this.cm.setSize(w,h);
-}
-
-Editor.prototype.setHeight = function(h) {
-    this.cm.setSize(this.cm.width, h);
-}
-
-Editor.prototype.setWidth = function(w) {
-    this.cm.setSize(w, this.cm.height);
 }
 
 Editor.prototype.loadCode = function (lvl) {
@@ -306,7 +298,6 @@ Editor.prototype.addPanel = function(where, text) {
 }
 
 Editor.prototype.updatePanels = function(id) {
-	console.log("Removing...");
 	this.panels[id].clear();
 }
 
@@ -322,7 +313,6 @@ Editor.prototype.replacePanel = function(form) {
 Editor.prototype.resetCode = function () {
 	this.loadCode(level);
 }
-
 
 Editor.prototype.execCode = function (user) {
 	// leggi il codice dall'editor e sostituiscilo all'interno di missile command
