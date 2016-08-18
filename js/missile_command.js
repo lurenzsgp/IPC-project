@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 6,
+  level = 7,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -102,7 +102,21 @@ var initDesignLevel = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+
+    if (level === 7) {
+        var f = editor.getCode();
+        if (f.body.indexOf("antiMissileBatteries") === -1 || f.body.indexOf("missilesLeft") === -1) {
+            rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+        }
+    }
+
     initializeLevel();
+};
+
+var penaltyRechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 1;
+    });
 };
 
 var rechargeAntiMissileBatteries = function () {
@@ -359,7 +373,7 @@ ctx.fill();
 function AntiMissileBattery( x, y ) {
 this.x = x;
 this.y = y;
-this.missilesLeft = 10;
+this.missilesLeft = 0;
 }
 
 AntiMissileBattery.prototype.hasMissile = function() {
@@ -527,29 +541,29 @@ var playerShoot = function( x, y ) {
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
 function EnemyMissile( targets ) {
-var startX = rand( 0, CANVAS_WIDTH ),
-    startY = -1,
-    // Create some variation in the speed of missiles
-    offSpeed = rand(80, 120) / 100,
-    // Randomly pick a target for this missile
-    target = targets[ rand(0, targets.length - 1) ],
-    framesToTarget;
+    var startX = rand( 0, CANVAS_WIDTH ),
+        startY = -1,
+        // Create some variation in the speed of missiles
+        offSpeed = rand(80, 160) / 100,
+        // Randomly pick a target for this missile
+        target = targets[ rand(0, targets.length - 1) ],
+        framesToTarget;
 
-Missile.call( this, { startX: startX,  startY: startY,
-                      endX: target[0], endY: target[1],
-                      color: 'yellow', trailColor: '#aaa' } );
+    Missile.call( this, { startX: startX,  startY: startY,
+                          endX: target[0], endY: target[1],
+                          color: 'yellow', trailColor: '#aaa' } );
 
-framesToTarget = ( 650 - 30 * level ) / offSpeed;
-if( framesToTarget < 20 ) {
-  framesToTarget = 20;
-}
-this.dx = ( this.endX - this.startX ) / framesToTarget;
-this.dy = ( this.endY - this.startY ) / framesToTarget;
+    framesToTarget = ( 650 - 30 * level ) / offSpeed;
+    if( framesToTarget < 20 ) {
+      framesToTarget = 20;
+    }
+    this.dx = ( this.endX - this.startX ) / framesToTarget;
+    this.dy = ( this.endY - this.startY ) / framesToTarget;
 
-this.target = target;
-// Make missiles heading to their target at random times
-this.delay = rand( 0, 50 + level * 20 );
-this.groundExplosion = false;
+    this.target = target;
+    // Make missiles heading to their target at random times
+    this.delay = rand( 0, 50 + level * 20 );
+    this.groundExplosion = false;
 }
 
 // Make EnemyMissile inherit from Missile
@@ -559,24 +573,52 @@ EnemyMissile.prototype.constructor = EnemyMissile;
 // Update the location and/or state of an enemy missile.
 // The missile doesn't begin it's flight until its delay is past.
 EnemyMissile.prototype.update = function() {
-if( this.delay ) {
-  this.delay--;
-  return;
-}
-if( this.state === MISSILE.active && this.y >= this.endY ) {
-  // Missile has hit a ground target (City or Anti Missile Battery)
-  this.x = this.endX;
-  this.y = this.endY;
-  this.state = MISSILE.exploding;
-  this.groundExplosion = true;
-}
-if( this.state === MISSILE.active ) {
-  this.x += this.dx;
-  this.y += this.dy;
-} else {
-  this.explode();
-}
+    if( this.delay ) {
+      this.delay--;
+      return;
+    }
+    if( this.state === MISSILE.active && this.y >= this.endY ) {
+      // Missile has hit a ground target (City or Anti Missile Battery)
+      this.x = this.endX;
+      this.y = this.endY;
+      this.state = MISSILE.exploding;
+      this.groundExplosion = true;
+    }
+    if( this.state === MISSILE.active ) {
+      this.x += this.dx;
+      this.y += this.dy;
+    } else {
+      this.explode();
+    }
 };
+
+// Constructor for the Bonus's Missile, which is a subclass of Missile
+// and uses Missile's constructor
+function BonusMissile( targets ) {
+    var startX = rand( 0, CANVAS_WIDTH ),
+        startY = -1,
+        // Create some variation in the speed of missiles
+        offSpeed = rand(80, 120) / 100,
+        // Randomly pick a target for this missile
+        target = targets[ rand(0, targets.length - 1) ],
+        framesToTarget;
+
+    Missile.call( this, { startX: startX,  startY: startY,
+                          endX: target[0], endY: target[1],
+                          color: 'yellow', trailColor: '#aaa' } );
+
+    framesToTarget = ( 650 - 30 * level ) / offSpeed;
+    if( framesToTarget < 20 ) {
+      framesToTarget = 20;
+    }
+    this.dx = ( this.endX - this.startX ) / framesToTarget;
+    this.dy = ( this.endY - this.startY ) / framesToTarget;
+
+    this.target = target;
+    // Make missiles heading to their target at random times
+    this.delay = rand( 0, 50 + level * 20 );
+    this.groundExplosion = false;
+}
 
 // When a missile that did not hit the ground is exploding, check if
 // any enemy missile is in the explosion radius; if so, cause that
