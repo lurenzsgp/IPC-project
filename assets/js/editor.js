@@ -158,7 +158,7 @@ Editor.prototype.preprocessor = function (code) {
 	Editor.prototype.goalFunction = new Function(goalString);
 
     return lineArray.join("\n");
-}
+};
 
 // editable line
 Editor.prototype.findEndOfSegment = function(line) {
@@ -264,7 +264,6 @@ Editor.prototype.updateEditableLinesOnDeletion = function(changeInput) {
     this.editableLines = shiftLinesBy(this.editableLines, editableSegmentEnd, -numRemoved);
 };
 
-
 // addon Panels
 Editor.prototype.makePanel = function(where, text) {
 	var node = document.createElement("div");
@@ -311,6 +310,7 @@ Editor.prototype.resetCode = function () {
 	this.loadCode(level);
 }
 
+// Rende eseguibile la funzione scritta nell'editor e poi esegue la goal function
 Editor.prototype.execCode = function (user) {
 	// leggi il codice dall'editor e sostituiscilo all'interno di missile command
 	var f = this.getCode();

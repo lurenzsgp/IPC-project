@@ -1,16 +1,40 @@
 // Ormai sono tanti giorni che siamo in guerra. Abbiamo distribuito i missili rimasti tra le postazioni antimissilistiche. I rifornimenti stanno arrivando dal cielo, attento a non farli esplodere
 // Create a certain number of bonus missiles
-var createBonusMissiles = function(n) {
-#BEGIN_EDITABLE#
+var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
-    for( var i = 0; i < n; i++ ) {
-        enemyMissiles.push( new BonusMissile(targets) );
-    }
+#BEGIN_EDITABLE#
+    /* aggiungi numberOfMissiles missili bonus al vettore enemyMissiles usando il costruttore BonusMissile(targets) puoi aggiungere elementi a un vettore attraverso il metodo push(elemento) */
+
 #END_EDITABLE#
 };
 
 
 #START_OF_GOAL_FUNCTION#
-// TODO controllare il numero di missili bonus creati all'interno dell'array enemyMissiles
+var penaltyCreateBonusMissiles = function(n) {
+    return;
+};
 
+console.log("Controllo che il numero di missili sia in funzione del parametro");
+var f = editor.getCode();
+if (f.body.indexOf("numberOfMissiles") === -1) {
+    console.log("Devi utilizzare il parametro passato!!!");
+    createBonusMissiles = penaltyCreateBonusMissiles;
+}
+
+console.log("Controllo il numero di missili bonus creati");
+enemyMissiles = [];
+createBonusMissiles(2);
+var count = 0;
+$.each(enemyMissiles, function ( index, missile) {
+    if (missile instanceof BonusMissile) {
+        count ++;
+    }
+});
+
+if (count > 3) {
+    console.log("Hai aggiunto troppi missili bonus!!!");
+    createBonusMissiles = penaltyCreateBonusMissiles;
+}
+
+initializeHandicapLevel();
 #END_OF_GOAL_FUNCTION#
