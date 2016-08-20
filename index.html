@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Il Deserto dei Barbari</title>
-		<link rel="icon" href="assets/img/logo.png" type="image/png">		
+		
+		<link rel="icon" type="image/png" href="assets/img/logo.png" >		
 		
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
@@ -36,32 +37,31 @@
 	</head>
 
 	<body>
-		<div class="main-panel">
-			<nav class="navbar navbar-default navbar-inverse">
-				<div class="container">
-					<div class="navbar-header">
-						
-						<a class="navbar-brand" href="#">
-							<img alt="Brand" src="assets/img/logo.png">Il Deserto dei Barbari
-						</a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<a href="#" data-toggle="modal" data-target="#accountModal">
-									<i class="fa fa-user" aria-hidden="true"></i> Profilo
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-sign-out" aria-hidden="true"></i> Log out
-								</a>
-							</li>
-						</ul>
-					</div>
+		<!-- navbar -->
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container">
+
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">
+						<img alt="Logo" src="assets/img/logo.png">
+					</a>
 				</div>
-			</nav>
-		</div>
+				
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="#" data-toggle="modal" data-target="#accountModal">
+							<i class="fa fa-user" aria-hidden="true"></i> 
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+						</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
 
 		<!-- BRIEFING Modal -->
 		<div class="modal fade" id="briefingModal" tabindex="-1" role="dialog" aria-labelledby="briefingModalLabel">
