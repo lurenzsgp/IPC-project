@@ -16,12 +16,15 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 8,
+  level = 9,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
   enemyMissiles = [],
   timerID;
+
+var contrAerea;
+
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
 // Create cities and anti missile batteries at the start of the game
@@ -110,6 +113,9 @@ var initDesignLevel = function () {
     }
 
     if (level >= 8) {
+        if (level === 9) {
+            contrAerea = new AutoAntiMissileDefense();
+        }
         initializeHandicapLevel();
     } else {
         initializeLevel();
@@ -151,12 +157,15 @@ var initializeHandicapLevel = function() {
     createEmemyMissiles();
     createBonusMissiles(2);
     drawBeginLevel();
+    if (isDefined(contrAerea)) {
+        contrAerea.initialize();
+    }
 };
 
 // Create a certain number of enemy missiles based on the game level
 var createEmemyMissiles = function() {
     var targets = viableTargets(),
-        numMissiles = ( (level + 14) < 30 ) ? level + 14 : 30;
+        numMissiles = ( level !== 9 ) ? level + 14 : 30;
     for( var i = 0; i < numMissiles; i++ ) {
         enemyMissiles.push( new EnemyMissile(targets) );
     }
@@ -636,6 +645,61 @@ var playerShoot = function( x, y ) {
     }
 };
 
+// Costruttore del sistema di difesa automatica verso i missili nemici
+function AutoAntiMissileDefense () {
+    this.whatchedMissiles = [];
+    this.pointedMissiles = [];
+};
+
+// Inizializza i parametri
+AutoAntiMissileDefense.prototype.initialize = function () {
+    this.whatchedMissiles = [];
+    this.pointedMissiles = [];
+};
+
+// Seleziona i missili idonei per essere colpiti
+AutoAntiMissileDefense.prototype.detectMissile = function () {
+    $.each(enemyMissiles, (function (index, missile) {
+        if (missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
+            this.whatchedMissiles.push(missile);
+            console.log("missile visto");
+            // console.log(this.whatchedMissiles);
+            // console.log(this.pointedMissiles);
+        }
+    }).bind(this));
+};
+
+// Prepara il missile da lanciare contro i missili nemici
+AutoAntiMissileDefense.prototype.shoot = function () {
+    this.detectMissile();
+
+    $.each(this.whatchedMissiles, (function (index, missile) {
+        if (!isDefined(missile) || missile.state !== MISSILE.active) {
+            return;
+        }
+        // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
+        var source = whichAntiMissileBattery( missile.endX );
+        if( source === -1 ){ // No missiles left
+            return;
+        } else {
+            this.whatchedMissiles.splice(index, 1);
+            this.pointedMissiles.push(missile);
+        }
+
+        // TODO il missile e' sparato nella direzione giusta ma fuori schermo
+        // Risolvo il sistema per trovare il punto in cui si incontreranno i 2 missile dopo lo stesso tempo di volo
+        var a = - Math.pow(12,2) + Math.pow(missile.dx,2) + Math.pow(missile.dy,2);
+        var b = (2 * missile.x * missile.dx) + (2 * missile.y * missile.dy) - (2 * missile.dx * antiMissileBatteries[source].x) - (2 * missile.y * antiMissileBatteries[source].y);
+        var c = Math.pow(missile.x,2) + Math.pow(missile.y,2) + Math.pow(antiMissileBatteries[source].x,2) + Math.pow(antiMissileBatteries[source].y,2) - (2 * antiMissileBatteries[source].x * missile.x) - (2 * missile.y * antiMissileBatteries[source].y);
+        var nf = - b - Math.sqrt(Math.pow(b,2) - (4 * a * c));
+
+        var xShoot = missile.x + missile.dx * nf;
+        var yShoot = missile.y + missile.dy * nf;
+        playerMissiles.push( new PlayerMissile( source, xShoot, yShoot ) );
+        console.log("missile sparato");
+    }).bind(this));
+};
+
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
 function EnemyMissile( targets ) {
@@ -800,6 +864,9 @@ var viableTargets = function() {
 // Operations to be performed on each game frame leading to the
 // game animation
 var nextFrame = function() {
+    if (isDefined(contrAerea)) {
+        contrAerea.shoot();
+    }
 	drawGameState();
 	updateEnemyMissiles();
 	drawEnemyMissiles();
@@ -997,4 +1064,9 @@ function getMousePos(canvas, evt){
     x: evt.clientX - rect.left,
     y: evt.clientY - rect.top
   }
-}
+};
+
+function isDefined (x) {
+    var undef;
+    return x !== undef;
+};
