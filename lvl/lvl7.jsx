@@ -1,4 +1,6 @@
-// Funzione per la ricarica dei missili nell postazioni antimissilistiche. Il vettore antiMissileBatteries e' composto dalle 3 postazioni antimissilistiche. Inizializza a 10 il campo missilesLeft di ogni elemento del vettore.
+// Funzione per la ricarica dei missili nelle postazioni antimissilistiche.
+// Il vettore antiMissileBatteries e' composto dalle 3 postazioni antimissilistiche.
+// Inizializza a 10 il campo missilesLeft di ogni elemento del vettore.
 var rechargeAntiMissileBatteries = function () {
 #BEGIN_EDITABLE#
 
