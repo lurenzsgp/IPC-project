@@ -23,7 +23,7 @@ if (f.body.indexOf("numberOfMissiles") === -1) {
 
 console.log("Controllo il numero di missili bonus creati");
 enemyMissiles = [];
-createBonusMissiles(2);
+createBonusMissiles(3);
 var count = 0;
 $.each(enemyMissiles, function ( index, missile) {
     if (missile instanceof BonusMissile) {

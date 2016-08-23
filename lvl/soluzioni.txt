@@ -1,0 +1,125 @@
+Livello 1
+i missili sono troppo lenti.
+bisogna correggere la velocita' all'interno della funzione missileSpeed
+
+Soluzione
+cambiare il valore di distancePerFrame con 12. ogni valore superiore e' sostituito con 12.
+var missileSpeed = function (xDistance, yDistance) {
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+    var distancePerFrame = SPEEDMISSILEDEFENSE;
+    return distance / distancePerFrame;
+};
+
+Livello 2
+Nella notte il sistema di puntamento dei missili e' stato corrotto.
+trova l'errore e correggiolo
+
+Soluzione
+rimuovere il codice in eccesso dalla chiamata del costruttore del PlayerMissile
+var playerShoot = function( x, y ) {
+  if( y >= 50 && y <= 370 ) {
+    var source = whichAntiMissileBattery( x );
+    if( source === -1 ){
+      return;
+    }
+	playerMissiles.push( new PlayerMissile(source, x, y));
+  }
+};
+
+Livello 3
+Durante il temporale di ieri le nostre munizioni non erano state coperte e ora non esplodono piu.
+cerca una soluzione
+
+Soluzione
+togliere i commenti che includono l'ultimo else e controllare i ;
+PlayerMissile.prototype.update = function() {
+    if( this.state === MISSILE.active && this.y <= this.endY ) {
+      this.x = this.endX;
+      this.y = this.endY;
+      this.state = MISSILE.exploding;
+    }
+    if( this.state === MISSILE.active ) {
+      this.x += this.dx;
+      this.y += this.dy;
+  } else {
+      this.explode();
+    }
+};
+
+Livello 4
+Stanotte durante un attacco a sorpresa abbiamo perso 5 citta'. devi ricostruirle piu' in fretta possibile
+
+Soluzione
+Si deve scrivere un ciclo for che aggiunga al vettore cities nuove citta'.
+si controlla la presenza della parola for, che le citta' siano 6 e che siano posizionate correttamente secondo le coordinate contenute in elementPos.
+var initCities = function () {
+    /* Le coordinate delle citta' sono definite nel vettore elementPos
+       dal 4º elemento in poi. */
+    for (var i=3; i<elementPos.length; i++) {
+        cities.push( new City( elementPos[i].x,  elementPos[i].y) );
+    }
+};
+
+Livello 5
+il codice del sistemo missilistico e' vecchio e lento, riscrivilo per evitare pause turante il combbattimento.
+
+Soluzione
+rimuovere i cicli che hanno il solo scopo di rallentare l'esecuzione
+AntiMissileBattery.prototype.hasMissile = function() {
+    var rocket = false;
+    rocket = !!this.missilesLeft;
+    return rocket;
+};
+
+Livello 6
+Dopo l'ultimo attacco hanno danneggiato i nostri hard drive. abbiamo una copia del sistema, ma e' troppo grande per essere memorizzata nelle memoria che abbiamo rimediato nella base. riscrivi il codice in modo da diminuire le sue dimensioni.
+
+Soluzione
+Eliminare le righe inutile e ridurre la lunghezza del corpo della funzione.
+Il corpo della funzione non puo' superare le 7 righe.
+si controlla anche che le coordinate non siano variate.
+var playerShoot = function( x, y ) {
+    var source = whichAntiMissileBattery( x );
+    if( source === -1 ){ // No missiles left
+      return;
+    }
+    if( y <= 370 && y >= 50 ) {
+            playerMissiles.push( new PlayerMissile( source, x, y ) );
+    }
+};
+
+Livello 7
+sono arrivate le munizioni per la giornata ma i magazzinieri sono in sciopero. programma questo drone per rifornire di missili le postazioni di difesa.
+
+Soluzione
+bisogna scrivere il corpo della funzione in moda da modificare il valore del campo missilesLeft degli elementi contenuti nel vettore antiMissileBatteries composto da 3 elementi.
+Si controlla la presenza delle parole antiMissileBatteries e missilesLeft nel testo e il numero di missili per postazione antimissilistica
+sono accette tutte le soluzioni che soddisfano i vincoli detti sopra e permettono di superare il livello.
+var rechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 10;
+    });
+};
+
+Livello 8
+Ormai sono tanti giorni che siamo in guerra. Abbiamo distribuito i missili rimasti tra le postazioni antimissilistiche. I rifornimenti stanno arrivando dal cielo, attento a non farli esplodere
+aggiungi numberOfMissiles missili bonus al vettore enemyMissiles usando il costruttore BonusMissile(targets) puoi aggiungere elementi a un vettore attraverso il metodo push(elemento)
+
+Soluzione
+si controlla che venga utilizzato il parametro della funzione, e il numero di missili bonus creati
+var createBonusMissiles = function(n) {
+    var targets = viableTargets();
+    for( var i = 0; i < n; i++ ) {
+        enemyMissiles.push( new BonusMissile(targets) );
+    }
+};
+
+Livello 9
+Quando il gioco si fa duro noi lo lasciamo agli altri. Arrivano troppi missili per rischiare di sprecare le poche munizioni che si hanno, e' meglio cercare di recuperare il vecchio sistema di difesa automatica.
+scrivi la funzione per il calcolo della distanza tra 2 punti per rimettere il sistema in sesto.
+
+Soluzione
+si controlla se il valore restituito dalla funzione creata dall'utente e' uguale a quella corretta.
+var pointDistance = function (p, q) {
+    return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );
+};

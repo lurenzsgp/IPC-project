@@ -692,7 +692,6 @@ AutoAntiMissileDefense.prototype.shoot = function () {
     }).bind(this));
 };
 
-// TODO lavorare al codice da mostrare all'utente
 var pitagoraTheorem = function (a, b) {
     return Math.sqrt( Math.pow(a, 2) + Math.pow(b, 2) );
 };
