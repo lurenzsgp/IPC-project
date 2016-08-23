@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 1,
+  level = 9,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -116,6 +116,7 @@ var initDesignLevel = function () {
     if (level >= 8) {
         if (level === 9) {
             contrAerea = new AutoAntiMissileDefense();
+            editor.execCode(true);
         }
         initializeHandicapLevel();
     } else {
@@ -156,7 +157,7 @@ var initializeHandicapLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
-    createBonusMissiles(2);
+    createBonusMissiles(3);
     drawBeginLevel();
     if (isDefined(contrAerea)) {
         contrAerea.initialize();
@@ -664,9 +665,6 @@ AutoAntiMissileDefense.prototype.detectMissile = function () {
     $.each(enemyMissiles, (function (index, missile) {
         if (missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
             this.whatchedMissiles.push(missile);
-            console.log("missile visto");
-            // console.log(this.whatchedMissiles);
-            // console.log(this.pointedMissiles);
         }
     }).bind(this));
 };
@@ -682,7 +680,6 @@ AutoAntiMissileDefense.prototype.shoot = function () {
         // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
         var source = whichAntiMissileBattery( missile.endX );
         if( source === -1 ){ // No missiles left
-            console.log("missili finiti");
             return false;
         } else {
             this.whatchedMissiles.splice(index, 1);
@@ -692,14 +689,22 @@ AutoAntiMissileDefense.prototype.shoot = function () {
         // TODO il missile e' sparato nella direzione giusta ma fuori schermo
         var target = findTarget(missile, source);
         playerMissiles.push( new PlayerMissile( source, target.x, target.y ) );
-        console.log("missile sparato");
     }).bind(this));
 };
 
-function findTarget (missile, source) {
-    var distance = Math.sqrt( Math.pow(missile.x - antiMissileBatteries[source].x, 2) + Math.pow(missile.y - antiMissileBatteries[source].y, 2) );
-    var t = distance / (SPEEDMISSILEDEFENSE + Math.sqrt( Math.pow(missile.dx, 2) + Math.pow(missile.dy, 2) ));
+// TODO lavorare al codice da mostrare all'utente
+var pitagoraTheorem = function (a, b) {
+    return Math.sqrt( Math.pow(a, 2) + Math.pow(b, 2) );
+};
 
+var pointDistance = function (p, q) {
+    return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );
+};
+
+function correctFindTarget (missile, source) {
+    var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
+    // Math.sqrt( Math.pow(missile.x - antiMissileBatteries[source].x, 2) + Math.pow(missile.y - antiMissileBatteries[source].y, 2) );
+    var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
     while (true) {
         var yShoot = missile.y + missile.dy * t;
         var xShoot = missile.x + missile.dx * t;
@@ -707,13 +712,16 @@ function findTarget (missile, source) {
         if ((t).toFixed(9) === (t2).toFixed(9)) {
             return {x: xShoot, y: yShoot + 10};
         } else {
-            var distanceAttack = Math.sqrt( Math.pow(missile.x - xShoot, 2) + Math.pow(missile.y - yShoot, 2) );
-            var distanceDefense = Math.sqrt( Math.pow(xShoot - antiMissileBatteries[source].x, 2) + Math.pow(yShoot - antiMissileBatteries[source].y, 2) );
+            var distanceAttack = pointDistance({x: missile.x, y: missile.y}, {x: xShoot, y: yShoot});
+            var distanceDefense = pointDistance({x: xShoot, y: yShoot}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
             distance = distanceAttack + distanceDefense;
-            t = distance / (SPEEDMISSILEDEFENSE + Math.sqrt( Math.pow(missile.dx, 2) + Math.pow(missile.dy, 2) ));
+            t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
         }
     }
+    return {x: rand(50, 370), y: rand(50, 370)};
 }
+
+findTarget = correctFindTarget;
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
