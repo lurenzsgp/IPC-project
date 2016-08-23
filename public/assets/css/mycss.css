@@ -1,14 +1,5 @@
 body{
-  background: #999;
-  background: -moz-linear-gradient(top, #fff 0%, #bbb 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1ABC9C), color-stop(100%, #113344));
-  background: -webkit-linear-gradient(top, #fff 0%, #bbb 100%);
-  background: -o-linear-gradient(top, #fff 0%, #bbb 100%);
-  background: -ms-linear-gradient(top, #fff 0%, #bbb 100%);
-  background: linear-gradient(to bottom, #eee 0%, #bbb 100%);
-  background-size: 150% 150%;
-  z-index: 3;
-  opacity: 1;
+  overflow-x: hidden;
 }
 
 /* Editor */
@@ -151,6 +142,10 @@ p {
   line-height: 1.5;
 }
 
+.fa{
+	font-size: 1.8em;
+}
+
 
 /*   navbar    
 .navbar {
@@ -197,7 +192,7 @@ p {
 }
 */
 
-/*		navbar		*/
+/*		navbar		
 #navbar{
 	width: 5%;
 	padding-left: 0px;
@@ -274,9 +269,129 @@ p {
 }
 
 }
-
+*/
 
 .game {
 	cursor: crosshair;
   margin: 1em auto;
+}
+
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 10px;
+    width: 0;
+    height: 100%;
+    margin-left: -10px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+#page-content-wrapper {
+    width: 100%;
+	height: 100%;
+    position: absolute;
+    padding: 15px;
+	margin-left: 55px;
+	background: #999;
+	background: -moz-linear-gradient(top, #fff 0%, #bbb 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1ABC9C), color-stop(100%, #113344));
+	background: -webkit-linear-gradient(top, #fff 0%, #bbb 100%);
+	background: -o-linear-gradient(top, #fff 0%, #bbb 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #bbb 100%);
+	background: linear-gradient(to bottom, #eee 0%, #bbb 100%);
+	background-size: 150% 150%;
+	z-index: 3;
+	opacity: 1;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 80px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-align: center;
+	margin-bottom: 2.5em;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    /*background: rgba(255,255,255,0.2);*/
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-brand{
+	padding: 2em 0em 5em;
+}
+
+.sidebar-brand img{
+	display: inline-block;
+	width: 55px;
+	height: auto;
+	padding: 0em;
+	vertical-align: top;
+	margin: 2em 0em;
+	position: relative;
+	background-color: #383448;
+	border-radius: 100%;
+}
+
+.navbar-brand > img:hover{
+	background-color: #433d58;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 80px;
+    }
+
+    #sidebar-wrapper {
+        width: 80px;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
 }
