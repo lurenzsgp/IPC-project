@@ -14,7 +14,7 @@ var missileSpeed = function (xDistance, yDistance) {
 console.log("definisco la funzione corretta");
 var correctMissileSpeed = function (xDistance, yDistance) {
     var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
-    var distancePerFrame = 15;
+    var distancePerFrame = SPEEDMISSILEDEFENSE;
     return distance / distancePerFrame;
 };
 

@@ -7,6 +7,7 @@ var canvas = document.querySelector( 'canvas' ),
 // Constants
 var CANVAS_WIDTH  = canvas.width,
   CANVAS_HEIGHT = canvas.height,
+  SPEEDMISSILEDEFENSE = 12,
   MISSILE = {
     active: 1,
     exploding: 2,
@@ -16,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 9,
+  level = 1,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -583,10 +584,11 @@ Missile.prototype.explode = function() {
 };
 
 // Calculate the missile speed
+// the time with missile reach the point
 var missileSpeed = function (xDistance, yDistance) {
     var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
 
-    var distancePerFrame = 12;
+    var distancePerFrame = SPEEDMISSILEDEFENSE;
 
     return distance / distancePerFrame;
 };
@@ -675,30 +677,43 @@ AutoAntiMissileDefense.prototype.shoot = function () {
 
     $.each(this.whatchedMissiles, (function (index, missile) {
         if (!isDefined(missile) || missile.state !== MISSILE.active) {
-            return;
+            return true;
         }
         // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
         var source = whichAntiMissileBattery( missile.endX );
         if( source === -1 ){ // No missiles left
-            return;
+            console.log("missili finiti");
+            return false;
         } else {
             this.whatchedMissiles.splice(index, 1);
             this.pointedMissiles.push(missile);
         }
 
         // TODO il missile e' sparato nella direzione giusta ma fuori schermo
-        // Risolvo il sistema per trovare il punto in cui si incontreranno i 2 missile dopo lo stesso tempo di volo
-        var a = - Math.pow(12,2) + Math.pow(missile.dx,2) + Math.pow(missile.dy,2);
-        var b = (2 * missile.x * missile.dx) + (2 * missile.y * missile.dy) - (2 * missile.dx * antiMissileBatteries[source].x) - (2 * missile.y * antiMissileBatteries[source].y);
-        var c = Math.pow(missile.x,2) + Math.pow(missile.y,2) + Math.pow(antiMissileBatteries[source].x,2) + Math.pow(antiMissileBatteries[source].y,2) - (2 * antiMissileBatteries[source].x * missile.x) - (2 * missile.y * antiMissileBatteries[source].y);
-        var nf = - b - Math.sqrt(Math.pow(b,2) - (4 * a * c));
-
-        var xShoot = missile.x + missile.dx * nf;
-        var yShoot = missile.y + missile.dy * nf;
-        playerMissiles.push( new PlayerMissile( source, xShoot, yShoot ) );
+        var target = findTarget(missile, source);
+        playerMissiles.push( new PlayerMissile( source, target.x, target.y ) );
         console.log("missile sparato");
     }).bind(this));
 };
+
+function findTarget (missile, source) {
+    var distance = Math.sqrt( Math.pow(missile.x - antiMissileBatteries[source].x, 2) + Math.pow(missile.y - antiMissileBatteries[source].y, 2) );
+    var t = distance / (SPEEDMISSILEDEFENSE + Math.sqrt( Math.pow(missile.dx, 2) + Math.pow(missile.dy, 2) ));
+
+    while (true) {
+        var yShoot = missile.y + missile.dy * t;
+        var xShoot = missile.x + missile.dx * t;
+        var t2 = missileSpeed(xShoot - antiMissileBatteries[source].x, yShoot - antiMissileBatteries[source].y);
+        if ((t).toFixed(9) === (t2).toFixed(9)) {
+            return {x: xShoot, y: yShoot + 10};
+        } else {
+            var distanceAttack = Math.sqrt( Math.pow(missile.x - xShoot, 2) + Math.pow(missile.y - yShoot, 2) );
+            var distanceDefense = Math.sqrt( Math.pow(xShoot - antiMissileBatteries[source].x, 2) + Math.pow(yShoot - antiMissileBatteries[source].y, 2) );
+            distance = distanceAttack + distanceDefense;
+            t = distance / (SPEEDMISSILEDEFENSE + Math.sqrt( Math.pow(missile.dx, 2) + Math.pow(missile.dy, 2) ));
+        }
+    }
+}
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
