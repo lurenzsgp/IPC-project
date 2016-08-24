@@ -39,14 +39,26 @@ var server = app.listen(3000, function(){
 	console.log("Express is running on port 3000");
 });
 
-app.get('/index', function(req, res){	
-	res.render('index');
-});
+app.get('/index', ensureAuthenticated, gameIndex);
 
-app.get('/', function(req, res){
-	res.render('login');
-});
+app.get('/', ensureAuthenticated, gameIndex);
 
 app.get('/*', function(req, res){
 	res.render('404');
 });
+
+app.get('/login', function(req, res){
+    	res.render('login');
+});
+
+app.post('/login', loginController.checkLogin);
+
+// Auth Middleware
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+}
+
+function gameIndex(req, res){
+	res.render('index');
+}
