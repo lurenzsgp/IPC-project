@@ -4,15 +4,15 @@
     <title>Il deserto dei barbari</title>
     <meta charset="utf-8"/>
 	<link rel="icon" type="image/png" href="assets/img/logo.png">
-	
+
     <link rel="stylesheet" href="assets/css/login.css">
-	
+
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-	
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    
+
 </head>
 <body>
 	<div class="login-page">
@@ -20,40 +20,11 @@
 		Il deserto dei barbari
 	  </div>
 	  <div class="form">
-		<form class="login-form">
+		<form class="login-form" action="/login" method="post">
 		  <input type="text" placeholder="username"/>
 		  <input type="password" placeholder="password"/>
 		  <button>login</button>
-		  <p class="message">Non sei registrato? <a href="#" data-toggle="modal" data-target="#createAccountModal">Registrati qui</a></p>
 		</form>
 	  </div>
-	</div>
-
-	<!-- ACCOUNT Modal -->
-	<div id="createAccountModal" class="modal fade" role="document">
-		<div class="modal-dialog" >
-		<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Crea account</h4>
-				</div>
-				
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="usr">Username:</label>
-						<input type="text" class="form-control" id="usr">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Password:</label>
-						<input type="password" class="form-control" id="pwd">
-					</div>
-				</div>
-				
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Crea</button>
-				</div>
-			</div>
-		</div>
 	</div>
 </body>
