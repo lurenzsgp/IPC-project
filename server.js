@@ -9,6 +9,7 @@ try {
 var express = require('express'),
 	path = require('path'),
 	bodyParser = require('body-parser'),
+    passport = require('passport'),
 	knex = require('knex')({
 		client: 'mysql',
 		connection: dbConfig
@@ -39,24 +40,23 @@ var server = app.listen(3000, function(){
 	console.log("Express is running on port 3000");
 });
 
-app.get('/index', ensureAuthenticated, gameIndex);
+app.get('/', function(req, res) {
+    res.redirect('/login');
+})
+app.get('/desertoDeiBarbari', ensureAuthenticated, gameIndex);
 
-app.get('/', ensureAuthenticated, gameIndex);
+app.get('/login', ensureAuthenticated, gameIndex);
 
 app.get('/*', function(req, res){
 	res.render('404');
 });
 
-app.get('/login', function(req, res){
-    	res.render('login');
-});
-
-app.post('/login', loginController.checkLogin);
+// app.post('/login', loginController.checkLogin);
 
 // Auth Middleware
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login');
+    res.render('login');
 }
 
 function gameIndex(req, res){
