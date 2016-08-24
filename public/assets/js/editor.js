@@ -35,9 +35,9 @@ Editor.prototype.resize = function (h,w) {
 
 Editor.prototype.loadCode = function (lvl) {
     var code = "";
-    // var self = this; // serve a fissare lo self per utilizzare variabili della classe all'interno di funzioni che cambiano il contesto
+
     $.ajax({
-      url: "lvl/lvl" + lvl + ".jsx",
+      url: "assets/lvl/lvl" + lvl + ".jsx",
       async: false,
       dataType: "text",
       success: function (data){
@@ -69,6 +69,7 @@ Editor.prototype.getCode = function () {
 	var code = this.cm.getValue("\n");
 	var line = code.split("\n");
 
+    // console.log("testo: " + code);
 	while (line[0].indexOf('function') === -1) {
 		line.shift();
 	}
