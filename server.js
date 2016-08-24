@@ -1,3 +1,4 @@
+// variables
 var dbConfig;
 try {
     dbConfig = require('./config/db.conf.js');
@@ -13,7 +14,8 @@ var express = require('express'),
 	knex = require('knex')({
 		client: 'mysql',
 		connection: dbConfig
-	});
+	}),
+    loginController = require('./public/assets/js/login');
 
 var crypto;
 try {
@@ -24,8 +26,8 @@ try {
 
 var app = express();
 
+// Express
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static('assets));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -34,12 +36,11 @@ app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
-//require('./routes/index')(app);
-
 var server = app.listen(3000, function(){
 	console.log("Express is running on port 3000");
 });
 
+// routes
 app.get('/', function(req, res) {
     res.redirect('/login');
 });
@@ -48,22 +49,12 @@ app.get('/:type(index|home)', function(req, res) {
     res.redirect('/desertoDeiBarbari');
 });
 
-app.get('/desertoDeiBarbari', ensureAuthenticated, gameIndex);
+app.get('/desertoDeiBarbari', loginController.ensureAuthenticated, loginController.gameIndex);
 
-app.get('/login', ensureAuthenticated, gameIndex);
+app.get('/login', loginController.ensureAuthenticated, loginController.gameIndex);
+app.post('/login', loginController.checkLogin);
+app.get('/logout', loginController.logout);
 
 app.get('/*', function(req, res){
 	res.render('404');
 });
-
-// app.post('/login', loginController.checkLogin);
-
-// Auth Middleware
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.render('login');
-}
-
-function gameIndex(req, res){
-	res.render('index');
-}
