@@ -2,6 +2,14 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var dbConfig;
+
+try {
+    dbConfig = require('./config/db.conf.js');
+} catch(e) {
+	console.log('Startup failed. No DB config file found.');
+	return false;
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static('assets));
