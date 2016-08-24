@@ -42,7 +42,12 @@ var server = app.listen(3000, function(){
 
 app.get('/', function(req, res) {
     res.redirect('/login');
-})
+});
+
+app.get('/:type(index|home)', function(req, res) {
+    res.redirect('/desertoDeiBarbari');
+});
+
 app.get('/desertoDeiBarbari', ensureAuthenticated, gameIndex);
 
 app.get('/login', ensureAuthenticated, gameIndex);
