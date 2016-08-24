@@ -58,3 +58,5 @@ app.get('/logout', loginController.logout);
 app.get('/*', function(req, res){
 	res.render('404');
 });
+
+app.use(bodyParser.json());
