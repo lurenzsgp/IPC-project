@@ -37,7 +37,7 @@ Editor.prototype.loadCode = function (lvl) {
     var code = "";
 
     $.ajax({
-      url: "assets/lvl/lvl" + lvl + ".jsx",
+      url: "lvl/lvl" + lvl + ".jsx",
       async: false,
       dataType: "text",
       success: function (data){
