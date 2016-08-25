@@ -1,5 +1,5 @@
-var crypto = require('crypto'),
-    passport = require('passport')
+var crypto = require('crypto');
+var passport = require('passport')
 
 exports.loginPage = function(req, res) {
     res.render('login/index', {username: req.flash('username')});

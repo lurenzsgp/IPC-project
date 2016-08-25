@@ -59,7 +59,7 @@ app.use(expressValidator());
 require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
 
 //
-require('./auth')(passport);
+require('./passport')(passport);
 
 // launch ======================================================================
 app.listen(port);
