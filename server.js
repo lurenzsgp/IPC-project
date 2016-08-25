@@ -14,8 +14,7 @@ var serveStatic = require('serve-static');
 var expressValidator = require('express-validator');
 var swig = require('swig');
 var crypto = require('crypto');
-var Bookshelf = require('bookshelf');
-
+var path = require('path');
 
 var dbConfig;
 try {
@@ -25,11 +24,11 @@ try {
 	return false;
 }
 
-var path = require('path');
 var knex = require('knex')({
 		client: 'mysql',
 		connection: dbConfig
-	})
+	});
+var Bookshelf = require('bookshelf');
 
 // configuration ===============================================================
 
