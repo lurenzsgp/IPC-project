@@ -6,7 +6,7 @@ exports.loginPage = function(req, res) {
 }
 
 exports.checkLogin = function(req, res, next) {
-    console.log("login utente: " + req.body.username);
+    console.log("Login utente: " + req.body.username);
     passport.authenticate('local', function(err, user, info) {
         if (err || !user) {
             req.flash('username', req.body.username);
@@ -26,9 +26,9 @@ exports.checkLogin = function(req, res, next) {
 
 exports.registerPost = function(req, res) {
     var pwd = req.body.password;
-    var un = req.body.username;
+    var username = req.body.username;
 
-    req.flash('username', un);
+    req.flash('username', username);
 
     // req.checkBody('username', 'Please enter a valid email.').notEmpty().isEmail();
     req.checkBody('username', 'Please enter a name.').notEmpty();
@@ -44,8 +44,8 @@ exports.registerPost = function(req, res) {
     var pw = crypto.createHmac('sha1', new_salt).update(pwd).digest('hex');
     var created = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-// TODO controlla i nomi dei campi che penso debbano coincidere con quelli del nostro db
-    new data.ApiUser({email: un, password: pw, salt: new_salt, created: created}).save().then(function(model) {
+	// TODO controlla i nomi dei campi che penso debbano coincidere con quelli del nostro db
+    new data.ApiUser({email: username, password: pw, salt: new_salt, created: created}).save().then(function(model) {
         passport.authenticate('local')(req, res, function () {
             redirectToGame(res, req);
         })
@@ -58,7 +58,6 @@ exports.registerPost = function(req, res) {
 exports.redirectToGame = function(req, res) {
     // If this function gets called, authentication was successful.
 	// req.user contains the authenticated user.
-    // console.log(req.user.username);
 	res.redirect('/desertoDeiBarbari');
 }
 
@@ -69,7 +68,9 @@ exports.logout = function(req, res) {
 }
 
 exports.ensureAuthenticated = function(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
+    if (req.isAuthenticated()) {
+    	return next();
+    }
     res.render('login');
 }
 

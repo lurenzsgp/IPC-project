@@ -1,4 +1,4 @@
-var loginController = require('./public/assets/js/login');
+var loginController = require('./public/js/login');
 
 module.exports = function (app, passport) {
     app.get('/', function(req, res) {
