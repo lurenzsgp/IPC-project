@@ -13,7 +13,7 @@ exports.checkLogin = function(req, res, next) {
             req.flash('error', info.message);
             return res.redirect('/login');
         }
-        req.logIn(user, function(err) {
+        req.login(user, function(err) {
             if (err) {
                 req.flash('error', info.message);
                 return res.redirect('/login');
