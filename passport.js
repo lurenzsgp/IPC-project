@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./public/models/auth')();
+var data = require('./models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
@@ -22,6 +22,43 @@ module.exports = function(passport) {
             return done(error);
         });
     });
+
+    // =========================================================================
+    // LOCAL SIGNUP ============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
+    passport.use('local-signup', new LocalStrategy({
+        usernameField: 'usr',
+        passwordField: 'pwd',
+        passReqToCallback : true
+    },function(req, name, password, done) {
+        console.log(name);
+        console.log(password);
+
+        req.flash('username', name);
+        // req.checkBody('usr', 'Please enter a name.').notEmpty();
+        var errors = req.validationErrors();
+        if (errors) {
+            var msg = errors[0].msg;
+            req.flash('error', msg);
+            res.redirect('/login');
+            return;
+        }
+
+        var pwd = crypto.createHmac('sha256', password);
+
+        var user = new data.ApiUser({username: name, password: pwd, level: 1, score: 0}).save().then(function(model) {
+            passport.authenticate('local-login')(req, res, function () {
+                redirectToGame(res, req);
+            })
+            return done(null, user);
+        }, function(err) {
+            return done(err);
+            // req.flash('error', 'Unable to create account.');
+            // res.redirect('/login');
+        });
+    }));
 
     // =========================================================================
     // LOCAL LOGIN ============================================================

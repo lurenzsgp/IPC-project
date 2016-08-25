@@ -14,10 +14,19 @@ module.exports = function (app, passport) {
     app.post('/login', loginController.checkLogin);
     app.get('/logout', loginController.logout);
 
+
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/home', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
     app.get('/*', function(req, res){
     	res.render('404');
     });
 }
+
+
 
 // TODO quando ho finito local-login mettere in questa forma
 // // process the signup form

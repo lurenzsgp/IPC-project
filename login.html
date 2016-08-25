@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="login-page">
-        
+
         <div class='title'>
             Il deserto dei barbari
         </div>
@@ -24,7 +24,22 @@
                 <input type="text" placeholder="username" name="username"/>
                 <input type="password" placeholder="password" name="password"/>
                 <button type="submit">login</button>
-            </form>
-        </div>
-	</div>
+                <p class="message">Non sei registrato? <a href="#" data-toggle="modal" data-target="#createAccountModal">Registrati qui</a></p>
+      		</form>
+      	  </div>
+      	</div>
+
+      	<!-- ACCOUNT Modal -->
+      	<div id="createAccountModal" class="modal fade" role="document">
+      		<div class="modal-dialog" >
+                <div class="form">
+                    <form class="login-form" action="/signup" method="post">
+                        <input type="text" placeholder="username" name="usr"/>
+                        <input type="password" placeholder="password" name="pwd"/>
+                        <button type="submit">signup</button>
+                    </form>
+              	  </div>
+              	</div>
+      		</div>
+      	</div>
 </body>
