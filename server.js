@@ -3,7 +3,6 @@
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3000;
-// var mongoose = require('mongoose'); // per server mongodb
 var passport = require('passport');
 var flash    = require('connect-flash');
 var cookieParser = require('cookie-parser');
@@ -32,7 +31,7 @@ var Bookshelf = require('bookshelf');
 
 // configuration ===============================================================
 
-// required for passport
+// required for Passport
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -54,7 +53,8 @@ app.use(cookieSession({
 app.use(expressValidator());
 
 // routes ======================================================================
-require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
+// load our routes and pass in our app and fully configured passport
+require('./routes')(app, passport);
 require('./passport')(passport);
 
 // launch ======================================================================

@@ -4,7 +4,7 @@ module.exports = function() {
     // documentazione al link
     // http://bookshelfjs.org/#many-to-many
     // bisogna fare definire tutte le tabelle
-        //     Badges:
+        // Badges:
         // - id
         // - name
         //
@@ -18,8 +18,8 @@ module.exports = function() {
         //
         // UserBadges:
         // - id
-        // - user
-        // - badge
+        // - user_id
+        // - badge_id
 
     var bookshelf = {};
 
@@ -31,7 +31,7 @@ module.exports = function() {
     });
 
     bookshelf.ApiBadges = Bookshelf.Model.extend({
-        tableName: 'uadges',
+        tableName: 'badges',
         userBadges: function() {
             return this.hasMany(bookshelf.ApiUserBadges);
         }
