@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./models/auth')();
+var data = require('./public/models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
@@ -68,17 +68,5 @@ module.exports = function(passport) {
         }, function(error) {
             return done(null, false, { 'message': 'Unknown user' });
         });
-        
-        // esempio 
-// 		User.findOne({ username: username }, function (err, user) {
-// 		  if (err) { return done(err); }
-// 		  if (!user) {
-// 			return done(null, false, { message: 'Incorrect username.' });
-// 		  }
-// 		  if (!user.validPassword(password)) {
-// 			return done(null, false, { message: 'Incorrect password.' });
-// 		  }
-// 		  return done(null, user);
-// 		});
     }));
 };
