@@ -24,21 +24,21 @@ module.exports = function() {
     var bookshelf = {};
 
 	// 1-to-N
-    bookshelf.ApiUser = bookshelf.Model.extend({
+    bookshelf.ApiUser = Bookshelf.Model.extend({
         tableName: 'users',
         badges: function() {
             return this.hasMany(bookshelf.ApiUserBadge);
         }
     });
 
-    bookshelf.ApiBadge = bookshelf.Model.extend({
+    bookshelf.ApiBadge = Bookshelf.Model.extend({
         tableName: 'badges',
         users: function() {
             return this.hasMany(bookshelf.ApiUserBadge);
         }
     });
 
-    bookshelf.ApiUserBadge = bookshelf.Model.extend({
+    bookshelf.ApiUserBadge = Bookshelf.Model.extend({
         tableName: 'badges_users',
         user: function() {
             return this.belongsTo(ApiUser);
@@ -49,14 +49,14 @@ module.exports = function() {
     });
 
 	// N-to-N
-//     bookshelf.ApiUser = bookshelf.Model.extend({
+//     bookshelf.ApiUser = Bookshelf.Model.extend({
 //         tableName: 'users',
 //         badges: function() {
 //             return this.belongsToMany(bookshelf.ApiBadge);
 //         }
 //     });
 // 
-//     bookshelf.ApiBadge = bookshelf.Model.extend({
+//     bookshelf.ApiBadge = Bookshelf.Model.extend({
 //         tableName: 'badges',
 //         users: function() {
 //             return this.belongsToMany(bookshelf.ApiUser);
