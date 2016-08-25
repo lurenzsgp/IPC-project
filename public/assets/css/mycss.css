@@ -39,6 +39,21 @@ button.close {
   font-weight: 400;
 }
 
+.btn {
+  font-family: "Roboto", sans-serif;
+  border-radius: 0;
+  outline: 0;
+  border: 0;
+  width:100%;
+  padding: 15px 0 15px 0;
+margin-left: 0;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
 .avatar-circle {
     border-radius: 50%;
 	width: auto;
