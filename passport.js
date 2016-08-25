@@ -32,9 +32,9 @@ module.exports = function(passport) {
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback : true
-    },function(email, password, done) {
+    },function(name, password, done) {
         // TODO correggi i campi necessari per il login utente
-        new data.ApiUser({email: email}).fetch({require: true}).then(function(user) {
+        new data.ApiUser({username: name}).fetch({require: true}).then(function(user) {
             var sa = user.get('salt');
             var pw = user.get('password');
             var upw = crypto.createHmac('sha1', sa).update(password).digest('hex');
@@ -43,29 +43,8 @@ module.exports = function(passport) {
             }
             return done(null, false, { 'message': 'Invalid password'});
         }, function(error) {
-            return done(null, false, { 'message': 'Unknown user'});
-        });
-    }));
+            // registro il nuovo utente
 
-    // =========================================================================
-    // LOCAL SIGNUP ============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
-    passport.use('local-signup', new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password'
-    },function(email, password, done) {
-        // TODO correggi i campi necessari per il login utente
-        new data.ApiUser({email: email}).fetch({require: true}).then(function(user) {
-            var sa = user.get('salt');
-            var pw = user.get('password');
-            var upw = crypto.createHmac('sha1', sa).update(password).digest('hex');
-            if(upw == pw) {
-                return done(null, user);
-            }
-            return done(null, false, { 'message': 'Invalid password'});
-        }, function(error) {
             return done(null, false, { 'message': 'Unknown user'});
         });
     }));

@@ -24,25 +24,25 @@ module.exports = function() {
     var bookshelf = {};
 
     bookshelf.ApiUser = Bookshelf.Model.extend({
-        tableName: 'Users',
-        UserBadges: function() {
-            return this.hasMany(ApiUserBadges);
+        tableName: 'users',
+        userBadges: function() {
+            return this.hasMany(bookshelf.ApiUserBadges);
         }
     });
 
-    bookshelf.ApiBadges = bookshelf.Model.extend({
-        tableName: 'Badges',
-        UserBadges: function() {
-            return this.hasMany(ApiUserBadges);
+    bookshelf.ApiBadges = Bookshelf.Model.extend({
+        tableName: 'uadges',
+        userBadges: function() {
+            return this.hasMany(bookshelf.ApiUserBadges);
         }
     });
 
-    bookshelf.ApiUserBadges = bookshelf.Model.extend({
-        tableName: 'UserBadges',
-        User: function() {
+    bookshelf.ApiUserBadges = Bookshelf.Model.extend({
+        tableName: 'userBadges',
+        user: function() {
             return this.belongsTo(ApiUser);
         },
-        Badges : function() {
+        badges : function() {
             return this.belongsTo(ApiBadges);
         }
     });
