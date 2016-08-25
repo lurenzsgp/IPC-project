@@ -24,7 +24,8 @@ module.exports = function() {
 
     var bookshelf = {};
 
-//     bookshelf.ApiUser = bookshelf.Model.extend({
+	// 1-to-N
+//     bookshelf.ApiUsers = bookshelf.Model.extend({
 //         tableName: 'users',
 //         badges: function() {
 //             return this.hasMany(bookshelf.ApiUserBadges);
@@ -39,15 +40,16 @@ module.exports = function() {
 //     });
 // 
 //     bookshelf.ApiUserBadges = bookshelf.Model.extend({
-//         tableName: 'userBadges',
+//         tableName: 'badges_users',
 //         user: function() {
-//             return this.belongsTo(ApiUser);
+//             return this.belongsTo(ApiUsers);
 //         },
 //         badges: function() {
 //             return this.belongsTo(ApiBadges);
 //         }
 //     });
 
+	// N-to-N
     bookshelf.ApiUsers = bookshelf.Model.extend({
         tableName: 'users',
         badges: function() {
