@@ -1,4 +1,22 @@
-// variables
+// set up ======================================================================
+// get all the tools we need
+var express  = require('express');
+var app      = express();
+var port     = process.env.PORT || 3000;
+// var mongoose = require('mongoose'); // per server mongodb
+var passport = require('passport');
+var flash    = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+var cookieSession = require('cookie-session');
+var serveStatic = require('serve-static');
+var expressValidator = require('express-validator');
+var swig = require('swig');
+var crypto = require('crypto');
+var Bookshelf = require('bookshelf');
+
+
 var dbConfig;
 try {
     dbConfig = require('./config/db.conf.js');
@@ -7,56 +25,42 @@ try {
 	return false;
 }
 
-var express = require('express'),
-	path = require('path'),
-	bodyParser = require('body-parser'),
-    passport = require('passport'),
-	knex = require('knex')({
+var path = require('path');
+var knex = require('knex')({
 		client: 'mysql',
 		connection: dbConfig
-	}),
-    loginController = require('./public/assets/js/login');
+	})
 
-var crypto;
-try {
-	crypto = require('crypto');
-} catch (err) {
-	console.log('Crypto support is disabled in Node.');
-}
+// configuration ===============================================================
 
-var app = express();
+// required for passport
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
-// Express
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
+
+app.use(serveStatic('./public'));
+app.use(bodyParser.urlencoded({	extended: true }));
 app.use(bodyParser.json());
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
-var server = app.listen(3000, function(){
-	console.log("Express is running on port 3000");
-});
+Bookshelf.mysqlAuth = Bookshelf(knex);
 
-// routes
-app.get('/', function(req, res) {
-    res.redirect('/login');
-});
+app.use(cookieParser('halsisiHHh445JjO0'));
+app.use(cookieSession({
+    keys: ['key1', 'key2']
+}));
 
-app.get('/:type(index|home)', function(req, res) {
-    res.redirect('/desertoDeiBarbari');
-});
+app.use(expressValidator());
 
-app.get('/desertoDeiBarbari', loginController.ensureAuthenticated, loginController.gameIndex);
+// routes ======================================================================
+require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.get('/login', loginController.ensureAuthenticated, loginController.gameIndex);
-app.post('/login', loginController.checkLogin);
-app.get('/logout', loginController.logout);
+//
+require('./auth')(passport);
 
-app.get('/*', function(req, res){
-	res.render('404');
-});
-
-app.use(bodyParser.json());
+// launch ======================================================================
+app.listen(port);
+console.log('The magic happens on port ' + port);
