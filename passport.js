@@ -55,7 +55,7 @@ module.exports = function(passport) {
     passport.use('local-signup', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password'
-    },function(email, password, done) {
+    },function(username, password, done) {
         // TODO correggi i campi necessari per il login utente
         new data.ApiUser({email: email}).fetch({require: true}).then(function(user) {
             var sa = user.get('salt');
@@ -64,9 +64,21 @@ module.exports = function(passport) {
             if(upw == pw) {
                 return done(null, user);
             }
-            return done(null, false, { 'message': 'Invalid password'});
+            return done(null, false, { 'message': 'Invalid password' });
         }, function(error) {
-            return done(null, false, { 'message': 'Unknown user'});
+            return done(null, false, { 'message': 'Unknown user' });
         });
+        
+        // esempio 
+// 		User.findOne({ username: username }, function (err, user) {
+// 		  if (err) { return done(err); }
+// 		  if (!user) {
+// 			return done(null, false, { message: 'Incorrect username.' });
+// 		  }
+// 		  if (!user.validPassword(password)) {
+// 			return done(null, false, { message: 'Incorrect password.' });
+// 		  }
+// 		  return done(null, user);
+// 		});
     }));
 };

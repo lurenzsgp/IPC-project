@@ -6,7 +6,7 @@ exports.loginPage = function(req, res) {
 }
 
 exports.checkLogin = function(req, res, next) {
-    console.log("login utente: " + req.body.username);
+    console.log("Login utente: " + req.body.username);
     passport.authenticate('local', function(err, user, info) {
         if (err || !user) {
             req.flash('username', req.body.username);
@@ -58,7 +58,6 @@ exports.registerPost = function(req, res) {
 exports.redirectToGame = function(req, res) {
     // If this function gets called, authentication was successful.
 	// req.user contains the authenticated user.
-    // console.log(req.user.username);
 	res.redirect('/desertoDeiBarbari');
 }
 
@@ -69,7 +68,9 @@ exports.logout = function(req, res) {
 }
 
 exports.ensureAuthenticated = function(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
+    if (req.isAuthenticated()) {
+    	return next();
+    }
     res.render('login');
 }
 

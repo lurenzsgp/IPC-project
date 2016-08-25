@@ -37,7 +37,6 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-
 app.use(serveStatic('./public'));
 app.use(bodyParser.urlencoded({	extended: true }));
 app.use(bodyParser.json());
@@ -56,8 +55,6 @@ app.use(expressValidator());
 
 // routes ======================================================================
 require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
-
-//
 require('./passport')(passport);
 
 // launch ======================================================================
