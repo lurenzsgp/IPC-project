@@ -23,13 +23,17 @@ try {
 	return false;
 }
 
-var knex = require('knex')({
-		client: 'mysql',
-		connection: dbConfig
-	});
-var Bookshelf = require('bookshelf');
-
 // configuration ===============================================================
+
+// Knex and Bookshelf
+var knex = require('knex')({
+	client: 'mysql',
+	connection: dbConfig
+});
+var bookshelf = require('bookshelf')(
+	knex,
+	{ debug: true }
+);
 
 // required for Passport
 app.use(passport.initialize());
@@ -42,8 +46,6 @@ app.use(bodyParser.json());
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');
-
-Bookshelf.mysqlAuth = Bookshelf(knex);
 
 app.use(cookieParser('halsisiHHh445JjO0'));
 app.use(cookieSession({
