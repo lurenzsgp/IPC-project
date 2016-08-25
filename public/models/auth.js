@@ -31,7 +31,7 @@ module.exports = function() {
     });
 
     bookshelf.ApiBadges = Bookshelf.Model.extend({
-        tableName: 'uadges',
+        tableName: 'badges',
         userBadges: function() {
             return this.hasMany(bookshelf.ApiUserBadges);
         }
