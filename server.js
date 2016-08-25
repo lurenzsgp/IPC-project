@@ -17,7 +17,7 @@ var path = require('path');
 
 var dbConfig;
 try {
-    dbConfig = require('./config/db.conf.js');
+    dbConfig = require('./config/db-conf.js');
 } catch(err) {
 	console.log('Startup failed. No DB config file found.');
 	return false;
