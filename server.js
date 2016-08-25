@@ -25,15 +25,17 @@ try {
 
 // configuration ===============================================================
 
-// Knex and Bookshelf
+// Knex and Bookshelf http://bookshelfjs.org/#installation
 var knex = require('knex')({
 	client: 'mysql',
 	connection: dbConfig
 });
-var bookshelf = require('bookshelf')(
+module.exports = require('bookshelf')(
 	knex,
 	{ debug: true }
 );
+// var bookshelf = require('bookshelf');
+// bookshelf.mysqlAuth = bookshelf(knex);
 
 // required for Passport
 app.use(passport.initialize());
