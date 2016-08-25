@@ -39,23 +39,26 @@
 	<body>
 		<!-- navbar -->
 		<nav class="navbar navbar-default navbar-inverse">
-			<div class="container">
+			<div class="container" style="width: auto;">
 
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
 						<img alt="Logo" src="assets/img/logo.png">
+                        <span>Il Deserto dei Barbari</span>
 					</a>
 				</div>
 				
 				<ul class="nav navbar-nav">
 					<li>
 						<a href="#" data-toggle="modal" data-target="#accountModal">
-							<i class="fa fa-user" aria-hidden="true"></i> 
+							<i class="fa fa-user" aria-hidden="true"></i>
+                            <span>User</span>
 						</a>
 					</li>
 					<li>
 						<a href="#">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <span>Logout</span>
 						</a>
 					</li>
 				</ul>
@@ -186,7 +189,7 @@
 		</div>
 
 		<div class="container">
-			<div class="row">
+			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
 					<div class="row">
@@ -221,11 +224,8 @@
 								</div>
 						</div>
 					</div>
-					<div class="panel panel-primary">
-					<div class="panel-heading">Missile Command</div>
 					<div class="row" id="mc-container">
 						<canvas id="miscom" class="game center-block" width="510" height="460">Missile Command</canvas>
-					</div>
 					</div>
 				</div>
 				
@@ -238,14 +238,20 @@
 						</div>
 					</div>
 					
-					<div class="row">
+					<div class="row floating-buttons">
 						<div class="col-lg-12" align="center">
+                        <!-- CONFIRM CODE BUTTON -->
 							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg">
-								<i class="fa fa-check" aria-hidden="true"></i> Esegui codice
+								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
+                        <!-- RESET CODE BUTTON -->
 							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg">
-								<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Ripristina
+								<i class="fa fa-undo" aria-hidden="true"></i>
 							</button>
+                        <!-- ASK FOR HELP BUTTON -->
+                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </button>                            
 						</div>
 					</div>
 				</div>
@@ -253,7 +259,8 @@
 		</div>
 		
 		<footer class="footer">
-			<p>Bla bla</p>
+            <h4>Il Deserto dei Barbari</h4>
+			<span>Alice Valentini, Lorenzo Cazzoli, Luca Casini, Manfredi Giordano</span>
 		</footer>
 
 		<!-- script  -->
