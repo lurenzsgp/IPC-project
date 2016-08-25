@@ -45,6 +45,10 @@ button.close {
 	border: 2px solid grey;
 }
 
+.progress{
+  margin: 2em auto;
+}
+
 .jumbotron {
   position: absolute;
   top: 50%;
@@ -61,9 +65,9 @@ button.close {
 }
 
 .panel{
-  text-align: center;
+  margin: 15px;
   border-radius: 0px;
-  box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.2);
 }
 .portrait{
   box-shadow: 0 0.1em 0.3em grey;
@@ -93,26 +97,12 @@ button.close {
   display: inline-block;
 }
 
-.chat .h5{
-  float: right;
-  padding: 1em;
-  color:#999;
-  vertical-align: middle;
-}
-
-.foto-chat{
-	border: 1px solid black;
-}
 
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
 }
 
-.card .header {
-  /*padding: 15px 15px 0;*/
-  text-align: center;
-}
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   font-weight: 300;
@@ -274,9 +264,9 @@ p {
 
 .game {
 	cursor: crosshair;
-  margin: 10px;
+  margin: auto 0px 10px 0px;
   border: 1px solid grey;
-  box-shadow: 0px 4px 10px 2px rgba(0,0,0,0.4);
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.4);
 }
 
 .floating-buttons{
@@ -299,7 +289,7 @@ a, button:focus{
 }
 
 .CodeMirror{
-  height: 675px !important;
+  height: 690px !important;
   box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
 }
 #mc-container{
@@ -310,3 +300,10 @@ a, button:focus{
   margin: 0;
 }
 
+.chat{
+  margin: 10px 15px;
+  height: 250px;
+}
+
+.chat .panel-body{
+}
