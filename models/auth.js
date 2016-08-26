@@ -7,14 +7,14 @@ module.exports = function() {
         badges:
         - id
         - name
-        
+
         users:
         - id
         - username
         - password
         - level
         - score
-        
+
         badges_users:
         - id
         - user_id
@@ -55,7 +55,7 @@ module.exports = function() {
 //             return this.belongsToMany(bookshelf.ApiBadge);
 //         }
 //     });
-// 
+//
 //     bookshelf.ApiBadge = Bookshelf.Model.extend({
 //         tableName: 'badges',
 //         users: function() {

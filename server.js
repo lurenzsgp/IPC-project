@@ -30,12 +30,12 @@ var knex = require('knex')({
 	client: 'mysql',
 	connection: dbConfig
 });
-module.exports = require('bookshelf')(
-	knex,
-	{ debug: true }
-);
-// var bookshelf = require('bookshelf');
-// bookshelf.mysqlAuth = bookshelf(knex);
+// module.exports = require('bookshelf')(
+// 	knex,
+// 	{ debug: true }
+// );
+var bookshelf = require('bookshelf');
+bookshelf.mysqlAuth = bookshelf(knex);
 
 // required for Passport: http://passportjs.org/docs/configure
 app.use(passport.initialize());

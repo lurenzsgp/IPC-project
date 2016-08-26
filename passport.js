@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./public/models/auth')();
+var data = require('./models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
@@ -29,19 +29,26 @@ module.exports = function(passport) {
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password',
+        usernameField: 'usr',
+        passwordField: 'pwd',
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');
         console.log('sign up');
+        // TODO controllare che fetch sia sincrono
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {
-                console.log('Insert a username.');
-                return done(null, false, req.flash('signupMessage', 'Insert a username.'));
-            }
+                req.flash('username', username);
+                // req.checkBody('usr', 'Please enter a name.').notEmpty();
 
-            if (model.get('username') === username) {
+
+                new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
+                    console.log('utente creato');
+                    return done(null, model);
+                }, function(err) {
+                    return done(err);
+                });
+            } else if (model.get('username') === username) {
                 // utente trovato
                 console.log('That username is already taken.');
                 return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
@@ -49,16 +56,16 @@ module.exports = function(passport) {
 
             var pwd = crypto.createHmac('sha256', password);
         });
-        req.flash('username', username);
-        // req.checkBody('usr', 'Please enter a name.').notEmpty();
-
-
-        new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
-            console.log('utente creato');
-            return done(null, model);
-        }, function(err) {
-            return done(err);
-        });
+        // req.flash('username', username);
+        // // req.checkBody('usr', 'Please enter a name.').notEmpty();
+        //
+        //
+        // new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
+        //     console.log('utente creato');
+        //     return done(null, model);
+        // }, function(err) {
+        //     return done(err);
+        // });
     }));
 
     // =========================================================================
