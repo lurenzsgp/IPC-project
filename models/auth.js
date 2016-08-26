@@ -2,7 +2,8 @@ var Bookshelf = require('bookshelf').mysqlAuth;
 
 module.exports = function() {
     // documentazione al link: http://bookshelfjs.org/#many-to-many
-    /* bisogna definire tutte le tabelle
+    /*
+    bisogna definire tutte le tabelle
         badges:
         - id
         - name
@@ -10,7 +11,6 @@ module.exports = function() {
         users:
         - id
         - username
-        - mail (puo' essere NULL)
         - password
         - level
         - score

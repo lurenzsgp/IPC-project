@@ -1,5 +1,6 @@
 var loginController = require('./public/js/login');
 var data = require('./models/auth')();
+
 module.exports = function (app, passport) {
     app.get('/', function(req, res) {
         res.redirect('/login');

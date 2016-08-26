@@ -25,7 +25,7 @@ try {
 
 // configuration ===============================================================
 
-// Knex and Bookshelf http://bookshelfjs.org/#installation
+// Knex and Bookshelf: http://bookshelfjs.org/#installation
 var knex = require('knex')({
 	client: 'mysql',
 	connection: dbConfig
@@ -37,7 +37,7 @@ module.exports = require('bookshelf')(
 // var bookshelf = require('bookshelf');
 // bookshelf.mysqlAuth = bookshelf(knex);
 
-// required for Passport
+// required for Passport: http://passportjs.org/docs/configure
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
