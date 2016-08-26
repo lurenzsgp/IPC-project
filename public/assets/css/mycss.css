@@ -70,16 +70,17 @@ button.close {
   box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.2);
 }
 .portrait{
-  box-shadow: 0 0.1em 0.3em grey;
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.2);
   display: inline-block;
   background: #635e77;
   border-radius: 100%;
   z-index: 2;
-  margin: 0;
+  margin: auto 10px;
+  float: left;
   width: auto;
-  height: 8em;
-  cursor: pointer;  
-  -webkit-filter: saturate(0.5);
+  height: 4em;
+  /*cursor: pointer;  
+  -webkit-filter: saturate(0.5);*/
 }
 
 .portrait:hover{
@@ -217,14 +218,10 @@ p {
     text-align: center;
   }
 	.navbar-brand > img{
-	  display: inline-block;
 	  width: 50px;
 	  height: auto;
-	  padding: 0em;
-	  vertical-align: top;
-	  margin: auto 0px;
-	  position: relative;
-	  float: left;
+	  margin: 10px 10px 10px 0px;
+    float: left;
 	  background-color: #383448;
 	  border-radius: 100%;
     transition: all .5s ease-in-out;
@@ -240,8 +237,8 @@ p {
   }
 
   .navbar:hover .navbar-brand>img{
-    margin-top: 0;
-    width: 140px;
+    margin: 10px 10px 10px 10px;
+    width: 120px;
   }
 
   .navbar:hover .navbar-header span{
@@ -290,8 +287,10 @@ a, button:focus{
 }
 
 .CodeMirror{
-  height: 690px !important;
+  height: auto !important;
   box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
 }
 #mc-container{
   text-align: center;
@@ -302,7 +301,7 @@ a, button:focus{
 }
 
 .chat{
-  margin: 10px 15px;
+  margin: 5px 15px 10px 15px;
   height: 250px;
 }
 
