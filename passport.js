@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./models/auth')();
+var data = require('./public/models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
@@ -29,8 +29,8 @@ module.exports = function(passport) {
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'usr',
-        passwordField: 'pwd',
+        usernameField: 'username',
+        passwordField: 'password',
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');

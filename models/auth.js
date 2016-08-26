@@ -1,51 +1,67 @@
 var Bookshelf = require('bookshelf').mysqlAuth;
 
 module.exports = function() {
-    // documentazione al link
-    // http://bookshelfjs.org/#many-to-many
-    // bisogna fare definire tutte le tabelle
-        //     Badges:
-        // - id
-        // - name
-        //
-        // User:
-        // - id
-        // - username
-        // - mail (può essere NULL)
-        // - password
-        // - level
-        // - score
-        //
-        // UserBadges:
-        // - id
-        // - user
-        // - badge
+    // documentazione al link: http://bookshelfjs.org/#many-to-many
+    /*
+    bisogna definire tutte le tabelle
+        badges:
+        - id
+        - name
+        
+        users:
+        - id
+        - username
+        - password
+        - level
+        - score
+        
+        badges_users:
+        - id
+        - user_id
+        - badge_id
+    */
 
     var bookshelf = {};
 
+	// 1-to-N
     bookshelf.ApiUser = Bookshelf.Model.extend({
         tableName: 'users',
-        userBadges: function() {
-            return this.hasMany(bookshelf.ApiUserBadges);
+        badges: function() {
+            return this.hasMany(bookshelf.ApiUserBadge);
         }
     });
 
-    bookshelf.ApiBadges = Bookshelf.Model.extend({
-        tableName: 'uadges',
-        userBadges: function() {
-            return this.hasMany(bookshelf.ApiUserBadges);
+    bookshelf.ApiBadge = Bookshelf.Model.extend({
+        tableName: 'badges',
+        users: function() {
+            return this.hasMany(bookshelf.ApiUserBadge);
         }
     });
 
-    bookshelf.ApiUserBadges = Bookshelf.Model.extend({
-        tableName: 'userBadges',
+    bookshelf.ApiUserBadge = Bookshelf.Model.extend({
+        tableName: 'badges_users',
         user: function() {
             return this.belongsTo(ApiUser);
         },
-        badges : function() {
-            return this.belongsTo(ApiBadges);
+        badge: function() {
+            return this.belongsTo(ApiBadge);
         }
     });
+
+	// N-to-N
+//     bookshelf.ApiUser = Bookshelf.Model.extend({
+//         tableName: 'users',
+//         badges: function() {
+//             return this.belongsToMany(bookshelf.ApiBadge);
+//         }
+//     });
+// 
+//     bookshelf.ApiBadge = Bookshelf.Model.extend({
+//         tableName: 'badges',
+//         users: function() {
+//             return this.belongsToMany(bookshelf.ApiUser);
+//         }
+//     });
 
     return bookshelf;
 }
