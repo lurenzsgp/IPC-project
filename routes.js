@@ -11,7 +11,6 @@ module.exports = function (app, passport) {
 
     app.get('/desertoDeiBarbari', loginController.ensureAuthenticated, loginController.gameIndex);
     app.get('/login', loginController.ensureAuthenticated, loginController.gameIndex);
-    // app.post('/login', loginController.checkLogin);
     app.get('/logout', loginController.logout);
 
 

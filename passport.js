@@ -32,38 +32,32 @@ module.exports = function(passport) {
         usernameField: 'usr',
         passwordField: 'pwd',
         passReqToCallback : true
-    },function(req, name, password, done) {
-        console.log(name);
-        console.log(password);
+    },function(req, username, password, done) {
+        console.log('-----------');
+        console.log('sign up');
+        new data.ApiUser({username: username}).fetch().then(function (model) {
+            if (model === null) {
+                console.log('Insert a username.');
+                return done(null, false, req.flash('signupMessage', 'Insert a username.'));
+            }
 
-        var user = new data.ApiUser({username: name}).fetch().then(function () {
-            // utente trovato
-            console.log('That username is already taken.');
-            return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+            if (model.get('username') === username) {
+                // utente trovato
+                console.log('That username is already taken.');
+                return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+            }
+
+            var pwd = crypto.createHmac('sha256', password);
         });
-        console.log('username free.');
-        // req.flash('username', name);
+        req.flash('username', username);
         // req.checkBody('usr', 'Please enter a name.').notEmpty();
-        var errors = req.validationErrors();
-        if (errors) {
-            var msg = errors[0].msg;
-            req.flash('error', msg);
-            res.redirect('/login');
-            return;
-        }
 
-        var pwd = crypto.createHmac('sha256', password);
 
-        var user = new data.ApiUser({username: name, password: pwd, level: 1, score: 0}).save().then(function(model) {
-            // passport.authenticate('local-login')(req, res, function () {
-            //     redirectToGame(res, req);
-            // });
+        new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
             console.log('utente creato');
-            return done(null, user);
+            return done(null, model);
         }, function(err) {
             return done(err);
-            // req.flash('error', 'Unable to create account.');
-            // res.redirect('/login');
         });
     }));
 
@@ -76,23 +70,28 @@ module.exports = function(passport) {
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback : true
-    },function(req, name, password, done) {
-        var user = new data.ApiUser({username: name}).fetch().then(function () {
+    },function(req, username, password, done) {
+        console.log('-----------');
+        console.log('login');
+
+        new data.ApiUser({username: username}).fetch().then(function (model) {
+            if (model === null) {
+                console.log('No user found.');
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+            }
+
             // utente trovato
-            console.log('Username correct.');
-            var pwd = crypto.createHmac('sha256', password);
-            var user = new data.ApiUser({username: name, password: pwd}).fetch().then(function () {
-                console.log('Password correct.');
-                return done(null, user);
-            }, function (err) {
+            console.log('Username found.');
+
+            if (model.get('password') !== password) {
                 console.log('Oops! Wrong password.');
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            });
+            }
 
-        }, function (err) {
-            console.log('No user found.');
-            return done(null, false, req.flash('loginMessage', 'No user found.'));
+
+            req.flash('username', username);
+            console.log('Password correct.');
+            return done(null, model);
         });
-
     }));
 };
