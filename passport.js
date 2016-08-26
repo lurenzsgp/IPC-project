@@ -36,7 +36,13 @@ module.exports = function(passport) {
         console.log(name);
         console.log(password);
 
-        req.flash('username', name);
+        var user = new data.ApiUser({username: name}).fetch().then(function () {
+            // utente trovato
+            console.log('That username is already taken.');
+            return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+        });
+        console.log('username free.');
+        // req.flash('username', name);
         // req.checkBody('usr', 'Please enter a name.').notEmpty();
         var errors = req.validationErrors();
         if (errors) {
@@ -49,9 +55,10 @@ module.exports = function(passport) {
         var pwd = crypto.createHmac('sha256', password);
 
         var user = new data.ApiUser({username: name, password: pwd, level: 1, score: 0}).save().then(function(model) {
-            passport.authenticate('local-login')(req, res, function () {
-                redirectToGame(res, req);
-            })
+            // passport.authenticate('local-login')(req, res, function () {
+            //     redirectToGame(res, req);
+            // });
+            console.log('utente creato');
             return done(null, user);
         }, function(err) {
             return done(err);
@@ -69,20 +76,23 @@ module.exports = function(passport) {
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback : true
-    },function(name, password, done) {
-        // TODO correggi i campi necessari per il login utente
-        new data.ApiUser({username: name}).fetch({require: true}).then(function(user) {
-            var sa = user.get('salt');
-            var pw = user.get('password');
-            var upw = crypto.createHmac('sha1', sa).update(password).digest('hex');
-            if(upw == pw) {
+    },function(req, name, password, done) {
+        var user = new data.ApiUser({username: name}).fetch().then(function () {
+            // utente trovato
+            console.log('Username correct.');
+            var pwd = crypto.createHmac('sha256', password);
+            var user = new data.ApiUser({username: name, password: pwd}).fetch().then(function () {
+                console.log('Password correct.');
                 return done(null, user);
-            }
-            return done(null, false, { 'message': 'Invalid password'});
-        }, function(error) {
-            // registro il nuovo utente
+            }, function (err) {
+                console.log('Oops! Wrong password.');
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            });
 
-            return done(null, false, { 'message': 'Unknown user'});
+        }, function (err) {
+            console.log('No user found.');
+            return done(null, false, req.flash('loginMessage', 'No user found.'));
         });
+
     }));
 };
