@@ -105,25 +105,13 @@
                             $("#load-level-btn").click(function(){
                                 level = parseInt(lvl);
 								
-								//$("#chat-text").html("Chat livello " + lvl);
-								
-								var json = (function() {
-									var json = null;
-									$.ajax({
-										'async': false,
-										'global': false,
-										'url': "levels-chat.json",
-										'dataType': "json",
-										'success': function (data) {
-											json = data;
-										}
-									});
-									return json;
-								})();
-									
-								document.write(json);
+                                //parse json for chat text
+                                $.getJSON("assets/lvl/levels-chat.json", function(data){
+                                    //alert(data[level - 1]);
+                                    $("#chat-text").html(data[level - 1]);
+                                });
+
 								$("#chat-panel").html("Livello " + lvl);
-                                //alert(lvl);
                                 editor.loadCode(level);
                                 missileCommand();
                             });
