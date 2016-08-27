@@ -86,6 +86,8 @@
 					</div>
 					
                     <script type="text/javascript">
+					
+					
                         $(document).ready(function() {
                             var lvl = "1";
 
@@ -98,10 +100,28 @@
                                 $('.level-description').children('h3').html("Level " + lvl.toString());
                                 $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
                             });
-
+							
+							
                             $("#load-level-btn").click(function(){
                                 level = parseInt(lvl);
-								$("#chat-text").html("Chat livello " + lvl);
+								
+								//$("#chat-text").html("Chat livello " + lvl);
+								
+								var json = (function() {
+									var json = null;
+									$.ajax({
+										'async': false,
+										'global': false,
+										'url': "levels-chat.json",
+										'dataType': "json",
+										'success': function (data) {
+											json = data;
+										}
+									});
+									return json;
+								})();
+									
+								document.write($("json"));
 								$("#chat-panel").html("Livello " + lvl);
                                 //alert(lvl);
                                 editor.loadCode(level);
