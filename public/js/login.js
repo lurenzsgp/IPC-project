@@ -1,5 +1,5 @@
 var crypto = require('crypto');
-var passport = require('passport')
+var passport = require('passport');
 
 exports.redirectToGame = function(req, res) {
     // If this function gets called, authentication was successful.
@@ -20,6 +20,6 @@ exports.ensureAuthenticated = function(req, res, next) {
     res.render('login');
 }
 
-exports.gameIndex = function(req, res){
+exports.gameIndex = function(req, res) {
 	res.render('index');
 }

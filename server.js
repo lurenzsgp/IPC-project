@@ -1,19 +1,19 @@
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var app      = express();
-var port     = process.env.PORT || 3000;
-var passport = require('passport');
-var flash    = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-var cookieSession = require('cookie-session');
-var serveStatic = require('serve-static');
-var expressValidator = require('express-validator');
-var swig = require('swig');
-var crypto = require('crypto');
-var path = require('path');
+var express				= require('express');
+var app					= express();
+var port				= process.env.PORT || 3000;
+var passport			= require('passport');
+var flash				= require('connect-flash');
+var cookieParser		= require('cookie-parser');
+var bodyParser			= require('body-parser');
+var session				= require('express-session');
+var cookieSession		= require('cookie-session');
+var serveStatic			= require('serve-static');
+var expressValidator	= require('express-validator');
+var swig				= require('swig');
+var crypto				= require('crypto');
+var path				= require('path');
 
 var dbConfig;
 try {
@@ -53,7 +53,7 @@ app.use(cookieParser('halsisiHHh445JjO0'));
 app.use(cookieSession({
     keys: ['key1', 'key2']
 }));
-
+// app.use(session);
 app.use(expressValidator());
 
 // routes ======================================================================

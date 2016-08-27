@@ -34,7 +34,7 @@ module.exports = function(passport) {
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');
-        console.log('sign up');
+        console.log('Sign up...');
         // TODO controllare che fetch sia sincrono
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {
@@ -43,7 +43,7 @@ module.exports = function(passport) {
 
 
                 new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
-                    console.log('utente creato');
+                    console.log('New user created.');
                     return done(null, model);
                 }, function(err) {
                     return done(err);
@@ -79,7 +79,7 @@ module.exports = function(passport) {
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');
-        console.log('login');
+        console.log('Login...');
 
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {
