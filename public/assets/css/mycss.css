@@ -39,7 +39,7 @@ button.close {
 }
 
 .avatar-circle {
-    border-radius: 50%;
+  border-radius: 50%;
 	width: auto;
 	height: 9em;
 	border: 2px solid grey;
