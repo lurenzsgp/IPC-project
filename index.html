@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Il Deserto dei Barbari</title>
-		
-		<link rel="icon" type="image/png" href="assets/img/logo.png" >		
-		
+
+		<link rel="icon" type="image/png" href="assets/img/logo.png" >
+
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 
@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/codemirror.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/show-hint.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/lint.css">
-		
+
 		<script type="text/javascript" src="assets/js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
@@ -48,7 +48,7 @@
                         <span class="nav-title">Il Deserto dei Barbari</span>
 					</a>
 				</div>
-				
+
 				<ul class="nav navbar-nav">
                     <li>
                         <a href="#" data-toggle="modal" data-target="#levelsModal">
@@ -56,7 +56,7 @@
                             <span>Levels</span>
                         </a>
                     </li>
-					
+
 					<li>
 						<a href="#" data-toggle="modal" data-target="#accountModal">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -70,11 +70,11 @@
 						</a>
 					</li>
 				</ul>
-				
+
 			</div>
 		</nav>
-		
-		
+
+
 		<!-- LEVELS Modal -->
 		<div id="levelsModal" class="modal fade" role="document">
 			<div class="modal-dialog" >
@@ -84,27 +84,27 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Selezione livello</h4>
 					</div>
-					
+
                     <script type="text/javascript">
-					
-					
+
+
                         $(document).ready(function() {
                             var lvl = "1";
 
                             $("#level-selector").find('.btn').click( function() {
                                 $(".btn-primary").removeClass('btn-primary');
                                 $(this).addClass('btn-primary');
-                                
+
                                 lvl = $(this).text();
-                                
+
                                 $('.level-description').children('h3').html("Level " + lvl.toString());
                                 $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
                             });
-							
-							
+
+
                             $("#load-level-btn").click(function(){
                                 level = parseInt(lvl);
-								
+
                                 //parse json for chat text
                                 $.getJSON("assets/lvl/levels-chat.json", function(data){
                                     //alert(data[level - 1]);
@@ -113,7 +113,7 @@
 
 								$("#chat-panel").html("Livello " + lvl);
                                 editor.loadCode(level);
-                                missileCommand();
+                                missileCommand(true);
                             });
                         });
                     </script>
@@ -129,16 +129,16 @@
                           <a type="button" role="button" class="btn btn-default">6</a>
                           <a type="button" role="button" class="btn btn-default">7</a>
                           <a type="button" role="button" class="btn btn-default">8</a>
-                          <a type="button" role="button" class="btn btn-default">9</a>                          
+                          <a type="button" role="button" class="btn btn-default">9</a>
 						</div>
-                        
+
                         <div class="level-description">
                             <h3></h3>
                             <p>Seleziona il livello che vuoi caricare.</p>
                         </div>
 
 					</div>
-					
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="load-level-btn">Carica</button>
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 		</div>
-		
+
         <!-- ACCOUNT Modal -->
 		<div id="accountModal" class="modal fade" role="document">
 			<div class="modal-dialog modal-lg" >
@@ -169,12 +169,12 @@
                                 <p>Livelli superati:</p>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                        70% 
+                                        70%
                                     </div>
-                                </div>    
+                                </div>
                             </div>
 						</div>
-						
+
 
 						<p> Badge ottenuti: </p>
 						<table class="table table-bordered">
@@ -227,21 +227,21 @@
 							</tbody>
 							</table>
 					</div>
-					
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 
 		<div class="container">
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
 
-                        
+
                     <div class="panel panel-default chat">
                         <div class="panel-heading" id="chat-panel">Level 1</div>
                         <div class="panel-body">
@@ -293,7 +293,7 @@
 
                     </div>
 				</div>
-				
+
 				<!-- Parte dx -->
 				<div class="col-lg-6">
 					<div class="row">
@@ -302,7 +302,7 @@
 							<textarea class="hidden" id="code" name="code">codice del gioco</textarea>
 						</div>
 					</div>
-					
+
 					<div class="row floating-buttons">
 						<div class="col-lg-12" align="center">
                         <!-- CONFIRM CODE BUTTON -->
@@ -316,13 +316,13 @@
                         <!-- ASK FOR HELP BUTTON -->
                             <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg">
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
-                            </button>                            
+                            </button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<footer class="footer">
             <h4>Il Deserto dei Barbari</h4>
 			<span>Alice Valentini, Lorenzo Cazzoli, Luca Casini, Manfredi Giordano</span>
@@ -332,7 +332,7 @@
 		<script type="text/javascript" src="assets/js/missile_command.js"></script>
 		<script type="text/javascript" src="assets/js/editor.js"></script>
 		<script type="text/javascript" src="assets/js/app.js"></script>
-		
+
 		<noscript>&Egrave; necessario avere JavaScript abilitato.</noscript>
 	</body>
 </html>

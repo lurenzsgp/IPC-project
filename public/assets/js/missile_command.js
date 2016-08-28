@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 8,
+  level = 1,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
