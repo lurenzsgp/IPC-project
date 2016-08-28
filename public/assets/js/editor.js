@@ -327,5 +327,7 @@ Editor.prototype.execCode = function (user) {
 	// esegui la goal function per vedere se il livello puo' ritenersi superato
 	if (user) {
 		this.goalFunction(); // restituira un valore boleano che indica il superamento del livello
-	}
+        // riavvio il livello
+        missileCommand(true);
+    }
 }

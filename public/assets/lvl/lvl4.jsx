@@ -1,5 +1,5 @@
 // Initialize the city
-var initCities = function () {
+var createCities = function () {
 #BEGIN_EDITABLE#
     /* Le coordinate delle citta' sono definite nel vettore elementPos
        dal 4^ elemento in poi. */
@@ -17,8 +17,9 @@ if (f.body.indexOf('for') === -1) {
     return;
 }
 
+
 console.log("invoco la funzione definita nell'editor");
-initCities();
+createCities();
 
 if (cities.length != 6) {
     console.log("Le citta' devono essere 6");
@@ -30,6 +31,4 @@ if (cities[0].x !== elementPos[3].x || cities[5].x !== elementPos[8].x) {
     return;
 }
 
-console.log("Reinizializzo il livello");
-initializeLevel();
 #END_OF_GOAL_FUNCTION#

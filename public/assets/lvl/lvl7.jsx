@@ -23,5 +23,4 @@ if (antiMissileBatteries[0].missilesLeft > 10 || antiMissileBatteries[1].missile
 }
 
 console.log("inizializzo il livello");
-initializeLevel();
 #END_OF_GOAL_FUNCTION#

@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 1,
+  level = 8,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -29,95 +29,83 @@ var contrAerea;
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
 // Create cities and anti missile batteries at the start of the game
-var missileCommand = function() {
+var missileCommand = function(userClick) {
     if (3 < level && level < 7) {
-        initRefactLevel();
+        initRefactLevel(userClick);
     } else if (6 < level && level < 10) {
-        initDesignLevel();
+        initDesignLevel(userClick);
     } else {
-        initDebugLevel();
+        initDebugLevel(userClick);
     }
 
-    setupListeners();
+    if (!userClick) {
+        setupListeners();
+    }
 };
 
-var initDebugLevel = function () {
-    cities = [];
-    antiMissileBatteries = [];
-    // Bottom left position of city
+var createCities = function () {
     cities.push( new City( elementPos[3].x,  elementPos[3].y) );
     cities.push( new City( elementPos[4].x,  elementPos[4].y) );
     cities.push( new City( elementPos[5].x,  elementPos[5].y) );
     cities.push( new City( elementPos[6].x,  elementPos[6].y) );
     cities.push( new City( elementPos[7].x,  elementPos[7].y) );
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+}
 
-    // Top middle position of anti missile battery
+var createAntimissileBattery = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+}
+
+var initDebugLevel = function (userClick) {
+    cities = [];
+    antiMissileBatteries = [];
+    // Bottom left position of city
+    createCities();
+    // Top middle position of anti missile battery
+    createAntimissileBattery();
     initializeLevel();
 };
 
-var initCities = function () {
+var penaltyCreateCities = function () {
     return;
 }
 
-var initRefactLevel = function () {
+var initRefactLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
 
-    if (level === 4) {
-        initCities();
-    } else {
-        // Bottom left position of city
-        cities.push( new City( elementPos[3].x,  elementPos[3].y) );
-        cities.push( new City( elementPos[4].x,  elementPos[4].y) );
-        cities.push( new City( elementPos[5].x,  elementPos[5].y) );
-        cities.push( new City( elementPos[6].x,  elementPos[6].y) );
-        cities.push( new City( elementPos[7].x,  elementPos[7].y) );
-        cities.push( new City( elementPos[8].x,  elementPos[8].y) );
-    }
+    // Bottom left position of city
+    createCities();
     // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+    createAntimissileBattery();
 
     initializeLevel();
 
-    if (level === 5 || level === 6) {
+    if (!userClick && (level === 5 || level === 6)) {
         editor.execCode(true);
     }
 };
 
-var initDesignLevel = function () {
+var initDesignLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
     // Bottom left position of city
-    cities.push( new City( elementPos[3].x,  elementPos[3].y) );
-    cities.push( new City( elementPos[4].x,  elementPos[4].y) );
-    cities.push( new City( elementPos[5].x,  elementPos[5].y) );
-    cities.push( new City( elementPos[6].x,  elementPos[6].y) );
-    cities.push( new City( elementPos[7].x,  elementPos[7].y) );
-    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
+    createCities();
 
     // Top middle position of anti missile battery
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+    createAntimissileBattery();
 
-    if (level === 7) {
-        var f = editor.getCode();
-        if (f.body.indexOf("antiMissileBatteries") === -1 || f.body.indexOf("missilesLeft") === -1) {
-            rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
-        }
+    if (!userClick && level === 7) {
+        editor.execCode(true);
     }
 
     if (level >= 8) {
-        if (level === 9) {
-            contrAerea = new AutoAntiMissileDefense();
-            editor.execCode(true);
-        }
+            if (!userClick && level === 9) {
+                contrAerea = new AutoAntiMissileDefense();
+                editor.execCode(true);
+            }
         initializeHandicapLevel();
     } else {
         initializeLevel();
@@ -906,8 +894,8 @@ var checkEndLevel = function() {
         var missilesLeft = totalMissilesLeft(),
           citiesSaved  = totalCitiesSaved();
 
-        $("#ButtonExecCode").prop("disabled",false);
-        $("#ButtonResetCode").prop("disabled",false);
+        // $("#ButtonExecCode").prop("disabled",false);
+        // $("#ButtonResetCode").prop("disabled",false);
 
         !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
     }
@@ -942,7 +930,7 @@ var setupNextLevel = function(next) {
         level++;
         editor.loadCode(level);
     }
-    missileCommand();
+    missileCommand(false);
 };
 
 // Handle the end of the game
@@ -952,7 +940,7 @@ var endGame = function( missilesLeft ) {
 
     $( '#mc-container' ).one( 'click', function() {
         // possibilita' di penalita' nel punteggio
-        missileCommand();
+        missileCommand(false);
         });
     };
 
@@ -1069,8 +1057,8 @@ var setupListeners = function() {
     $( '#mc-container' ).one( 'click', function() {
       startLevel();
 
-      $("#ButtonExecCode").prop("disabled",true);
-      $("#ButtonResetCode").prop("disabled",true);
+    //   $("#ButtonExecCode").prop("disabled",true);
+    //   $("#ButtonResetCode").prop("disabled",true);
 
       $( '#miscom' ).unbind().click(function( event ) {
         var mousePos = getMousePos(this, event);

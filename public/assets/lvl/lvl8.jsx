@@ -36,5 +36,4 @@ if (count > 3) {
     createBonusMissiles = penaltyCreateBonusMissiles;
 }
 
-initializeHandicapLevel();
 #END_OF_GOAL_FUNCTION#
