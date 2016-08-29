@@ -17,6 +17,7 @@
 		
 		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/intro.js"></script>
 		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/codemirror.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/javascript.js"></script>
@@ -74,7 +75,6 @@
 			</div>
 		</nav>
 
-
 		<!-- LEVELS Modal -->
 		<div id="levelsModal" class="modal fade" role="document">
 			<div class="modal-dialog" >
@@ -104,7 +104,7 @@
 								editor.applySolution();
                                 level = parseInt(lvl);
                                 //parse json for chat text
-                                $.getJSON("assets/lvl/levels-chat.json", function(data){
+                                $.getJSON("lvl/levels-chat.json", function(data){
                                     //alert(data[level - 1]);
                                     $("#chat-text").html(data[level - 1]);
                                 });
@@ -133,7 +133,6 @@
                             <h3></h3>
                             <p>Seleziona il livello che vuoi caricare.</p>
                         </div>
-
 					</div>
 
 					<div class="modal-footer">
@@ -179,7 +178,6 @@
                                 </div>
                             </div>
 						</div>
-
 
 						<p> Badge ottenuti: </p>
 						<table class="table table-bordered">
@@ -230,7 +228,7 @@
 									<td>-100</td>
 								</tr>
 							</tbody>
-							</table>
+						</table>
 					</div>
 
 					<div class="modal-footer">
@@ -240,12 +238,10 @@
 			</div>
 		</div>
 
-
 		<div class="container">
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-<<<<<<< HEAD
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="panel panel-info">
@@ -265,7 +261,7 @@
 								<div class="panel-heading">
 									Recluta
 								</div>
-								</div>
+							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="panel panel-warning">
@@ -275,34 +271,33 @@
 								<div class="panel-heading">
 									Anziano
 								</div>
-								</div>
+							</div>
 						</div>
 					</div>
 					<div class="panel panel-primary">
 					<div class="panel-heading">Missile Command</div>
-=======
+
                     <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=3>
                         <div class="panel-heading" id="chat-panel">Level 1</div>
                         <div class="panel-body">
-                            <img class="portrait" src="assets/img/general.png">
+                            <img class="portrait" src="img/general.png">
                             <div id="chat-text">
                                 this is level 1. your have to fix the missle speed as it appears to be fucking slow!
                             </div>
                         </div>
                     </div>
 
->>>>>>> master
 					<div class="row" id="mc-container">
 						<canvas id="miscom" class="game center-block" width="510" height="460" data-intro="Questo è il gioco, cliccaci sopra per iniziare il livello." data-position="right" data-step=1>
 						Missile Command</canvas>
 					</div>
 
-                    <div class="row">
                     <!-- vecchi panels
+                    <div class="row">
                         <div class="col-lg-4">
                             <div class="panel panel-info">
                                 <div class="panel-body">
-                                    <img  class="portrait" src="assets/img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
+                                    <img  class="portrait" src="img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
                                 </div>
                                 <div class="panel-heading">
                                     Ufficiale
@@ -312,7 +307,7 @@
                         <div class="col-lg-4">
                             <div class="panel panel-success">
                                 <div class="panel-body">
-                                    <img  class="portrait" src="assets/img/recruit.png" data-toggle="modal" data-target="#briefingModal" alt="Recluta">
+                                    <img  class="portrait" src="img/recruit.png" data-toggle="modal" data-target="#briefingModal" alt="Recluta">
                                 </div>
                                 <div class="panel-heading">
                                     Recluta
@@ -322,17 +317,15 @@
                         <div class="col-lg-4">
                             <div class="panel panel-warning">
                                 <div class="panel-body">
-                                    <img  class="portrait" src="assets/img/oldman.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
+                                    <img  class="portrait" src="img/oldman.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
                                 </div>
                                 <div class="panel-heading">
                                     Anziano
                                 </div>
                                 </div>
                         </div>
-                        -->
-
-
                     </div>
+                    -->
 				</div>
 
 				<!-- Parte dx -->
@@ -363,10 +356,13 @@
 				</div>
 			</div>
 		</div>
+		</div>
 
 		<footer class="footer">
             <h4>Il Deserto dei Barbari</h4>
 			<span>Alice Valentini, Lorenzo Cazzoli, Luca Casini, Manfredi Giordano</span>
+			<br>
+			<span>Progetto di Interazione Persona-Computer a.a. 2015-2016</span>
 		</footer>
 
 		<!-- script  -->
