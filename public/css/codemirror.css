@@ -3,8 +3,10 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 550px;
+  height: 680px;
   color: white;
+  border: 1px solid grey;
+  border-radius: 0px;
 }
 
 /* PADDING */
@@ -30,7 +32,7 @@
 .CodeMirror-linenumbers {}
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
-  min-width: 20px;
+  min-width: 10px;
   text-align: right;
   color: #E0E0E0;
   white-space: nowrap;
