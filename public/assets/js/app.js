@@ -4,6 +4,10 @@ $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
+	//attiva intro.js
+	//introJs().start();
+	introJs().setOptions({'skipLabel': 'Salta', 'showStepNumbers': 'false', 'scrollToElement': 'true'}).start();
+	
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
