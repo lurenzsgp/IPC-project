@@ -18,7 +18,7 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(user_id, done) {
         new data.ApiUser({id: user_id}).fetch().then(function(user) {
-    		console.log('Deserializing user...');
+    		console.log('Deserializing user with ID ' + user_id + '...');
             return done(null, user);
         }, function(error) {
             return done(error);

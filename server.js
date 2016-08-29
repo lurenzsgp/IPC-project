@@ -41,12 +41,6 @@ var knex = require('knex')({
 var bookshelf = require('bookshelf');
 bookshelf.mysqlAuth = bookshelf(knex);
 
-// required for Passport: http://passportjs.org/docs/configure
-// app.use(session(sessionConfig));
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
-
 app.use(serveStatic('./public'));
 app.use(bodyParser.urlencoded({	extended: true }));
 app.use(bodyParser.json());
@@ -59,6 +53,13 @@ app.use(cookieSession({
     keys: ['key1', 'key2']
 }));
 app.use(expressValidator());
+
+// required for Passport: http://passportjs.org/docs/configure
+// app.use(session(sessionConfig));
+// app.use(express.session({ secret: 'halyisiHHh445JjO0' }));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 // load our routes and pass in our app and fully configured passport

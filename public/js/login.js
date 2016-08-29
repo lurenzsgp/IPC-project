@@ -1,7 +1,6 @@
 exports.redirectToGame = function(req, res) {
     // If this function gets called, authentication was successful.
 	// req.user contains the authenticated user.
-// 	res.redirect('/desertoDeiBarbari');
 	req.session.save(() => {
     	res.redirect('/desertoDeiBarbari');
     })
@@ -24,7 +23,6 @@ exports.ensureAuthenticated = function(req, res, next) {
 }
 
 exports.gameIndex = function(req, res) {
-// 	res.render('index');
 	req.session.save(() => {
     	res.render('index');
     })
