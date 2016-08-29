@@ -29,6 +29,10 @@ var playerShoot = function( x, y ) {
 #END_EDITABLE#
 };
 #START_OF_GOAL_FUNCTION#
+console.log("controllo la presenza di errori nell'editor");
+testFunction(100,100);
+editor.defineFunction();
+
 console.log("controllo la lunghezza del corpo della funzione");
 var f = editor.getCode();
 if (f.numLines > 7) { // 7 sono le righe del corpo della funzione

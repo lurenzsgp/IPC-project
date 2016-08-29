@@ -62,7 +62,7 @@ Editor.prototype.loadCode = function (lvl) {
     });
 
     this.cm.refresh();
-	this.execCode(false);
+	this.defineFunction();
 }
 
 Editor.prototype.getCode = function () {
@@ -156,7 +156,7 @@ Editor.prototype.preprocessor = function (code) {
         }
     }
 
-	Editor.prototype.goalFunction = new Function(goalString);
+	Editor.prototype.goalFunction = new Function("f", goalString);
 
     return lineArray.join("\n");
 };
@@ -311,21 +311,58 @@ Editor.prototype.resetCode = function () {
 	this.loadCode(level);
 }
 
-// Rende eseguibile la funzione scritta nell'editor e poi esegue la goal function
-Editor.prototype.execCode = function (user) {
-	// leggi il codice dall'editor e sostituiscilo all'interno di missile command
+Editor.prototype.applySolution = function () {
+    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
 	var f = this.getCode();
 
+    eval("f.body = solution" + level + ";");
 	// devo ridefinire la funzione
 	// console.log(f.name);
 	// console.log(f.args);
 	// console.log(f.body);
 
-	// console.log("eval --> " + f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-	eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+    eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+}
 
-	// esegui la goal function per vedere se il livello puo' ritenersi superato
-	if (user) {
-		this.goalFunction(); // restituira un valore boleano che indica il superamento del livello
-	}
+Editor.prototype.defineFunction = function (fName) {
+    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
+	var f = this.getCode();
+
+    if (fName !== undefined) {
+        if (f.name.indexOf('prototype') === -1) {
+            f.name = fName;
+        } else {
+            f.name = f.name.slice( 0, f.name.lastIndexOf('.') + 1 ) + fName;
+        }
+    }
+	// devo ridefinire la funzione
+	// console.log(f.name);
+	// console.log(f.args);
+	// console.log(f.body);
+
+    eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+}
+
+// Rende eseguibile la funzione scritta nell'editor e poi esegue la goal function
+Editor.prototype.execCode = function () {
+    try {
+        this.defineFunction("testFunction");
+    } catch (e) {
+        console.log(e);
+        return;
+    }
+
+    var f = this.getCode();
+    // esegui la goal function per vedere se il livello puo' ritenersi superato
+    try {
+        this.goalFunction(f.name);
+    } catch(e) {
+        console.log(e);
+        /*fermare il liello */
+        return;
+    }
+
+    // riavvio il livello
+    missileCommand(true);
+
 }

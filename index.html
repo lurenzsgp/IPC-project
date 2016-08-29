@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Il Deserto dei Barbari</title>
-		
-		<link rel="icon" type="image/png" href="assets/img/logo.png" >		
-		
+
+		<link rel="icon" type="image/png" href="assets/img/logo.png" >
+
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 
@@ -19,10 +19,13 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/codemirror.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/show-hint.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/lint.css">
-		
+		<link rel="stylesheet" type="text/css" href="assets/css/introjs.css">
+
 		<script type="text/javascript" src="assets/js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+		<script type="text/javascript" src="assets/js/intro.js"></script>
 		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
+
 		<script type="text/javascript" src="assets/js/CodeMirror/codemirror.js"></script>
 		<script type="text/javascript" src="assets/js/CodeMirror/javascript.js"></script>
 		<script type="text/javascript" src="assets/js/CodeMirror/addon/active-line.js"></script>
@@ -39,67 +42,117 @@
 	<body>
 		<!-- navbar -->
 		<nav class="navbar navbar-default navbar-inverse">
-			<div class="container">
+			<div class="container" style="width: auto;">
 
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
 						<img alt="Logo" src="assets/img/logo.png">
+                        <span class="nav-title">Il Deserto dei Barbari</span>
 					</a>
 				</div>
-				
+
 				<ul class="nav navbar-nav">
+                    
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#levelsModal" data-intro="Qui potrai navigare tra i livelli completati." data-step=4 data-position="right" >
+                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                            <span>Levels</span>
+                        </a>
+                    </li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#accountModal">
-							<i class="fa fa-user" aria-hidden="true"></i> 
+						<a href="#" data-toggle="modal" data-target="#accountModal" data-intro="Qui potrai visualizzare il tuo profilo." data-step=5 data-position="right" >
+							<i class="fa fa-user" aria-hidden="true"></i>
+                            <span>User</span>
 						</a>
 					</li>
 					<li>
 						<a href="#">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <span>Logout</span>
 						</a>
 					</li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            <span>Tutorial</span>
+                        </a>
+                    </li>
 				</ul>
-				
+
 			</div>
 		</nav>
 
-		<!-- BRIEFING Modal -->
-		<div class="modal fade" id="briefingModal" tabindex="-1" role="dialog" aria-labelledby="briefingModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="briefingModalLabel">Briefing</h4>
-		      </div>
-		      <div class="modal-body">
-		        ...
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
+
+		<!-- LEVELS Modal -->
+		<div id="levelsModal" class="modal fade" role="document">
+			<div class="modal-dialog" >
+			<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Selezione livello</h4>
+					</div>
+
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            var lvl = "1";
+
+                            $("#level-selector").find('.btn').click( function() {
+                                $(".btn-primary").removeClass('btn-primary');
+                                $(this).addClass('btn-primary');
+
+                                lvl = $(this).text();
+
+                                $('.level-description').children('h3').html("Level " + lvl.toString());
+                                $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
+                            });
+
+
+                            $("#load-level-btn").click(function(){
+								editor.applySolution();
+                                level = parseInt(lvl);
+                                //parse json for chat text
+                                $.getJSON("assets/lvl/levels-chat.json", function(data){
+                                    //alert(data[level - 1]);
+                                    $("#chat-text").html(data[level - 1]);
+                                });
+
+								$("#chat-panel").html("Livello " + lvl);
+                                editor.loadCode(level);
+                                missileCommand(true);
+                            });
+                        });
+                    </script>
+
+					<div class="modal-body" id="level-selector">
+						<div class="btn-group btn-group-justified" role="group" aria-label="Livello">
+						  <a type="button" role="button" class="btn btn-default">1</a>
+						  <a type="button" role="button" class="btn btn-default">2</a>
+                          <a type="button" role="button" class="btn btn-default">3</a>
+                          <a type="button" role="button" class="btn btn-default">4</a>
+                          <a type="button" role="button" class="btn btn-default">5</a>
+                          <a type="button" role="button" class="btn btn-default">6</a>
+                          <a type="button" role="button" class="btn btn-default">7</a>
+                          <a type="button" role="button" class="btn btn-default">8</a>
+                          <a type="button" role="button" class="btn btn-default">9</a>
+						</div>
+
+                        <div class="level-description">
+                            <h3></h3>
+                            <p>Seleziona il livello che vuoi caricare.</p>
+                        </div>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="load-level-btn">Carica</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<!-- HINTS Modal -->
-		<div class="modal fade" id="hintsModal" tabindex="-1" role="dialog" aria-labelledby="hintsModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="hintsModalLabel">Suggerimenti</h4>
-		      </div>
-		      <div class="modal-body">
-		        ...
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-		<!-- ACCOUNT Modal -->
+        <!-- ACCOUNT Modal -->
 		<div id="accountModal" class="modal fade" role="document">
 			<div class="modal-dialog modal-lg" >
 			<!-- Modal content-->
@@ -110,21 +163,31 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-2">
-								<img src="assets/img/default-avatar.png" class="avatar-circle">
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-6">
+												<img src="assets/img/default-avatar.png" class="avatar-circle">
+											</div>
+											<div class="col-md-6">
+												<h4>Username</h4>
+												<p>e-Mail</p>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="col-md-10">
-								<h4>Username</h4>
-								<p>email</p>
-							</div>
+                            <div class="col-md-6">
+                                <p>Livelli superati:</p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                        70%
+                                    </div>
+                                </div>
+                            </div>
 						</div>
-						
-						<p>Livelli superati:</p>
-						<div class="progress">
-							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-							70% 
-							</div>
-						</div>
+
 
 						<p> Badge ottenuti: </p>
 						<table class="table table-bordered">
@@ -177,7 +240,7 @@
 							</tbody>
 							</table>
 					</div>
-					
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
 					</div>
@@ -185,84 +248,114 @@
 			</div>
 		</div>
 
+
 		<div class="container">
-			<div class="row">
+			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-					<div class="row">
-						<div class="col-lg-4">
-							<div class="panel panel-info">
-								<div class="panel-body">
-									<img  class="portrait" src="assets/img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
-								</div>
-								<div class="panel-heading">
-									Ufficiale
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="panel panel-success">
-								<div class="panel-body">
-									<img  class="portrait" src="assets/img/recruit.png" data-toggle="modal" data-target="#briefingModal" alt="Recluta">
-								</div>
-								<div class="panel-heading">
-									Recluta
-								</div>
-								</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="panel panel-warning">
-								<div class="panel-body">
-									<img  class="portrait" src="assets/img/oldman.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
-								</div>
-								<div class="panel-heading">
-									Anziano
-								</div>
-								</div>
-						</div>
-					</div>
-					<div class="panel panel-primary">
-					<div class="panel-heading">Missile Command</div>
+                    <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=3>
+                        <div class="panel-heading" id="chat-panel">Level 1</div>
+                        <div class="panel-body">
+                            <img class="portrait" src="assets/img/general.png">
+                            <div id="chat-text">
+                                this is level 1. your have to fix the missle speed as it appears to be fucking slow!
+                            </div>
+                        </div>
+                    </div>
+
 					<div class="row" id="mc-container">
-						<canvas id="miscom" class="game center-block" width="510" height="460">Missile Command</canvas>
+						<canvas id="miscom" class="game center-block" width="510" height="460" data-intro="Questo è il gioco, cliccaci sopra per iniziare il livello." data-position="right" data-step=1>
+						Missile Command</canvas>
 					</div>
-					</div>
+
+                    <div class="row">
+                    <!-- vecchi panels
+                        <div class="col-lg-4">
+                            <div class="panel panel-info">
+                                <div class="panel-body">
+                                    <img  class="portrait" src="assets/img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
+                                </div>
+                                <div class="panel-heading">
+                                    Ufficiale
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="panel panel-success">
+                                <div class="panel-body">
+                                    <img  class="portrait" src="assets/img/recruit.png" data-toggle="modal" data-target="#briefingModal" alt="Recluta">
+                                </div>
+                                <div class="panel-heading">
+                                    Recluta
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="panel panel-warning">
+                                <div class="panel-body">
+                                    <img  class="portrait" src="assets/img/oldman.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
+                                </div>
+                                <div class="panel-heading">
+                                    Anziano
+                                </div>
+                                </div>
+                        </div>
+                        -->
+
+
+                    </div>
 				</div>
-				
+
 				<!-- Parte dx -->
 				<div class="col-lg-6">
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-12" data-intro="Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante." data-step=2>
 							<!-- editor -->
 							<textarea class="hidden" id="code" name="code">codice del gioco</textarea>
 						</div>
 					</div>
+<<<<<<< HEAD
+
+					<div class="row floating-buttons">
+						<div class="col-lg-12" align="center">
+                        <!-- CONFIRM CODE BUTTON -->
+=======
 					
 					<div class="row">
 						<div class="col-lg-6" align="center">
+>>>>>>> refs/remotes/origin/master
 							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg">
-								<i class="fa fa-check" aria-hidden="true"></i> Esegui codice
+								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
+<<<<<<< HEAD
+                        <!-- RESET CODE BUTTON -->
+=======
 						</div>	
 						<div class="col-lg-6" align="center">
+>>>>>>> refs/remotes/origin/master
 							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg">
-								<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Ripristina
+								<i class="fa fa-undo" aria-hidden="true"></i>
 							</button>
+                        <!-- ASK FOR HELP BUTTON -->
+                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<footer class="footer">
-			<p>Bla bla</p>
+            <h4>Il Deserto dei Barbari</h4>
+			<span>Alice Valentini, Lorenzo Cazzoli, Luca Casini, Manfredi Giordano</span>
 		</footer>
 
 		<!-- script  -->
 		<script type="text/javascript" src="assets/js/missile_command.js"></script>
 		<script type="text/javascript" src="assets/js/editor.js"></script>
 		<script type="text/javascript" src="assets/js/app.js"></script>
-		
+
 		<noscript>&Egrave; necessario avere JavaScript abilitato.</noscript>
 	</body>
 </html>
