@@ -37,7 +37,7 @@ button.close {
   font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
 }
-
+/*
 .btn {
   font-family: "Roboto", sans-serif;
   border-radius: 0;
@@ -52,7 +52,7 @@ margin-left: 0;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-
+*/
 .avatar-circle {
   border-radius: 50%;
 	width: auto;
@@ -259,11 +259,18 @@ p {
     visibility: visible;
     opacity: 100;
   }
+<<<<<<< HEAD:public/css/mycss.css
 
+=======
+>>>>>>> master:public/assets/css/mycss.css
 
 }
 
 .footer{
+<<<<<<< HEAD:public/css/mycss.css
+=======
+  width: 100%;
+>>>>>>> master:public/assets/css/mycss.css
   text-align: center;
   color: rgba(0,0,0,0.5);
   position: relative;
@@ -284,6 +291,7 @@ p {
 .floating-buttons{
   position: relative;
   z-index: 5;
+<<<<<<< HEAD:public/css/mycss.css
 }
 .floating-buttons button{
   box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.3);
@@ -306,6 +314,30 @@ a, button:focus{
   position: fixed;
   top: 0;
 }
+=======
+}
+.floating-buttons button{
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.3);
+  font-size: 200%;
+  border-radius: 100%;
+  filter: brightness(80%);
+}
+
+.floating-buttons button:hover{
+  filter: brightness(120%);
+}
+
+a, button:focus{
+  outline: none !important;
+}
+
+.CodeMirror{
+  height: auto !important;
+  box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
+}
+>>>>>>> master:public/assets/css/mycss.css
 #mc-container{
   text-align: center;
   text-align: -webkit-center;

@@ -3,7 +3,6 @@ var editor = {};
 $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
-
 	// attiva intro.js
 	introJs().setOptions({
 		'skipLabel': 'Salta',
