@@ -415,23 +415,23 @@ AntiMissileBattery.prototype.draw = function() {
 				  [12, 12], [-18, 18], [-6, 18], [6, 18], [18, 18] ];
 
 	for( var i = 0, len = this.missilesLeft; i < len; i++ ) {
-	  x = this.x + delta[i][0] + 2;
-	  y = this.y + delta[i][1] + 2;
-
+	  x = this.x + delta[i][0] + 0;
+	  y = this.y + delta[i][1] - 10;
+      //NEW GRAPHICS
 	  // Draw a missile-launcher
-	  ctx.fillStyle = '#8f3f3f';
+	  ctx.fillStyle = '#af6f5f';
 	  ctx.beginPath();
 	  ctx.moveTo( x, y );
-	  ctx.lineTo( x - 5, y + 5);
-	  ctx.lineTo( x , y + 7);
+	  ctx.lineTo( x - 3, y + 10);
+	  ctx.lineTo( x , y + 12);
 	  ctx.closePath();
 	  ctx.fill();
 
-	  ctx.fillStyle = '#441111';
+	  ctx.fillStyle = '#553322';
 	  ctx.beginPath();
 	  ctx.moveTo(x,y);
-	  ctx.lineTo( x , y + 7);
-	  ctx.lineTo( x + 5, y + 5);
+	  ctx.lineTo( x , y + 12);
+	  ctx.lineTo( x + 3, y + 10);
 	  ctx.closePath();
 	  ctx.fill();
 	}
@@ -471,8 +471,9 @@ Missile.prototype.draw = function() {
 	  ctx.fillRect( this.x - 1, this.y - 1, this.width, this.height );
 	} else if( this.state === MISSILE.exploding ||
 			   this.state === MISSILE.imploding ) {
-	  //explosion color
-	  ctx.fillStyle = 'rgba(250,180,150,0.5)';
+	  //NEW GRAPHICS
+      //explosion color
+	  ctx.fillStyle = 'rgba(255,230,200,0.5)';
 	  ctx.beginPath();
 	  ctx.arc( this.x, this.y, this.explodeRadius, 0, 2 * Math.PI );
 	  ctx.closePath();
@@ -483,29 +484,7 @@ Missile.prototype.draw = function() {
 	}
 };
 
-// Show the missiles left in an anti missile battery
-AntiMissileBattery.prototype.draw = function() {
-    var x, y;
-    var delta = [ [0, 0], [-6, 6], [6, 6], [-12, 12], [0, 12],
-                  [12, 12], [-18, 18], [-6, 18], [6, 18], [18, 18] ];
 
-    for( var i = 0, len = this.missilesLeft; i < len; i++ ) {
-        x = this.x + delta[i][0];
-        y = this.y + delta[i][1];
-
-        // Draw a missile
-        ctx.strokeStyle = 'brown';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo( x, y );
-        ctx.lineTo( x, y + 8 );
-        ctx.moveTo( x - 2, y + 10 );
-        ctx.lineTo( x - 2, y + 6 );
-        ctx.moveTo( x + 2, y + 10 );
-        ctx.lineTo( x + 2, y + 6 );
-        ctx.stroke();
-    }
-};
 
   // Constructor for a Missile, which may be the player's missile or
   // the enemy's missile.
@@ -526,31 +505,6 @@ function Missile( options ) {
     this.height = 2;
     this.explodeRadius = 0;
 }
-
-// Draw the path of a missile or an exploding missile
-Missile.prototype.draw = function() {
-    if( this.state === MISSILE.active ){
-      ctx.strokeStyle = this.trailColor;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo( this.startX, this.startY );
-      ctx.lineTo( this.x, this.y );
-      ctx.stroke();
-
-      ctx.fillStyle = this.color;
-      ctx.fillRect( this.x - 1, this.y - 1, this.width, this.height );
-    } else if( this.state === MISSILE.exploding ||
-               this.state === MISSILE.imploding ) {
-      ctx.fillStyle = 'rgba(255,255,0,0.5)';
-      ctx.beginPath();
-      ctx.arc( this.x, this.y, this.explodeRadius, 0, 2 * Math.PI );
-      ctx.closePath();
-
-      explodeOtherMissiles( this, ctx );
-
-      ctx.fill();
-    }
-};
 
 // Handle update to help with animating an explosion
 Missile.prototype.explode = function() {

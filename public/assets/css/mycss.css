@@ -304,5 +304,10 @@ a, button:focus{
   height: 250px;
 }
 
-.chat .panel-body{
+#chat-panel{
+  font-weight: 800;
+}
+
+.introjs-helperLayer{
+  background-color: rgba(255,255,255,0.5) !important;
 }
