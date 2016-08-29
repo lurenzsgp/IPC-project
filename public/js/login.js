@@ -23,7 +23,6 @@ exports.ensureAuthenticated = function(req, res, next) {
 }
 
 exports.gameIndex = function(req, res) {
-	req.session.save(() => {
-    	res.render('index');
-    })
+	console.log('Game index requested');
+    res.render('index');
 }
