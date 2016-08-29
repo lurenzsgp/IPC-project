@@ -11,20 +11,9 @@
 		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 	</head>
+	
 	<body>
 		<div class="login-page">
-		  <div class='title'>
-			Il deserto dei barbari
-		  </div>
-		  <div class="form">
-			<form class="login-form">
-			  <input type="text" placeholder="username"/>
-			  <input type="password" placeholder="password"/>
-			  <button>login</button>
-			  <p class="message">Non sei registrato? <a href="#" data-toggle="modal" data-target="#createAccountModal">Registrati qui</a></p>
-			</form>
-		  </div>
-		</div>
 
 			<div class="title">
 				Il Deserto dei Barbari
@@ -37,21 +26,20 @@
 					<button type="submit">login</button>
 					<p class="message">Non sei registrato? <a href="#" data-toggle="modal" data-target="#createAccountModal">Registrati qui</a></p>
 				</form>
-			  </div>
 			</div>
+		</div>
 
-			<!-- Sign-Up Modal -->
-			<div id="createAccountModal" class="modal fade" role="document">
-				<div class="modal-dialog" >
-					<div class="form">
-						<form class="login-form" action="/signup" method="post">
-							<input type="text" placeholder="username" name="usr" />
-							<input type="password" placeholder="password" name="pwd" />
-							<button type="submit">signup</button>
-						</form>
-					  </div>
-					</div>
+		<!-- Sign-Up Modal -->
+		<div id="createAccountModal" class="modal fade" role="document">
+			<div class="modal-dialog" >
+				<div class="form">
+					<form class="login-form" action="/signup" method="post">
+						<input type="text" placeholder="username" name="usr" />
+						<input type="password" placeholder="password" name="pwd" />
+						<button type="submit">signup</button>
+					</form>
 				</div>
 			</div>
+		</div>
 	</body>
 </html>
