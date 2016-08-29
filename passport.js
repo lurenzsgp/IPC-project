@@ -84,7 +84,6 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
             }
 
-
             req.flash('username', username);
             console.log('Password correct.');
             return done(null, model);
