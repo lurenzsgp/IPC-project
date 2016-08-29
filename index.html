@@ -19,9 +19,11 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/codemirror.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/show-hint.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/lint.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/introjs.css">
 
 		<script type="text/javascript" src="assets/js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+		<script type="text/javascript" src="assets/js/intro.js"></script>
 		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
 
 		<script type="text/javascript" src="assets/js/CodeMirror/codemirror.js"></script>
@@ -51,14 +53,14 @@
 
 				<ul class="nav navbar-nav">
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#levelsModal">
+                        <a href="#" data-toggle="modal" data-target="#levelsModal" data-intro="Qui potrai navigare tra i livelli completati." data-step=4>
                             <i class="fa fa-exchange" aria-hidden="true"></i>
                             <span>Levels</span>
                         </a>
                     </li>
 
 					<li>
-						<a href="#" data-toggle="modal" data-target="#accountModal">
+						<a href="#" data-toggle="modal" data-target="#accountModal" data-intro="Qui potrai visualizzare il tuo profilo." data-step=5>
 							<i class="fa fa-user" aria-hidden="true"></i>
                             <span>User</span>
 						</a>
@@ -86,8 +88,6 @@
 					</div>
 
                     <script type="text/javascript">
-
-
                         $(document).ready(function() {
                             var lvl = "1";
 
@@ -119,7 +119,6 @@
                     </script>
 
 					<div class="modal-body" id="level-selector">
-
 						<div class="btn-group btn-group-justified" role="group" aria-label="Livello">
 						  <a type="button" role="button" class="btn btn-default">1</a>
 						  <a type="button" role="button" class="btn btn-default">2</a>
@@ -240,9 +239,7 @@
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-
-
-                    <div class="panel panel-default chat">
+                    <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=3>
                         <div class="panel-heading" id="chat-panel">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="assets/img/general.png">
@@ -253,7 +250,8 @@
                     </div>
 
 					<div class="row" id="mc-container">
-						<canvas id="miscom" class="game center-block" width="510" height="460">Missile Command</canvas>
+						<canvas id="miscom" class="game center-block" width="510" height="460" data-intro="Questo è il gioco, cliccaci sopra per iniziare il livello." data-position="right" data-step=1>
+						Missile Command</canvas>
 					</div>
 
                     <div class="row">
@@ -297,7 +295,7 @@
 				<!-- Parte dx -->
 				<div class="col-lg-6">
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-12" data-intro="Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante." data-step=2>
 							<!-- editor -->
 							<textarea class="hidden" id="code" name="code">codice del gioco</textarea>
 						</div>
