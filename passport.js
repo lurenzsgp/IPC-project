@@ -43,7 +43,6 @@ module.exports = function(passport) {
                 req.flash('username', username);
                 // req.checkBody('usr', 'Please enter a name.').notEmpty();
 
-
                 new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
                     console.log('New user created.');
                     return done(null, model);
