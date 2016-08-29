@@ -102,7 +102,7 @@
 								editor.applySolution();
                                 level = parseInt(lvl);
                                 //parse json for chat text
-                                $.getJSON("assets/lvl/levels-chat.json", function(data){
+                                $.getJSON("lvl/levels-chat.json", function(data){
                                     //alert(data[level - 1]);
                                     $("#chat-text").html(data[level - 1]);
                                 });
@@ -246,7 +246,7 @@
                     <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=3>
                         <div class="panel-heading" id="chat-panel">Level 1</div>
                         <div class="panel-body">
-                            <img class="portrait" src="assets/img/general.png">
+                            <img class="portrait" src="img/general.png">
                             <div id="chat-text">
                                 this is level 1. your have to fix the missle speed as it appears to be fucking slow!
                             </div>
