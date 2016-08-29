@@ -12,12 +12,11 @@ exports.ensureAuthenticated = function(req, res, next) {
     	console.log('Authenticated (session ID ' + req.sessionID + ').');
     	return next();
     }
-
    	console.log('Not authenticated!');
     res.render('login');
 }
 
 exports.gameIndex = function(req, res) {
-	console.log('Game index requested');
+	console.log('Game index requested.');
     res.render('index');
 }

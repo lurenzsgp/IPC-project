@@ -55,8 +55,6 @@ app.use(cookieSession({
 app.use(expressValidator());
 
 // required for Passport: http://passportjs.org/docs/configure
-// app.use(session(sessionConfig));
-// app.use(express.session({ secret: 'halyisiHHh445JjO0' }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
