@@ -17,6 +17,9 @@ PlayerMissile.prototype.update = function() {
 #END_EDITABLE#
 };
 #START_OF_GOAL_FUNCTION#
-
-console.log("goal function");
+console.log("controllo la presenza di errori nell'editor");
+testMissile = new PlayerMissile( 1, 100, 100 );
+testMissile.testFunction();
+delete testMissile;
+editor.defineFunction();
 #END_OF_GOAL_FUNCTION#

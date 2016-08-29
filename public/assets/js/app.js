@@ -48,6 +48,6 @@ $(document).ready(function () {
 
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(true, editor.execCode);
+    $("#ButtonExecCode").click(editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
 });

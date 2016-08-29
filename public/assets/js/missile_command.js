@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 1,
+  level = 5,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -84,7 +84,7 @@ var initRefactLevel = function (userClick) {
     initializeLevel();
 
     if (!userClick && (level === 5 || level === 6)) {
-        editor.execCode(true);
+        editor.execCode();
     }
 };
 
@@ -98,13 +98,13 @@ var initDesignLevel = function (userClick) {
     createAntimissileBattery();
 
     if (!userClick && level === 7) {
-        editor.execCode(true);
+        editor.execCode();
     }
 
     if (level >= 8) {
             if (!userClick && level === 9) {
                 contrAerea = new AutoAntiMissileDefense();
-                editor.execCode(true);
+                editor.execCode();
             }
         initializeHandicapLevel();
     } else {
@@ -690,7 +690,6 @@ var pointDistance = function (p, q) {
 
 function correctFindTarget (missile, source) {
     var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
-    // Math.sqrt( Math.pow(missile.x - antiMissileBatteries[source].x, 2) + Math.pow(missile.y - antiMissileBatteries[source].y, 2) );
     var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
     while (true) {
         var yShoot = missile.y + missile.dy * t;

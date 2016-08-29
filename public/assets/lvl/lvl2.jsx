@@ -11,6 +11,7 @@ var playerShoot = function( x, y ) {
   }
 };
 #START_OF_GOAL_FUNCTION#
-
-console.log("goal function");
+console.log("controllo la presenza di errori nell'editor");
+testFunction(100,100);
+editor.defineFunction();
 #END_OF_GOAL_FUNCTION#

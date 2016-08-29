@@ -7,6 +7,10 @@ var createCities = function () {
 #END_EDITABLE#
 };
 #START_OF_GOAL_FUNCTION#
+console.log("controllo la presenza di errori nell'editor");
+testFunction();
+editor.defineFunction();
+
 console.log("inizializzo l'array delle citta'");
 cities = [];
 

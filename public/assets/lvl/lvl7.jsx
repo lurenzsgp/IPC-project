@@ -7,6 +7,11 @@ var rechargeAntiMissileBatteries = function () {
 #END_EDITABLE#
 };
 #START_OF_GOAL_FUNCTION#
+console.log("controllo la presenza di errori nell'editor");
+testFunction();
+editor.defineFunction();
+
+
 console.log("Controllo la presenza di parole chiave nella funzione");
 var f = editor.getCode();
 if (f.body.indexOf("antiMissileBatteries") === -1 || f.body.indexOf("missilesLeft") === -1) {
@@ -17,8 +22,8 @@ if (f.body.indexOf("antiMissileBatteries") === -1 || f.body.indexOf("missilesLef
 
 rechargeAntiMissileBatteries();
 console.log("controllo quanti missili sono stati caricatii");
-if (antiMissileBatteries[0].missilesLeft > 10 || antiMissileBatteries[1].missilesLeft > 10 || antiMissileBatteries[2].missilesLeft > 10) {
-    console.log("troppi missili");
+if (antiMissileBatteries[0].missilesLeft !== 10 || antiMissileBatteries[1].missilesLeft !== 10 || antiMissileBatteries[2].missilesLeft !== 10) {
+    console.log("Constrollai missili");
     rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
 }
 

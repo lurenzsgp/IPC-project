@@ -10,6 +10,10 @@ var createBonusMissiles = function(numberOfMissiles) {
 
 
 #START_OF_GOAL_FUNCTION#
+console.log("controllo la presenza di errori nell'editor");
+testFunction(2);
+editor.defineFunction();
+
 var penaltyCreateBonusMissiles = function(n) {
     return;
 };
