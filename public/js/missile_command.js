@@ -1038,7 +1038,6 @@ function isDefined (x) {
 };
 
 //soluzioni livelli
-
 var solution1 = "var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );var distancePerFrame = SPEEDMISSILEDEFENSE;return distance / distancePerFrame;";
 var solution2 = "if( y >= 50 && y <= 370 ) {var source = whichAntiMissileBattery( x );if( source === -1 ){return;}playerMissiles.push( new PlayerMissile(source, x, y));}";
 var solution3 = "if( this.state === MISSILE.active && this.y <= this.endY ) {this.x = this.endX;this.y = this.endY;this.state = MISSILE.exploding;}if( this.state === MISSILE.active ) {this.x += this.dx;this.y += this.dy;} else {this.explode();}";

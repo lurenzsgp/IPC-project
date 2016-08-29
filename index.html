@@ -3,8 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Il Deserto dei Barbari</title>
-		<link rel="icon" type="image/png" href="img/logo.png">		
+		<link rel="icon" type="image/png" href="img/logo.png">
 		
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -81,6 +82,37 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Selezione livello</h4>
 					</div>
+
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            var lvl = "1";
+
+                            $("#level-selector").find('.btn').click( function() {
+                                $(".btn-primary").removeClass('btn-primary');
+                                $(this).addClass('btn-primary');
+
+                                lvl = $(this).text();
+
+                                $('.level-description').children('h3').html("Level " + lvl.toString());
+                                $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
+                            });
+
+
+                            $("#load-level-btn").click(function(){
+								editor.applySolution();
+                                level = parseInt(lvl);
+                                //parse json for chat text
+                                $.getJSON("assets/lvl/levels-chat.json", function(data){
+                                    //alert(data[level - 1]);
+                                    $("#chat-text").html(data[level - 1]);
+                                });
+
+								$("#chat-panel").html("Livello " + lvl);
+                                editor.loadCode(level);
+                                missileCommand(true);
+                            });
+                        });
+                    </script>
 
 					<div class="modal-body" id="level-selector">
 						<div class="btn-group btn-group-justified" role="group" aria-label="Livello">
