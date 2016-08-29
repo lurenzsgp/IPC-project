@@ -11,12 +11,14 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+    	console.log('Serializing user with ID ' + user.id + '...');
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(user_id, done) {
         new data.ApiUser({id: user_id}).fetch().then(function(user) {
+    		console.log('Deserializing user...');
             return done(null, user);
         }, function(error) {
             return done(error);
