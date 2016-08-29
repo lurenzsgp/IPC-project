@@ -40,6 +40,12 @@ module.exports = function(passport) {
         // TODO controllare che fetch sia sincrono
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {
+<<<<<<< HEAD
+=======
+                req.flash('username', username);
+                // req.checkBody('usr', 'Please enter a name.').notEmpty();
+
+>>>>>>> 333aac7e6153c5e7030d7cbe0f3b6f16dfc0703c
                 new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
                     console.log('New user created.');
                     req.flash('username', username);
