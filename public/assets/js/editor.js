@@ -311,6 +311,19 @@ Editor.prototype.resetCode = function () {
 	this.loadCode(level);
 }
 
+Editor.prototype.applySolution = function () {
+    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
+	var f = this.getCode();
+
+    eval("f.body = solution" + level + ";");
+	// devo ridefinire la funzione
+	// console.log(f.name);
+	// console.log(f.args);
+	// console.log(f.body);
+
+    eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
+}
+
 Editor.prototype.defineFunction = function (fName) {
     // leggi il codice dall'editor e sostituiscilo all'interno di missile command
 	var f = this.getCode();
@@ -323,7 +336,7 @@ Editor.prototype.defineFunction = function (fName) {
         }
     }
 	// devo ridefinire la funzione
-	console.log(f.name);
+	// console.log(f.name);
 	// console.log(f.args);
 	// console.log(f.body);
 

@@ -103,8 +103,8 @@
 
 
                             $("#load-level-btn").click(function(){
+								editor.applySolution();
                                 level = parseInt(lvl);
-
                                 //parse json for chat text
                                 $.getJSON("assets/lvl/levels-chat.json", function(data){
                                     //alert(data[level - 1]);

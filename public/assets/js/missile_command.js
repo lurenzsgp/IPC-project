@@ -17,7 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 
 // Variables
 var score = 0,
-  level = 5,
+  level = 1,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -136,6 +136,9 @@ var initializeLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
+    if (isDefined(contrAerea)) {
+        delete contrAerea;
+    }
     drawBeginLevel();
 };
 
@@ -1079,3 +1082,15 @@ function isDefined (x) {
     var undef;
     return x !== undef;
 };
+
+//soluzioni livelli
+
+var solution1 = "var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );var distancePerFrame = SPEEDMISSILEDEFENSE;return distance / distancePerFrame;";
+var solution2 = "if( y >= 50 && y <= 370 ) {var source = whichAntiMissileBattery( x );if( source === -1 ){return;}playerMissiles.push( new PlayerMissile(source, x, y));}";
+var solution3 = "if( this.state === MISSILE.active && this.y <= this.endY ) {this.x = this.endX;this.y = this.endY;this.state = MISSILE.exploding;}if( this.state === MISSILE.active ) {this.x += this.dx;this.y += this.dy;} else {this.explode();}";
+var solution4 = "for (var i=3; i<elementPos.length; i++) {cities.push( new City( elementPos[i].x,  elementPos[i].y) );}";
+var solution5 = "var rocket = false;rocket = !!this.missilesLeft;return rocket;";
+var solution6 = "var source = whichAntiMissileBattery( x );if( source === -1 ){return;}if( y <= 370 && y >= 50 ) {playerMissiles.push( new PlayerMissile( source, x, y ) );}";
+var solution7 = "$.each( antiMissileBatteries, function( index, amb ) {amb.missilesLeft = 10;});"
+var solution8 = "var targets = viableTargets();for( var i = 0; i < n; i++ ) {enemyMissiles.push( new BonusMissile(targets) );}";
+var solution9 = "return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );";
