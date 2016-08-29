@@ -15,14 +15,6 @@ var swig				= require('swig');
 var crypto				= require('crypto');
 var path				= require('path');
 
-var sessionConfig;
-try {
-    sessionConfig = require('./config/session-conf.js');
-} catch(err) {
-	console.log('Startup failed. No session config file found.');
-	return false;
-}
-
 var dbConfig;
 try {
     dbConfig = require('./config/db-conf.js');
