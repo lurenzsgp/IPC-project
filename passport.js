@@ -29,8 +29,8 @@ module.exports = function(passport) {
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'usr',
-        passwordField: 'pwd',
+        usernameField: 'username',
+        passwordField: 'password',
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');
@@ -42,7 +42,7 @@ module.exports = function(passport) {
                 // req.checkBody('usr', 'Please enter a name.').notEmpty();
 
 
-                new data.ApiUser().save({"username":username,"password": password,"level":1,"score":0}).then(function(model) {
+                new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
                     console.log('New user created.');
                     return done(null, model);
                 }, function(err) {

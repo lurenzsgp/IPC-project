@@ -15,6 +15,14 @@ var swig				= require('swig');
 var crypto				= require('crypto');
 var path				= require('path');
 
+var sessionConfig;
+try {
+    sessionConfig = require('./config/session-conf.js');
+} catch(err) {
+	console.log('Startup failed. No session config file found.');
+	return false;
+}
+
 var dbConfig;
 try {
     dbConfig = require('./config/db-conf.js');
@@ -30,14 +38,11 @@ var knex = require('knex')({
 	client: 'mysql',
 	connection: dbConfig
 });
-// module.exports = require('bookshelf')(
-// 	knex,
-// 	{ debug: true }
-// );
 var bookshelf = require('bookshelf');
 bookshelf.mysqlAuth = bookshelf(knex);
 
 // required for Passport: http://passportjs.org/docs/configure
+// app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -49,11 +54,10 @@ app.engine('.html', require('ejs').__express);
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
-app.use(cookieParser('halsisiHHh445JjO0'));
+app.use(cookieParser('halyisiHHh445JjO0'));
 app.use(cookieSession({
     keys: ['key1', 'key2']
 }));
-// app.use(session);
 app.use(expressValidator());
 
 // routes ======================================================================

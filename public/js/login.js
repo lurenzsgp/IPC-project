@@ -1,5 +1,5 @@
-var crypto = require('crypto');
-var passport = require('passport');
+var crypto		= require('crypto');
+var passport	= require('passport');
 
 exports.redirectToGame = function(req, res) {
     // If this function gets called, authentication was successful.
@@ -14,9 +14,13 @@ exports.logout = function(req, res) {
 }
 
 exports.ensureAuthenticated = function(req, res, next) {
+// 	console.log(req.session);
     if (req.isAuthenticated()) {
+    	console.log('Authenticated (session ID ' + req.sessionID + ').');
     	return next();
     }
+    
+   	console.log('Not authenticated!');
     res.render('login');
 }
 

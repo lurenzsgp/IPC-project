@@ -27,9 +27,9 @@ module.exports = function (app, passport) {
         failureFlash : true // allow flash messages
     }));
 
+	// TODO eliminare nella versione definitiva
     app.get('/user', function(req, res) {
-      new data.ApiUser().fetchAll()
-        .then(function(users) {
+      new data.ApiUser().fetchAll().then(function(users) {
           res.send(users.toJSON());
         }).catch(function(error) {
           console.log(error);
