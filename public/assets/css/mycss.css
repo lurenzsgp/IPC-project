@@ -37,7 +37,7 @@ button.close {
   font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
 }
-
+/*
 .btn {
   font-family: "Roboto", sans-serif;
   border-radius: 0;
@@ -52,7 +52,7 @@ margin-left: 0;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-
+*/
 .avatar-circle {
   border-radius: 50%;
 	width: auto;
@@ -260,10 +260,10 @@ p {
     opacity: 100;
   }
 
-
 }
 
 .footer{
+  width: 100%;
   text-align: center;
   color: rgba(0,0,0,0.5);
   position: relative;
