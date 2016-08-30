@@ -14,6 +14,15 @@ module.exports = function (app, passport) {
     app.get('/login', loginController.ensureAuthenticated, loginController.gameIndex);
     app.get('/logout', loginController.logout);
 
+    app.get('/signup', function(req, res, next) {
+        if (req.isAuthenticated()) {
+        	console.log('Authenticated (session ID ' + req.sessionID + ').');
+        	return next();
+        }
+       	console.log('Not authenticated!');
+        res.render('signup',{ message: req.flash('signupMessage') });
+    }, loginController.gameIndex);
+
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/home', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the login page if there is an error
@@ -22,7 +31,7 @@ module.exports = function (app, passport) {
 
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/home', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
 

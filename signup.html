@@ -20,14 +20,13 @@
 			</div>
 
 			<div class="form">
-				<form class="login-form" action="/login" method="post">
+				<form class="login-form" action="/signup" method="post">
                     <% if (message.length > 0) { %>
                         <div class="alert alert-danger"> <%= message %> </div>
                     <% } %>
 					<input type="text" placeholder="username" name="username"/>
 					<input type="password" placeholder="password" name="password"/>
-					<button type="submit">login</button>
-					<p class="message">Non sei registrato? <a href="/signup" >Registrati qui</a></p>
+					<button type="submit">Sign up</button>
 				</form>
 			</div>
 		</div>
