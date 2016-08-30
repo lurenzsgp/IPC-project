@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Il Deserto dei Barbari</title>
+		<title>The Barbarian Steppe</title>
 		<link rel="icon" type="image/png" href="img/logo.png">
 		
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -40,7 +40,7 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
 						<img alt="Logo" src="img/logo.png">
-                        <span class="nav-title">Il Deserto dei Barbari</span>
+                        <span class="nav-title">The Barbarian Steppe</span>
 					</a>
 				</div>
 
@@ -80,7 +80,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Selezione livello</h4>
+						<h4 class="modal-title">Level selection</h4>
 					</div>
                     <script type="text/javascript">
                         $(document).ready(function() {
@@ -93,7 +93,7 @@
                                 lvl = $(this).text();
 
                                 $('.level-description').children('h3').html("Level " + lvl.toString());
-                                $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
+                                $('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
                             });
 
                             $("#load-level-btn").click(function(){
@@ -127,13 +127,13 @@
 
 						<div class="level-description">
 							<h3></h3>
-							<p>Seleziona il livello che vuoi caricare.</p>
+							<p>Select the level you want to play</p>
 						</div>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="load-level-btn">Carica</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="load-level-btn">Play</button>
 					</div>
 				</div>
 			</div>
@@ -146,7 +146,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Profilo</h4>
+						<h4 class="modal-title">Profile</h4>
 					</div>
 					
 					<div class="modal-body">
@@ -167,9 +167,9 @@
 								</div>
 							</div>
                             <div class="col-md-6">
-                                <p>Livelli superati:</p>
+                                <p>Levels overcome:</p>
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                                         70%
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@
 						</div>
 
 
-						<p> Badge ottenuti: </p>
+						<p>Badges obtained:</p>
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
@@ -207,7 +207,7 @@
 								<tr>
 									<th>#</th>
 									<th>Username</th>
-									<th>Punteggio</th>
+									<th>Score</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -230,7 +230,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -299,7 +299,7 @@
 					<div class="row">
 						<div class="col-lg-12" data-intro="Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante." data-step=2>
 							<!-- editor -->
-							<textarea class="hidden" id="code" name="code">codice del gioco</textarea>
+							<textarea class="hidden" id="code" name="code">Game code</textarea>
 						</div>
 					</div>
 					<div class="row floating-buttons">
@@ -328,10 +328,10 @@
 		</div>
 
 		<footer class="footer">
-            <h4>Il Deserto dei Barbari</h4>
+            <h4>The Barbarian Steppe</h4>
 			<span>Alice Valentini, Lorenzo Cazzoli, Luca Casini, Manfredi Giordano</span>
 			<br>
-			<span>Progetto di Interazione Persona-Computer a.a. 2015-2016</span>
+			<span>Project for <em>Interazione Persona-Computer</em> exam, University of Bologna, academic year 2015-2016</span>
 		</footer>
 
 		<!-- script  -->
@@ -339,6 +339,6 @@
 		<script type="text/javascript" src="js/editor.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		
-		<noscript>&Egrave; necessario avere JavaScript abilitato.</noscript>
+		<noscript>You need to turn JavaScript on.</noscript>
 	</body>
 </html>
