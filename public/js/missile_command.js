@@ -547,7 +547,7 @@ function PlayerMissile( source, endX, endY ) {
 
     Missile.call( this, { startX: amb.x,  startY: amb.y,
                           endX: endX,     endY: endY,
-                          color: 'brown', trailColor: '#833' } );
+                          color: 'brown', trailColor: 'rgba(200,50,50,0.5)' } );
 
     var xDistance = this.endX - this.startX,
         yDistance = this.endY - this.startY;
@@ -679,7 +679,7 @@ function EnemyMissile( targets ) {
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'yellow', trailColor: '#aaa' } );
+                          color: 'white', trailColor: 'rgba(222,222,222,0.5)' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {
