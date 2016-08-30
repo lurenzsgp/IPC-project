@@ -46,29 +46,29 @@
 
 				<ul class="nav navbar-nav">
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#levelsModal" data-intro="Qui potrai navigare tra i livelli completati." data-step=4 data-position="right" >
+                        <a href="#" data-toggle="modal" data-target="#levelsModal" data-intro="Qui potrai navigare tra i livelli completati." data-step=7 data-position="right" >
                             <i class="fa fa-exchange" aria-hidden="true"></i>
                             <span>Levels</span>
                         </a>
                     </li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#accountModal" data-intro="Qui potrai visualizzare il tuo profilo." data-step=5 data-position="right" >
+						<a href="#" data-toggle="modal" data-target="#accountModal" data-intro="Qui potrai visualizzare il tuo profilo." data-step=8 data-position="right" >
 							<i class="fa fa-user" aria-hidden="true"></i>
                             <span>User</span>
 						</a>
 					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-sign-out" aria-hidden="true"></i>
-                            <span>Logout</span>
-						</a>
-					</li>
-                    <li>
-                        <a href="#">
+				    <li>
+                        <a href="#" onclick="startTutorial();">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                             <span>Tutorial</span>
                         </a>
                     </li>
+					<li>
+						<a href="/logout">
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <span>Logout</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -82,7 +82,6 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Selezione livello</h4>
 					</div>
-
                     <script type="text/javascript">
                         $(document).ready(function() {
                             var lvl = "1";
@@ -96,7 +95,6 @@
                                 $('.level-description').children('h3').html("Level " + lvl.toString());
                                 $('.level-description').children('p').html("<span>Testo di esempio per il livello " + lvl + "</span>");
                             });
-
 
                             $("#load-level-btn").click(function(){
 								editor.applySolution();
@@ -243,7 +241,7 @@
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-                    <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=3>
+                    <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=6>
                         <div class="panel-heading" id="chat-panel">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
@@ -307,17 +305,20 @@
 					<div class="row floating-buttons">
 						<div class="col-lg-12" align="center">
                         	<!-- CONFIRM CODE BUTTON -->
-							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg">
+							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg"
+									data-intro="Clicca qui per eseguire il codice contenuto nell'editor." data-step=3>
 								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
 							
                         	<!-- RESET CODE BUTTON -->	
-							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg">
+							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg"
+									data-intro="Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse." data-step=4>
 								<i class="fa fa-undo" aria-hidden="true"></i>
 							</button>
 							
                        		<!-- ASK FOR HELP BUTTON -->
-                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg">
+                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg"
+                            		data-intro="Clicca qui per visualizzare un suggerimento." data-step=5>
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </button>
 						</div>

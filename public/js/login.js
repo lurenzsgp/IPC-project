@@ -8,11 +8,10 @@ exports.logout = function(req, res) {
 
 exports.ensureAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
-    	console.log('Authenticated (session ID ' + req.sessionID + ').');
     	return next();
-    }
-   	console.log('Not authenticated!');
-    res.render('login');
+    } else {
+	    res.render('login');
+	}
 }
 
 exports.gameIndex = function(req, res) {
