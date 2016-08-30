@@ -192,8 +192,8 @@ tr.introjs-showElement > th {
   visibility: visible;
   padding: 15px;
   background-color: white;
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 400px;
+  max-width: 500px;
   box-shadow: 0 2px 5px 1px rgba(0,0,0,.4);
   font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
   font-weight: 400;

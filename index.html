@@ -46,13 +46,13 @@
 
 				<ul class="nav navbar-nav">
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#levelsModal" data-intro="Qui potrai navigare tra i livelli completati." data-step=7 data-position="right" >
+                        <a href="#" data-toggle="modal" data-target="#levelsModal" id="levels">
                             <i class="fa fa-exchange" aria-hidden="true"></i>
                             <span>Levels</span>
                         </a>
                     </li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#accountModal" data-intro="Qui potrai visualizzare il tuo profilo." data-step=8 data-position="right" >
+						<a href="#" data-toggle="modal" data-target="#accountModal" id="user" >
 							<i class="fa fa-user" aria-hidden="true"></i>
                             <span>User</span>
 						</a>
@@ -241,8 +241,8 @@
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-                    <div class="panel panel-default chat" data-intro="Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello." data-step=6>
-                        <div class="panel-heading" id="chat-panel">Level 1</div>
+                    <div class="panel panel-default chat" id="chat-panel">
+                        <div class="panel-heading">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
                             <div id="chat-text">
@@ -252,52 +252,16 @@
                     </div>
 
 					<div class="row" id="mc-container">
-						<canvas id="miscom" class="game center-block" width="510" height="460"
-								data-intro="Questo è il gioco, cliccaci sopra per iniziare il livello." data-position="right" data-step=1>
+						<canvas id="miscom" class="game center-block" width="510" height="460">
 							Missile Command
 						</canvas>
 					</div>
-
-                    <div class="row">
-                    <!-- vecchi panels
-                        <div class="col-lg-4">
-                            <div class="panel panel-info">
-                                <div class="panel-body">
-                                    <img  class="portrait" src="img/soldier.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
-                                </div>
-                                <div class="panel-heading">
-                                    Ufficiale
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-success">
-                                <div class="panel-body">
-                                    <img  class="portrait" src="img/recruit.png" data-toggle="modal" data-target="#briefingModal" alt="Recluta">
-                                </div>
-                                <div class="panel-heading">
-                                    Recluta
-                                </div>
-                                </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="panel panel-warning">
-                                <div class="panel-body">
-                                    <img  class="portrait" src="img/oldman.png" data-toggle="modal" data-target="#briefingModal" alt="Ufficiale">
-                                </div>
-                                <div class="panel-heading">
-                                    Anziano
-                                </div>
-                                </div>
-                        </div>
-                    -->
-                    </div>
 				</div>
 
 				<!-- Parte dx -->
 				<div class="col-lg-6">
 					<div class="row">
-						<div class="col-lg-12" data-intro="Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante." data-step=2>
+						<div class="col-lg-12" id="editor-container">
 							<!-- editor -->
 							<textarea class="hidden" id="code" name="code">codice del gioco</textarea>
 						</div>
@@ -305,20 +269,17 @@
 					<div class="row floating-buttons">
 						<div class="col-lg-12" align="center">
                         	<!-- CONFIRM CODE BUTTON -->
-							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg"
-									data-intro="Clicca qui per eseguire il codice contenuto nell'editor." data-step=3>
+							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg" >
 								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
 							
                         	<!-- RESET CODE BUTTON -->	
-							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg"
-									data-intro="Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse." data-step=4>
+							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg" >
 								<i class="fa fa-undo" aria-hidden="true"></i>
 							</button>
 							
                        		<!-- ASK FOR HELP BUTTON -->
-                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg"
-                            		data-intro="Clicca qui per visualizzare un suggerimento." data-step=5>
+                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg" >
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </button>
 						</div>
