@@ -201,17 +201,17 @@ p {
 	}
 
   .navbar ul{
-    margin-top: 100px;
+    margin-top: 115px;
   }
-  .navbar-header span{
-    padding: 10px;
+  .nav-title{
+    padding: 5px;
     visibility: hidden;
-    white-space: nowrap;
+    overflow: hidden;
     opacity: 0;
     font-weight: 100;
     font-size: 80%;
     text-align: center;
-    transition: opacity .5s ease-in;
+    transition: opacity .7s ease-in;
   }
   .navbar ul span{
     padding: 0px 20px;
@@ -235,7 +235,7 @@ p {
 	.navbar-brand > img{
 	  width: 50px;
 	  height: auto;
-	  margin: 10px 10px 10px 0px;
+	  margin: 15px 20px 15px 0px;
     float: left;
 	  background-color: #383448;
 	  border-radius: 100%;
@@ -252,11 +252,11 @@ p {
   }
 
   .navbar:hover .navbar-brand>img{
-    margin: 10px 10px 10px 10px;
+    margin: 15px 15px 15px 15px;
     width: 120px;
   }
 
-  .navbar:hover .navbar-header span{
+  .navbar:hover .nav-title{
     visibility: visible;
     opacity: 100;
   }
