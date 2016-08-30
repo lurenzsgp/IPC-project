@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./models/auth')();
+var data = require('./public/models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
