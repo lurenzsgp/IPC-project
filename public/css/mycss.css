@@ -8,6 +8,7 @@ body{
   background: linear-gradient(to bottom, #eee 0%, #bbb 100%);
   background-size: 200% 200%;
   opacity: 1;
+  overflow-x: hidden;
 }
 
 /* Editor */
