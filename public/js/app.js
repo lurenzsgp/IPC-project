@@ -1,15 +1,19 @@
 var editor = {};
 
-$(document).ready(function () {
-	// attiva i popover
-	$('[data-toggle="popover"]').popover();
-	
-	// attiva intro.js
+function startTutorial(){
 	introJs().setOptions({
 		'skipLabel': 'Salta',
 		'showStepNumbers': 'false',
 		'scrollToElement': 'true'
 	}).start();
+}
+
+$(document).ready(function () {
+	// attiva i popover
+	$('[data-toggle="popover"]').popover();
+	
+	// attiva intro.js
+	startTutorial();
 	
 	// CodeMirror
     editor = new Editor();
