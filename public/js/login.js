@@ -12,7 +12,7 @@ exports.ensureAuthenticated = function(req, res, next) {
     	return next();
     }
    	console.log('Not authenticated!');
-    res.render('login');
+    res.render('login',{ message: req.flash('loginMessage') });
 }
 
 exports.gameIndex = function(req, res) {
