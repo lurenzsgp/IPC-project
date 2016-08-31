@@ -24,5 +24,15 @@ exports.ensureSignedUp = function(req, res, next) {
 
 exports.gameIndex = function(req, res) {
 	console.log('Game index requested.');
-    res.render('index');
+    res.render('index', { username: req.flash('username') });
+}
+
+//game controller function
+exports.setGameValue = function (lvl, points) {
+    level = lvl;
+    score = points;
+}
+
+exports.setGameValue = function () {
+    return {lvl: level, points: score };
 }

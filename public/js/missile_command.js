@@ -16,8 +16,8 @@ var CANVAS_WIDTH  = canvas.width,
   };
 
 // Variables
-var score = 0,
-  level = 1,
+var score,
+  level,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -1047,3 +1047,13 @@ var solution6 = "var source = whichAntiMissileBattery( x );if( source === -1 ){r
 var solution7 = "$.each( antiMissileBatteries, function( index, amb ) {amb.missilesLeft = 10;});"
 var solution8 = "var targets = viableTargets();for( var i = 0; i < n; i++ ) {enemyMissiles.push( new BonusMissile(targets) );}";
 var solution9 = "return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );";
+
+// //game controller function
+// exports.setGameValue = function (lvl, points) {
+//     level = lvl;
+//     score = points;
+// }
+//
+// exports.setGameValue = function () {
+//     return {lvl: level, points: score };
+// }

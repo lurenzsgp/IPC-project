@@ -36,13 +36,6 @@ module.exports = function (app, passport) {
           res.send('An error occured');
         });
     });
-    
-	// TODO remove after test message
-    app.get('/flash', function(req, res){
-        // Set a flash message by passing the key, followed by the value, to req.flash().
-        req.flash('loginMessage', 'Flash is back!')
-        res.redirect('/');
-    });
 
     app.get('/*', function(req, res){
     	res.render('404');
