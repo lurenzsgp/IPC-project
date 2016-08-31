@@ -40,7 +40,7 @@ module.exports = function (app, passport) {
         console.log("Salvataggio stato del gioco per " + req.user.get('username'));
         // req.user.set({level: req.body.level, score: req.body.score});
         // salvare nel db
-        new data.ApiUser({username: req.user.get('username')}).save({level: req.body.level, score: req.body.score}, {method: "update"}).then(function(model) {
+        new data.ApiUser({username: req.user.get('username')}).save({level: req.body.level, score: req.body.score}, {patch: "true"}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
                    console.log('succcessfully updated user');
@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
             });
             res.end();
         }, function(err) {
-            console.log("Errore nell;update:" + err);
+            console.log("Errore nell'update:" + err);
         });
     });
 
