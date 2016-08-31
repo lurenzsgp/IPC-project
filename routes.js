@@ -27,6 +27,15 @@ module.exports = function (app, passport) {
         failureFlash : true // allow flash messages
     }));
 
+    app.get('/missile_command.js', function(req, res) {
+      res.set('Content-Type', 'application/javascript');
+      console.log("username: " + req.user.get('username'));
+
+      new data.ApiUser({username: req.user.get('username')}).fetch().then(function (model) {
+          res.render('public/js/missile_command', { level: model.get('level'), score: model.get('score') });
+      });
+    });
+
 	// TODO eliminare nella versione definitiva
     app.get('/user', function(req, res) {
       new data.ApiUser().fetchAll().then(function(users) {

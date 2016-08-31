@@ -11,10 +11,10 @@ function startTutorial(){
 $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
-	
+
 	// attiva Intro.JS
 	startTutorial();
-	
+
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);

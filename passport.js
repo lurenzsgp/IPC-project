@@ -1,5 +1,3 @@
-// var crypto = require('crypto');
-var loginController = require('./public/js/login');
 var LocalStrategy = require('passport-local').Strategy;
 var data = require('./public/models/auth')();
 
@@ -44,7 +42,6 @@ module.exports = function(passport) {
                 new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
                     console.log('New user created.');
                     req.flash('username', username);
-                    loginController.setGameValue(1,0);
                     return done(null, model);
                 }, function(err) {
                     return done(err);
@@ -85,8 +82,8 @@ module.exports = function(passport) {
             }
 
             req.flash('username', username);
+            req.flash('score', model.get('score'));
 
-            loginController.setGameValue(model.get('level'),model.get('score'));
             console.log('Password correct.');
             return done(null, model);
         });
