@@ -883,6 +883,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
+        $.post('/saveUserState', {level: level, score: score});
         level++;
         editor.loadCode(level);
     }

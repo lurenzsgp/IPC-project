@@ -29,11 +29,27 @@ module.exports = function (app, passport) {
 
     app.get('/missile_command.js', function(req, res) {
       res.set('Content-Type', 'application/javascript');
-      console.log("username: " + req.user.get('username'));
+      console.log("Rendering missile_command file ...");
 
       new data.ApiUser({username: req.user.get('username')}).fetch().then(function (model) {
           res.render('public/js/missile_command', { level: model.get('level'), score: model.get('score') });
       });
+    });
+
+    app.post('/saveUserState', function(req, res){
+        console.log("Salvataggio stato del gioco per " + req.user.get('username'));
+        // req.user.set({level: req.body.level, score: req.body.score});
+        // salvare nel db
+        new data.ApiUser({username: req.user.get('username')}).save({level: req.body.level, score: req.body.score}, {method: "update"}).then(function(model) {
+            req.login(model, function(error) {
+                if (!error) {
+                   console.log('succcessfully updated user');
+                }
+            });
+            res.end();
+        }, function(err) {
+            console.log("Errore nell;update:" + err);
+        });
     });
 
 	// TODO eliminare nella versione definitiva
