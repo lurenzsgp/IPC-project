@@ -1,4 +1,3 @@
-
 exports.logout = function(req, res) {
 	console.log('Log out...');
 	console.log('-----------');
