@@ -62,3 +62,11 @@ $(document).ready(function () {
     $("#ButtonExecCode").click(editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
 });
+
+$('[data-target="#accountModal"]').click(function () {
+	$.get('/getUserData', function(data) {
+		var levelWidth = (data.level - 1) / 9 * 100;
+		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
+		$('[name="score"]').text(data.score);
+	});
+});

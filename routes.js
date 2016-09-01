@@ -37,7 +37,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/saveUserState', function(req, res){
-        console.log("Salvataggio stato del gioco per " + req.user.get('username'));
+        console.log("Salvataggio stato del gioco per " + req.user.get('username') + "...");
         // salvare nel db
         var higerLevel = (req.body.level >= req.user.get('level')) ? req.body.level : req.user.get('level');
 
@@ -51,6 +51,10 @@ module.exports = function (app, passport) {
         }, function(err) {
             console.log("Errore nell'update:" + err);
         });
+    });
+
+    app.get('/getUserData', function(req,res) {
+        res.send( {level: req.user.get('level'), score: req.user.get('score')});
     });
 
 	// TODO eliminare nella versione definitiva
