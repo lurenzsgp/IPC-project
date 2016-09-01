@@ -36,6 +36,7 @@ module.exports = function(passport) {
     },function(req, username, password, done) {
         console.log('-----------');
         console.log('Sign up...');
+        
         // TODO controllare che fetch sia sincrono
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {

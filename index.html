@@ -82,6 +82,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Level selection</h4>
 					</div>
+					
                     <script type="text/javascript">
                         $(document).ready(function() {
                             var lvl = "1";
@@ -99,9 +100,9 @@
                             $("#load-level-btn").click(function(){
 								editor.applySolution();
                                 level = parseInt(lvl);
+                                
                                 //parse json for chat text
                                 $.getJSON("lvl/levels-chat.json", function(data){
-                                    //alert(data[level - 1]);
                                     $("#chat-text").html(data[level - 1]);
                                 });
 
@@ -167,7 +168,7 @@
 								</div>
 							</div>
                             <div class="col-md-6">
-                                <p>Levels overcome:</p>
+                                <p>Overall progress:</p>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
 
