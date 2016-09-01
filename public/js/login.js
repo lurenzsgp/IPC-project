@@ -25,5 +25,5 @@ exports.ensureSignedUp = function(req, res, next) {
 
 exports.gameIndex = function(req, res) {
 	console.log('Game index requested.');
-    res.render('index', { username: req.user.get('username'), score: req.user.get('score') });
+    res.render('index', { username: req.user.get('username'), score: req.user.get('score'), level: req.user.get('level') });
 }

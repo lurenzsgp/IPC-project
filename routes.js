@@ -38,8 +38,9 @@ module.exports = function (app, passport) {
 
     app.post('/saveUserState', function(req, res){
         console.log("Salvataggio stato del gioco per " + req.user.get('username'));
-        // req.user.set({level: req.body.level, score: req.body.score});
         // salvare nel db
+        var higerLevel = (req.body.level >= req.user.get('level')) ? req.body.level : req.user.get('level');
+
         new data.ApiUser({id: req.user.get('id'), username: req.user.get('username')}).save({level: req.body.level, score: req.body.score}, {patch: true}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
