@@ -8,7 +8,6 @@ body{
   background: linear-gradient(to bottom, #eee 0%, #bbb 100%) no-repeat center center fixed;
   background-size: cover;
   opacity: 1;
-  overflow-x: hidden;
 }
 
 /* Editor */
@@ -89,6 +88,7 @@ margin-left: 0;
   border-radius: 0px;
   box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.2);
 }
+
 .portrait{
   box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.2);
   display: inline-block;
@@ -99,8 +99,6 @@ margin-left: 0;
   float: left;
   width: auto;
   height: 4em;
-  /*cursor: pointer;
-  -webkit-filter: saturate(0.5);*/
 }
 
 .portrait:hover{
@@ -196,8 +194,8 @@ p {
 	}
 
 	.navbar .navbar-nav > li > a {
-	  padding: 10px;
-	  margin: 20px 10px 20px auto;
+	  /*padding: 10px;*/
+	  margin: 10px 10px 10px auto;
 	  position: relative;
     overflow: hidden;
 	  color: #eee;
@@ -207,17 +205,17 @@ p {
 	}
 
   .navbar ul{
-    margin-top: 100px;
+    margin-top: 115px;
   }
-  .navbar-header span{
-    padding: 10px;
+  .nav-title{
+    padding: 5px;
     visibility: hidden;
-    white-space: nowrap;
+    overflow: hidden;
     opacity: 0;
     font-weight: 100;
     font-size: 80%;
     text-align: center;
-    transition: opacity .5s ease-in;
+    transition: opacity .7s ease-in;
   }
   .navbar ul span{
     padding: 0px 20px;
@@ -241,7 +239,7 @@ p {
 	.navbar-brand > img{
 	  width: 50px;
 	  height: auto;
-	  margin: 10px 10px 10px 0px;
+	  margin: 15px 20px 15px 0px;
     float: left;
 	  background-color: #383448;
 	  border-radius: 100%;
@@ -258,11 +256,11 @@ p {
   }
 
   .navbar:hover .navbar-brand>img{
-    margin: 10px 10px 10px 10px;
+    margin: 15px 15px 15px 15px;
     width: 120px;
   }
 
-  .navbar:hover .navbar-header span{
+  .navbar:hover .nav-title{
     visibility: visible;
     opacity: 100;
   }
@@ -274,7 +272,7 @@ p {
   color: rgba(0,0,0,0.5);
   position: relative;
   bottom: 0px;
-  margin: 10px;
+  margin: 60px auto ;
   padding: 0px;
   z-index: -10;
   font-weight: 200;
@@ -310,6 +308,7 @@ a, button:focus{
   height: auto !important;
   box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
   position: fixed;
+  margin: 0;
   top: 0;
 }
 
@@ -326,7 +325,7 @@ a, button:focus{
   height: 250px;
 }
 
-#chat-panel{
+.panel-heading{
   font-weight: 800;
 }
 
