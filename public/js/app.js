@@ -64,9 +64,15 @@ $(document).ready(function () {
 });
 
 $('[data-target="#accountModal"]').click(function () {
-	$.get('/getUserData', function(data) {
+	$.get('/getUserData', function (data) {
 		var levelWidth = (data.level - 1) / 9 * 100;
 		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
 		$('[name="score"]').text(data.score);
+	});
+	$.get('/getLeaderboard', function (data) {
+		$.each(data, function(index, el) {
+			var i = index + 1;
+			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
+		});
 	});
 });

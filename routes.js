@@ -1,6 +1,7 @@
 var loginController = require('./public/js/login');
 var data = require('./public/models/auth')();
 
+
 module.exports = function (app, passport) {
     app.get('/', function(req, res) {
         res.redirect('/login');
@@ -55,6 +56,33 @@ module.exports = function (app, passport) {
 
     app.get('/getUserData', function(req,res) {
         res.send( {level: req.user.get('level'), score: req.user.get('score')});
+    });
+
+    app.get('/getLeaderboard', function(req,res) {
+        // new data.ApiUser().fetchAll().then(function (users) {
+        //     users.forge().orderBy('score','DESC').then(function (orderedUsers) {
+        //         res.send([
+        //             {username: orderedUsers[0].get('username'), score: orderedUsers[0].get('score')},
+        //             {username: orderedUsers[1].get('username'), score: orderedUsers[1].get('score')},
+        //             {username: orderedUsers[2].get('username'), score: orderedUsers[2].get('score')}
+        //         ]);
+        //     });
+        // });
+
+        new data.ApiUser().fetchAll().then(function (User) {
+            User.query(function(qb){
+                qb.orderBy('score','DESC');
+            }).fetch({}).then(function(collection){
+                // process results
+                var users = collection.toJSON();
+
+                res.send([
+                    {username: users[0].username, score: users[0].score},
+                    {username: users[1].username, score: users[1].score},
+                    {username: users[2].username, score: users[2].score}
+                ]);
+            });
+        });
     });
 
 	// TODO eliminare nella versione definitiva
