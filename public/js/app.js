@@ -11,7 +11,7 @@ function startTutorial(){
 			  },
               {
                 element: document.querySelector('#mc-container'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.", 
+                intro: "<img src='img/recruit.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.",
                 position: "right"
               },
               {
@@ -41,14 +41,14 @@ function startTutorial(){
 			  },
               {
                 element: document.querySelector('#levels'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai navigare tra i livelli completati.", 
+                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai navigare tra i livelli completati.",
                 position: "right"
               },
               {
                 element: document.querySelector('#user'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.", 
+                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.",
                 position: "right"
-              },              			  
+              },
             ]
 	}).start();
 }
@@ -115,6 +115,7 @@ $('[data-target="#accountModal"]').click(function () {
 		$('[name="score"]').text(data.score);
 	});
 	$.get('/getLeaderboard', function (data) {
+		$('#leaderboard > tbody > tr').remove();
 		$.each(data, function(index, el) {
 			var i = index + 1;
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
