@@ -1,5 +1,5 @@
-var loginController = require('./public/js/login');
-var data = require('./public/models/auth')();
+var loginController = require('./login');
+var data = require('../models/auth')();
 
 
 module.exports = function(app, passport) {
