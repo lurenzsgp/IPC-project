@@ -2,7 +2,7 @@ var loginController = require('./public/js/login');
 var data = require('./public/models/auth')();
 
 
-module.exports = function (app, passport) {
+module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.redirect('/login');
     });
@@ -30,32 +30,44 @@ module.exports = function (app, passport) {
 
     app.get('/missile_command.js', function(req, res) {
       res.set('Content-Type', 'application/javascript');
-      console.log("Rendering missile_command file ...");
+//       console.log("Rendering missile_command file ...");
 
-      new data.ApiUser({username: req.user.get('username')}).fetch().then(function (model) {
-          res.render('public/js/missile_command', { level: model.get('level'), score: model.get('score') });
+      new data.ApiUser({ username: req.user.get('username') }).fetch().then(function (model) {
+          res.render('public/js/missile_command', {
+          	level: model.get('level'),
+          	score: model.get('score')
+          });
       });
     });
 
     app.post('/saveUserState', function(req, res){
-        console.log("Salvataggio stato del gioco per " + req.user.get('username') + "...");
-        // salvare nel db
+        console.log("Saving game state for " + req.user.get('username') + "...");
         var higerLevel = (req.body.level >= req.user.get('level')) ? req.body.level : req.user.get('level');
 
-        new data.ApiUser({id: req.user.get('id'), username: req.user.get('username')}).save({level: req.body.level, score: req.body.score}, {patch: true}).then(function(model) {
+		// salvataggio nel DB
+        new data.ApiUser({
+        	id: req.user.get('id'),
+        	username: req.user.get('username')
+        }).save({
+        	level: req.body.level,
+        	score: req.body.score
+        }, {patch: true}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
-                   console.log('succcessfully updated user');
+                   console.log('Succcessfully saved.');
                 }
             });
             res.end();
         }, function(err) {
-            console.log("Errore nell'update:" + err);
+            console.log("Error while saving: " + err);
         });
     });
 
     app.get('/getUserData', function(req,res) {
-        res.send( {level: req.user.get('level'), score: req.user.get('score')});
+        res.send({
+        	level: req.user.get('level'),
+        	score: req.user.get('score')
+        });
     });
 
     app.get('/getLeaderboard', function(req,res) {
@@ -70,8 +82,8 @@ module.exports = function (app, passport) {
         // });
 
         new data.ApiUser().fetchAll().then(function (User) {
-            User.query(function(qb){
-                qb.orderBy('score','DESC');
+            User.query(function(qb) {
+                qb.orderBy('score', 'DESC');
             }).fetch({}).then(function(collection){
                 // process results
                 var users = collection.toJSON();
@@ -95,7 +107,8 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.get('/*', function(req, res){
+	// FIXME la pagina non compare quando l'URL e' nella forma localhost:3000/index/*
+    app.get('*', function(req, res) {
     	res.render('404');
     });
 }
