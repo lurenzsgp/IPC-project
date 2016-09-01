@@ -16,8 +16,8 @@ var CANVAS_WIDTH  = canvas.width,
   };
 
 // Variables
-var score = 0,
-  level = 1,
+var score = <%= score %>,
+  level = <%= level %>,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -884,6 +884,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 var setupNextLevel = function(next) {
     if (next) {
         level++;
+        $.post('/saveUserState', {level: level, score: score});
         editor.loadCode(level);
     }
     missileCommand(false);

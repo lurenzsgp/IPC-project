@@ -32,7 +32,7 @@ a,
 .td-name,
 td,
 button.close {
-  -moz-osx-font-smoothing: grayscale; 
+  -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -60,9 +60,13 @@ margin-left: 0;
 	border: 2px solid grey;
 }
 
-.progress{
+.progress {
   margin: 2em auto;
 }
+
+/*.progress-bar {
+	width: 70%;
+}*/
 
 .jumbotron {
   position: absolute;
@@ -162,7 +166,7 @@ p {
 /*		navbar		*/
 
 @media (min-width: 768px) {
-	
+
 	.navbar{
     z-index: 10;
 	  max-width:80px;
@@ -184,11 +188,11 @@ p {
 	.navbar-header{
 		float:none !important;
 	}
-	
+
 	.navbar-nav{
 		padding-top:5em;
 	}
-	
+
 	.navbar .navbar-nav > li > a {
 	  /*padding: 10px;*/
 	  margin: 10px 10px 10px auto;
@@ -221,7 +225,7 @@ p {
 
   .navbar .container{
     margin: auto;
-    padding-right: 0px; 
+    padding-right: 0px;
     margin-bottom: 0px;
   }
 
@@ -242,7 +246,7 @@ p {
     transition: all .5s ease-in-out;
     box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.5);
 	}
-	
+
 	.navbar-brand > img:hover{
     background-color: #433d58;
 	}

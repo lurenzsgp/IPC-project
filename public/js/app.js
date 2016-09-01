@@ -56,10 +56,10 @@ function startTutorial(){
 $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
-	
+
 	// attiva Intro.JS
 	startTutorial();
-	
+
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
@@ -106,4 +106,18 @@ $(document).ready(function () {
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(editor.execCode);
     $("#ButtonResetCode").click(editor.resetCode);
+});
+
+$('[data-target="#accountModal"]').click(function () {
+	$.get('/getUserData', function (data) {
+		var levelWidth = (data.level - 1) / 9 * 100;
+		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
+		$('[name="score"]').text(data.score);
+	});
+	$.get('/getLeaderboard', function (data) {
+		$.each(data, function(index, el) {
+			var i = index + 1;
+			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
+		});
+	});
 });

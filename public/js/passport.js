@@ -1,6 +1,5 @@
-var crypto = require('crypto');
 var LocalStrategy = require('passport-local').Strategy;
-var data = require('./public/models/auth')();
+var data = require('../models/auth')();
 
 module.exports = function(passport) {
     // =========================================================================
@@ -11,14 +10,14 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-    	console.log('Serializing user with ID ' + user.id + '...');
+    	// console.log('Serializing user with ID ' + user.id + '...');
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(user_id, done) {
         new data.ApiUser({id: user_id}).fetch().then(function(user) {
-    		console.log('Deserializing user with ID ' + user_id + '...');
+    		// console.log('Deserializing user with ID ' + user_id + '...');
             return done(null, user);
         }, function(error) {
             return done(error);
@@ -31,13 +30,13 @@ module.exports = function(passport) {
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'usr',
-        passwordField: 'pwd',
+        usernameField: 'username',
+        passwordField: 'password',
         passReqToCallback : true
     },function(req, username, password, done) {
         console.log('-----------');
         console.log('Sign up...');
-        // TODO controllare che fetch sia sincrono
+        
         new data.ApiUser({username: username}).fetch().then(function (model) {
             if (model === null) {
                 new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
@@ -52,8 +51,6 @@ module.exports = function(passport) {
                 console.log('That username is already taken.');
                 return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
             }
-
-            var pwd = crypto.createHmac('sha256', password);
         });
     }));
 
@@ -85,6 +82,8 @@ module.exports = function(passport) {
             }
 
             req.flash('username', username);
+            req.flash('score', model.get('score'));
+
             console.log('Password correct.');
             return done(null, model);
         });
