@@ -31,6 +31,8 @@
 		<script type="text/javascript" src="js/CodeMirror/addon/lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/javascript-lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/panel.js"></script>
+		<!-- typed.js -->
+		<script type="text/javascript" src="js/typed.js"></script>
 	</head>
 
 	<body>
@@ -236,6 +238,16 @@
                         <div class="panel-heading">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
+
+                            <script type="text/javascript">
+                                $(function(){
+							        $("#chat-text").typed({
+							            strings: ["First sentence.", "Second sentence."],
+							            typeSpeed: 0
+							        });
+							    });	
+                            </script>
+
                             <div id="chat-text">
                                 this is level 1. your have to fix the missle speed as it appears to be fucking slow!
                             </div>

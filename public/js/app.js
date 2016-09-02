@@ -7,46 +7,50 @@ function startTutorial(){
 		'scrollToElement': 'true',
 		steps:[
 			  {
-			  	intro: "<img src='img/recruit.png' class='portrait'/>Benvenuto recluta! <p>Questa piccola introduzione ti guiderà attraverso gli elementi dell'interfaccia.</p>"
+			  	intro: "<div class='tutorial'>" + "<img src='img/general.png' class='portrait'/>" + 
+			  	"<h4><b>Greetings</b> Recruit!</h4>" + 
+			  	"<p>Welcome to <b>Fortress Bastiano</b>, I am the <b>General</b>.</p>" +
+			  	"<p>You have been selected to operate the antimissile system of this base. I will now give you the basic knowledge you need to get to work, so pay attention!</p>"+
+			  	"<p>We do not have much time!</p>" + "</div>"
 			  },
               {
                 element: document.querySelector('#mc-container'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.",
+                intro: "<img src='img/general.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.",
                 position: "right"
               },
               {
               	element: document.querySelector('#editor-container'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.",
+              	intro: "<img src='img/general.png' class='portrait'/>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.",
               	position: "bottom"
               },
               {
               	element: document.querySelector('#ButtonExecCode'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per eseguire il codice contenuto nell'editor.",
+              	intro: "<img src='img/general.png' class='portrait'/>Clicca qui per eseguire il codice contenuto nell'editor.",
               	position: "left"
               },
               {
               	element: document.querySelector('#ButtonResetCode'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.",
+				intro: "<img src='img/general.png' class='portrait'/>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.",
 				position: "left"
               },
               {
             	element: document.querySelector('#ButtonGetHelp'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per visualizzare un suggerimento.",
+				intro: "<img src='img/general.png' class='portrait'/>Clicca qui per visualizzare un suggerimento.",
 				position: "left"
 			  },
               {
             	element: document.querySelector('#chat-panel'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.",
+				intro: "<img src='img/general.png' class='portrait'/>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.",
 				position: "bottom"
 			  },
               {
                 element: document.querySelector('#levels'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai navigare tra i livelli completati.",
+                intro: "<img src='img/general.png' class='portrait'/>Qui potrai navigare tra i livelli completati.",
                 position: "right"
               },
               {
                 element: document.querySelector('#user'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.",
+                intro: "<img src='img/general.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.",
                 position: "right"
               },
             ]
