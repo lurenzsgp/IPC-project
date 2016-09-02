@@ -40,7 +40,7 @@ module.exports = function(passport) {
         new data.ApiUser({username: username}).fetch().then(function (model) {
             req.flash('username', username);
             if (model === null) {
-                new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
+                new data.ApiUser().save({"username": username, "password": password, "level": 1, "levelScore": "[0,0,0,0,0,0,0,0,0,0]", score: 0}).then(function(model) {
                     console.log('New user created.');
                     return done(null, model);
                 }, function(err) {
