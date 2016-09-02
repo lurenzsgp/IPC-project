@@ -71,16 +71,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/getLeaderboard', function(req,res) {
-        // new data.ApiUser().fetchAll().then(function (users) {
-        //     users.forge().orderBy('score','DESC').then(function (orderedUsers) {
-        //         res.send([
-        //             {username: orderedUsers[0].get('username'), score: orderedUsers[0].get('score')},
-        //             {username: orderedUsers[1].get('username'), score: orderedUsers[1].get('score')},
-        //             {username: orderedUsers[2].get('username'), score: orderedUsers[2].get('score')}
-        //         ]);
-        //     });
-        // });
-
         new data.ApiUser().fetchAll().then(function (User) {
             User.query(function(qb) {
                 qb.orderBy('score', 'DESC');

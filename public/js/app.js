@@ -58,7 +58,9 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
 	// attiva Intro.JS
-	startTutorial();
+	if (level === 1) {
+		startTutorial();
+	}
 
 	// CodeMirror
     editor = new Editor();

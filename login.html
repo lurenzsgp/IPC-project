@@ -23,7 +23,7 @@
                     <% if (message.length > 0) { %>
                         <div class="alert alert-danger">  <%= message %> </div>
                     <% } %>
-					<input type="text" placeholder="username" name="username" />
+					<input type="text" placeholder="username" name="username" <% if (username.length > 0) { %> value="<%= username %>" <% } %>/>
 					<input type="password" placeholder="password" name="password" />
 					<button type="submit">Login</button>
 					<p class="message">
