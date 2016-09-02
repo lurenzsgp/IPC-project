@@ -10,7 +10,7 @@ exports.ensureAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
     	return next();
     } else {
-    	res.render('login', { message: req.flash('loginMessage') });
+    	res.render('login', { message: req.flash('loginMessage'), username: req.flash('username') });
 	}
 }
 
@@ -18,7 +18,7 @@ exports.ensureSignedUp = function(req, res, next) {
     if (req.isAuthenticated()) {
     	return next();
     } else {
-    	res.render('signup', { message: req.flash('signupMessage') });
+    	res.render('signup', { message: req.flash('signupMessage'), username: req.flash('username') });
 	}
 }
 

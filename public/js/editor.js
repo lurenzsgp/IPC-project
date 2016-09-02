@@ -292,9 +292,10 @@ Editor.prototype.makePanel = function(where, text) {
 Editor.prototype.addPanel = function(where, text) {
 	var node = this.makePanel(where, text);
 	this.panels[node.id] = this.cm.addPanel(node, {position: where});
+    return node;
 }
 
-Editor.prototype.updatePanels = function(id) {
+Editor.prototype.removePanels = function(id) {
 	this.panels[id].clear();
 }
 

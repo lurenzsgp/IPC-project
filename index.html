@@ -49,7 +49,7 @@
 				<ul class="nav navbar-nav">
                     <li>
                         <a href="#" data-toggle="modal" data-target="#levelsModal" id="levels">
-                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                            <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                             <span>Levels</span>
                         </a>
                     </li>
@@ -120,15 +120,15 @@
 
 					<div class="modal-body" id="level-selector">
 						<div class="btn-group btn-group-justified" role="group" aria-label="Livello">
-						  <a type="button" role="button" class="btn btn-default">1</a>
-						  <a type="button" role="button" class="btn btn-default">2</a>
-						  <a type="button" role="button" class="btn btn-default">3</a>
-						  <a type="button" role="button" class="btn btn-default">4</a>
-						  <a type="button" role="button" class="btn btn-default">5</a>
-						  <a type="button" role="button" class="btn btn-default">6</a>
-						  <a type="button" role="button" class="btn btn-default">7</a>
-						  <a type="button" role="button" class="btn btn-default">8</a>
-						  <a type="button" role="button" class="btn btn-default">9</a>
+						  <a type="button" role="button" class="btn btn-default disabled">1</a>
+						  <a type="button" role="button" class="btn btn-default disabled">2</a>
+						  <a type="button" role="button" class="btn btn-default disabled">3</a>
+						  <a type="button" role="button" class="btn btn-default disabled">4</a>
+						  <a type="button" role="button" class="btn btn-default disabled">5</a>
+						  <a type="button" role="button" class="btn btn-default disabled">6</a>
+						  <a type="button" role="button" class="btn btn-default disabled">7</a>
+						  <a type="button" role="button" class="btn btn-default disabled">8</a>
+						  <a type="button" role="button" class="btn btn-default disabled">9</a>
 						</div>
 
 						<div class="level-description">
@@ -166,7 +166,7 @@
 											</div>
 											<div class="col-md-6">
 												<h4 name="username"><%= username %></h4>
-												<p name="score">Punteggio: </p>
+												<p name="score"></p>
 											</div>
 										</div>
 									</div>
@@ -189,20 +189,38 @@
 								<tr>
 									<td class="col-md-3">
 										<img class="mybadge" src="img/badge.png">
-										badge1
+										Debug
 									</td>
 									<td class="col-md-3">
 										<img class="mybadge" src="img/badge_bw.png">
-										badge2
+										Refactoring
 									</td>
-									<td class="col-md-3">badge3</td>
-									<td class="col-md-3">badge4</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										Design
+									</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										No city destroyed
+									</td>
 								</tr>
 								<tr>
-									<td class="col-md-3">badge5</td>
-									<td class="col-md-3">badge6</td>
-									<td class="col-md-3">badge7</td>
-									<td class="col-md-3">badge8</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										No help
+									</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										Destroy all bonus missiles
+									</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										Win and keep 25 missiles
+									</td>
+									<td class="col-md-3">
+										<img class="mybadge" src="img/badge_bw.png">
+										Win level 10
+									</td>
 								</tr>
 							</tbody>
 						</table>

@@ -62,7 +62,9 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
 	// attiva Intro.JS
-	startTutorial();
+	if (level === 1) {
+		startTutorial();
+	}
 
 	// CodeMirror
     editor = new Editor();
@@ -71,8 +73,8 @@ $(document).ready(function () {
 	// Missile Command
     missileCommand();
 
-	// CodeMirror: addon Panel
-	editor.addPanel("bottom", "Panel per feedback ad editor");
+	// // CodeMirror: addon Panel
+	// editor.addPanel("bottom", "Panel per feedback ad editor");
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -108,16 +110,25 @@ $(document).ready(function () {
 
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(editor.execCode);
-    $("#ButtonResetCode").click(editor.resetCode);
+    $("#ButtonExecCode").click(function() {
+	    var panel = editor.addPanel("bottom", "Code updated.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.execCode();
+	});
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.resetCode();
+	});
 });
 
-$('[data-target="#accountModal"]').click(function () {
+$('#user').click(function () {
 	$.get('/getUserData', function (data) {
 		var levelWidth = (data.level - 1) / 9 * 100;
 		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
-		$('[name="score"]').text(data.score);
+		$('[name="score"]').text(data.score + " pts");
 	});
+
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
 		$.each(data, function(index, el) {
@@ -125,4 +136,13 @@ $('[data-target="#accountModal"]').click(function () {
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
 		});
 	});
+});
+
+$('#levels').click(function () {
+	var button = $('#level-selector > div > a');
+	$.each(button, function (index, el) {
+		if (index < level ) {
+			$(el).removeClass('disabled');
+		}
+	})
 });
