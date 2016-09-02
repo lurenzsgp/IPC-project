@@ -30,12 +30,12 @@ module.exports = function(app, passport) {
 
     app.get('/missile_command.js', function(req, res) {
       res.set('Content-Type', 'application/javascript');
-//       console.log("Rendering missile_command file ...");
 
       new data.ApiUser({ username: req.user.get('username') }).fetch().then(function (model) {
           res.render('public/js/missile_command', {
           	level: model.get('level'),
-          	score: model.get('score')
+            score: model.get('score'),
+          	levelScore: model.get('levelScore')
           });
       });
     });
@@ -50,7 +50,8 @@ module.exports = function(app, passport) {
         	username: req.user.get('username')
         }).save({
         	level: req.body.level,
-        	score: req.body.score
+        	score: req.body.score,
+            levelScore: req.body.levelScore
         }, {patch: true}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
@@ -66,7 +67,7 @@ module.exports = function(app, passport) {
     app.get('/getUserData', function(req,res) {
         res.send({
         	level: req.user.get('level'),
-        	score: req.user.get('score')
+        	levelScore: req.user.get('levelScore')
         });
     });
 
