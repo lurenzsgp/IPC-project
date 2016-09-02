@@ -123,11 +123,9 @@ $(document).ready(function () {
 });
 
 $('#user').click(function () {
-	$.get('/getUserData', function (data) {
-		var levelWidth = (data.level - 1) / 9 * 100;
-		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
-		$('[name="score"]').text(data.score + " pts");
-	});
+	var levelWidth = (level - 1) / 9 * 100;
+	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(level - 1);
+	$('[name="score"]').text(score + " pts");
 
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();

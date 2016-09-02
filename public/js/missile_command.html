@@ -16,13 +16,16 @@ var CANVAS_WIDTH  = canvas.width,
   };
 
 // Variables
-var score = <%= score %>,
+var levelscore = 0,
   level = <%= level %>,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
   enemyMissiles = [],
   timerID;
+
+var scoreArray = <%= levelScore %>;
+var score = <%= score %>;
 
 var contrAerea;
 
@@ -38,6 +41,7 @@ var missileCommand = function(userClick) {
         initDebugLevel(userClick);
     }
 
+    levelscore = 0;
     if (!userClick) {
         setupListeners();
     }
@@ -194,7 +198,7 @@ var drawBeginLevel = function() {
 var drawScore = function() {
     ctx.fillStyle = 'white';
     ctx.font =  '20px monaco, consolas';
-    ctx.fillText( 'game.score = ' + score, 50, 25 );
+    ctx.fillText( 'level.score = ' + levelscore, 50, 25 );
 };
 
 // Show message before a level begins
@@ -799,7 +803,7 @@ var explodeOtherMissiles = function( missile, ctx ) {
 	  $.each( enemyMissiles, function( index, otherMissile ) {
 		if( ctx.isPointInPath( otherMissile.x, otherMissile.y ) &&
 			otherMissile.state === MISSILE.active ) {
-		  score += 25 * getMultiplier();
+		  levelscore += 25 * getMultiplier();
 		  otherMissile.state = MISSILE.exploding;
 		}
 	  });
@@ -872,7 +876,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 
     // Show the new game score after 2 seconds
     setTimeout( function() {
-      score += missilesBonus + citiesBonus;
+      levelscore += missilesBonus + citiesBonus;
       drawEndLevel( missilesLeft, missilesBonus,
                     citiesSaved, citiesBonus );
     }, 2000 );
@@ -883,10 +887,16 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
+        scoreArray[level-1] = levelscore;
         if (level < 10) {
             level ++;
         }
-        $.post('/saveUserState', {level: level, score: score});
+
+        score = 0;
+        $.each(scoreArray, function (index, el) {
+            score += el;
+        });
+        $.post('/saveUserState', {level: level, score: score, levelScore: scoreArray.toString()});
         editor.loadCode(level);
     }
     missileCommand(false);
@@ -1015,9 +1025,6 @@ var setupListeners = function() {
     $( '#miscom' ).unbind();
     $( '#mc-container' ).one( 'click', function() {
       startLevel();
-
-    //   $("#ButtonExecCode").prop("disabled",true);
-    //   $("#ButtonResetCode").prop("disabled",true);
 
       $( '#miscom' ).unbind().click(function( event ) {
         var mousePos = getMousePos(this, event);
