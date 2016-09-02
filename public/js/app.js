@@ -107,11 +107,15 @@ $(document).ready(function () {
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(function() {
-	    var panel = editor.addPanel("bottom", "Code updated");
-		editor.execCode();
+	    var panel = editor.addPanel("bottom", "Code updated.");
 		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.execCode();
 	});
-    $("#ButtonResetCode").click(editor.resetCode);
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.resetCode();
+	});
 });
 
 $('#user').click(function () {
