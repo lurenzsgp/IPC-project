@@ -230,34 +230,34 @@ var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBon
     ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 };
 
-// Show simple graphic at end of game
-var drawEndGame = function() {
-    ctx.fillStyle = '#635e77';
-    ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
-
-    // Yellow hexagon
-    ctx.fillStyle = '#a24a4a';
-    ctx.beginPath();
-    ctx.moveTo( 255, 30  );
-    ctx.lineTo( 396, 89  );
-    ctx.lineTo( 455, 230 );
-    ctx.lineTo( 396, 371 );
-    ctx.lineTo( 255, 430 );
-    ctx.lineTo( 114, 371 );
-    ctx.lineTo( 55,  230 );
-    ctx.lineTo( 114, 89  );
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = 'white';
-    ctx.font = '60px monaco, consolas';
-    ctx.fillText( 'game == over', 70, 260 );
-
-    ctx.fillStyle = 'yellow';
-    ctx.font = '26px monaco, consolas';
-    ctx.fillText( 'game.score == ' + score, 80, 20 );
-    ctx.fillText( 'onclick(game.restart())', 80, 458 );
-};
+// // Show simple graphic at end of game
+// var drawEndGame = function() {
+//     ctx.fillStyle = '#635e77';
+//     ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
+//
+//     // Yellow hexagon
+//     ctx.fillStyle = '#a24a4a';
+//     ctx.beginPath();
+//     ctx.moveTo( 255, 30  );
+//     ctx.lineTo( 396, 89  );
+//     ctx.lineTo( 455, 230 );
+//     ctx.lineTo( 396, 371 );
+//     ctx.lineTo( 255, 430 );
+//     ctx.lineTo( 114, 371 );
+//     ctx.lineTo( 55,  230 );
+//     ctx.lineTo( 114, 89  );
+//     ctx.closePath();
+//     ctx.fill();
+//
+//     ctx.fillStyle = 'white';
+//     ctx.font = '60px monaco, consolas';
+//     ctx.fillText( 'game == over', 70, 260 );
+//
+//     ctx.fillStyle = 'yellow';
+//     ctx.font = '26px monaco, consolas';
+//     ctx.fillText( 'game.score == ' + score, 80, 20 );
+//     ctx.fillText( 'onclick(game.restart())', 80, 458 );
+// };
 
 // Draw all active cities
 var drawCities = function() {
@@ -853,16 +853,20 @@ var checkEndLevel = function() {
         // $("#ButtonExecCode").prop("disabled",false);
         // $("#ButtonResetCode").prop("disabled",false);
 
-        !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
+        // !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
+        endLevel( missilesLeft, citiesSaved );
     }
 };
 
 // Handle the end of a level
 var endLevel = function( missilesLeft, citiesSaved ) {
-    var missilesBonus = missilesLeft * 5 * getMultiplier(),
-        citiesBonus = citiesSaved * 100 * getMultiplier();
-    var nextLevel = true;
+    var missilesBonus = citiesSaved === 6 ? missilesLeft * 5 * getMultiplier() : 0;
+    var citiesBonus = citiesSaved === 6 ? citiesSaved * 100 * getMultiplier() : 0;
+    var nextLevel = citiesSaved === 6 ? true : false;
 
+    if (!nextLevel) {
+        console.log("[Messaggio dal comandante] Riprova, non devi perdere nessuna torretta");
+    }
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
 
@@ -873,10 +877,6 @@ var endLevel = function( missilesLeft, citiesSaved ) {
                     citiesSaved, citiesBonus );
     }, 2000 );
 
-    if (citiesSaved !== 6) {
-        nextLevel = false;
-        console.log("Riprova, non devi perdere nessuna torretta");
-    }
     setTimeout( setupNextLevel, 4000, nextLevel );
 };
 
@@ -890,16 +890,16 @@ var setupNextLevel = function(next) {
     missileCommand(false);
 };
 
-// Handle the end of the game
-var endGame = function( missilesLeft ) {
-    score += missilesLeft * 5 * getMultiplier();
-    drawEndGame();
-
-    $( '#mc-container' ).one( 'click', function() {
-        // possibilita' di penalita' nel punteggio
-        missileCommand(false);
-        });
-    };
+// // Handle the end of the game
+// var endGame = function( missilesLeft ) {
+//     score += missilesLeft * 5 * getMultiplier();
+//     drawEndGame();
+//
+//     $( '#mc-container' ).one( 'click', function() {
+//         // possibilita' di penalita' nel punteggio
+//         missileCommand(false);
+//     });
+// };
 
     // Get missiles left in all anti missile batteries at the end of a level
 var totalMissilesLeft = function() {

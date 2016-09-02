@@ -69,8 +69,8 @@ $(document).ready(function () {
 	// Missile Command
     missileCommand();
 
-	// CodeMirror: addon Panel
-	editor.addPanel("bottom", "Panel per feedback ad editor");
+	// // CodeMirror: addon Panel
+	// editor.addPanel("bottom", "Panel per feedback ad editor");
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -106,8 +106,16 @@ $(document).ready(function () {
 
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(editor.execCode);
-    $("#ButtonResetCode").click(editor.resetCode);
+    $("#ButtonExecCode").click(function() {
+	    var panel = editor.addPanel("bottom", "Code updated.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.execCode();
+	});
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.resetCode();
+	});
 });
 
 $('#user').click(function () {
