@@ -32,7 +32,7 @@ var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
 var missileCommand = function(userClick) {
     if (3 < level && level < 7) {
         initRefactLevel(userClick);
-    } else if (6 < level && level < 10) {
+    } else if (6 < level && level < 11) {
         initDesignLevel(userClick);
     } else {
         initDebugLevel(userClick);
@@ -883,7 +883,9 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
-        level++;
+        if (level < 10) {
+            level ++;
+        }
         $.post('/saveUserState', {level: level, score: score});
         editor.loadCode(level);
     }
@@ -1048,3 +1050,4 @@ var solution6 = "var source = whichAntiMissileBattery( x );if( source === -1 ){r
 var solution7 = "$.each( antiMissileBatteries, function( index, amb ) {amb.missilesLeft = 10;});"
 var solution8 = "var targets = viableTargets();for( var i = 0; i < n; i++ ) {enemyMissiles.push( new BonusMissile(targets) );}";
 var solution9 = "return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );";
+var solution10 = "return";
