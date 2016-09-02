@@ -108,12 +108,13 @@ $(document).ready(function () {
     $("#ButtonResetCode").click(editor.resetCode);
 });
 
-$('[data-target="#accountModal"]').click(function () {
+$('#user').click(function () {
 	$.get('/getUserData', function (data) {
 		var levelWidth = (data.level - 1) / 9 * 100;
 		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
-		$('[name="score"]').text(data.score);
+		$('[name="score"]').text(data.score + " pts");
 	});
+
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
 		$.each(data, function(index, el) {
@@ -121,4 +122,13 @@ $('[data-target="#accountModal"]').click(function () {
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
 		});
 	});
+});
+
+$('#levels').click(function () {
+	var button = $('#level-selector > div > a');
+	$.each(button, function (index, el) {
+		if (index < level ) {
+			$(el).removeClass('disabled');
+		}
+	})
 });
