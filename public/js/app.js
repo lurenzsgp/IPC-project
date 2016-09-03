@@ -123,6 +123,12 @@ $('#user').click(function () {
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(level - 1);
 	$('[name="score"]').text(score + " pts");
 
+	$.get('/getUserBadge', function(data) {
+		$.each(data, function (index, el) {
+			enableBadge(el.name);
+		});
+	});
+
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
 		$.each(data, function(index, el) {
@@ -140,3 +146,7 @@ $('#levels').click(function () {
 		}
 	})
 });
+
+function enableBadge (name) {
+	$('[name="' + name + '"]').removeClass('disabled');
+}

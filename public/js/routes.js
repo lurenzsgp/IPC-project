@@ -1,6 +1,6 @@
 var loginController = require('./login');
 var data = require('../models/auth')();
-
+var Bookshelf = require('bookshelf').mysqlAuth;
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
@@ -117,6 +117,16 @@ module.exports = function(app, passport) {
             } else {
                 console.log('Error: no badge found.');
             }
+        });
+    });
+
+    app.get('/getUserBadge', function(req, res) {
+        Bookshelf.knex('badges_users')
+        .join('badges', 'badges.id', '=', 'badges_users.badge_id')
+        .where('badges_users.user_id', req.user.get('id'))
+        .select()
+        .then(function (results) {
+            res.send(results);
         });
     });
 

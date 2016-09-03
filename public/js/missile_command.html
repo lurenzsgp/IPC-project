@@ -897,28 +897,28 @@ var setupNextLevel = function(next) {
         // controllo i badge
         switch (level) {
             case 3:
-                $.post('/checkBadge', { name: "\tDebug"}, function (badge) {
+                $.post('/checkBadge', { name: "Debug"}, function (badge) {
                     if (!badge.unlock) {
                         $.post('/unlockBadge', { name: "\tDebug"});
                     }
                 })
                 break;
             case 6:
-                $.post('/checkBadge', { name: "\tRefactoring"}, function (badge) {
+                $.post('/checkBadge', { name: "Refactoring"}, function (badge) {
                     if (!badge.unlock) {
                         $.post('/unlockBadge', { name: "\tRefactoring"});
                     }
                 })
                 break;
             case 9:
-                $.post('/checkBadge', { name: "\tDesign"}, function (badge) {
+                $.post('/checkBadge', { name: "Design"}, function (badge) {
                     if (!badge.unlock) {
                         $.post('/unlockBadge', { name: "\tDesign"});
                     }
                 })
                 break;
             case 10:
-                $.post('/checkBadge', { name: "\tWin level 10"}, function (badge) {
+                $.post('/checkBadge', { name: "Level-10"}, function (badge) {
                     if (!badge.unlock) {
                         $.post('/unlockBadge', { name: "\tWin level 10"});
                     }
