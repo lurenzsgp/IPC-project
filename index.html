@@ -259,18 +259,16 @@
 
                             <script type="text/javascript">
                                 $(function(){
-							        $("#typed").typed({
-							            stringsElement: $("#chat-text")
+							        $("#chat-text").typed({
+							            strings: ["First sentence.", "Second sentence."],
+							            typeSpeed: 0
 							        });
 							    });	
                             </script>
 
                             <div id="chat-text">
-                                <p>this is level 1.</p> 
-                                <p>your have to fix the missle speed as it appears to be fucking slow!</p>
+                                this is level 1. your have to fix the missle speed as it appears to be fucking slow!
                             </div>
-                            <span id="typed"></span>
-
                         </div>
                     </div>
 
