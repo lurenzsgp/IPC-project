@@ -887,18 +887,58 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
+        // aggiorno il punteggio
         scoreArray[level-1] = levelscore;
-        if (level < 10) {
-            level ++;
-        }
-
         score = 0;
         $.each(scoreArray, function (index, el) {
             score += el;
         });
+
+        // controllo i badge
+        switch (level) {
+            case 3:
+                $.post('/checkBadge', { name: "\tDebug"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tDebug"});
+                    }
+                })
+                break;
+            case 6:
+                $.post('/checkBadge', { name: "\tRefactoring"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tRefactoring"});
+                    }
+                })
+                break;
+            case 9:
+                $.post('/checkBadge', { name: "\tDesign"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tDesign"});
+                    }
+                })
+                break;
+            case 10:
+                $.post('/checkBadge', { name: "\tWin level 10"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tWin level 10"});
+                    }
+                })
+                break;
+            default:
+        }
+
+        // aumento il livello
+        if (level < 10) {
+            level ++;
+        }
+
+        // salvo i dati nella sessione e nel db
         $.post('/saveUserState', {level: level, score: score, levelScore: scoreArray.toString()});
+
+        // carico il codice del livello successivo
         editor.loadCode(level);
     }
+    // inizializzo il gioco per il livello corrente
     missileCommand(false);
 };
 
