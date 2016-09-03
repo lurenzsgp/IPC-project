@@ -88,10 +88,60 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.post('/unlockBadge', function(req, res) {
+        new data.ApiBadge({ name: req.body.name }).fetch().then(function (badge) {
+            if (badge !== null) {
+                new data.ApiUserBadge().save({ user_id: req.user.get('id'), badge_id: badge.get('id') })
+                .then( function (userBadge) {
+                    console.log("Badge " + req.body.name + " unlock");
+                }, function (err) {
+                    console.log('Error unlock badge: ' + err);
+                });
+            } else {
+                console.log('Error: no badge found.');
+            }
+        });
+    });
+
+    app.post('/checkBadge', function(req, res) {
+        new data.ApiBadge({ name: req.body.name }).fetch().then(function (badge) {
+            if (badge !== null) {
+                new data.ApiUserBadge({ user_id: req.user.get('id'), badge_id: badge.get('id') }).fetch()
+                .then( function (userBadge) {
+                    if (userBadge === null) {
+                        res.send({ unlock: false });
+                    } else {
+                        res.send({ unlock: true });
+                    }
+                });
+            } else {
+                console.log('Error: no badge found.');
+            }
+        });
+    });
+
 	// TODO eliminare nella versione definitiva
     app.get('/user', function(req, res) {
       new data.ApiUser().fetchAll().then(function(users) {
           res.send(users.toJSON());
+        }).catch(function(error) {
+          console.log(error);
+          res.send('An error occured');
+        });
+    });
+
+    app.get('/badge', function(req, res) {
+      new data.ApiBadge().fetchAll().then(function(badge) {
+          res.send(badge.toJSON());
+        }).catch(function(error) {
+          console.log(error);
+          res.send('An error occured');
+        });
+    });
+
+    app.get('/userBadge', function(req, res) {
+      new data.ApiUserBadge().fetchAll().then(function(badge) {
+          res.send(badge.toJSON());
         }).catch(function(error) {
           console.log(error);
           res.send('An error occured');
