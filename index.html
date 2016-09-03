@@ -31,6 +31,8 @@
 		<script type="text/javascript" src="js/CodeMirror/addon/lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/javascript-lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/panel.js"></script>
+
+		<script type="text/javascript" src="js/typed.js"></script>
 	</head>
 
 	<body>
@@ -160,7 +162,7 @@
 									<div class="panel-body">
 										<div class="row">
 											<div class="col-md-6">
-												<img src="img/default-avatar.png" class="avatar-circle">
+												<img src="img/recruit.png" class="avatar-circle">
 											</div>
 											<div class="col-md-6">
 												<h4 name="username"><%= username %></h4>
@@ -250,15 +252,30 @@
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-                    <div class="panel panel-default chat" id="chat-panel">
+                    <div class="panel panel-default" id="chat-panel">
                         <div class="panel-heading">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
-                            <div id="chat-text">
-                                this is level 1. your have to fix the missle speed as it appears to be fucking slow!
-                            </div>
+
+		                    <script type="text/javascript">
+		                    	$(function(){
+							        $("#typed").typed({
+							            stringsElement: $("#chat-text"),
+							            typeSpeed: 0,
+							        });
+		                    	});
+		                    </script>
+
+                            	<div id="chat-text">
+                                	<p><strong>this is level 1.</strong><br>you have to fix the missile speed as it appears to be fucking slow!<p>
+                            	</div>
+
+                            	<div class="chat">
+                            		<span id="typed"></span>
+                            	</div>
                         </div>
                     </div>
+
 
 					<div class="row" id="mc-container">
 						<canvas id="miscom" class="game center-block" width="510" height="460">

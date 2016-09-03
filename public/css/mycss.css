@@ -11,10 +11,12 @@ body{
 }
 
 /* Editor */
-.disabled {
+.CodeMirror .disabled {
 	background-color: rgba(200,100,100,0.4) !important;
 }
-
+.btn-group > .disabled{
+    background-color: #ccc !important;
+}
 
 body,
 h1, .h1,
@@ -58,6 +60,7 @@ margin-left: 0;
 	width: auto;
 	height: 9em;
 	border: 2px solid grey;
+  background-color: #635e77;
 }
 
 .progress {
@@ -98,17 +101,10 @@ margin-left: 0;
   margin: auto 10px;
   float: left;
   width: auto;
-  height: 4em;
+  height: 5em;
 }
 
-.portrait:hover{
-  -webkit-filter: saturate(1);
-  box-shadow: 0 0.2em .5em grey;
-}
-.portrait > p{
-	margin: 0.2em auto;
-  text-align: center;
-}
+
 
 .mybadge{
   height: 32px;
@@ -320,9 +316,20 @@ a, button:focus{
   margin: 0;
 }
 
-.chat{
+#chat-panel{
   margin: 5px 15px 10px 15px;
-  height: 250px;
+  height: auto;
+}
+
+#chat-text{
+  display: none;
+}
+
+.chat{
+  padding: 15px;
+  background-color: #eee;
+  box-shadow: 0px 2px 5px 1px lightgrey;
+  margin-left: 25%;
 }
 
 .panel-heading{
@@ -331,4 +338,34 @@ a, button:focus{
 
 .introjs-helperLayer{
   background-color: rgba(255,255,255,0.5) !important;
+}
+
+.tutorial{
+  background-color: #eee;
+  padding: 15px;
+  margin-left: 25%;
+  width: 75%;
+  box-shadow: 0px 2px 5px 1px lightgrey;
+}
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
 }

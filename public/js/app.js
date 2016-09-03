@@ -7,48 +7,76 @@ function startTutorial(){
 		'scrollToElement': 'true',
 		steps:[
 			  {
-			  	intro: "<img src='img/recruit.png' class='portrait'/>Benvenuto recluta! <p>Questa piccola introduzione ti guiderà attraverso gli elementi dell'interfaccia.</p>"
+			  	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<h3>Benvenuto recluta!<h3>"+
+			  		"<p>Questa piccola introduzione ti guiderà attraverso gli elementi dell'interfaccia.</p>" +
+		  		"</div>"
 			  },
               {
                 element: document.querySelector('#mc-container'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Questo è il gioco, cliccaci sopra per iniziare il livello.</p>" +
+		  		"</div>",
                 position: "right"
               },
               {
               	element: document.querySelector('#editor-container'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.",
+              	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.</p>" +
+		  		"</div>",
               	position: "bottom"
               },
               {
               	element: document.querySelector('#ButtonExecCode'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per eseguire il codice contenuto nell'editor.",
+              	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Clicca qui per eseguire il codice contenuto nell'editor.</p>" +
+		  		"</div>",
               	position: "left"
               },
               {
               	element: document.querySelector('#ButtonResetCode'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.</p>" +
+		  		"</div>",
 				position: "left"
               },
               {
             	element: document.querySelector('#ButtonGetHelp'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per visualizzare un suggerimento.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Clicca qui per visualizzare un suggerimento.</p>" +
+		  		"</div>",
 				position: "left"
 			  },
               {
             	element: document.querySelector('#chat-panel'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.</p>" +
+		  		"</div>",
 				position: "bottom"
 			  },
               {
                 element: document.querySelector('#levels'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai navigare tra i livelli completati.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Qui potrai navigare tra i livelli completati.</p>" +
+		  		"</div>",
                 position: "right"
               },
               {
                 element: document.querySelector('#user'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Qui potrai visualizzare il tuo profilo.</p>" +
+		  		"</div>",
                 position: "right"
-              },
+              }
             ]
 	}).start();
 }
