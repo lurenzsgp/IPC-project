@@ -161,6 +161,10 @@ p {
 
 /*		navbar		*/
 
+hr{
+  border-color: #666;
+}
+
 @media (min-width: 768px) {
 
 	.navbar{
@@ -332,6 +336,17 @@ a, button:focus{
   margin-left: 25%;
 }
 
+.chat:before{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 23%;
+  top: 65px;
+  border: 20px solid;
+  border-color: transparent #eee transparent transparent;
+}
+
 .panel-heading{
   font-weight: 800;
 }
@@ -347,6 +362,18 @@ a, button:focus{
   width: 75%;
   box-shadow: 0px 2px 5px 1px lightgrey;
 }
+
+.tutorial:before{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 20%;
+  top: 15%;
+  border: 20px solid;
+  border-color: transparent #eee transparent transparent;
+}
+
 
 .typed-cursor{
     opacity: 1;

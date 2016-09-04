@@ -1,0 +1,72 @@
+"steps":[
+{
+  	"intro": "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<h4>Benvenuto recluta!<h4>"+
+  		"<p>Questa piccola introduzione ti guiderà attraverso gli elementi dell'interfaccia.</p>" +
+		"</div>"
+  },
+  {
+    "element": "document.querySelector('#mc-container')",
+    "intro": "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Questo è il gioco, cliccaci sopra per iniziare il livello.</p>" +
+		"</div>",
+    "position": "right"
+  },
+  {
+  	element: document.querySelector('#editor-container'),
+  	intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.</p>" +
+		"</div>",
+  	position: "bottom"
+  },
+  {
+  	element: document.querySelector('#ButtonExecCode'),
+  	intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Clicca qui per eseguire il codice contenuto nell'editor.</p>" +
+		"</div>",
+  	position: "left"
+  },
+  {
+  	element: document.querySelector('#ButtonResetCode'),
+	intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.</p>" +
+		"</div>",
+	position: "left"
+  },
+  {
+	element: document.querySelector('#ButtonGetHelp'),
+	intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Clicca qui per visualizzare un suggerimento.</p>" +
+		"</div>",
+	position: "left"
+  },
+  {
+	element: document.querySelector('#chat-panel'),
+	intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.</p>" +
+		"</div>",
+	position: "bottom"
+  },
+  {
+    element: document.querySelector('#levels'),
+    intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Qui potrai navigare tra i livelli completati.</p>" +
+		"</div>",
+    position: "right"
+  },
+  {
+    element: document.querySelector('#user'),
+    intro: "<img src='img/general.png' class='portrait'/>"+
+  	"<div class='tutorial'>"+
+  		"<p>Qui potrai visualizzare il tuo profilo.</p>" +
+		"</div>",
+    position: "right"
+  }]
