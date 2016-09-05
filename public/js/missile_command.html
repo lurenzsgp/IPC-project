@@ -935,6 +935,8 @@ var setupNextLevel = function(next) {
         // salvo i dati nella sessione e nel db
         $.post('/saveUserState', {level: level, score: score, levelScore: scoreArray.toString()});
 
+        // carico la chat
+        loadChat();
         // carico il codice del livello successivo
         editor.loadCode(level);
     }
