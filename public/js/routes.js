@@ -1,5 +1,8 @@
 var loginController = require('./login');
 var data = require('../models/auth')();
+var fs = require('fs');	//File System - for file manipulation
+var multer = require('multer');
+var upload = multer({dest: 'public/img/avatars/'});
 
 
 module.exports = function(app, passport) {
@@ -62,6 +65,26 @@ module.exports = function(app, passport) {
             console.log("Error while saving: " + err);
         });
     });
+	
+	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
+		
+		console.log(req.file);
+		var file = 'public/img/avatars/' + req.user.get('username') + '.jpg';
+		console.log(file);
+		
+		fs.rename(req.file.path, file, function(err) {
+			if (err) {
+				console.log(err);
+				res.send(500);
+			} else {
+				res.json({
+					message: 'File uploaded successfully',
+					filename: req.file.filename
+				});
+			}
+		});
+		
+	});
 
     app.get('/getUserData', function(req,res) {
         res.send({

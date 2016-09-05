@@ -60,6 +60,9 @@ $(document).ready(function () {
 	// attiva Intro.JS
 	startTutorial();
 
+	//attiva i tooltip di bootstrap sulla classe btn
+    $('.btn').tooltip()
+	
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);

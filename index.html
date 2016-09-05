@@ -159,8 +159,13 @@
 								<div class="panel panel-default">
 									<div class="panel-body">
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-6" style="text-align:center">
 												<img src="img/default-avatar.png" class="avatar-circle">
+												
+												<form id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
+													<input type="file" name="avatar">
+													<input type="submit">
+												<form>
 											</div>
 											<div class="col-md-6">
 												<h4 name="username"><%= username %></h4>
