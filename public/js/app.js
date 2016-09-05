@@ -77,7 +77,7 @@ function startTutorial(){
                 element: document.querySelector('#user'),
                 intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This is the <b>account page</b>.</p>"+ 
+			  		"<p>This is the <b>account page</b>.</p>"+
 			  		"<p>Here you will find all your personal informations and progress.</p>" +
 		  		"</div>",
                 position: "right"
@@ -98,6 +98,9 @@ $(document).ready(function () {
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
+
+	// caricamento chat
+	loadChat();
 
 	// Missile Command
     missileCommand();
@@ -149,7 +152,42 @@ $(document).ready(function () {
 		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
 		editor.resetCode();
 	});
+
+	$("#typed").typed({
+		stringsElement: $("#chat-text"),
+		typeSpeed: 0,
+		cursorChar: ' ',
+	});
 });
+
+$("#level-selector").find('.btn').click( function() {
+	$(".btn-primary").removeClass('btn-primary');
+	$(this).addClass('btn-primary');
+
+	var lvl = $(this).text();
+
+	$('.level-description').children('h3').html("Level " + lvl.toString());
+	//TODO sostituire con descrizione del livello
+	$('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
+});
+
+$("#load-level-btn").click(function(){
+	editor.applySolution();
+	var lvl = $(".btn-primary").text();
+	level = parseInt(lvl);
+
+	loadChat();
+	editor.loadCode(level);
+	missileCommand(true);
+});
+
+function loadChat() {
+	//parse json for chat text
+	$("#chat-panel > .panel-heading").html("Livello " + level);
+	$.getJSON("lvl/levels-chat.json", function(data){
+		$("#chat-text").text(data[level - 1]);
+	});
+}
 
 $('#user').click(function () {
 	var levelWidth = (level - 1) / 9 * 100;
