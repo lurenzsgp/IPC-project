@@ -67,20 +67,14 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
-		
-		console.log(req.file);
-		var file = 'public/img/avatars/' + req.user.get('username') + '.jpg';
-		console.log(file);
+		var file = 'public/img/avatars/' + req.user.get('username');
 		
 		fs.rename(req.file.path, file, function(err) {
 			if (err) {
 				console.log(err);
-				res.send(500);
+				alert("The avatar cannot be updated!");
 			} else {
-				res.json({
-					message: 'File uploaded successfully',
-					filename: req.file.filename
-				});
+				console.log("Avatar updated.");
 			}
 		});
 		
@@ -88,6 +82,7 @@ module.exports = function(app, passport) {
 
     app.get('/getUserData', function(req,res) {
         res.send({
+			username: req.user.get('username'),
         	level: req.user.get('level'),
         	score: req.user.get('score')
         });

@@ -116,6 +116,19 @@ $('[data-target="#accountModal"]').click(function () {
 		var levelWidth = (data.level - 1) / 9 * 100;
 		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
 		$('[name="score"]').text(data.score);
+		
+		//$('#imgAvatar').attr('src', 'img/avatars/' + data.username );
+		
+		$.ajax({
+			url: 'img/avatars/' + data.username, 
+			success: function(d){
+				console.log(data.username);
+				$('#imgAvatar').attr('src', 'img/avatars/' + data.username );
+			},
+			error: function(d){
+				$('#imgAvatar').attr('src', 'img/default-avatar.png');
+			},
+		})
 	});
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
