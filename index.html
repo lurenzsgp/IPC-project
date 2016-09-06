@@ -159,18 +159,17 @@
 								<div class="panel panel-default">
 									<div class="panel-body">
 										<div class="row">
-											<div class="col-md-6" style="text-align:center">
-												<img src="img/default-avatar.png" class="avatar-circle" id="imgAvatar">
+											<div class="col-md-6" style="text-align:center;">
+												<img onerror="this.src='img/default-avatar.png'" class="avatar-circle" id="imgAvatar">
 												
-												<form id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
+												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
 												<label class="btn btn-primary">
 													<i class="fa fa-folder-open" aria-hidden="true"></i>
 													<input type="file" name="avatar" onchange="this.form.submit()" style="display: none;">
 												</label>
-												<form>
-												
-												<form id="formDeleteAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
-												<label class="btn btn-danger">
+												</form>
+												<form class="imgform" id="formDeleteAvatar" action="/deleteAvatar" method="post">
+												<label id="labelDeleteAvatar" class="btn btn-danger">
 													<i class="fa fa-remove" aria-hidden="true"></i>
 													<button onchange="this.form.submit()" style="display: none;">
 												</label>

@@ -1,6 +1,6 @@
 var loginController = require('./login');
 var data = require('../models/auth')();
-var fs = require('fs');	//File System - for file manipulation
+var fs = require('fs');	
 var multer = require('multer');
 var upload = multer({dest: 'public/img/avatars/'});
 
@@ -67,17 +67,39 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
+		var stats = fs.statSync(req.file.path);
+		var filesizeinMB = stats["size"]  / 1000000.0;
+
+
+		if(filesizeinMB < 8){
+			var file = 'public/img/avatars/' + req.user.get('username');
+			
+			fs.rename(req.file.path, file, function(err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log("Avatar updated.");
+				}
+			});
+			}else{
+				//image size too big
+			}
+	});
+	
+	app.post('/deleteAvatar', function(req,res){
 		var file = 'public/img/avatars/' + req.user.get('username');
 		
-		fs.rename(req.file.path, file, function(err) {
+		fs.unlink(file, function(err) {
 			if (err) {
-				console.log(err);
-				alert("The avatar cannot be updated!");
+				if(err.code=='ENOENT'){
+					console.log("Avatar already deleted");
+				}else{
+					console.log('Cannot delete avatar');
+				}
 			} else {
-				console.log("Avatar updated.");
+				console.log("Avatar deleted.");
 			}
 		});
-		
 	});
 
     app.get('/getUserData', function(req,res) {
