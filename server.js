@@ -28,7 +28,11 @@ try {
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
 var knex = require('knex')({
 	client: 'mysql',
-	connection: dbConfig
+	connection: dbConfig,
+    pool: {
+        min: 0,
+        max: 10
+      }
 });
 var bookshelf = require('bookshelf');
 bookshelf.mysqlAuth = bookshelf(knex);
