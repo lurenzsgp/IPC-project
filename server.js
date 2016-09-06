@@ -27,11 +27,11 @@ try {
 
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
 var knex = require('knex')({
-	client: 'mysql',
+	client: 'postgresql',
 	connection: dbConfig,
     pool: {
         min: 0,
-        max: 10
+        max: 20
       }
 });
 var bookshelf = require('bookshelf');

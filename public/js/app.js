@@ -152,12 +152,6 @@ $(document).ready(function () {
 		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
 		editor.resetCode();
 	});
-
-	$("#typed").typed({
-		stringsElement: $("#chat-text"),
-		typeSpeed: 0,
-		cursorChar: ' ',
-	});
 });
 
 $("#level-selector").find('.btn').click( function() {
@@ -186,6 +180,14 @@ function loadChat() {
 	$("#chat-panel > .panel-heading").html("Livello " + level);
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$("#chat-text").text(data[level - 1]);
+	});
+
+	$("#typed").remove();
+	$('chat-panel > panel-body').append('<div class="chat"><span id="typed"></span></div>');
+	$("#typed").typed({
+		stringsElement: $("#chat-text"),
+		typeSpeed: 0,
+		cursorChar: ' '
 	});
 }
 
