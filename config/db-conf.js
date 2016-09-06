@@ -5,5 +5,6 @@ module.exports = {
     password : 'yCANyJgwvGVFiy-ebfQS6v_nAu',
     database : 'd7k2hjv4aq3u4g',
     charset  : 'utf8',
+    SLL      : 'Require',
     max      : 20
 }

@@ -15,23 +15,29 @@ var swig				= require('swig');
 var crypto				= require('crypto');
 var path				= require('path');
 
-var dbConfig;
-try {
-    dbConfig = require('./config/db-conf.js');
-} catch(err) {
-	console.log('Startup failed. No DB config file found.');
-	return false;
-}
+// var dbConfig;
+// try {
+//     dbConfig = require('./config/db-conf.js');
+// } catch(err) {
+// 	console.log('Startup failed. No DB config file found.');
+// 	return false;
+// }
 
 // configuration ===============================================================
 
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
-var knex = require('knex')({
-	client: 'postgresql',
-	connection: dbConfig,
+var pg = require('knex')({
+  client: 'pg',
+  connection: 'postgres://goeohtbvzwfomt:yCANyJgwvGVFiy-ebfQS6v_nAu@ec2-54-75-233-92.eu-west-1.compute.amazonaws.com:5432/d7k2hjv4aq3u4g',
+  searchPath: 'knex,public'
 });
+
+// var knex = require('knex')({
+// 	client: 'postgresql',
+// 	connection: dbConfig,
+// });
 var bookshelf = require('bookshelf');
-bookshelf.mysqlAuth = bookshelf(knex);
+bookshelf.mysqlAuth = bookshelf(pg);
 
 app.use(serveStatic('./public'));
 app.use(bodyParser.urlencoded({	extended: true }));
