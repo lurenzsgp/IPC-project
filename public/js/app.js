@@ -153,11 +153,6 @@ $(document).ready(function () {
 		editor.resetCode();
 	});
 
-	$("#typed").typed({
-		stringsElement: $("#chat-text"),
-		typeSpeed: 0,
-		cursorChar: ' ',
-	});
 });
 
 $("#level-selector").find('.btn').click( function() {
@@ -167,8 +162,15 @@ $("#level-selector").find('.btn').click( function() {
 	var lvl = $(this).text();
 
 	$('.level-description').children('h3').html("Level " + lvl.toString());
+	$(".level-description").children("p").html("");
 	//TODO sostituire con descrizione del livello
-	$('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
+	$.getJSON("lvl/levels-chat.json", function(data){
+		$.each(data.text[lvl - 1], function(index, value){
+			$(".level-description").append("<p>" + value +"</p>");
+		});
+	});
+
+	//$('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
 });
 
 $("#load-level-btn").click(function(){
@@ -182,11 +184,21 @@ $("#load-level-btn").click(function(){
 });
 
 function loadChat() {
-	//parse json for chat text
 	$("#chat-panel > .panel-heading").html("Livello " + level);
+	
+	//get chat text from JSON file
 	$.getJSON("lvl/levels-chat.json", function(data){
-		$("#chat-text").text(data[level - 1]);
+		var txt = data.text[level - 1];
+		console.log(txt);
+		//typeit.js
+		$(".type-it").typeIt({
+			strings: txt,
+			speed: 50,
+			startDelay: 500,
+		});
+
 	});
+
 }
 
 $('#user').click(function () {
