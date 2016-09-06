@@ -29,10 +29,6 @@ try {
 var knex = require('knex')({
 	client: 'postgresql',
 	connection: dbConfig,
-    pool: {
-        min: 0,
-        max: 20
-      }
 });
 var bookshelf = require('bookshelf');
 bookshelf.mysqlAuth = bookshelf(knex);

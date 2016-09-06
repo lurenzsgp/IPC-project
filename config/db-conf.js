@@ -4,5 +4,6 @@ module.exports = {
     user     : 'goeohtbvzwfomt',
     password : 'yCANyJgwvGVFiy-ebfQS6v_nAu',
     database : 'd7k2hjv4aq3u4g',
-    charset  : 'utf8'
+    charset  : 'utf8',
+    max      : 20
 }
