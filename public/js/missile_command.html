@@ -18,6 +18,7 @@ var CANVAS_WIDTH  = canvas.width,
 // Variables
 var levelscore = 0,
   level = <%= level %>,
+  maxLevel = <%= level %>,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -933,7 +934,10 @@ var setupNextLevel = function(next) {
         }
 
         // salvo i dati nella sessione e nel db
-        $.post('/saveUserState', {level: level, score: score, levelScore: scoreArray.toString()});
+        if (level > maxLevel) {
+            maxLevel = level;
+        }
+        $.post('/saveUserState', {level: maxLevel, score: score, levelScore: scoreArray.toString()});
 
         // carico la chat
         loadChat();
