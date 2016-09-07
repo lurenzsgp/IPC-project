@@ -163,17 +163,22 @@
 												<img onerror="this.src='img/default-avatar.png'" class="avatar-circle" id="imgAvatar"><br>
 												
 												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
-												<label class="btn btn-primary">
-													<i class="fa fa-folder-open" aria-hidden="true"></i>
-													<input type="file" name="avatar" onchange="this.form.submit()" style="display: none;">
-												</label>
-												</form>
-												<form class="imgform" id="formDeleteAvatar" action="/deleteAvatar" method="post">
-													<label id="labelDeleteAvatar" class="btn btn-danger">
-														<i class="fa fa-remove" aria-hidden="true"></i>
-														<button onchange="this.form.submit()" style="display: none;">
+													<label class="btn btn-primary">
+														<i class="fa fa-folder-open" aria-hidden="true"></i>
+														<input type="file" name="avatar" onchange="this.form.submit()" style="display: none;">
 													</label>
-												<form>
+												</form>
+												
+												<button id="buttonDeleteAvatar" class="btn btn-danger">
+													<i class="fa fa-remove" aria-hidden="true"></i>
+												</button>
+												
+												<div class="alert alert-dismissible fade in" role="alert" id="imgAlert" hidden="true">
+													<button type="button" class="close" data-hide="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<p></p>
+												</div>
 											</div>
 											<div class="col-md-4">
 												<h4 name="username"><%= username %></h4>

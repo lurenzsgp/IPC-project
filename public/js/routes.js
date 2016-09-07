@@ -85,18 +85,30 @@ module.exports = function(app, passport) {
 			}
 	});
 	
-	app.post('/deleteAvatar', function(req,res){
+	app.get('/deleteAvatar', function(req,res){
 		var file = 'public/img/avatars/' + req.user.get('username');
 		
 		fs.unlink(file, function(err) {
 			if (err) {
 				if(err.code=='ENOENT'){
-					console.log('Avatar already deleted');
+					//console.log('Avatar already deleted.');
+					res.send({
+						error: true,
+						message: 'Avatar already deleted.'
+					})
 				}else{
-					console.log('Cannot delete avatar');
+					//console.log('Cannot delete avatar');
+					res.send({
+						error: true,
+						message: 'Cannot delete avatar.'
+					});
 				}
 			} else {
-				console.log("Avatar deleted.");
+				//console.log("Avatar deleted.");
+				res.send({
+					error: false,
+					message: 'Avatar deleted.'
+				});
 			}
 		});
 	});

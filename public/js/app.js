@@ -125,4 +125,26 @@ $('[data-target="#accountModal"]').click(function () {
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
 		});
 	});
+	$('#imgAlert').hide();
+});
+
+$(function(){
+    $("[data-hide]").on("click", function(){
+        $(this).closest("." + $(this).attr("data-hide")).hide();
+    });
+});
+
+$('#buttonDeleteAvatar').click( function(){
+	$.get('/deleteAvatar', function(data){
+		
+		if (data.error) {
+			$('#imgAlert').addClass('alert-danger');
+			$('#imgAlert > p').text(data.message);
+			$('#imgAlert').show();
+		}else{
+			$('#imgAlert').addClass('alert-success');
+			$('#imgAlert').text(data.message);
+			$('#imgAlert').show();
+		}
+	});
 });
