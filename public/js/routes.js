@@ -70,7 +70,6 @@ module.exports = function(app, passport) {
 		var stats = fs.statSync(req.file.path);
 		var filesizeinMB = stats["size"]  / 1000000.0;
 
-
 		if(filesizeinMB < 8){
 			var file = 'public/img/avatars/' + req.user.get('username');
 			
@@ -92,7 +91,7 @@ module.exports = function(app, passport) {
 		fs.unlink(file, function(err) {
 			if (err) {
 				if(err.code=='ENOENT'){
-					console.log("Avatar already deleted");
+					console.log('Avatar already deleted');
 				}else{
 					console.log('Cannot delete avatar');
 				}

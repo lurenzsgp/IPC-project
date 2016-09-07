@@ -159,8 +159,8 @@
 								<div class="panel panel-default">
 									<div class="panel-body">
 										<div class="row">
-											<div class="col-md-6" style="text-align:center;">
-												<img onerror="this.src='img/default-avatar.png'" class="avatar-circle" id="imgAvatar">
+											<div class="col-md-8" style="text-align:center;">
+												<img onerror="this.src='img/default-avatar.png'" class="avatar-circle" id="imgAvatar"><br>
 												
 												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
 												<label class="btn btn-primary">
@@ -169,13 +169,13 @@
 												</label>
 												</form>
 												<form class="imgform" id="formDeleteAvatar" action="/deleteAvatar" method="post">
-												<label id="labelDeleteAvatar" class="btn btn-danger">
-													<i class="fa fa-remove" aria-hidden="true"></i>
-													<button onchange="this.form.submit()" style="display: none;">
-												</label>
+													<label id="labelDeleteAvatar" class="btn btn-danger">
+														<i class="fa fa-remove" aria-hidden="true"></i>
+														<button onchange="this.form.submit()" style="display: none;">
+													</label>
 												<form>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<h4 name="username"><%= username %></h4>
 												<p name="score">Punteggio: </p>
 											</div>
