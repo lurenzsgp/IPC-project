@@ -2,7 +2,7 @@
 var createCities = function () {
 #BEGIN_EDITABLE#
     /* Le coordinate delle citta' sono definite nel vettore elementPos
-       dal 4^ elemento in poi. */
+       dal 3^ elemento in poi. */
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 #END_EDITABLE#
 };

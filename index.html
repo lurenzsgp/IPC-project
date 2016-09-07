@@ -31,8 +31,8 @@
 		<script type="text/javascript" src="js/CodeMirror/addon/lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/javascript-lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/panel.js"></script>
-
-		<script type="text/javascript" src="js/typed.js"></script>
+		<!--typeIt -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.typeit/4.2.3/typeit.min.js"></script>
 	</head>
 
 	<body>
@@ -41,7 +41,7 @@
 			<div class="container" style="width: auto; height: 100%;">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
-						<img alt="Logo" src="img/logo.png">
+						<img class="logo "alt="Logo" src="img/logo.png">
                         <span class="nav-title">The Barbarian Steppe</span>
 					</a>
 				</div>
@@ -129,7 +129,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="panel panel-default">
-									<div class="panel-body">
+									<div class="panel-body" style="background-color: cyan">
 										<div class="row">
 											<div class="col-md-6">
 												<img src="img/recruit.png" class="avatar-circle">
@@ -226,13 +226,9 @@
                         <div class="panel-heading">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
-                        	<div id="chat-text">
-								<p>testo di prova</p>
-                        	</div>
-
-                        	<div class="chat">
-                        		<span id="typed"></span>
-                        	</div>
+                            	<div class="chat">
+                            		<span class="type-it"></span>
+                            	</div>
                         </div>
                     </div>
 
