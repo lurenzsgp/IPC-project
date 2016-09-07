@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto';
+
 body{
   background: #ddd;
   background: -moz-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
@@ -336,7 +338,7 @@ a, button:focus{
   background-color: #eee;
   box-shadow: 0px 2px 5px 1px lightgrey;
   margin-left: 25%;
-  min-height: 100px;
+  min-height: 50px;
 }
 
 .chat:before{
