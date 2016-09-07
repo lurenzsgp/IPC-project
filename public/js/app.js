@@ -152,7 +152,6 @@ $(document).ready(function () {
 		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
 		editor.resetCode();
 	});
-
 });
 
 $("#level-selector").find('.btn').click( function() {
@@ -185,7 +184,7 @@ $("#load-level-btn").click(function(){
 
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Livello " + level);
-	
+
 	//get chat text from JSON file
 	$.getJSON("lvl/levels-chat.json", function(data){
 		var txt = data.text[level - 1];
@@ -198,7 +197,6 @@ function loadChat() {
 		});
 
 	});
-
 }
 
 $('#user').click(function () {

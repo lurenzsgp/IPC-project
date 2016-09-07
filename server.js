@@ -15,27 +15,17 @@ var swig				= require('swig');
 var crypto				= require('crypto');
 var path				= require('path');
 
-var dbConfig;
-try {
-    dbConfig = require('./config/db-conf.js');
-} catch(err) {
-	console.log('Startup failed. No DB config file found.');
-	return false;
-}
-
 // configuration ===============================================================
 
+console.log("connecting to: " + process.env.DATABASE_URL+ '?ssl=true');
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
-var knex = require('knex')({
-	client: 'mysql',
-	connection: dbConfig,
-    pool: {
-        min: 0,
-        max: 10
-      }
+var pg = require('knex')({
+  client: 'pg',
+  connection: process.env.DATABASE_URL + '?ssl=true',
+  searchPath: 'knex,public'
 });
 var bookshelf = require('bookshelf');
-bookshelf.mysqlAuth = bookshelf(knex);
+bookshelf.mysqlAuth = bookshelf(pg);
 
 app.use(serveStatic('./public'));
 app.use(bodyParser.urlencoded({	extended: true }));
