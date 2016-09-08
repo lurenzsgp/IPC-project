@@ -55,8 +55,9 @@ margin-left: 0;
 */
 .avatar-circle {
     border-radius: 50%;
-	width: auto;
-	height: 9em;
+	/*width: auto;*/
+	max-width: 100%;
+	max-height: 9em;
 	border: 2px solid grey;
 	margin-bottom:5px;
 }
