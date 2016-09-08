@@ -152,7 +152,8 @@ $('#buttonDeleteAvatar').click( function(){
 
 $('#inputAvatarFile').change( function(){
 var data = new FormData($('#formUpdateAvatar')[0]);
-	
+console.log("Updating the user's avatar...");
+
 	jQuery.ajax({
 		url: '/updateAvatar',
 		data: data,
@@ -171,7 +172,8 @@ var data = new FormData($('#formUpdateAvatar')[0]);
 				$('#imgAlert').show();
 				$('#imgAvatar').attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
 			}
-
 		}
+	}).fail(function() {
+		alert( "error" );
 	});
 });
