@@ -160,12 +160,12 @@
 									<div class="panel-body">
 										<div class="row">
 											<div class="col-md-8" style="text-align:center;">
-												<img onerror="this.src='img/default-avatar.png'" class="avatar-circle" id="imgAvatar"><br>
+												<img class="avatar-circle" id="imgAvatar"><br>
 												
-												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data" action="/updateAvatar" method="post">
+												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data">
 													<label class="btn btn-primary">
 														<i class="fa fa-folder-open" aria-hidden="true"></i>
-														<input type="file" name="avatar" onchange="this.form.submit()" style="display: none;">
+														<input type="file" id="inputAvatarFile" name="avatar" style="display: none;">
 													</label>
 												</form>
 												
@@ -173,7 +173,7 @@
 													<i class="fa fa-remove" aria-hidden="true"></i>
 												</button>
 												
-												<div class="alert alert-dismissible fade in" role="alert" id="imgAlert" hidden="true">
+												<div class="" role="alert" id="imgAlert" hidden="true">
 													<button type="button" class="close" data-hide="alert" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>

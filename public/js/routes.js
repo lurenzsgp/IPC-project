@@ -68,21 +68,33 @@ module.exports = function(app, passport) {
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
 		var stats = fs.statSync(req.file.path);
-		var filesizeinMB = stats["size"]  / 1000000.0;
+		var filesizeinMB = stats["size"] / 1000000.0;
 
-		if(filesizeinMB < 8){
+		if(filesizeinMB < 5){
 			var file = 'public/img/avatars/' + req.user.get('username');
 			
 			fs.rename(req.file.path, file, function(err) {
 				if (err) {
-					console.log(err);
+					//console.log(err);
+					res.send({
+						error: true,
+						message: 'Error. Can\'t upload avatar.'
+					})
 				} else {
-					console.log("Avatar updated.");
+					//console.log("Avatar updated.");
+					res.send({
+						error: false,
+						message: 'Avatar updated.'
+					})
 				}
 			});
-			}else{
-				//image size too big
-			}
+		}else{
+			//image size too big
+			res.send({
+				error: true,
+				message: 'The avatar size must be smaller than 5 MB.'
+			})
+		}
 	});
 	
 	app.get('/deleteAvatar', function(req,res){

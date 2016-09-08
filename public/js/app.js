@@ -116,7 +116,8 @@ $('[data-target="#accountModal"]').click(function () {
 		var levelWidth = (data.level - 1) / 9 * 100;
 		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
 		$('[name="score"]').text(data.score);
-		$('#imgAvatar').attr('src', 'img/avatars/' + data.username );
+		$('#imgAvatar').attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
+		$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
 	});
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
@@ -136,15 +137,41 @@ $(function(){
 
 $('#buttonDeleteAvatar').click( function(){
 	$.get('/deleteAvatar', function(data){
-		
 		if (data.error) {
-			$('#imgAlert').addClass('alert-danger');
+			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-danger');
 			$('#imgAlert > p').text(data.message);
 			$('#imgAlert').show();
 		}else{
-			$('#imgAlert').addClass('alert-success');
-			$('#imgAlert').text(data.message);
+			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success');
+			$('#imgAlert > p').text(data.message);
 			$('#imgAlert').show();
+			$('#imgAvatar').attr('src', 'img/default-avatar.png');
+		}
+	});
+});
+
+$('#inputAvatarFile').change( function(){
+var data = new FormData($('#formUpdateAvatar')[0]);
+	
+	jQuery.ajax({
+		url: '/updateAvatar',
+		data: data,
+		cache: false,
+		contentType: false,
+		processData: false,
+		type: 'POST',
+		success: function(data){
+			if (data.error) {
+				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-danger');
+				$('#imgAlert > p').text(data.message);
+				$('#imgAlert').show();
+			}else{
+				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success')
+				$('#imgAlert > p').text(data.message);
+				$('#imgAlert').show();
+				$('#imgAvatar').attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
+			}
+
 		}
 	});
 });
