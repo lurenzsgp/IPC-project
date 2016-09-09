@@ -201,7 +201,7 @@ function loadChat() {
 
 $('#user').click(function () {
 	var levelWidth = (level - 1) / 9 * 100;
-	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(levelWidth + "%");
+	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
 	$('[name="score"]').text(score + " pts");
 
 	$.get('/getUserBadge', function(data) {
