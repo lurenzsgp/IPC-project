@@ -206,8 +206,8 @@ $('#user').click(function () {
 	var levelWidth = (level - 1) / 9 * 100;
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
 	$('[name="score"]').text(score + " pts");
-	$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
-	$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
+	//$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
+	//$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
 	$('#imgAlert').hide();
 	
 	$.get('/getUserBadge', function(data) {
