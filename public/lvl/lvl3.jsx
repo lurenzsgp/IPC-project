@@ -1,4 +1,4 @@
-// Update the location and/or state of this missile of the player
+// Update the location and/or the state of this player's missile
 PlayerMissile.prototype.update = function() {
     if( this.state === MISSILE.active && this.y <= this.endY ) { // Target reached
 #BEGIN_EDITABLE#

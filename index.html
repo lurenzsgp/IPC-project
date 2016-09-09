@@ -31,6 +31,7 @@
 		<script type="text/javascript" src="js/CodeMirror/addon/lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/javascript-lint.js"></script>
 		<script type="text/javascript" src="js/CodeMirror/addon/panel.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.typeit/4.2.3/typeit.min.js"></script>
 	</head>
 
 	<body>
@@ -39,7 +40,7 @@
 			<div class="container" style="width: auto; height: 100%;">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">
-						<img alt="Logo" src="img/logo.png">
+						<img class="logo "alt="Logo" src="img/logo.png">
                         <span class="nav-title">The Barbarian Steppe</span>
 					</a>
 				</div>
@@ -47,7 +48,7 @@
 				<ul class="nav navbar-nav">
                     <li>
                         <a href="#" data-toggle="modal" data-target="#levelsModal" id="levels">
-                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                            <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                             <span>Levels</span>
                         </a>
                     </li>
@@ -86,47 +87,17 @@
 						<h4 class="modal-title">Level selection</h4>
 					</div>
 
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            var lvl = "1";
-
-                            $("#level-selector").find('.btn').click( function() {
-                                $(".btn-primary").removeClass('btn-primary');
-                                $(this).addClass('btn-primary');
-
-                                lvl = $(this).text();
-
-                                $('.level-description').children('h3').html("Level " + lvl.toString());
-                                $('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
-                            });
-
-                            $("#load-level-btn").click(function(){
-								editor.applySolution();
-                                level = parseInt(lvl);
-
-                                //parse json for chat text
-                                $.getJSON("lvl/levels-chat.json", function(data){
-                                    $("#chat-text").html(data[level - 1]);
-                                });
-
-								$("#chat-panel").html("Livello " + lvl);
-                                editor.loadCode(level);
-                                missileCommand(true);
-                            });
-                        });
-                    </script>
-
 					<div class="modal-body" id="level-selector">
 						<div class="btn-group btn-group-justified" role="group" aria-label="Livello">
-						  <a type="button" role="button" class="btn btn-default">1</a>
-						  <a type="button" role="button" class="btn btn-default">2</a>
-						  <a type="button" role="button" class="btn btn-default">3</a>
-						  <a type="button" role="button" class="btn btn-default">4</a>
-						  <a type="button" role="button" class="btn btn-default">5</a>
-						  <a type="button" role="button" class="btn btn-default">6</a>
-						  <a type="button" role="button" class="btn btn-default">7</a>
-						  <a type="button" role="button" class="btn btn-default">8</a>
-						  <a type="button" role="button" class="btn btn-default">9</a>
+						  <a type="button" role="button" class="btn btn-default disabled">1</a>
+						  <a type="button" role="button" class="btn btn-default disabled">2</a>
+						  <a type="button" role="button" class="btn btn-default disabled">3</a>
+						  <a type="button" role="button" class="btn btn-default disabled">4</a>
+						  <a type="button" role="button" class="btn btn-default disabled">5</a>
+						  <a type="button" role="button" class="btn btn-default disabled">6</a>
+						  <a type="button" role="button" class="btn btn-default disabled">7</a>
+						  <a type="button" role="button" class="btn btn-default disabled">8</a>
+						  <a type="button" role="button" class="btn btn-default disabled">9</a>
 						</div>
 
 						<div class="level-description">
@@ -157,7 +128,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="panel panel-default">
-									<div class="panel-body">
+									<div class="panel-body" style="background-color: cyan">
 										<div class="row">
 											<div class="col-md-8" style="text-align:center;">
 												<img class="avatar-circle" id="imgAvatar"><br>
@@ -182,7 +153,7 @@
 											</div>
 											<div class="col-md-4">
 												<h4 name="username"><%= username %></h4>
-												<p name="score">Punteggio: </p>
+												<p name="score"></p>
 											</div>
 										</div>
 									</div>
@@ -203,22 +174,40 @@
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
-									<td class="col-md-3">
+									<td class="col-md-3 disabled" name="Debug">
 										<img class="mybadge" src="img/badge.png">
-										badge1
+										Debug
 									</td>
-									<td class="col-md-3">
+									<td class="col-md-3 disabled" name="Refactoring">
 										<img class="mybadge" src="img/badge_bw.png">
-										badge2
+										Refactoring
 									</td>
-									<td class="col-md-3">badge3</td>
-									<td class="col-md-3">badge4</td>
+									<td class="col-md-3 disabled" name="Design">
+										<img class="mybadge" src="img/badge_bw.png">
+										Design
+									</td>
+									<td class="col-md-3 disabled" name="No-city-destroyed">
+										<img class="mybadge" src="img/badge_bw.png">
+										No city destroyed
+									</td>
 								</tr>
 								<tr>
-									<td class="col-md-3">badge5</td>
-									<td class="col-md-3">badge6</td>
-									<td class="col-md-3">badge7</td>
-									<td class="col-md-3">badge8</td>
+									<td class="col-md-3 disabled" name="Tutorial">
+										<img class="mybadge" src="img/badge_bw.png">
+										Complete Tutorial
+									</td>
+									<td class="col-md-3 disabled" name="Destroy-bonus-missiles">
+										<img class="mybadge" src="img/badge_bw.png">
+										Destroy all bonus missiles
+									</td>
+									<td class="col-md-3 disabled" name="Win-25-missiles">
+										<img class="mybadge" src="img/badge_bw.png">
+										Win and keep 25 missiles
+									</td>
+									<td class="col-md-3 disabled" name="Level-10">
+										<img class="mybadge" src="img/badge_bw.png">
+										Win level 10
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -250,15 +239,16 @@
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
 				<div class="col-lg-6">
-                    <div class="panel panel-default chat" id="chat-panel">
+                    <div class="panel panel-default" id="chat-panel">
                         <div class="panel-heading">Level 1</div>
                         <div class="panel-body">
                             <img class="portrait" src="img/general.png">
-                            <div id="chat-text">
-                                this is level 1. your have to fix the missle speed as it appears to be fucking slow!
-                            </div>
+                            	<div class="chat">
+                            		<span class="type-it"></span>
+                            	</div>
                         </div>
                     </div>
+
 
 					<div class="row" id="mc-container">
 						<canvas id="miscom" class="game center-block" width="510" height="460">

@@ -16,13 +16,17 @@ var CANVAS_WIDTH  = canvas.width,
   };
 
 // Variables
-var score = <%= score %>,
+var levelscore = 0,
   level = <%= level %>,
+  maxLevel = <%= level %>,
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
   enemyMissiles = [],
   timerID;
+
+var scoreArray = [<%= levelScore %>];
+var score = <%= score %>;
 
 var contrAerea;
 
@@ -32,12 +36,13 @@ var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
 var missileCommand = function(userClick) {
     if (3 < level && level < 7) {
         initRefactLevel(userClick);
-    } else if (6 < level && level < 10) {
+    } else if (6 < level && level < 11) {
         initDesignLevel(userClick);
     } else {
         initDebugLevel(userClick);
     }
 
+    levelscore = 0;
     if (!userClick) {
         setupListeners();
     }
@@ -194,7 +199,7 @@ var drawBeginLevel = function() {
 var drawScore = function() {
     ctx.fillStyle = 'white';
     ctx.font =  '20px monaco, consolas';
-    ctx.fillText( 'game.score = ' + score, 50, 25 );
+    ctx.fillText( 'level.score = ' + levelscore, 50, 25 );
 };
 
 // Show message before a level begins
@@ -230,34 +235,34 @@ var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBon
     ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 };
 
-// Show simple graphic at end of game
-var drawEndGame = function() {
-    ctx.fillStyle = '#635e77';
-    ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
-
-    // Yellow hexagon
-    ctx.fillStyle = '#a24a4a';
-    ctx.beginPath();
-    ctx.moveTo( 255, 30  );
-    ctx.lineTo( 396, 89  );
-    ctx.lineTo( 455, 230 );
-    ctx.lineTo( 396, 371 );
-    ctx.lineTo( 255, 430 );
-    ctx.lineTo( 114, 371 );
-    ctx.lineTo( 55,  230 );
-    ctx.lineTo( 114, 89  );
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = 'white';
-    ctx.font = '60px monaco, consolas';
-    ctx.fillText( 'game == over', 70, 260 );
-
-    ctx.fillStyle = 'yellow';
-    ctx.font = '26px monaco, consolas';
-    ctx.fillText( 'game.score == ' + score, 80, 20 );
-    ctx.fillText( 'onclick(game.restart())', 80, 458 );
-};
+// // Show simple graphic at end of game
+// var drawEndGame = function() {
+//     ctx.fillStyle = '#635e77';
+//     ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
+//
+//     // Yellow hexagon
+//     ctx.fillStyle = '#a24a4a';
+//     ctx.beginPath();
+//     ctx.moveTo( 255, 30  );
+//     ctx.lineTo( 396, 89  );
+//     ctx.lineTo( 455, 230 );
+//     ctx.lineTo( 396, 371 );
+//     ctx.lineTo( 255, 430 );
+//     ctx.lineTo( 114, 371 );
+//     ctx.lineTo( 55,  230 );
+//     ctx.lineTo( 114, 89  );
+//     ctx.closePath();
+//     ctx.fill();
+//
+//     ctx.fillStyle = 'white';
+//     ctx.font = '60px monaco, consolas';
+//     ctx.fillText( 'game == over', 70, 260 );
+//
+//     ctx.fillStyle = 'yellow';
+//     ctx.font = '26px monaco, consolas';
+//     ctx.fillText( 'game.score == ' + score, 80, 20 );
+//     ctx.fillText( 'onclick(game.restart())', 80, 458 );
+// };
 
 // Draw all active cities
 var drawCities = function() {
@@ -799,7 +804,7 @@ var explodeOtherMissiles = function( missile, ctx ) {
 	  $.each( enemyMissiles, function( index, otherMissile ) {
 		if( ctx.isPointInPath( otherMissile.x, otherMissile.y ) &&
 			otherMissile.state === MISSILE.active ) {
-		  score += 25 * getMultiplier();
+		  levelscore += 25 * getMultiplier();
 		  otherMissile.state = MISSILE.exploding;
 		}
 	  });
@@ -853,53 +858,106 @@ var checkEndLevel = function() {
         // $("#ButtonExecCode").prop("disabled",false);
         // $("#ButtonResetCode").prop("disabled",false);
 
-        !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
+        // !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
+        endLevel( missilesLeft, citiesSaved );
     }
 };
 
 // Handle the end of a level
 var endLevel = function( missilesLeft, citiesSaved ) {
-    var missilesBonus = missilesLeft * 5 * getMultiplier(),
-        citiesBonus = citiesSaved * 100 * getMultiplier();
-    var nextLevel = true;
+    var missilesBonus = citiesSaved === 6 ? missilesLeft * 5 * getMultiplier() : 0;
+    var citiesBonus = citiesSaved === 6 ? citiesSaved * 100 * getMultiplier() : 0;
+    var nextLevel = citiesSaved === 6 ? true : false;
 
+    if (!nextLevel) {
+        console.log("[Messaggio dal comandante] Riprova, non devi perdere nessuna torretta");
+    }
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
 
     // Show the new game score after 2 seconds
     setTimeout( function() {
-      score += missilesBonus + citiesBonus;
+      levelscore += missilesBonus + citiesBonus;
       drawEndLevel( missilesLeft, missilesBonus,
                     citiesSaved, citiesBonus );
     }, 2000 );
 
-    if (citiesSaved !== 6) {
-        nextLevel = false;
-        console.log("Riprova, non devi perdere nessuna torretta");
-    }
     setTimeout( setupNextLevel, 4000, nextLevel );
 };
 
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
-        level++;
-        $.post('/saveUserState', {level: level, score: score});
+        // aggiorno il punteggio
+        scoreArray[level-1] = levelscore;
+        score = 0;
+        $.each(scoreArray, function (index, el) {
+            score += el;
+        });
+
+        // controllo i badge
+        switch (level) {
+            case 3:
+                $.post('/checkBadge', { name: "Debug"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tDebug"});
+                    }
+                })
+                break;
+            case 6:
+                $.post('/checkBadge', { name: "Refactoring"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tRefactoring"});
+                    }
+                })
+                break;
+            case 9:
+                $.post('/checkBadge', { name: "Design"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tDesign"});
+                    }
+                })
+                break;
+            case 10:
+                $.post('/checkBadge', { name: "Level-10"}, function (badge) {
+                    if (!badge.unlock) {
+                        $.post('/unlockBadge', { name: "\tWin level 10"});
+                    }
+                })
+                break;
+            default:
+        }
+
+        // aumento il livello
+        if (level < 10) {
+            level ++;
+        }
+
+        // salvo i dati nella sessione e nel db
+        if (level > maxLevel) {
+            maxLevel = level;
+        }
+        $.post('/saveUserState', {level: maxLevel, score: score, levelScore: scoreArray.toString()});
+
+        // carico la chat
+        loadChat();
+        // carico il codice del livello successivo
         editor.loadCode(level);
     }
+    // inizializzo il gioco per il livello corrente
     missileCommand(false);
 };
 
-// Handle the end of the game
-var endGame = function( missilesLeft ) {
-    score += missilesLeft * 5 * getMultiplier();
-    drawEndGame();
-
-    $( '#mc-container' ).one( 'click', function() {
-        // possibilita' di penalita' nel punteggio
-        missileCommand(false);
-        });
-    };
+// // Handle the end of the game
+// var endGame = function( missilesLeft ) {
+//     score += missilesLeft * 5 * getMultiplier();
+//     drawEndGame();
+//
+//     $( '#mc-container' ).one( 'click', function() {
+//         // possibilita' di penalita' nel punteggio
+//         missileCommand(false);
+//     });
+// };
 
     // Get missiles left in all anti missile batteries at the end of a level
 var totalMissilesLeft = function() {
@@ -1014,9 +1072,6 @@ var setupListeners = function() {
     $( '#mc-container' ).one( 'click', function() {
       startLevel();
 
-    //   $("#ButtonExecCode").prop("disabled",true);
-    //   $("#ButtonResetCode").prop("disabled",true);
-
       $( '#miscom' ).unbind().click(function( event ) {
         var mousePos = getMousePos(this, event);
         playerShoot( mousePos.x, mousePos.y);
@@ -1048,3 +1103,4 @@ var solution6 = "var source = whichAntiMissileBattery( x );if( source === -1 ){r
 var solution7 = "$.each( antiMissileBatteries, function( index, amb ) {amb.missilesLeft = 10;});"
 var solution8 = "var targets = viableTargets();for( var i = 0; i < n; i++ ) {enemyMissiles.push( new BonusMissile(targets) );}";
 var solution9 = "return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );";
+var solution10 = "return";

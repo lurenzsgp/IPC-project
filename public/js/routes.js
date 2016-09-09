@@ -3,7 +3,7 @@ var data = require('../models/auth')();
 var fs = require('fs');	
 var multer = require('multer');
 var upload = multer({dest: 'public/img/avatars/'});
-
+var Bookshelf = require('bookshelf').mysqlAuth;
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
@@ -33,12 +33,12 @@ module.exports = function(app, passport) {
 
     app.get('/missile_command.js', function(req, res) {
       res.set('Content-Type', 'application/javascript');
-//       console.log("Rendering missile_command file ...");
 
       new data.ApiUser({ username: req.user.get('username') }).fetch().then(function (model) {
           res.render('public/js/missile_command', {
           	level: model.get('level'),
-          	score: model.get('score')
+            score: model.get('score'),
+          	levelScore: model.get('levelScore')
           });
       });
     });
@@ -53,7 +53,8 @@ module.exports = function(app, passport) {
         	username: req.user.get('username')
         }).save({
         	level: req.body.level,
-        	score: req.body.score
+        	score: req.body.score,
+            levelScore: req.body.levelScore
         }, {patch: true}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
@@ -135,21 +136,11 @@ module.exports = function(app, passport) {
         res.send({
 			username: req.user.get('username'),
         	level: req.user.get('level'),
-        	score: req.user.get('score')
+        	levelScore: req.user.get('levelScore')
         });
     });
 
     app.get('/getLeaderboard', function(req,res) {
-        // new data.ApiUser().fetchAll().then(function (users) {
-        //     users.forge().orderBy('score','DESC').then(function (orderedUsers) {
-        //         res.send([
-        //             {username: orderedUsers[0].get('username'), score: orderedUsers[0].get('score')},
-        //             {username: orderedUsers[1].get('username'), score: orderedUsers[1].get('score')},
-        //             {username: orderedUsers[2].get('username'), score: orderedUsers[2].get('score')}
-        //         ]);
-        //     });
-        // });
-
         new data.ApiUser().fetchAll().then(function (User) {
             User.query(function(qb) {
                 qb.orderBy('score', 'DESC');
@@ -166,10 +157,70 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.post('/unlockBadge', function(req, res) {
+        new data.ApiBadge({ name: req.body.name }).fetch().then(function (badge) {
+            if (badge !== null) {
+                new data.ApiUserBadge().save({ user_id: req.user.get('id'), badge_id: badge.get('id') })
+                .then( function (userBadge) {
+                    console.log("Badge " + req.body.name + " unlock");
+                }, function (err) {
+                    console.log('Error unlock badge: ' + err);
+                });
+            } else {
+                console.log('Error: no badge found.');
+            }
+        });
+    });
+
+    app.post('/checkBadge', function(req, res) {
+        new data.ApiBadge({ name: req.body.name }).fetch().then(function (badge) {
+            if (badge !== null) {
+                new data.ApiUserBadge({ user_id: req.user.get('id'), badge_id: badge.get('id') }).fetch()
+                .then( function (userBadge) {
+                    if (userBadge === null) {
+                        res.send({ unlock: false });
+                    } else {
+                        res.send({ unlock: true });
+                    }
+                });
+            } else {
+                console.log('Error: no badge found.');
+            }
+        });
+    });
+
+    app.get('/getUserBadge', function(req, res) {
+        Bookshelf.knex('badges_users')
+        .join('badges', 'badges.id', '=', 'badges_users.badge_id')
+        .where('badges_users.user_id', req.user.get('id'))
+        .select()
+        .then(function (results) {
+            res.send(results);
+        });
+    });
+
 	// TODO eliminare nella versione definitiva
     app.get('/user', function(req, res) {
       new data.ApiUser().fetchAll().then(function(users) {
           res.send(users.toJSON());
+        }).catch(function(error) {
+          console.log(error);
+          res.send('An error occured');
+        });
+    });
+
+    app.get('/badge', function(req, res) {
+      new data.ApiBadge().fetchAll().then(function(badge) {
+          res.send(badge.toJSON());
+        }).catch(function(error) {
+          console.log(error);
+          res.send('An error occured');
+        });
+    });
+
+    app.get('/userBadge', function(req, res) {
+      new data.ApiUserBadge().fetchAll().then(function(badge) {
+          res.send(badge.toJSON());
         }).catch(function(error) {
           console.log(error);
           res.send('An error occured');

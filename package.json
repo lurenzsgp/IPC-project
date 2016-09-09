@@ -1,6 +1,6 @@
 {
-  "name": "IPC-project",
-  "version": "0.0.0",
+  "name": "ipc-project",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -20,6 +20,21 @@
     "morgan": "~1.7.0",
     "multer": "^1.2.0",
     "mysql": "~2.11.1",
+    "pg": "^6.1.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "description": "Hello World",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lurenzsgp/IPC-project.git"
+  },
+  "author": "cazzoli lorenzo, luca casini, manfredi giordano, alice valentini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lurenzsgp/IPC-project/issues"
+  },
+  "homepage": "https://github.com/lurenzsgp/IPC-project#readme",
+  "keywords": []
 }

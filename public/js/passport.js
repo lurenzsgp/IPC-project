@@ -36,12 +36,12 @@ module.exports = function(passport) {
     },function(req, username, password, done) {
         console.log('-----------');
         console.log('Sign up...');
-        
+
         new data.ApiUser({username: username}).fetch().then(function (model) {
+            req.flash('username', username);
             if (model === null) {
-                new data.ApiUser().save({"username": username, "password": password, "level": 1, "score": 0}).then(function(model) {
+                new data.ApiUser().save({"username": username, "password": password, "level": 1, "levelScore": "0,0,0,0,0,0,0,0,0,0", score: 0}).then(function(model) {
                     console.log('New user created.');
-                    req.flash('username', username);
                     return done(null, model);
                 }, function(err) {
                     return done(err);
@@ -68,6 +68,7 @@ module.exports = function(passport) {
         console.log('Login...');
 
         new data.ApiUser({username: username}).fetch().then(function (model) {
+            req.flash('username', username);
             if (model === null) {
                 console.log('No user found.');
                 return done(null, false, req.flash('loginMessage', 'No user found.'));
@@ -80,9 +81,6 @@ module.exports = function(passport) {
                 console.log('Oops! Wrong password.');
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
             }
-
-            req.flash('username', username);
-            req.flash('score', model.get('score'));
 
             console.log('Password correct.');
             return done(null, model);

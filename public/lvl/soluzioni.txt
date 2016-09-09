@@ -12,7 +12,7 @@ var missileSpeed = function (xDistance, yDistance) {
 
 Livello 2
 Nella notte il sistema di puntamento dei missili e' stato corrotto.
-trova l'errore e correggiolo
+trova l'errore e correggilo
 
 Soluzione
 rimuovere il codice in eccesso dalla chiamata del costruttore del PlayerMissile
@@ -27,7 +27,7 @@ var playerShoot = function( x, y ) {
 };
 
 Livello 3
-Durante il temporale di ieri le nostre munizioni non erano state coperte e ora non esplodono piu.
+Durante il temporale di ieri le nostre munizioni non erano state coperte e ora non esplodono piu'.
 cerca una soluzione
 
 Soluzione
@@ -61,7 +61,7 @@ var initCities = function () {
 };
 
 Livello 5
-il codice del sistemo missilistico e' vecchio e lento, riscrivilo per evitare pause turante il combbattimento.
+il codice del sistemo missilistico e' vecchio e lento, riscrivilo per evitare pause durante il combattimento.
 
 Soluzione
 rimuovere i cicli che hanno il solo scopo di rallentare l'esecuzione

@@ -23,7 +23,6 @@ module.exports = function() {
 
     var bookshelf = {};
 
-	// 1-to-N
     bookshelf.ApiUser = Bookshelf.Model.extend({
         tableName: 'users',
         badges: function() {
@@ -38,6 +37,7 @@ module.exports = function() {
         }
     });
 
+	// relazione 1 a N tra utenti e badge
     bookshelf.ApiUserBadge = Bookshelf.Model.extend({
         tableName: 'badges_users',
         user: function() {

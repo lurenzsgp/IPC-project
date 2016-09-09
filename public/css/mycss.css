@@ -1,20 +1,24 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto';
+
 body{
   background: #ddd;
-  background: -moz-linear-gradient(top, #fff 0%, #bbb 100%) no-repeat center center fixed;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #bbb)) no-repeat center center fixed;
-  background: -webkit-linear-gradient(top, #fff 0%, #bbb 100%) no-repeat center center fixed;
-  background: -o-linear-gradient(top, #fff 0%, #bbb 100%) no-repeat center center fixed;
-  background: -ms-linear-gradient(top, #fff 0%, #bbb 100%) no-repeat center center fixed;
+  background: -moz-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee), color-stop(100%, #bbb)) no-repeat center center fixed;
+  background: -webkit-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -o-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -ms-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
   background: linear-gradient(to bottom, #eee 0%, #bbb 100%) no-repeat center center fixed;
   background-size: cover;
   opacity: 1;
 }
 
 /* Editor */
-.disabled {
+.CodeMirror .disabled {
 	background-color: rgba(200,100,100,0.4) !important;
 }
-
+.btn-group > .disabled{
+    background-color: #ccc !important;
+}
 
 body,
 h1, .h1,
@@ -59,6 +63,7 @@ margin-left: 0;
 	max-width: 100%;
 	max-height: 9em;
 	border: 2px solid grey;
+	background-color: #635e77;
 	margin-bottom:5px;
 }
 
@@ -79,6 +84,8 @@ margin-left: 0;
   top: 50%;
   left:50%;
   transform: translate(-50%,-50%);
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.5);
+  border-radius: 0px !important;
 }
 
 .floating-buttons .btn{
@@ -104,17 +111,10 @@ margin-left: 0;
   margin: auto 10px;
   float: left;
   width: auto;
-  height: 4em;
+  height: 5em;
 }
 
-.portrait:hover{
-  -webkit-filter: saturate(1);
-  box-shadow: 0 0.2em .5em grey;
-}
-.portrait > p{
-	margin: 0.2em auto;
-  text-align: center;
-}
+
 
 .mybadge{
   height: 32px;
@@ -170,6 +170,10 @@ p {
 
 
 /*		navbar		*/
+
+hr{
+  border-color: #666;
+}
 
 @media (min-width: 768px) {
 
@@ -326,9 +330,32 @@ a, button:focus{
   margin: 0;
 }
 
-.chat{
+#chat-panel{
   margin: 5px 15px 10px 15px;
-  height: 250px;
+  height: auto;
+}
+
+#chat-text{
+  display: none;
+}
+
+.chat{
+  padding: 15px;
+  background-color: #eee;
+  box-shadow: 0px 2px 5px 1px lightgrey;
+  margin-left: 25%;
+  min-height: 50px;
+}
+
+.chat:before{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 23%;
+  top: 65px;
+  border: 20px solid;
+  border-color: transparent #eee transparent transparent;
 }
 
 .panel-heading{
@@ -338,3 +365,23 @@ a, button:focus{
 .introjs-helperLayer{
   background-color: rgba(255,255,255,0.5) !important;
 }
+
+.tutorial{
+  background-color: #eee;
+  padding: 15px;
+  margin-left: 25%;
+  width: 75%;
+  box-shadow: 0px 2px 5px 1px lightgrey;
+}
+
+.tutorial:before{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 20%;
+  top: 15%;
+  border: 20px solid;
+  border-color: transparent #eee transparent transparent;
+}
+

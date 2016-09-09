@@ -7,48 +7,81 @@ function startTutorial(){
 		'scrollToElement': 'true',
 		steps:[
 			  {
-			  	intro: "<img src='img/recruit.png' class='portrait'/>Benvenuto recluta! <p>Questa piccola introduzione ti guiderà attraverso gli elementi dell'interfaccia.</p>"
+			  	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<h4>Greetings Recruit!<h4>"+
+			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
+			  		"<p>Your job here is to fix and operate the antimissile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
+			  		"<p>We don't have much time, the enemy will strike soon!</p>" +
+		  		"</div>"
 			  },
               {
                 element: document.querySelector('#mc-container'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Questo è il gioco, cliccaci sopra per iniziare il livello.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This is the <b>Missile Command Interface.</b></p>"+
+			  		"<p>Click on it to control the antimissile batteries and stop the attack.</p>" +
+		  		"</div>",
                 position: "right"
               },
               {
               	element: document.querySelector('#editor-container'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Questo è l'editor. Qui dovrai modificare il codice del gioco per renderlo funzionante.",
+              	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This is the <b>Editor</b>.</p>" +
+			  		"<p>Here you can look at the system's code and fix its problems in order to stop the attacks.</p>"+
+		  		"</div>",
               	position: "bottom"
               },
               {
               	element: document.querySelector('#ButtonExecCode'),
-              	intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per eseguire il codice contenuto nell'editor.",
+              	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This button allows you to <b>execute</b> the code once you modified it.</p>" +
+		  		"</div>",
               	position: "left"
               },
               {
               	element: document.querySelector('#ButtonResetCode'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per ripristinare il codice. Attenzione! Le tue modifiche verranno perse.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satistiy you.</p>" +
+		  		"</div>",
 				position: "left"
               },
               {
             	element: document.querySelector('#ButtonGetHelp'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Clicca qui per visualizzare un suggerimento.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>In case you are stuck you can ask the old mechanic, i'm sure he can give you somee <b>help</b>.</p>" +
+		  		"</div>",
 				position: "left"
 			  },
               {
             	element: document.querySelector('#chat-panel'),
-				intro: "<img src='img/recruit.png' class='portrait'/>Questa è la chat. Qui troverai ordini e consigli su come affrontare ogni livello.",
+				intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This is the <b>message area</b> , here is where you will recieve your orders. Directly from me.</p>" +
+		  		"</div>",
 				position: "bottom"
 			  },
               {
                 element: document.querySelector('#levels'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai navigare tra i livelli completati.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>Here you will find all the <b>levels</b> already completed.</p>" +
+		  		"</div>",
                 position: "right"
               },
               {
                 element: document.querySelector('#user'),
-                intro: "<img src='img/recruit.png' class='portrait'/>Qui potrai visualizzare il tuo profilo.",
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>This is the <b>profile page</b>.</p>"+
+			  		"<p>Here you will find all your personal informations and progress.</p>" +
+		  		"</div>",
                 position: "right"
-              },
+              }
             ]
 	}).start();
 }
@@ -58,7 +91,9 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
 	// attiva Intro.JS
-	startTutorial();
+	if (level === 1) {
+		startTutorial();
+	}
 
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
@@ -67,11 +102,14 @@ $(document).ready(function () {
     editor = new Editor();
     editor.loadCode(level);
 
+	// caricamento chat
+	loadChat();
+
 	// Missile Command
     missileCommand();
 
-	// CodeMirror: addon Panel
-	editor.addPanel("bottom", "Panel per feedback ad editor");
+	// // CodeMirror: addon Panel
+	// editor.addPanel("bottom", "Panel per feedback ad editor");
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -107,18 +145,77 @@ $(document).ready(function () {
 
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(editor.execCode);
-    $("#ButtonResetCode").click(editor.resetCode);
+    $("#ButtonExecCode").click(function() {
+	    var panel = editor.addPanel("bottom", "Code updated.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.execCode();
+	});
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		editor.resetCode();
+	});
 });
 
-$('[data-target="#accountModal"]').click(function () {
-	$.get('/getUserData', function (data) {
-		var levelWidth = (data.level - 1) / 9 * 100;
-		$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(data.level - 1);
-		$('[name="score"]').text(data.score);
-		$('#imgAvatar').attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
-		$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
+$("#level-selector").find('.btn').click( function() {
+	$(".btn-primary").removeClass('btn-primary');
+	$(this).addClass('btn-primary');
+
+	var lvl = $(this).text();
+
+	$('.level-description').children('h3').html("Level " + lvl.toString());
+	$(".level-description").children("p").html("");
+	//TODO sostituire con descrizione del livello
+	$.getJSON("lvl/levels-chat.json", function(data){
+		$.each(data.text[lvl - 1], function(index, value){
+			$(".level-description").append("<p>" + value +"</p>");
+		});
 	});
+
+	//$('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
+});
+
+$("#load-level-btn").click(function(){
+	editor.applySolution();
+	var lvl = $(".btn-primary").text();
+	level = parseInt(lvl);
+
+	loadChat();
+	editor.loadCode(level);
+	missileCommand(true);
+});
+
+function loadChat() {
+	$("#chat-panel > .panel-heading").html("Level " + level);
+
+	//get chat text from JSON file
+	$.getJSON("lvl/levels-chat.json", function(data){
+		var txt = data.text[level - 1];
+		console.log(txt);
+		//typeit.js
+		$(".type-it").typeIt({
+			strings: txt,
+			speed: 50,
+			startDelay: 500,
+		});
+
+	});
+}
+
+$('#user').click(function () {
+	var levelWidth = (level - 1) / 9 * 100;
+	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
+	$('[name="score"]').text(score + " pts");
+	$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
+	$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
+	$('#imgAlert').hide();
+	
+	$.get('/getUserBadge', function(data) {
+		$.each(data, function (index, el) {
+			enableBadge(el.name);
+		});
+	});
+
 	$.get('/getLeaderboard', function (data) {
 		$('#leaderboard > tbody > tr').remove();
 		$.each(data, function(index, el) {
@@ -126,8 +223,8 @@ $('[data-target="#accountModal"]').click(function () {
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
 		});
 	});
-	$('#imgAlert').hide();
 });
+
 
 $(function(){
     $("[data-hide]").on("click", function(){
@@ -175,3 +272,16 @@ console.log("Updating the user's avatar...");
 		}
 	});
 });
+
+$('#levels').click(function () {
+	var button = $('#level-selector > div > a');
+	$.each(button, function (index, el) {
+		if (index < level ) {
+			$(el).removeClass('disabled');
+		}
+	})
+});
+
+function enableBadge (name) {
+	$('[name="' + name + '"]').removeClass('disabled');
+}

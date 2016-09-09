@@ -6,9 +6,9 @@ var playerShoot = function( x, y ) {
     }
 #BEGIN_EDITABLE#
     for (var i=0; i<400; i++) {
-        /* vecchio codice ormai inutile */
+        /* old code, now useless */
         if ( y === i) {
-            /* altitudine missile trovata */
+            /* missile height found */
             var height = i;
         }
     }
@@ -20,7 +20,7 @@ var playerShoot = function( x, y ) {
                     /* do nothing */
 
 
-                    /* quando il missile e' compreso tra 50 e 370 spara il missile difensivo */
+                    /* when the altitude of the missile is between 50 and 370 then shoot the defensive missile */
                     playerMissiles.push( new PlayerMissile( source, x, y ) );
                 }
             }
@@ -36,7 +36,7 @@ editor.defineFunction();
 console.log("controllo la lunghezza del corpo della funzione");
 var f = editor.getCode();
 if (f.numLines > 7) { // 7 sono le righe del corpo della funzione
-    console.log("troppe righe!!! devo essere massimo 9");
+    console.log("troppe righe!!! Devono essere massimo 9");
     playerShoot = function ( x, y ) {
         return;
     }
