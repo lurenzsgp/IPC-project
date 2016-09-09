@@ -78,13 +78,15 @@ module.exports = function(app, passport) {
 					//console.log(err);
 					res.send({
 						error: true,
-						message: 'Error. Can\'t upload avatar.'
+						message: 'Error. Can\'t upload avatar.',
+						username: req.user.get('username')
 					})
 				} else {
 					//console.log("Avatar updated.");
 					res.send({
 						error: false,
-						message: 'Avatar updated.'
+						message: 'Avatar updated.',
+						username: req.user.get('username')
 					})
 				}
 			});
@@ -92,7 +94,8 @@ module.exports = function(app, passport) {
 			//image size too big
 			res.send({
 				error: true,
-				message: 'The avatar size must be smaller than 5 MB.'
+				message: 'The avatar size must be smaller than 5 MB.',
+				username: req.user.get('username')
 			})
 		}
 	});
@@ -106,20 +109,23 @@ module.exports = function(app, passport) {
 					//console.log('Avatar already deleted.');
 					res.send({
 						error: true,
-						message: 'Avatar already deleted.'
+						message: 'Avatar already deleted.',
+						username: req.user.get('username')
 					})
 				}else{
 					//console.log('Cannot delete avatar');
 					res.send({
 						error: true,
-						message: 'Cannot delete avatar.'
+						message: 'Cannot delete avatar.',
+						username: req.user.get('username')
 					});
 				}
 			} else {
 				//console.log("Avatar deleted.");
 				res.send({
 					error: false,
-					message: 'Avatar deleted.'
+					message: 'Avatar deleted.',
+					username: req.user.get('username')
 				});
 			}
 		});

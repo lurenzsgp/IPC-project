@@ -145,12 +145,12 @@ $('#buttonDeleteAvatar').click( function(){
 			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success');
 			$('#imgAlert > p').text(data.message);
 			$('#imgAlert').show();
-			$('#imgAvatar').attr('src', 'img/default-avatar.png');
+			$('#imgAvatar').delay( 800 ).attr('src', 'img/default-avatar.png');
 		}
 	});
 });
 
-$('#inputAvatarFile').change( function(){
+$('#inputAvatarFile').on("change", function(){
 var data = new FormData($('#formUpdateAvatar')[0]);
 console.log("Updating the user's avatar...");
 
@@ -170,10 +170,8 @@ console.log("Updating the user's avatar...");
 				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success')
 				$('#imgAlert > p').text(data.message);
 				$('#imgAlert').show();
-				$('#imgAvatar').attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
+				$('#imgAvatar').delay( 800 ).attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
 			}
 		}
-	}).fail(function() {
-		alert( "error" );
 	});
 });
