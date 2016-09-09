@@ -1,5 +1,8 @@
 var loginController = require('./login');
 var data = require('../models/auth')();
+var fs = require('fs');	
+var multer = require('multer');
+var upload = multer({dest: 'public/img/avatars/'});
 var Bookshelf = require('bookshelf').mysqlAuth;
 
 module.exports = function(app, passport) {
@@ -63,9 +66,75 @@ module.exports = function(app, passport) {
             console.log("Error while saving: " + err);
         });
     });
+	
+	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
+		var stats = fs.statSync(req.file.path);
+		var filesizeinMB = stats["size"] / 1000000.0;
+
+		if(filesizeinMB < 5){
+			var file = 'public/img/avatars/' + req.user.get('username');
+			
+			fs.rename(req.file.path, file, function(err) {
+				if (err) {
+					//console.log(err);
+					res.send({
+						error: true,
+						message: 'Error. Can\'t upload avatar.',
+						username: req.user.get('username')
+					})
+				} else {
+					//console.log("Avatar updated.");
+					res.send({
+						error: false,
+						message: 'Avatar updated.',
+						username: req.user.get('username')
+					})
+				}
+			});
+		}else{
+			//image size too big
+			res.send({
+				error: true,
+				message: 'The avatar size must be smaller than 5 MB.',
+				username: req.user.get('username')
+			})
+		}
+	});
+	
+	app.get('/deleteAvatar', function(req,res){
+		var file = 'public/img/avatars/' + req.user.get('username');
+		
+		fs.unlink(file, function(err) {
+			if (err) {
+				if(err.code=='ENOENT'){
+					//console.log('Avatar already deleted.');
+					res.send({
+						error: true,
+						message: 'Avatar already deleted.',
+						username: req.user.get('username')
+					})
+				}else{
+					//console.log('Cannot delete avatar');
+					res.send({
+						error: true,
+						message: 'Cannot delete avatar.',
+						username: req.user.get('username')
+					});
+				}
+			} else {
+				//console.log("Avatar deleted.");
+				res.send({
+					error: false,
+					message: 'Avatar deleted.',
+					username: req.user.get('username')
+				});
+			}
+		});
+	});
 
     app.get('/getUserData', function(req,res) {
         res.send({
+			username: req.user.get('username'),
         	level: req.user.get('level'),
         	levelScore: req.user.get('levelScore')
         });

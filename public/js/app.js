@@ -95,6 +95,9 @@ $(document).ready(function () {
 		startTutorial();
 	}
 
+	//attiva i tooltip di bootstrap sulla classe btn
+    $('.btn').tooltip()
+	
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
@@ -203,7 +206,10 @@ $('#user').click(function () {
 	var levelWidth = (level - 1) / 9 * 100;
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
 	$('[name="score"]').text(score + " pts");
-
+	$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
+	$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
+	$('#imgAlert').hide();
+	
 	$.get('/getUserBadge', function(data) {
 		$.each(data, function (index, el) {
 			enableBadge(el.name);
@@ -216,6 +222,54 @@ $('#user').click(function () {
 			var i = index + 1;
 			$('#leaderboard > tbody').append('<tr><th scope="row">' + i +'</th><td>' + el.username + '</td><td>' + el.score + '</td></tr>');
 		});
+	});
+});
+
+
+$(function(){
+    $("[data-hide]").on("click", function(){
+        $(this).closest("." + $(this).attr("data-hide")).hide();
+    });
+});
+
+$('#buttonDeleteAvatar').click( function(){
+	$.get('/deleteAvatar', function(data){
+		if (data.error) {
+			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-danger');
+			$('#imgAlert > p').text(data.message);
+			$('#imgAlert').show();
+		}else{
+			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success');
+			$('#imgAlert > p').text(data.message);
+			$('#imgAlert').show();
+			$('#imgAvatar').delay( 800 ).attr('src', 'img/default-avatar.png');
+		}
+	});
+});
+
+$('#inputAvatarFile').on("change", function(){
+var data = new FormData($('#formUpdateAvatar')[0]);
+console.log("Updating the user's avatar...");
+
+	jQuery.ajax({
+		url: '/updateAvatar',
+		data: data,
+		cache: false,
+		contentType: false,
+		processData: false,
+		type: 'POST',
+		success: function(data){
+			if (data.error) {
+				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-danger');
+				$('#imgAlert > p').text(data.message);
+				$('#imgAlert').show();
+			}else{
+				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success')
+				$('#imgAlert > p').text(data.message);
+				$('#imgAlert').show();
+				$('#imgAvatar').delay( 800 ).attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
+			}
+		}
 	});
 });
 

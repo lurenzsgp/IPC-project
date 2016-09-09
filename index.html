@@ -130,10 +130,28 @@
 								<div class="panel panel-default">
 									<div class="panel-body" style="background-color: cyan">
 										<div class="row">
-											<div class="col-md-6">
-												<img src="img/recruit.png" class="avatar-circle">
+											<div class="col-md-8" style="text-align:center;">
+												<img class="avatar-circle" id="imgAvatar"><br>
+												
+												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data">
+													<label class="btn btn-primary">
+														<i class="fa fa-folder-open" aria-hidden="true"></i>
+														<input type="file" id="inputAvatarFile" name="avatar" style="display: none;">
+													</label>
+												</form>
+												
+												<button id="buttonDeleteAvatar" class="btn btn-danger">
+													<i class="fa fa-remove" aria-hidden="true"></i>
+												</button>
+												
+												<div class="" role="alert" id="imgAlert" hidden="true">
+													<button type="button" class="close" data-hide="alert" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<p></p>
+												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<h4 name="username"><%= username %></h4>
 												<p name="score"></p>
 											</div>
