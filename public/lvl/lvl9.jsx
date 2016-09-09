@@ -1,4 +1,4 @@
-// Sistema questa funzione per rendere efficente la mira automatica... Altrimenti sprechera' tutti i tuoi missili
+// Fix this feature to make auto-aim efficient... Or it will waste all your missiles!
 var pointDistance = function (p, q) {
 #BEGIN_EDITABLE#
     return 1;

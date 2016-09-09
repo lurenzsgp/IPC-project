@@ -1,8 +1,8 @@
-// Initialize the city
+// Initialize the six cities
 var createCities = function () {
 #BEGIN_EDITABLE#
-    /* Le coordinate delle citta' sono definite nel vettore elementPos
-       dal 3^ elemento in poi. */
+	/* Cities coordinates are defined in the 'elementPos' array
+		starting from the 3rd element. */
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 #END_EDITABLE#
 };

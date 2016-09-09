@@ -77,7 +77,7 @@ function startTutorial(){
                 element: document.querySelector('#user'),
                 intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This is the <b>account page</b>.</p>"+
+			  		"<p>This is the <b>profile page</b>.</p>"+
 			  		"<p>Here you will find all your personal informations and progress.</p>" +
 		  		"</div>",
                 position: "right"
@@ -183,7 +183,7 @@ $("#load-level-btn").click(function(){
 });
 
 function loadChat() {
-	$("#chat-panel > .panel-heading").html("Livello " + level);
+	$("#chat-panel > .panel-heading").html("Level " + level);
 
 	//get chat text from JSON file
 	$.getJSON("lvl/levels-chat.json", function(data){

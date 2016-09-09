@@ -1,4 +1,4 @@
-// Funzione per la verifica della presenza di missili nelle postazioni antimissilistiche
+// Function to check for the presence of missiles in anti-missile emplacements
 AntiMissileBattery.prototype.hasMissile = function() {
     var rocket = false;
 #BEGIN_EDITABLE#
@@ -14,7 +14,7 @@ AntiMissileBattery.prototype.hasMissile = function() {
 };
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
-testBattery = new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y);
+testBattery = new AntiMissileBattery(elementPos[0].x,  elementPos[0].y);
 testBattery.testFunction();
 delete testBattery;
 editor.defineFunction();

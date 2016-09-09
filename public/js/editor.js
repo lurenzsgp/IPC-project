@@ -45,7 +45,7 @@ Editor.prototype.loadCode = function (lvl) {
       }
     });
 
-    // used for reset code
+    // used to reset code
     this.cm.clearHistory();
 
 	this.cm.off('beforeChange', this.enforceRestrictions);
@@ -81,7 +81,7 @@ Editor.prototype.getCode = function () {
 	// lista degli argomenti
 	var argList = code.split('(')[1].split(')')[0].split(',');
 
-	//rimuovo la definizione della funzione
+	// rimuovo la definizione della funzione
 	line.shift();
 
 	var codeLine = [];
@@ -104,7 +104,7 @@ Editor.prototype.getCode = function () {
 	};
 }
 
-// preprocesses code,determines the location
+// preprocesses code, determines the location
 // of editable lines, loads goal function
 Editor.prototype.preprocessor = function (code) {
 

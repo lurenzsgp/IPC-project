@@ -12,13 +12,12 @@ var cookieSession		= require('cookie-session');
 var serveStatic			= require('serve-static');
 var expressValidator	= require('express-validator');
 var swig				= require('swig');
-var crypto				= require('crypto');
 var path				= require('path');
 
 // configuration ===============================================================
 
-console.log("connecting to: " + process.env.DATABASE_URL+ '?ssl=true');
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
+console.log("connecting to: " + process.env.DATABASE_URL+ '?ssl=true');
 var pg = require('knex')({
   client: 'pg',
   connection: process.env.DATABASE_URL + '?ssl=true',

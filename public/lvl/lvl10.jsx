@@ -1,4 +1,4 @@
-// Sei stato cosi' bravo che questa guerra non ha piu' bisogno di te.
+// You were so good that this war doesn't need you anymore.
 var dismissal = function () {
     return;
 };
