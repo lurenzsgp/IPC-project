@@ -110,7 +110,7 @@ module.exports = function(app, passport) {
 					//console.log('Avatar already deleted.');
 					res.send({
 						error: true,
-						message: 'Avatar already deleted.',
+						message: 'No custom avatar to delete.',
 						username: req.user.get('username')
 					})
 				} else {

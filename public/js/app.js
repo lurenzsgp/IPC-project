@@ -251,7 +251,7 @@ $('#buttonDeleteAvatar').click( function(){
 			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success');
 			$('#imgAlert > p').text(data.message);
 			$('#imgAlert').show();
-			$('#imgAvatar').delay( 800 ).attr('src', 'img/recruit.png');
+			$('#imgAvatar').delay(800).attr('src', 'img/recruit.png');
 		}
 	});
 });
