@@ -57,13 +57,18 @@ margin-left: 0;
   cursor: pointer;
 }
 */
+
 .avatar-circle {
   border-radius: 100%;
-	width: 9em;
-	height: 9em;
-	border: 2px solid grey;
+	max-width: 100%;
+	max-height: 9em;
+  border: 2px solid grey;
   background-color: #635e77;
   margin: 15px;
+}
+
+.imgform{
+	display: inline-block;
 }
 
 .progress {

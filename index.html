@@ -131,16 +131,15 @@
 									<div class="panel-body">
 										<div class="row">
 											<div class="col-md-8" style="text-align:center;">
-												<img class="avatar-circle" id="imgAvatar" src="img/avatars/<%= username %>" onerror="src='img/default-avatar.png'"><br>
+												<img class="avatar-circle" id="imgAvatar" src="img/avatars/<%= username %>" onerror="src='img/recruit.png'"><br>
 												
 												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data">
-													<label class="btn btn-primary">
+													<label class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Upload avatar">
 														<i class="fa fa-folder-open" aria-hidden="true"></i>
 														<input type="file" id="inputAvatarFile" name="avatar" style="display: none;">
 													</label>
 												</form>
-												
-												<button id="buttonDeleteAvatar" class="btn btn-danger">
+												<button id="buttonDeleteAvatar" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete avatar">
 													<i class="fa fa-remove" aria-hidden="true"></i>
 												</button>
 												
