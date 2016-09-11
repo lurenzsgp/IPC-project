@@ -318,7 +318,7 @@ a, button:focus{
 
 #mc-container{
   text-align: center;
-  text-align: -webkit-center;
+  margin: auto 15px;
 }
 .row{
   margin: 0;
@@ -379,3 +379,7 @@ a, button:focus{
   border-color: transparent #eee transparent transparent;
 }
 
+.fa-user{
+  /*necessario perchè icona più piccola delle altre*/
+  margin-right: 5px;
+}
