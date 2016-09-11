@@ -1,8 +1,8 @@
-// Initialize the six cities
+/* Initialize the six cities. */
 var createCities = function () {
 #BEGIN_EDITABLE#
-	/* Cities coordinates are defined in the 'elementPos' array
-		starting from the 3rd element. */
+
+	/* Cities coordinates are defined in the 'elementPos' array starting from the 3rd element. */
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 #END_EDITABLE#
 };

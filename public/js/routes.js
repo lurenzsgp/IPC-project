@@ -106,14 +106,14 @@ module.exports = function(app, passport) {
 		
 		fs.unlink(file, function(err) {
 			if (err) {
-				if(err.code=='ENOENT'){
+				if (err.code=='ENOENT') {
 					//console.log('Avatar already deleted.');
 					res.send({
 						error: true,
 						message: 'Avatar already deleted.',
 						username: req.user.get('username')
 					})
-				}else{
+				} else {
 					//console.log('Cannot delete avatar');
 					res.send({
 						error: true,
@@ -122,12 +122,14 @@ module.exports = function(app, passport) {
 					});
 				}
 			} else {
-				//console.log("Avatar deleted.");
-				res.send({
-					error: false,
-					message: 'Avatar deleted.',
-					username: req.user.get('username')
-				});
+// 				if (confirm('Do you really want to remove your avatar?')) {
+					//console.log("Avatar deleted.");
+					res.send({
+						error: false,
+						message: 'Avatar deleted.',
+						username: req.user.get('username')
+					});
+// 				}
 			}
 		});
 	});
@@ -227,7 +229,10 @@ module.exports = function(app, passport) {
         });
     });
 
-	// FIXME la pagina non compare quando l'URL e' nella forma localhost:3000/index/*
+	/*
+		FIXME la pagina non viene correttamente renderizzata quando l'URL e' nella forma
+		"localhost:3000/index/*" (cioe' quando non corrisponde all'espressione regolare "*")
+	*/
     app.get('*', function(req, res) {
     	res.render('404');
     });

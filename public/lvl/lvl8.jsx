@@ -1,12 +1,10 @@
-// Now we are at war for so many days. We distributed the remaining missiles between the anti-missile emplacements.
-// The supplies are coming from the sky, be careful not to set them off!
-
-// Create a certain number of bonus missiles
+/* Create a certain number of bonus missiles */
 var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
 #BEGIN_EDITABLE#
-    /* You can add a total of numberOfMissiles bonus missiles to 'enemyMissiles' array using the 'BonusMissile(targets)' constructor.
-    	You can add elements to an array by using the 'push(element)' function. */
+
+    /* You can add a total of numberOfMissiles bonus missiles to 'enemyMissiles' array using the 'BonusMissile(targets)' constructor. */
+    /* You can add elements to an array by using the 'push(element)' function. */
 
 #END_EDITABLE#
 };

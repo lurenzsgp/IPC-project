@@ -1,7 +1,8 @@
-// Function to check for the presence of missiles in anti-missile emplacements
+/* Check for the presence of missiles in anti-missile emplacements. */
 AntiMissileBattery.prototype.hasMissile = function() {
     var rocket = false;
 #BEGIN_EDITABLE#
+
     for (var i=100000; i > 0; i--) {
         for (var j=0; j < 5000; j++) {
             if (i === j){

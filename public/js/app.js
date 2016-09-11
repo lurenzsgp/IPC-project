@@ -9,7 +9,7 @@ function startTutorial(){
 			  {
 			  	intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<h4>Greetings Recruit!<h4>"+
+			  		"<h4>Greetings, Recruit!<h4>"+
 			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
 			  		"<p>Your job here is to fix and operate the antimissile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
 			  		"<p>We don't have much time, the enemy will strike soon!</p>" +
@@ -147,12 +147,12 @@ $(document).ready(function () {
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(function() {
 	    var panel = editor.addPanel("bottom", "Code updated.");
-		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.execCode();
 	});
     $("#ButtonResetCode").click(function () {
 		var panel = editor.addPanel("bottom", "Code reloaded.");
-		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.resetCode();
 	});
 });
@@ -165,7 +165,7 @@ $("#level-selector").find('.btn').click( function() {
 
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
-	//TODO sostituire con descrizione del livello
+	// TODO sostituire con descrizione del livello
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$.each(data.text[lvl - 1], function(index, value){
 			$(".level-description").append("<p>" + value +"</p>");

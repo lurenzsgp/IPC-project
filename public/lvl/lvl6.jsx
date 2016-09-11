@@ -1,4 +1,4 @@
-// Create a missile that will be shot at indicated location
+/* Create a missile that will be shot at the indicated location. */
 var playerShoot = function( x, y ) {
     var source = whichAntiMissileBattery( x );
     if( source === -1 ){ // No missiles left
