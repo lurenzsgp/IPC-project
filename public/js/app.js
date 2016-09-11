@@ -97,7 +97,7 @@ $(document).ready(function () {
 
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
-	
+
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
@@ -203,13 +203,13 @@ function loadChat() {
 }
 
 $('#user').click(function () {
-	var levelWidth = (level - 1) / 9 * 100;
+	var levelWidth = (maxLevel - 1) / 9 * 100;
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
 	$('[name="score"]').text(score + " pts");
 	//$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
 	//$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
 	$('#imgAlert').hide();
-	
+
 	$.get('/getUserBadge', function(data) {
 		$.each(data, function (index, el) {
 			enableBadge(el.name);
