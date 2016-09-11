@@ -2,7 +2,7 @@ var editor = {};
 
 function startTutorial(){
 	introJs().setOptions({
-		'skipLabel': 'Salta',
+		'skipLabel': 'Skip',
 		'showStepNumbers': 'false',
 		'scrollToElement': 'true',
 		steps:[
@@ -20,7 +20,7 @@ function startTutorial(){
                 intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Missile Command Interface.</b></p>"+
-			  		"<p>Click on it to control the antimissile batteries and stop the attack.</p>" +
+			  		"<p>Click on it to control the antimissile batteries and stop the attacks.</p>" +
 		  		"</div>",
                 position: "right"
               },
@@ -37,7 +37,7 @@ function startTutorial(){
               	element: document.querySelector('#ButtonExecCode'),
               	intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This button allows you to <b>execute</b> the code once you modified it.</p>" +
+			  		"<p>This button allows you to <b>execute</b> the code once you modify it.</p>" +
 		  		"</div>",
               	position: "left"
               },
@@ -45,7 +45,7 @@ function startTutorial(){
               	element: document.querySelector('#ButtonResetCode'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satistiy you.</p>" +
+			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satisfy you.</p>" +
 		  		"</div>",
 				position: "left"
               },
@@ -53,7 +53,7 @@ function startTutorial(){
             	element: document.querySelector('#ButtonGetHelp'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>In case you are stuck you can ask the old mechanic, i'm sure he can give you somee <b>help</b>.</p>" +
+			  		"<p>In case you are stuck you can ask the old mechanic, I'm sure he can give you some <b>help</b>.</p>" +
 		  		"</div>",
 				position: "left"
 			  },
@@ -61,7 +61,7 @@ function startTutorial(){
             	element: document.querySelector('#chat-panel'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This is the <b>message area</b> , here is where you will recieve your orders. Directly from me.</p>" +
+			  		"<p>This is the <b>message area</b>, where you will recieve your orders. Directly from me.</p>" +
 		  		"</div>",
 				position: "bottom"
 			  },
@@ -81,6 +81,14 @@ function startTutorial(){
 			  		"<p>Here you will find all your personal informations and progress.</p>" +
 		  		"</div>",
                 position: "right"
+              },
+              {
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>That's all for now.</p>"+
+			  		"<p>Go defeat these <b>Barbarians</b>!</p>"+
+		  		"</div>",
+                position: "bottom"
               }
             ]
 	}).start();
@@ -166,6 +174,7 @@ $("#level-selector").find('.btn').click( function() {
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
 	// TODO sostituire con descrizione del livello
+	
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$.each(data.text[lvl - 1], function(index, value){
 			$(".level-description").append("<p>" + value +"</p>");
