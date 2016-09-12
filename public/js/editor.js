@@ -310,6 +310,8 @@ Editor.prototype.replacePanel = function(form) {
 
 Editor.prototype.resetCode = function () {
 	this.loadCode(level);
+    // riavvio il livello
+    missileCommand(true);
 }
 
 Editor.prototype.applySolution = function () {

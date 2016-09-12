@@ -1,4 +1,4 @@
-// You were so good that this war doesn't need you anymore.
+/* You were so good that this war doesn't need you anymore. */
 var dismissal = function () {
     return;
 };

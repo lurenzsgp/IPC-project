@@ -1,6 +1,7 @@
-// Fix this feature to make auto-aim efficient... Or it will waste all your missiles!
+/* Enable auto-aim feature. */
 var pointDistance = function (p, q) {
 #BEGIN_EDITABLE#
+
     return 1;
 #END_EDITABLE#
 };

@@ -1,8 +1,8 @@
-// Function for the charging of missiles in anti-missile emplacements.
-// The 'antiMissileBatteries' array is composed of the 3 anti-missile emplacements.
-// Initialize to 20 the 'missilesLet' field of each array element.
+/* Refill of missiles in anti-missile emplacements. */
 var rechargeAntiMissileBatteries = function () {
 #BEGIN_EDITABLE#
+
+/* The 'antiMissileBatteries' array is composed of the 3 anti-missile emplacements. Initialize to 20 the 'missilesLeft' field of each array element. */
 
 #END_EDITABLE#
 };
