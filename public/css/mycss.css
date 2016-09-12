@@ -60,8 +60,9 @@ margin-left: 0;
 
 .avatar-circle {
   border-radius: 100%;
-	max-width: 100%;
-	max-height: 9em;
+  width: 9em;
+  height: 9em;
+  object-fit: cover;
   border: 2px solid grey;
   background-color: #635e77;
   margin: 15px;
@@ -354,13 +355,6 @@ a, button:focus{
 }
 
 .msg:before{
-  /*content: '';
-  position: fixed;
-  width: 0;
-  height: 0;
-  margin: auto -55px auto;
-  border: 20px solid;
-  border-color: transparent #eee transparent transparent;*/
   background-color: #eee;
   box-shadow: -1px 3px 2px -1px rgba( 178, 178, 178, .4 );
   content: "\00a0";
@@ -400,14 +394,20 @@ a, button:focus{
 }
 
 .tutorial:before{
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 20%;
-  top: 15%;
-  border: 20px solid;
-  border-color: transparent #eee transparent transparent;
+  background-color: #eee;
+  box-shadow: -1px 3px 2px -1px rgba( 178, 178, 178, .4 );
+  content: "\00a0";
+  display: block;
+  height: 20px;
+  left: -25px;
+  position: relative;
+  top: 20px;
+  transform:             rotate( 45deg );
+      -moz-transform:    rotate( 45deg );
+      -ms-transform:     rotate( 45deg );
+      -o-transform:      rotate( 45deg );
+      -webkit-transform: rotate( 45deg );
+  width:  20px;
 }
 
 .fa-user{
@@ -421,4 +421,9 @@ a, button:focus{
 
 .badge-lock {
     background-color: #aaa;
+    opacity: 50%;
+}
+
+#badge-div{
+  text-align: center;
 }
