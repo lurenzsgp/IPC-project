@@ -211,7 +211,7 @@ hr{
 	  color: #eee;
     font-size: 200%;
     white-space: nowrap;
-    font-weight: 300; 
+    font-weight: 300;
 	}
 
   .navbar ul{
@@ -416,4 +416,8 @@ a, button:focus{
 
 .level-description{
   margin: 15px auto;
+}
+
+.badge-lock {
+    background-color: #aaa;
 }

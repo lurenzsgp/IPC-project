@@ -132,7 +132,7 @@
 										<div class="row">
 											<div class="col-md-8" style="text-align:center;">
 												<img class="avatar-circle" id="imgAvatar" src="img/avatars/<%= username %>" onerror="src='img/recruit.png'"><br>
-												
+
 												<form class="imgform" id="formUpdateAvatar" enctype="multipart/form-data">
 													<label class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Upload avatar">
 														<i class="fa fa-folder-open" aria-hidden="true"></i>
@@ -142,7 +142,7 @@
 												<button id="buttonDeleteAvatar" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete avatar">
 													<i class="fa fa-remove" aria-hidden="true"></i>
 												</button>
-												
+
 												<div class="" role="alert" id="imgAlert" hidden="true">
 													<button type="button" class="close" data-hide="alert" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
@@ -173,39 +173,39 @@
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
-									<td class="col-md-3 disabled" name="Debug">
+									<td class="col-md-3 badge-lock" name="Debug">
 										<img class="mybadge" src="img/badge.png">
 										Debug
 									</td>
-									<td class="col-md-3 disabled" name="Refactoring">
-										<img class="mybadge" src="img/badge_bw.png">
+									<td class="col-md-3 badge-lock" name="Refactoring">
+										<img class="mybadge" src="img/badge.png">
 										Refactoring
 									</td>
-									<td class="col-md-3 disabled" name="Design">
-										<img class="mybadge" src="img/badge_bw.png">
+									<td class="col-md-3 badge-lock" name="Design">
+										<img class="mybadge" src="img/badge.png">
 										Design
 									</td>
-									<td class="col-md-3 disabled" name="No-city-destroyed">
-										<img class="mybadge" src="img/badge_bw.png">
-										No city destroyed
+									<td class="col-md-3 badge-lock" name="Level-10">
+										<img class="mybadge" src="img/badge.png">
+										Win level 10
 									</td>
 								</tr>
 								<tr>
-									<td class="col-md-3 disabled" name="Tutorial">
+									<td class="col-md-3 badge-lock" name="Tutorial">
 										<img class="mybadge" src="img/badge_bw.png">
 										Complete Tutorial
 									</td>
-									<td class="col-md-3 disabled" name="Destroy-bonus-missiles">
+									<td class="col-md-3 badge-lock" name="Destroy-bonus-missiles">
 										<img class="mybadge" src="img/badge_bw.png">
 										Destroy all bonus missiles
 									</td>
-									<td class="col-md-3 disabled" name="Win-25-missiles">
+									<td class="col-md-3 badge-lock" name="Win-25-missiles">
 										<img class="mybadge" src="img/badge_bw.png">
 										Win and keep 25 missiles
 									</td>
-									<td class="col-md-3 disabled" name="Level-10">
+									<td class="col-md-3 badge-lock" name="No-city-destroyed">
 										<img class="mybadge" src="img/badge_bw.png">
-										Win level 10
+										No city destroyed
 									</td>
 								</tr>
 							</tbody>
@@ -240,11 +240,19 @@
 				<div class="col-lg-6">
                     <div class="panel panel-default" id="chat-panel">
                         <div class="panel-heading">Level 1</div>
+<<<<<<< HEAD
                         <div class="panel-body" id="chat-body">
                             	<div class="msg">
     	                            <img class="portrait" src="img/general.png">	
                             		<span class="type-it"></span>
                             	</div>
+=======
+                        <div class="panel-body">
+                            <img class="portrait" src="img/general.png">
+                        	<div class="chat">
+                        		<span class="type-it"></span>
+                        	</div>
+>>>>>>> origin/master
                         </div>
                     </div>
 
@@ -270,7 +278,7 @@
 									data-toggle="tooltip" data-placement="bottom" title="Execute code">
 								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
-							
+
 							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg"
 									data-toggle="tooltip" data-placement="bottom" title="Reset code">
 								<i class="fa fa-undo" aria-hidden="true"></i>
