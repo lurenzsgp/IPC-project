@@ -199,13 +199,13 @@ $("#load-level-btn").click(function(){
 
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
-
+	$("#chat-body").html("");
 	//get chat text from JSON file
 	$.getJSON("lvl/levels-chat.json", function(data){
 		var txt = data.text[level - 1];
 		console.log(txt);
 		//typeit.js
-		generalMessage(txt);
+		newmsg("general", txt);
 
 	});
 }

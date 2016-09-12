@@ -362,7 +362,7 @@ a, button:focus{
   border: 20px solid;
   border-color: transparent #eee transparent transparent;*/
   background-color: #eee;
-  box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+  box-shadow: -1px 3px 2px -1px rgba( 178, 178, 178, .4 );
   content: "\00a0";
   display: block;
   height: 20px;
