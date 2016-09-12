@@ -80,7 +80,10 @@ function startTutorial(){
 			  		"<p>This is the <b>profile page</b>.</p>"+
 			  		"<p>Here you will find all your personal informations and progress.</p>" +
 		  		"</div>",
-                position: "right"
+                position: "right",
+				onchange: function() {
+			        unlockBadge("Tutorial", "Tutorial complete");
+			    }
               }
             ]
 	}).start();
@@ -304,4 +307,13 @@ function oldmanMessage (message) {
 		speed: 50,
 		startDelay: 500,
 	});
+}
+
+function unlockBadge (badgeId, badgeDescription) {
+	$.post('/checkBadge', { name: badgeId}, function (badge) {
+		if (!badge.unlock) {
+			$.post('/unlockBadge', { name: badgeId});
+			generalMessage(["<b>BADGE UNLOCK</b>", badgeDescription]);
+		}
+	})
 }
