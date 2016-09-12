@@ -107,9 +107,8 @@ var initDesignLevel = function (userClick) {
     }
 
     if (level >= 8) {
-            if (!userClick && level === 9) {
+            if (level === 9) {
                 contrAerea = new AutoAntiMissileDefense();
-                editor.execCode();
             }
         initializeHandicapLevel();
     } else {
@@ -159,7 +158,7 @@ var initializeHandicapLevel = function() {
     if (level === 8 && isDefined(contrAerea)) {
         delete contrAerea;
     }
-    
+
     if (isDefined(contrAerea)) {
         contrAerea.initialize();
     }
@@ -655,6 +654,10 @@ var pointDistance = function (p, q) {
     return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );
 };
 
+var penaltyFindTarget = function (missile, source) {
+    return {x: rand(50, 370), y: rand(50, 370)};
+};
+
 function correctFindTarget (missile, source) {
     var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
     var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
@@ -671,10 +674,9 @@ function correctFindTarget (missile, source) {
             t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
         }
     }
-    return {x: rand(50, 370), y: rand(50, 370)};
 }
 
-findTarget = correctFindTarget;
+var findTarget = penaltyFindTarget;
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor
