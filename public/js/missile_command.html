@@ -163,7 +163,7 @@ var initializeHandicapLevel = function() {
 // Create a certain number of enemy missiles based on the game level
 var createEmemyMissiles = function() {
     var targets = viableTargets(),
-        numMissiles = ( level !== 9 ) ? level + 14 : 30;
+        numMissiles = ( level < 8 ) ? level + 14 : 30;
     for( var i = 0; i < numMissiles; i++ ) {
         enemyMissiles.push( new EnemyMissile(targets) );
     }
