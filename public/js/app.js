@@ -327,7 +327,9 @@ function unlockBadge (badgeId, badgeDescription) {
 	$.post('/checkBadge', { name: badgeId}, function (badge) {
 		if (!badge.unlock) {
 			$.post('/unlockBadge', { name: badgeId});
-			newmsg(general, ["<b>BADGE UNLOCK</b>", badgeDescription]);
+			//newmsg(general, ["<b>BADGE UNLOCK</b>", badgeDescription]);
+			$("#badgesModal").modal();
+			$("#badge-description").append(badgeDescription);
 		}
 	})
 }
