@@ -427,3 +427,7 @@ a, button:focus{
 #badge-div{
   text-align: center;
 }
+
+#badge-description{
+  font-weight: 700;
+}
