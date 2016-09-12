@@ -193,11 +193,7 @@ function loadChat() {
 		var txt = data.text[level - 1];
 		console.log(txt);
 		//typeit.js
-		$(".type-it").typeIt({
-			strings: txt,
-			speed: 50,
-			startDelay: 500,
-		});
+		generalMessage(txt);
 
 	});
 }
@@ -282,6 +278,30 @@ $('#levels').click(function () {
 	})
 });
 
+// rende graficamente unlock il badge utente
 function enableBadge (name) {
-	$('[name="' + name + '"]').removeClass('disabled');
+	$('[name="' + name + '"]').removeClass('badge-lock');
+}
+
+// cambia il messaggio nel fumetto della chat
+function generalMessage (message) {
+	$('#chat-panel img').attr("src", "img/general.png");
+	//typeit.js
+	$(".type-it").typeIt({
+		strings: message,
+		speed: 50,
+		startDelay: 500,
+	});
+}
+
+
+// cambia il messaggio nel fumetto della chat
+function oldmanMessage (message) {
+	$('#chat-panel img').attr("src", "img/oldman.png");
+	//typeit.js
+	$(".type-it").typeIt({
+		strings: message,
+		speed: 50,
+		startDelay: 500,
+	});
 }
