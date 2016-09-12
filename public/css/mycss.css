@@ -60,8 +60,9 @@ margin-left: 0;
 
 .avatar-circle {
   border-radius: 100%;
-	max-width: 100%;
-	max-height: 9em;
+  width: 9em;
+  height: 9em;
+  object-fit: cover;
   border: 2px solid grey;
   background-color: #635e77;
   margin: 15px;
