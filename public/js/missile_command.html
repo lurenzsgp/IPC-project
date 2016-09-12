@@ -882,7 +882,34 @@ var endLevel = function( missilesLeft, citiesSaved ) {
                     citiesSaved, citiesBonus );
     }, 2000 );
 
-    setTimeout( setupNextLevel, 4000, nextLevel );
+    if (nextLevel) {
+        // controllo i badge
+        switch (level) {
+            case 3:
+                unlockBadge("Debug", "Finish Debug levels");
+                break;
+            case 6:
+                unlockBadge("Refactoring", "Finish Refactoring levels");
+                break;
+            case 9:
+                unlockBadge("Design", "Finish Design levels");
+                break;
+            case 10:
+                unlockBadge("Level-10", "Win level 10");
+                break;
+            default:
+        }
+
+        if (missilesLeft >= 25) {
+            unlockBadge("Win-25-missiles", "Win and keep 25 missiles");
+        }
+    } else {
+        // TODO tradurre e cambiare il messaggio a tema con le chat
+        generalMessage(["Non possiamo perdere nessuna citt&agrave;", "Riprovaci e mettici pi&ugrave; grinta"]);
+    }
+
+    // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
+    setTimeout( setupNextLevel, 5000, nextLevel );
 };
 
 // Move to the next level
@@ -894,39 +921,6 @@ var setupNextLevel = function(next) {
         $.each(scoreArray, function (index, el) {
             score += el;
         });
-
-        // controllo i badge
-        switch (level) {
-            case 3:
-                $.post('/checkBadge', { name: "Debug"}, function (badge) {
-                    if (!badge.unlock) {
-                        $.post('/unlockBadge', { name: "\tDebug"});
-                    }
-                })
-                break;
-            case 6:
-                $.post('/checkBadge', { name: "Refactoring"}, function (badge) {
-                    if (!badge.unlock) {
-                        $.post('/unlockBadge', { name: "\tRefactoring"});
-                    }
-                })
-                break;
-            case 9:
-                $.post('/checkBadge', { name: "Design"}, function (badge) {
-                    if (!badge.unlock) {
-                        $.post('/unlockBadge', { name: "\tDesign"});
-                    }
-                })
-                break;
-            case 10:
-                $.post('/checkBadge', { name: "Level-10"}, function (badge) {
-                    if (!badge.unlock) {
-                        $.post('/unlockBadge', { name: "\tWin level 10"});
-                    }
-                })
-                break;
-            default:
-        }
 
         // aumento il livello
         if (level < 10) {
@@ -944,6 +938,7 @@ var setupNextLevel = function(next) {
         // carico il codice del livello successivo
         editor.loadCode(level);
     }
+
     // inizializzo il gioco per il livello corrente
     missileCommand(false);
 };
