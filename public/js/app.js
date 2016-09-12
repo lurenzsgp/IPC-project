@@ -294,3 +294,17 @@ $('#levels').click(function () {
 function enableBadge (name) {
 	$('[name="' + name + '"]').removeClass('disabled');
 }
+
+function newmsg (character, strings){
+	var portrait = "<img class='portrait' src='/img/" + character + ".png'/>";
+	var div = "<div class='msg'>"+ portrait + "<span></span>" +"</div>"
+	var chat = $('#chat-body');
+	chat.append(div);
+	chat.scrollTop(chat.height());
+	chat.find("span").last().typeIt({
+	strings: strings,
+	speed: 50,
+	startDelay: 500,
+	});
+
+}	
