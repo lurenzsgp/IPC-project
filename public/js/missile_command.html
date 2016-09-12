@@ -155,6 +155,11 @@ var initializeHandicapLevel = function() {
     createEmemyMissiles();
     createBonusMissiles(3);
     drawBeginLevel();
+
+    if (level === 8 && isDefined(contrAerea)) {
+        delete contrAerea;
+    }
+    
     if (isDefined(contrAerea)) {
         contrAerea.initialize();
     }
