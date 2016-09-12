@@ -88,12 +88,12 @@ function startTutorial(){
 			  		"<p>That's all for now.</p>"+
 			  		"<p>Go defeat these <b>Barbarians</b>!</p>"+
 		  		"</div>",
-                position: "bottom",
-				onchange: function() {
-			        unlockBadge("Tutorial", "Tutorial complete");
-			    }
+                position: "bottom"
               }
             ]
+	}).oncomplete(function() {
+		unlockBadge("Tutorial", "Tutorial complete");
+		setTimeout( loadChat, 5000 );
 	}).start();
 }
 
