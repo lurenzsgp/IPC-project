@@ -53,7 +53,7 @@ function startTutorial(){
             	element: document.querySelector('#ButtonGetHelp'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>In case you are stuck you can ask the old mechanic, I'm sure he can give you some <b>help</b>.</p>" +
+			  		"<p>In case you are stuck you can ask the old mechanic. I'm sure he can give you some <b>help</b>.</p>" +
 		  		"</div>",
 				position: "left"
 			  },
@@ -61,7 +61,7 @@ function startTutorial(){
             	element: document.querySelector('#chat-panel'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This is the <b>message area</b>, where you will recieve your orders. Directly from me.</p>" +
+			  		"<p>This is the <b>message area</b>, where you will recieve your orders directly from me.</p>" +
 		  		"</div>",
 				position: "bottom"
 			  },
@@ -78,7 +78,7 @@ function startTutorial(){
                 intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>profile page</b>.</p>"+
-			  		"<p>Here you will find all your personal informations and progress.</p>" +
+			  		"<p>Here you will find all of your personal information and progress.</p>" +
 		  		"</div>",
                 position: "right"
               },

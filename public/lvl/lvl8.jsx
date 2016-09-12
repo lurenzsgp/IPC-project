@@ -3,8 +3,8 @@ var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
 #BEGIN_EDITABLE#
 
-    /* You can add a total of numberOfMissiles bonus missiles to 'enemyMissiles' array using the 'BonusMissile(targets)' constructor. */
-    /* You can add elements to an array by using the 'push(element)' function. */
+    /* You can add a total of numberOfMissiles bonus missiles to the 'enemyMissiles' array using the 'BonusMissile(targets)' constructor. */
+    /* You can add elements to an array by using the 'array#push(element)' function. */
 
 #END_EDITABLE#
 };

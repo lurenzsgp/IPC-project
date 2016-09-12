@@ -1,14 +1,14 @@
 {
 	"text" : [
-		["<b>WE ARE UNDER ATTACK!</b>","There's something wrong with the missiles, they are really slow and we can't stop the enemy. ", "Fix it now or we won't make it! "],
-		["Soldier! Our missiles are <b>not hitting their targets.</b> ","I don't know...","Maybe a sabotage from the enemy...","Or maybe our shooters are all drunk...","I don't care, <b>FIX IT NOW!!</b>"],
+		["<b>WE ARE UNDER ATTACK!</b>"," ","There's something wrong with the missiles, they are really slow and we can't stop the enemy.","We need ALL our facilities to remain intact.","<b>Fix it now</b> or we won't make it!"],
+		["Soldier! Our missiles are <b>not hitting their targets.</b> ","I don't know...","Maybe a sabotage from the enemy...","Or maybe our shooters are all drunk...","I don't care, <b>FIX IT NOW!</b>"],
 		["Looks like our warheads are <b>not exploding</b> anymore. ","Maybe it wasn't a good idea to leave them outside in the storm... ","Anyway... It's your job to solve the issue, <b>MOVE IT!</b>"],
 		["<b>DAMN THE ENEMY!!! </b>","A surprise attack destroyed all our facilities! ","There was an automated procedure to build them back I remember, perhaps you can <b>recover it</b>..."],
 		["You know why we are going to lose this war? ","Because THE ENEMY is fast and efficient! ","Our system instead is <b>slow</b> and stupid.","It's your fault! <b>DO SOMETHING ABOUT IT!</b>"],
-		["Last attack fried our system memory and now there's not enough space for the system code... ","I'm not a tech guy but that code looks really bloated. ","<b>CLEAN IT UP SOLDIER!</b>"],
+		["Last attack fried our system memory and now there's not enough space for the system code... ","I'm not a tech guy but that code looks really bloated. ","<b>CLEAN IT UP, SOLDIER!</b>"],
 		["this is level 7"],
-		["We have been at war for so long.","We distributed the remaining missiles between the anti-missile emplacements.","<b>The supplies are coming from the sky</b>, be careful not to set them off!"],
-		["Fix this feature to make auto-aim efficient...","Or it will waste all your missiles!"],
+		["SOLDIER!","We have been at war for so long.","We distributed the remaining missiles between the anti-missile emplacements.","<b>The supplies are coming from the sky</b>, be careful not to set them off!"],
+		["When the going gets though, we leave it to others."," ","Fix this feature to make auto-aim efficient...","Or it will waste all your missiles!"],
 		["It was an honor to fight by your side...","As long as there was no need."," ","FAREWELL, SOLDIER."]
 	]
 }

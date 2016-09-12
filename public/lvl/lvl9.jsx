@@ -1,4 +1,6 @@
 /* Enable auto-aim feature. */
+
+/* Calculate the distance between the two points 'p' and 'q'. */
 var pointDistance = function (p, q) {
 #BEGIN_EDITABLE#
 

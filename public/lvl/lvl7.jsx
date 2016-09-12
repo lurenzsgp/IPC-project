@@ -2,7 +2,7 @@
 var rechargeAntiMissileBatteries = function () {
 #BEGIN_EDITABLE#
 
-/* The 'antiMissileBatteries' array is composed of the 3 anti-missile emplacements. Initialize to 20 the 'missilesLeft' field of each array element. */
+/* The 'antiMissileBatteries' array is composed of the three anti-missile emplacements. Initialize to 10 the 'missilesLeft' field of each array element. */
 
 #END_EDITABLE#
 };

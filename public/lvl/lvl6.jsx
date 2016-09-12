@@ -13,14 +13,13 @@ var playerShoot = function( x, y ) {
         }
     }
 
+	/* when the altitude of the missile is between 50 and 370 then shoot the defensive missile */
     if ( y > 10 ) {
         if ( y < 400 ) {
             if( y <= 370 ) {
                 if( y >= 50 ) {
                     /* do nothing */
 
-
-                    /* when the altitude of the missile is between 50 and 370 then shoot the defensive missile */
                     playerMissiles.push( new PlayerMissile( source, x, y ) );
                 }
             }
