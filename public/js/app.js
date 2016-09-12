@@ -295,6 +295,10 @@ function enableBadge (name) {
 	$('[name="' + name + '"]').removeClass('badge-lock');
 }
 
+/*
+
+#TODO: luca: ho scritto una funzione parametrica per scrivere un messaggio definendo anche chi lo dice
+
 // cambia il messaggio nel fumetto della chat
 function generalMessage (message) {
 	$('#chat-panel img').attr("src", "img/general.png");
@@ -317,12 +321,13 @@ function oldmanMessage (message) {
 		startDelay: 500,
 	});
 }
+*/
 
 function unlockBadge (badgeId, badgeDescription) {
 	$.post('/checkBadge', { name: badgeId}, function (badge) {
 		if (!badge.unlock) {
 			$.post('/unlockBadge', { name: badgeId});
-			generalMessage(["<b>BADGE UNLOCK</b>", badgeDescription]);
+			newmsg(general, ["<b>BADGE UNLOCK</b>", badgeDescription]);
 		}
 	})
 }
