@@ -1,4 +1,4 @@
-// Calculate the missile speed
+/* Calculate the missile speed. */
 var missileSpeed = function (xDistance, yDistance) {
 #BEGIN_EDITABLE#
 

@@ -15,8 +15,9 @@ var swig				= require('swig');
 var path				= require('path');
 
 // configuration ===============================================================
-var DATABASE_URL = "postgres://goeohtbvzwfomt:yCANyJgwvGVFiy-ebfQS6v_nAu@ec2-54-75-233-92.eu-west-1.compute.amazonaws.com:5432/d7k2hjv4aq3u4g";
+
 // Knex and Bookshelf: http://bookshelfjs.org/#installation
+var DATABASE_URL = "postgres://goeohtbvzwfomt:yCANyJgwvGVFiy-ebfQS6v_nAu@ec2-54-75-233-92.eu-west-1.compute.amazonaws.com:5432/d7k2hjv4aq3u4g";
 console.log("connecting to: " + DATABASE_URL+ '?ssl=true');
 var pg = require('knex')({
   client: 'pg',

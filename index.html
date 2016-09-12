@@ -39,7 +39,7 @@
 		<nav class="navbar navbar-default navbar-inverse">
 			<div class="container" style="width: auto; height: 100%;">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="index">
 						<img class="logo "alt="Logo" src="img/logo.png">
                         <span class="nav-title">The Barbarian Steppe</span>
 					</a>
@@ -108,7 +108,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="load-level-btn">Play</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="load-level-btn">Play</button>
 					</div>
 				</div>
 			</div>
@@ -233,7 +233,7 @@
 			</div>
 		</div>
 
-
+		<!-- main page -->
 		<div class="container">
 			<div class="row" style="margin-top: 1em;">
 				<!-- Parte sx -->
@@ -266,17 +266,18 @@
 					</div>
 					<div class="row floating-buttons">
 						<div class="col-lg-12" align="center">
-                        	<!-- CONFIRM CODE BUTTON -->
-							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg" >
+							<button type="button" id="ButtonExecCode" class="btn btn-success btn-lg"
+									data-toggle="tooltip" data-placement="bottom" title="Execute code">
 								<i class="fa fa-check" aria-hidden="true"></i>
 							</button>
-                        	<!-- RESET CODE BUTTON -->
-							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg" >
+							
+							<button type="button" id="ButtonResetCode" class="btn btn-danger btn-lg"
+									data-toggle="tooltip" data-placement="bottom" title="Reset code">
 								<i class="fa fa-undo" aria-hidden="true"></i>
 							</button>
 
-                       		<!-- ASK FOR HELP BUTTON -->
-                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg" >
+                            <button type="button" id="ButtonGetHelp" class="btn btn-info btn-lg"
+									data-toggle="tooltip" data-placement="bottom" title="Ask the mechanic">
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </button>
 						</div>

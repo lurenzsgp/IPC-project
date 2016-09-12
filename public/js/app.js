@@ -2,14 +2,14 @@ var editor = {};
 
 function startTutorial(){
 	introJs().setOptions({
-		'skipLabel': 'Salta',
+		'skipLabel': 'Skip',
 		'showStepNumbers': 'false',
 		'scrollToElement': 'true',
 		steps:[
 			  {
 			  	intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<h4>Greetings Recruit!<h4>"+
+			  		"<h4>Greetings, Recruit!<h4>"+
 			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
 			  		"<p>Your job here is to fix and operate the antimissile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
 			  		"<p>We don't have much time, the enemy will strike soon!</p>" +
@@ -20,7 +20,7 @@ function startTutorial(){
                 intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Missile Command Interface.</b></p>"+
-			  		"<p>Click on it to control the antimissile batteries and stop the attack.</p>" +
+			  		"<p>Click on it to control the antimissile batteries and stop the attacks.</p>" +
 		  		"</div>",
                 position: "right"
               },
@@ -37,7 +37,7 @@ function startTutorial(){
               	element: document.querySelector('#ButtonExecCode'),
               	intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This button allows you to <b>execute</b> the code once you modified it.</p>" +
+			  		"<p>This button allows you to <b>execute</b> the code once you modify it.</p>" +
 		  		"</div>",
               	position: "left"
               },
@@ -45,7 +45,7 @@ function startTutorial(){
               	element: document.querySelector('#ButtonResetCode'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satistiy you.</p>" +
+			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satisfy you.</p>" +
 		  		"</div>",
 				position: "left"
               },
@@ -53,7 +53,7 @@ function startTutorial(){
             	element: document.querySelector('#ButtonGetHelp'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>In case you are stuck you can ask the old mechanic, i'm sure he can give you somee <b>help</b>.</p>" +
+			  		"<p>In case you are stuck you can ask the old mechanic, I'm sure he can give you some <b>help</b>.</p>" +
 		  		"</div>",
 				position: "left"
 			  },
@@ -61,7 +61,7 @@ function startTutorial(){
             	element: document.querySelector('#chat-panel'),
 				intro: "<img src='img/general.png' class='portrait'/>"+
 			  	"<div class='tutorial'>"+
-			  		"<p>This is the <b>message area</b> , here is where you will recieve your orders. Directly from me.</p>" +
+			  		"<p>This is the <b>message area</b>, where you will recieve your orders. Directly from me.</p>" +
 		  		"</div>",
 				position: "bottom"
 			  },
@@ -81,6 +81,14 @@ function startTutorial(){
 			  		"<p>Here you will find all your personal informations and progress.</p>" +
 		  		"</div>",
                 position: "right"
+              },
+              {
+                intro: "<img src='img/general.png' class='portrait'/>"+
+			  	"<div class='tutorial'>"+
+			  		"<p>That's all for now.</p>"+
+			  		"<p>Go defeat these <b>Barbarians</b>!</p>"+
+		  		"</div>",
+                position: "bottom"
               }
             ]
 	}).start();
@@ -147,12 +155,12 @@ $(document).ready(function () {
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(function() {
 	    var panel = editor.addPanel("bottom", "Code updated.");
-		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.execCode();
 	});
     $("#ButtonResetCode").click(function () {
 		var panel = editor.addPanel("bottom", "Code reloaded.");
-		window.setTimeout(editor.removePanels.bind(editor), 2000, panel.id);
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.resetCode();
 	});
 });
@@ -165,7 +173,8 @@ $("#level-selector").find('.btn').click( function() {
 
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
-	//TODO sostituire con descrizione del livello
+	// TODO sostituire con descrizione del livello
+	
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$.each(data.text[lvl - 1], function(index, value){
 			$(".level-description").append("<p>" + value +"</p>");
@@ -242,7 +251,7 @@ $('#buttonDeleteAvatar').click( function(){
 			$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success');
 			$('#imgAlert > p').text(data.message);
 			$('#imgAlert').show();
-			$('#imgAvatar').delay( 800 ).attr('src', 'img/recruit.png');
+			$('#imgAvatar').delay(800).attr('src', 'img/recruit.png');
 		}
 	});
 });
