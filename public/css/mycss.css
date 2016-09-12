@@ -116,13 +116,12 @@ margin-left: 0;
 }
 
 
-
 .mybadge{
-  height: 32px;
+  height: 50px;
   width: auto;
   display: inline-block;
+  margin-bottom: 10px;
 }
-
 
 .nopadding {
    padding: 0 !important;
@@ -311,6 +310,15 @@ hr{
   filter: brightness(120%);
 }
 
+.badge-table{
+	text-align:center;
+}
+
+.badge-table p {
+  font-size: 14px;
+  line-height: 1;
+}
+
 a, button:focus{
   outline: none !important;
 }
@@ -420,14 +428,20 @@ a, button:focus{
 }
 
 .badge-lock {
-    background-color: #aaa;
-    opacity: 50%;
+    background-color: #ccc;
+    /*opacity: 20%;*/
 }
+
+.badge-lock > img{
+	opacity: 0.2;
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
 
 #badge-div{
   text-align: center;
 }
-
 #badge-description{
   font-weight: 700;
 }

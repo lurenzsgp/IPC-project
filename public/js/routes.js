@@ -68,7 +68,7 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
-		var stats = fs.statSync(req.file.path);
+		var stats = fs.statSync(req.avatar.path);
 		var filesizeinMB = stats["size"] / 1000000.0;
 
 		if(filesizeinMB < 5){
@@ -76,14 +76,14 @@ module.exports = function(app, passport) {
 			
 			fs.rename(req.file.path, file, function(err) {
 				if (err) {
-					//console.log(err);
+					console.log(err);
 					res.send({
 						error: true,
 						message: 'Error. Can\'t upload avatar.',
 						username: req.user.get('username')
 					})
 				} else {
-					//console.log("Avatar updated.");
+					console.log("Avatar updated.");
 					res.send({
 						error: false,
 						message: 'Avatar updated.',
@@ -123,7 +123,7 @@ module.exports = function(app, passport) {
 				}
 			} else {
 // 				if (confirm('Do you really want to remove your avatar?')) {
-					//console.log("Avatar deleted.");
+					console.log("Avatar deleted.");
 					res.send({
 						error: false,
 						message: 'Avatar deleted.',
