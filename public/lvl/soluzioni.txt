@@ -107,9 +107,9 @@ aggiungi numberOfMissiles missili bonus al vettore enemyMissiles usando il costr
 
 Soluzione
 si controlla che venga utilizzato il parametro della funzione, e il numero di missili bonus creati
-var createBonusMissiles = function(n) {
+var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
-    for( var i = 0; i < n; i++ ) {
+    for( var i = 0; i < numberOfMissiles; i++ ) {
         enemyMissiles.push( new BonusMissile(targets) );
     }
 };

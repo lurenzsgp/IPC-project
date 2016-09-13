@@ -66,10 +66,13 @@ var createAntimissileBattery = function () {
 var initDebugLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
-    // Bottom left position of city
+    
+    // Bottom left position of cities
     createCities();
-    // Top middle position of anti missile battery
+    
+    // Top middle position of anti-missile batteries
     createAntimissileBattery();
+    
     initializeLevel();
 };
 
@@ -81,13 +84,13 @@ var initRefactLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
 
-    // Bottom left position of city
+    // Bottom left position of cities
     createCities();
-    // Top middle position of anti missile battery
+    
+    // Top middle position of anti-missile batteries
     createAntimissileBattery();
 
     initializeLevel();
-
     if (!userClick && (level === 5 || level === 6)) {
         editor.execCode();
     }
@@ -96,16 +99,16 @@ var initRefactLevel = function (userClick) {
 var initDesignLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
-    // Bottom left position of city
+    
+    // Bottom left position of cities
     createCities();
 
-    // Top middle position of anti missile battery
+    // Top middle position of anti-missile batteries
     createAntimissileBattery();
 
     if (!userClick && level === 7) {
         editor.execCode();
     }
-
     if (level >= 8) {
             if (level === 9) {
                 contrAerea = new AutoAntiMissileDefense();
@@ -481,8 +484,9 @@ Missile.prototype.draw = function() {
 	} else if( this.state === MISSILE.exploding ||
 			   this.state === MISSILE.imploding ) {
 	  //NEW GRAPHICS
+	  
       //explosion color
-	  ctx.fillStyle = 'rgba(255,230,200,0.5)';
+	  ctx.fillStyle = this.explodeColor;
 	  ctx.beginPath();
 	  ctx.arc( this.x, this.y, this.explodeRadius, 0, 2 * Math.PI );
 	  ctx.closePath();
@@ -513,6 +517,7 @@ function Missile( options ) {
     this.width = 2;
     this.height = 2;
     this.explodeRadius = 0;
+    this.explodeColor = options.explodeColor;
 }
 
 // Handle update to help with animating an explosion
@@ -556,7 +561,7 @@ function PlayerMissile( source, endX, endY ) {
 
     Missile.call( this, { startX: amb.x,  startY: amb.y,
                           endX: endX,     endY: endY,
-                          color: 'brown', trailColor: 'rgba(200,50,50,0.5)' } );
+                          color: 'brown', trailColor: 'rgba(200,50,50,0.5)', explodeColor: 'rgba(255,230,200,0.5)' } );
 
     var xDistance = this.endX - this.startX,
         yDistance = this.endY - this.startY;
@@ -691,7 +696,7 @@ function EnemyMissile( targets ) {
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'white', trailColor: 'rgba(222,222,222,0.5)' } );
+                          color: 'white', trailColor: 'rgba(222,222,222,0.5)', explodeColor: 'rgba(255,230,200,0.5)' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {
@@ -745,7 +750,7 @@ function BonusMissile( targets ) {
 
     Missile.call( this, { startX: startX,  startY: startY,
                           endX: target[0], endY: target[1],
-                          color: 'blue', trailColor: '#00ffff' } );
+                          color: 'blue', trailColor: '#00ffff', explodeColor: 'rgba(118,238,144,0.4)' } );
 
     framesToTarget = ( 650 - 30 * level ) / offSpeed;
     if( framesToTarget < 20 ) {
@@ -911,8 +916,8 @@ var endLevel = function( missilesLeft, citiesSaved ) {
             unlockBadge("Win-25-missiles", "Win and keep 25 missiles");
         }
     } else {
-        // TODO tradurre e cambiare il messaggio a tema con le chat
-        newmsg("general",["Non possiamo perdere nessuna citt&agrave;", "Riprovaci e mettici pi&ugrave; grinta"]);
+        // TODO cambiare il messaggio a tema con le chat
+        newmsg("general", ["We can't afford to lose ANY facility!", "Try again, Recruit, but this time with more committment."]);
     }
 
     // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione

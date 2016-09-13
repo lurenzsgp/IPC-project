@@ -1,10 +1,10 @@
 /* Enable auto-aim feature. */
 
-/* Calculate the distance between the two points 'p' and 'q'. */
+/* Calculate the distance between the two points 'p' and 'q' using 'Math' object. */
 var pointDistance = function (p, q) {
 #BEGIN_EDITABLE#
 
-    return 1;
+    return 0;
 #END_EDITABLE#
 };
 
