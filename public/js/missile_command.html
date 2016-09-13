@@ -531,7 +531,7 @@ Missile.prototype.explode = function() {
     if( this.state === MISSILE.imploding ) {
         this.explodeRadius--;
         if( this.groundExplosion ) {
-            if ( this instanceof BonusMissile) {
+            if ( this instanceof BonusMissile ) {
                 this.bonus();
             } else {
                 ( this.target[2] instanceof City ) ? this.target[2].active = false : this.target[2].missilesLeft = 0;
@@ -794,7 +794,7 @@ BonusMissile.prototype.update = function() {
 BonusMissile.prototype.bonus = function () {
     if (!this.bonuscatched) {
         this.bonuscatched = true;
-        // bonus in punti
+        // bonus in ricarica di missili difensivi
         addMissile(3);
     }
 }
@@ -811,13 +811,15 @@ var addMissile = function (n) {
 // When a missile that did not hit the ground is exploding, check if
 // any enemy missile is in the explosion radius; if so, cause that
 // enemy missile to begin exploding too.
+// The bonus missiles will never explode because of a near explosion.
 var explodeOtherMissiles = function( missile, ctx ) {
 	if( !missile.groundExplosion ){
 	  $.each( enemyMissiles, function( index, otherMissile ) {
-		if( ctx.isPointInPath( otherMissile.x, otherMissile.y ) &&
-			otherMissile.state === MISSILE.active ) {
-		  levelscore += 25 * getMultiplier();
-		  otherMissile.state = MISSILE.exploding;
+		if( ctx.isPointInPath( otherMissile.x, otherMissile.y ) && otherMissile.state === MISSILE.active) {
+			if (level !== 9 || !(otherMissile instanceof BonusMissile)) {
+			  levelscore += 25 * getMultiplier();
+			  otherMissile.state = MISSILE.exploding;
+		  }
 		}
 	  });
 	}
@@ -867,9 +869,6 @@ var checkEndLevel = function() {
         var missilesLeft = totalMissilesLeft(),
           citiesSaved  = totalCitiesSaved();
 
-        // $("#ButtonExecCode").prop("disabled",false);
-        // $("#ButtonResetCode").prop("disabled",false);
-
         // !citiesSaved ? endGame( missilesLeft ) : endLevel( missilesLeft, citiesSaved );
         endLevel( missilesLeft, citiesSaved );
     }
@@ -917,7 +916,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
         }
     } else {
         // livello non superato
-        newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, but this time with more committment!"], 500);
+        newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, this time with more committment!"], 500);
     }
 
     // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
