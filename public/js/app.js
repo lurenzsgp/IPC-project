@@ -1,4 +1,5 @@
 var editor = {};
+var DEFAULT_TYPE_IT_DELAY = 500;
 
 function startTutorial(){
 	introJs().setOptions({
@@ -207,7 +208,7 @@ function loadChat() {
 		$.getJSON("lvl/levels-chat.json", function(data){
 			var txt = data.text[level - 1];
 			//typeit.js
-			newmsg("general", txt);
+			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 		});
 	} else {
 		// livello finale
@@ -215,16 +216,16 @@ function loadChat() {
 			var txt;
 			
 			txt = data.text[0];
-			newmsg("general", txt);
+			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			
-			window.setTimeout(function(){
+			window.setTimeout(function() {
 				txt = data.text[1];
-				newmsg("general", txt);
+				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			}, 8800);
-			
-			window.setTimeout(function(){
+		
+			window.setTimeout(function() {
 				txt = data.text[2];
-				newmsg("general", txt);
+				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			}, 10000);
 		});
 	}
@@ -325,7 +326,7 @@ function unlockBadge (badgeId, badgeDescription) {
 	})
 }
 
-function newmsg (character, strings) {
+function newmsg (character, strings, startDelay) {
 	var portrait = "<img class='portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg'>"+ portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
@@ -335,7 +336,7 @@ function newmsg (character, strings) {
 	chat.find("span").last().typeIt({
 		strings: strings,
 		speed: 50,
-		startDelay: 500,
+		startDelay: startDelay,
 	});
 
 }	
