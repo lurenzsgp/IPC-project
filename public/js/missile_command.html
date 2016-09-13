@@ -892,7 +892,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
       levelscore += missilesBonus + citiesBonus;
       drawEndLevel( missilesLeft, missilesBonus,
                     citiesSaved, citiesBonus );
-    }, 2000 );
+    }, 2000);
 
     if (nextLevel) {
         // controllo i badge
@@ -916,8 +916,8 @@ var endLevel = function( missilesLeft, citiesSaved ) {
             unlockBadge("Win-25-missiles", "Win and keep 25 missiles");
         }
     } else {
-        // TODO cambiare il messaggio a tema con le chat
-        newmsg("general", ["We can't afford to lose ANY facility!", "Try again, Recruit, but this time with more committment."]);
+        // livello non superato
+        newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, but this time with more committment!"]);
     }
 
     // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
@@ -927,7 +927,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 // Move to the next level
 var setupNextLevel = function(next) {
     if (next) {
-        // aggiorno il punteggio
+        // aggiorno il punteggio totale dell'utente
         scoreArray[level-1] = levelscore;
         score = 0;
         $.each(scoreArray, function (index, el) {
@@ -936,17 +936,22 @@ var setupNextLevel = function(next) {
 
         // aumento il livello
         if (level < 10) {
-            level ++;
+            level++;
         }
 
         // salvo i dati nella sessione e nel db
         if (level > maxLevel) {
             maxLevel = level;
         }
-        $.post('/saveUserState', {level: maxLevel, score: score, levelScore: scoreArray.toString()});
+        $.post('/saveUserState', {
+        	level: maxLevel,
+        	score: score,
+        	levelScore: scoreArray.toString()
+        });
 
         // carico la chat
         loadChat();
+        
         // carico il codice del livello successivo
         editor.loadCode(level);
     }

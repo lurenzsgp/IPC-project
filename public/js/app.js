@@ -93,7 +93,9 @@ function startTutorial(){
             ]
 	}).oncomplete(function() {
 		unlockBadge("Tutorial", "Tutorial complete");
-		setTimeout( loadChat, 5000 );
+		loadChat();
+	}).onexit(function() {
+		loadChat();
 	}).start();
 }
 
@@ -101,9 +103,11 @@ $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
-	// attiva Intro.JS
+	// attiva Intro.JS o carica la chat del livello corrente
 	if (level === 1) {
 		startTutorial();
+	} else {
+		loadChat();
 	}
 
 	//attiva i tooltip di bootstrap sulla classe btn
@@ -112,9 +116,6 @@ $(document).ready(function () {
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
-
-	// caricamento chat
-	loadChat();
 
 	// Missile Command
     missileCommand();
@@ -200,14 +201,33 @@ $("#load-level-btn").click(function(){
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
-	//get chat text from JSON file
-	$.getJSON("lvl/levels-chat.json", function(data){
-		var txt = data.text[level - 1];
-		console.log(txt);
-		//typeit.js
-		newmsg("general", txt);
-
-	});
+	
+	// get chat text from JSON file
+	if (level !== 10) {
+		$.getJSON("lvl/levels-chat.json", function(data){
+			var txt = data.text[level - 1];
+			//typeit.js
+			newmsg("general", txt);
+		});
+	} else {
+		// livello finale
+		$.getJSON("lvl/final-chat.json", function(data){
+			var txt;
+			
+			txt = data.text[0];
+			newmsg("general", txt);
+			
+			window.setTimeout(function(){
+				txt = data.text[1];
+				newmsg("general", txt);
+			}, 8000);
+			
+			window.setTimeout(function(){
+				txt = data.text[2];
+				newmsg("general", txt);
+			}, 9000);
+		});
+	}
 }
 
 $('#user').click(function () {
@@ -275,7 +295,7 @@ console.log("Updating the user's avatar...");
 				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-success')
 				$('#imgAlert > p').text(data.message);
 				$('#imgAlert').show();
-				$('#imgAvatar').delay( 800 ).attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime() );
+				$('#imgAvatar').delay(800).attr('src', 'img/avatars/' + data.username + "?" + new Date().getTime());
 			}
 		}
 	});
@@ -290,60 +310,32 @@ $('#levels').click(function () {
 	})
 });
 
-// rende graficamente unlock il badge utente
+// rende graficamente sbloccato il badge utente
 function enableBadge (name) {
 	$('[name="' + name + '"]').removeClass('badge-lock');
 }
-
-/*
-
-#TODO: luca: ho scritto una funzione parametrica per scrivere un messaggio definendo anche chi lo dice
-
-// cambia il messaggio nel fumetto della chat
-function generalMessage (message) {
-	$('#chat-panel img').attr("src", "img/general.png");
-	//typeit.js
-	$(".type-it").typeIt({
-		strings: message,
-		speed: 50,
-		startDelay: 500,
-	});
-}
-
-
-// cambia il messaggio nel fumetto della chat
-function oldmanMessage (message) {
-	$('#chat-panel img').attr("src", "img/oldman.png");
-	//typeit.js
-	$(".type-it").typeIt({
-		strings: message,
-		speed: 50,
-		startDelay: 500,
-	});
-}
-*/
 
 function unlockBadge (badgeId, badgeDescription) {
 	$.post('/checkBadge', { name: badgeId}, function (badge) {
 		if (!badge.unlock) {
 			$.post('/unlockBadge', { name: badgeId});
-			//newmsg(general, ["<b>BADGE UNLOCKED</b>", badgeDescription]);
 			$("#badgesModal").modal();
 			$("#badge-description").append(badgeDescription);
 		}
 	})
 }
 
-function newmsg (character, strings){
+function newmsg (character, strings) {
 	var portrait = "<img class='portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg'>"+ portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
+	
 	chat.append(div);
 	chat.scrollTop(chat.height());
 	chat.find("span").last().typeIt({
-	strings: strings,
-	speed: 50,
-	startDelay: 500,
+		strings: strings,
+		speed: 50,
+		startDelay: 500,
 	});
 
 }	
