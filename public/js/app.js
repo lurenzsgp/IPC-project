@@ -11,7 +11,7 @@ function startTutorial(){
 			  	"<div class='tutorial'>"+
 			  		"<h4>Greetings, Recruit!<h4>"+
 			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
-			  		"<p>Your job here is to fix and operate the antimissile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
+			  		"<p>Your job here is to fix and operate the anti-missile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
 			  		"<p>We don't have much time, the enemy will strike soon!</p>" +
 		  		"</div>"
 			  },
