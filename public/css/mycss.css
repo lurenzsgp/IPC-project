@@ -340,7 +340,7 @@ a, button:focus{
 }
 
 #chat-panel{
-  margin: 5px 15px 10px 15px;
+  margin: 0px 15px 10px 15px;
   height: auto;
 }
 
@@ -349,7 +349,7 @@ a, button:focus{
 }
 
 #chat-body{
-  height: 260px;
+  height: 250px;
   overflow-y: scroll;
 }
 

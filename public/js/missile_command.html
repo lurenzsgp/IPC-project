@@ -205,33 +205,38 @@ var drawBeginLevel = function() {
 // Show current score
 var drawScore = function() {
     ctx.fillStyle = 'white';
-    ctx.font =  '20px monaco, consolas';
-    ctx.fillText( 'level.score = ' + levelscore, 50, 25 );
+    ctx.font =  'bold 15px consolas, monaco';
+    ctx.fillText( 'level score: ' + levelscore, 15, 40 );
+    ctx.fillText( 'total score: ' + score, 15, 25);
+    ctx.fillText( 'lvl: ' + level, 15, 55);
+    ctx.fillText( 'multiplier: ' + getMultiplier() + 'x', 15, 70 );
 };
 
 // Show message before a level begins
 var drawLevelMessage = function() {
     ctx.fillStyle = '#6d6';
+    
     ctx.font =  '20px monaco, consolas';
-    ctx.fillText( 'onclick(lvl.start())', 130, 150 );
-    ctx.fillStyle = 'white';
-    ctx.fillText( 'lvl == ' + level, 160, 180 );
+    ctx.fillText( 'click to start.', 130, 180 );
 
-    ctx.fillText( '' + getMultiplier(), 160, 215 );
+    ctx.font = 'bold 25px monaco, consolas';    
     ctx.fillStyle = 'white';
-    ctx.fillText( '  * points.count()', 160, 215 );
+    ctx.fillText( 'level ' + level, 130, 150 );
 
-    ctx.font = 'bold 20px monaco, consolas';
+    ctx.font = 'bold 32px monaco, consolas';
     ctx.fillStyle = '#d66';
-    ctx.fillText( '>>>cities.defend()<<<', 130, 285 );
+    ctx.fillText( 'DEFEND THE BASE!', 130, 250 );
 };
 
 // Show bonus points at end of a level
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
     drawGameState();
-    ctx.fillStyle = 'white';
+    var bonus = (missilesLeft * missilesBonus) + (citiesSaved * citiesBonus);
+    ctx.fillStyle = '#6d6';
+    ctx.font = 'bold 25px monaco, consolas';
+    ctx.fillText( 'BONUS POINTS: ' +  bonus, 150, 149 );
+
     ctx.font = '20px monaco, consolas';
-    ctx.fillText( 'BONUS POINTS', 150, 149 );
     ctx.fillStyle = 'white';
     ctx.fillText( '' + missilesBonus, 170, 213 );
     ctx.fillStyle = 'white';

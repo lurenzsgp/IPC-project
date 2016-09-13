@@ -122,9 +122,6 @@ $(document).ready(function () {
 	// Missile Command
     missileCommand();
 
-	// // CodeMirror: addon Panel
-	// editor.addPanel("bottom", "Panel per feedback ad editor");
-
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
 	  var comp = [
@@ -179,15 +176,12 @@ $("#level-selector").find('.btn').click( function() {
 
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
-	// TODO sostituire con descrizione del livello
 
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$.each(data.text[lvl - 1], function(index, value){
 			$(".level-description").append("<p>" + value +"</p>");
 		});
 	});
-
-	//$('.level-description').children('p').html("<span>Example text for level " + lvl + "</span>");
 });
 
 $("#load-level-btn").click(function(){
@@ -248,8 +242,6 @@ $('#user').click(function () {
 	var levelWidth = (maxLevel - 1) / 9 * 100;
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
 	$('[name="score"]').text(score + " pts");
-	//$('#imgAvatar').attr('src', 'img/avatars/' + username + "?" + new Date().getTime() );
-	//$('#imgAvatar').on("error", function(){$(this).attr('src', 'img/default-avatar.png')});
 	$('#imgAlert').hide();
 
 	$.get('/getUserBadge', function(data) {
