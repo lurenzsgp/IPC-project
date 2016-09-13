@@ -220,12 +220,12 @@ function loadChat() {
 			window.setTimeout(function(){
 				txt = data.text[1];
 				newmsg("general", txt);
-			}, 8000);
+			}, 8800);
 			
 			window.setTimeout(function(){
 				txt = data.text[2];
 				newmsg("general", txt);
-			}, 9000);
+			}, 10000);
 		});
 	}
 }
