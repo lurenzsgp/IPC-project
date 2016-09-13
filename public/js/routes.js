@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
         }, {patch: true}).then(function(model) {
             req.login(model, function(error) {
                 if (!error) {
-                   console.log('Succcessfully saved.');
+                   console.log('Successfully saved.');
                 }
             });
             res.end();
