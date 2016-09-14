@@ -9,7 +9,7 @@ function startTutorial(){
 		'scrollToElement': 'true',
 		steps:[
 			  {
-			  	intro: "<img src='img/general.png' class='portrait'/>"+
+			  	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<h4>Greetings, Recruit!<h4>"+
 			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
@@ -19,7 +19,7 @@ function startTutorial(){
 			  },
               {
                 element: document.querySelector('#mc-container'),
-                intro: "<img src='img/general.png' class='portrait'/>"+
+                intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Missile Command Interface.</b></p>"+
 			  		"<p>Click on it to control the antimissile batteries and stop the attacks.</p>" +
@@ -28,7 +28,7 @@ function startTutorial(){
               },
               {
               	element: document.querySelector('#editor-container'),
-              	intro: "<img src='img/general.png' class='portrait'/>"+
+              	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Editor</b>.</p>" +
 			  		"<p>Here you can look at the system's code and fix its problems in order to stop the attacks.</p>"+
@@ -37,7 +37,7 @@ function startTutorial(){
               },
               {
               	element: document.querySelector('#ButtonExecCode'),
-              	intro: "<img src='img/general.png' class='portrait'/>"+
+              	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This button allows you to <b>execute</b> the code once you modify it.</p>" +
 		  		"</div>",
@@ -45,7 +45,7 @@ function startTutorial(){
               },
               {
               	element: document.querySelector('#ButtonResetCode'),
-				intro: "<img src='img/general.png' class='portrait'/>"+
+				intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This button allows you to <b>revert</b> back to the original code if your changes don't satisfy you.</p>" +
 		  		"</div>",
@@ -53,7 +53,7 @@ function startTutorial(){
               },
               {
             	element: document.querySelector('#ButtonGetHelp'),
-				intro: "<img src='img/general.png' class='portrait'/>"+
+				intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>In case you are stuck you can ask the old mechanic. I'm sure he can give you some <b>help</b>.</p>" +
 		  		"</div>",
@@ -61,7 +61,7 @@ function startTutorial(){
 			  },
               {
             	element: document.querySelector('#chat-panel'),
-				intro: "<img src='img/general.png' class='portrait'/>"+
+				intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>message area</b>, where you will recieve your orders directly from me.</p>" +
 		  		"</div>",
@@ -69,7 +69,7 @@ function startTutorial(){
 			  },
               {
                 element: document.querySelector('#levels'),
-                intro: "<img src='img/general.png' class='portrait'/>"+
+                intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>Here you will find all the <b>levels</b> already completed.</p>" +
 		  		"</div>",
@@ -77,7 +77,7 @@ function startTutorial(){
               },
               {
                 element: document.querySelector('#user'),
-                intro: "<img src='img/general.png' class='portrait'/>"+
+                intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>profile page</b>.</p>"+
 			  		"<p>Here you will find all of your personal information and progress.</p>" +
@@ -85,7 +85,7 @@ function startTutorial(){
                 position: "right"
               },
               {
-                intro: "<img src='img/general.png' class='portrait'/>"+
+                intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>That's all for now.</p>"+
 			  		"<p>Go defeat these <b>Barbarians</b>!</p>"+
@@ -332,8 +332,8 @@ function unlockBadge (badgeId, badgeDescription) {
 }
 
 function newmsg (character, strings, startDelay) {
-	var portrait = "<img class='portrait' src='/img/" + character + ".png'/>";
-	var div = "<div class='msg'>"+ portrait + "<span></span>" +"</div>"
+	var portrait = "<img class='portrait " + character + "' src='/img/" + character + ".png'/>";
+	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
 	
 	chat.append(div);
