@@ -1,5 +1,6 @@
 var editor = {};
 var DEFAULT_TYPE_IT_DELAY = 500;
+var timeoutID1, timeoutID2;
 
 function startTutorial(){
 	introJs().setOptions({
@@ -194,6 +195,8 @@ $("#load-level-btn").click(function(){
 	var lvl = $(".btn-primary").text();
 	level = parseInt(lvl);
 
+	window.clearTimeout(timeoutID1);
+	window.clearTimeout(timeoutID2);
 	loadChat();
 	editor.loadCode(level);
 	missileCommand(true);
@@ -217,12 +220,12 @@ function loadChat() {
 			txt = data.text[0];
 			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			
-			window.setTimeout(function() {
+			timeoutID1 = window.setTimeout(function() {
 				txt = data.text[1];
 				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			}, 8800);
 		
-			window.setTimeout(function() {
+			timeoutID2 = window.setTimeout(function() {
 				txt = data.text[2];
 				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			}, 10000);
