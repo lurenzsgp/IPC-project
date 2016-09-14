@@ -13,7 +13,7 @@ function startTutorial(){
 			  		"<h4>Greetings, Recruit!<h4>"+
 			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
 			  		"<p>Your job here is to fix and operate the anti-missile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
-			  		"<p>We don't have much time, the enemy will strike soon!</p>" +
+			  		"<p>We don't have much time, the Enemy will strike soon!</p>" +
 		  		"</div>"
 			  },
               {
@@ -207,7 +207,6 @@ function loadChat() {
 	if (level !== 10) {
 		$.getJSON("lvl/levels-chat.json", function(data){
 			var txt = data.text[level - 1];
-			//typeit.js
 			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 		});
 	} else {
@@ -229,6 +228,17 @@ function loadChat() {
 			}, 10000);
 		});
 	}
+}
+
+function loadHints() {
+	$("#chat-panel > .panel-heading").html("Level " + level);
+	
+	// get hints text from JSON file
+	$.getJSON("lvl/hints-chat.json", function(data){
+		var txt = data.text[level - 1];
+		newmsg("oldman", txt, DEFAULT_TYPE_IT_DELAY);
+		console.log(txt);
+	});
 }
 
 $('#user').click(function () {
