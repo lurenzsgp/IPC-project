@@ -219,13 +219,13 @@ function loadChat() {
 		});
 	} else {
 		// livello 10: messaggi conclusivi del generale
-		$.getJSON("lvl/final-chat.json", function(data) {
-			newmsg("general", data.text[0], {
+		$.getJSON("lvl/final-chat.json", function(finalData) {
+			newmsg("general", finalData.text[0], {
 				'callback': function() {
-					newmsg("general", data.text[1], {
+					newmsg("general", finalData.text[1], {
 						'startDelay': 1000,
 						'callback': function() {
-							newmsg("general", data.text[2], {
+							newmsg("general", finalData.text[2], {
 								'startDelay': 1200
 							});
 						}
@@ -234,6 +234,11 @@ function loadChat() {
 			});
 		});
 	}
+	/*
+		FIXME: se si passa dal livello 10 a un livello precedente il testo del 2^ e del 3^
+		messaggio finale del generale vengono mostrati dopo il testo corretto relativo al
+		livello selezionato
+	*/
 }
 
 function loadHints() {
@@ -330,11 +335,11 @@ function enableBadge (name) {
 }
 
 function unlockBadge (badgeId, badgeDescription) {
-	$.post('/checkBadge', { name: badgeId}, function (badge) {
+	$.post('/checkBadge', { name: badgeId }, function (badge) {
 		if (!badge.unlock) {
-			$.post('/unlockBadge', { name: badgeId});
+			$.post('/unlockBadge', { name: badgeId });
 			$("#badgesModal").modal();
-			$("#badge-description").append(badgeDescription);
+			$("#badge-description").text(badgeDescription);
 		}
 	})
 }
