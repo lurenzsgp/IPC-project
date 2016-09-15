@@ -105,19 +105,32 @@ $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
-	// attiva Intro.JS o carica la chat del livello corrente
-	if (level === 1) {
-		startTutorial();
-	} else {
-		loadChat();
-	}
-
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
 
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
+
+	editor.execCode = editor.execCode.bind(editor);
+	editor.resetCode = editor.resetCode.bind(editor);
+    $("#ButtonExecCode").click(function() {
+	    var panel = editor.addPanel("bottom", "Code updated.");
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+		editor.execCode();
+	});
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+		editor.resetCode();
+	});
+
+	// attiva Intro.JS o carica la chat del livello corrente
+	if (level === 1) {
+		startTutorial();
+	} else {
+		loadChat();
+	}
 
 	// Missile Command
     missileCommand();
@@ -153,19 +166,6 @@ $(document).ready(function () {
 		})
 	  }
 	}
-
-	editor.execCode = editor.execCode.bind(editor);
-	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(function() {
-	    var panel = editor.addPanel("bottom", "Code updated.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
-		editor.execCode();
-	});
-    $("#ButtonResetCode").click(function () {
-		var panel = editor.addPanel("bottom", "Code reloaded.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
-		editor.resetCode();
-	});
 });
 
 $("#level-selector").find('.btn').click( function() {
