@@ -1,12 +1,12 @@
 {
 	"text" : [
 		["You are the new Recruit, aren't you?","I was operating in this Fortress since... I can't remember when.","I still know how the system code works, though."],
-		["Level 1"],
-		["level 2"],
-		["level 3"],
-		["level 4"],
-		["level 5"],
-		["level 6"],
+		["Missiles are slow? someone must have messed up the speed settings. Look for it, it should be around 12 or something"],
+		["Looks like to me that someone pulled a prank on you and made the missiles go random...ahah!"],
+		["The explosion command is not executing, maybe it's because of the rust... It looks like a comment"],
+		["Hey kid! Have you tried using a for cycle?"],
+		["You see all those loops there? Do you think they have any reason to be there?"],
+		["I think you can write all that in a couple of lines! Try to specify all your condition togheter"],
 		["level 7"],
 		["level 8"],
 		["level 9"],

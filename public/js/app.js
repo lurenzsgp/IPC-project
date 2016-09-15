@@ -340,7 +340,7 @@ function unlockBadge (badgeId, badgeDescription) {
 }
 
 function newmsg (character, strings, options) {
-	var portrait = "<img class='portrait " + character + "' src='/img/" + character + ".png'/>";
+	var portrait = "<img class='" + character + " portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
 	
