@@ -68,7 +68,7 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
-		var stats = fs.statSync(req.avatar.path);
+		var stats = fs.statSync(req.file.path);
 		var filesizeinMB = stats["size"] / 1000000.0;
 
 		if(filesizeinMB < 5){
