@@ -1,6 +1,6 @@
 var editor = {};
+var DEFAULT_TYPE_IT_SPEED = 50;
 var DEFAULT_TYPE_IT_DELAY = 500;
-var timeoutID1, timeoutID2;
 
 function startTutorial(){
 	introJs().setOptions({
@@ -12,7 +12,7 @@ function startTutorial(){
 			  	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<h4>Greetings, Recruit!<h4>"+
-			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
+			  		"<p>Welcome to <strong>Fortress Bastiani</strong>.</p>" +
 			  		"<p>Your job here is to fix and operate the anti-missile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
 			  		"<p>We don't have much time, the Enemy will strike soon!</p>" +
 		  		"</div>"
@@ -31,7 +31,7 @@ function startTutorial(){
               	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Editor</b>.</p>" +
-			  		"<p>Here you can look at the system's code and fix its problems in order to stop the attacks.</p>"+
+			  		"<p>Here you can look at the system code and fix its problems in order to stop the attacks.</p>"+
 		  		"</div>",
               	position: "bottom"
               },
@@ -189,8 +189,6 @@ $("#load-level-btn").click(function(){
 	var lvl = $(".btn-primary").text();
 	level = parseInt(lvl);
 
-	window.clearTimeout(timeoutID1);
-	window.clearTimeout(timeoutID2);
 	loadChat();
 	editor.loadCode(level);
 	missileCommand(true);
@@ -200,29 +198,40 @@ function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
 	
-	// get chat text from JSON file
-	if (level !== 10) {
-		$.getJSON("lvl/levels-chat.json", function(data){
-			var txt = data.text[level - 1];
-			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
+	// get chat texts from JSON file
+	if (level === 1) {
+		// livello 1: primo messaggio del generale + introduzione del vecchio pazzo
+		$.getJSON("lvl/levels-chat.json", function(data) {
+			newmsg("general", data.text[level - 1], {
+				'callback': function() {
+					$.getJSON("lvl/hints-chat.json", function(hints) {
+						newmsg("oldman", hints.text[0], {
+							'startDelay': 1500
+						});
+					});
+				}
+			});
+		});
+	} else if (level !== 10) {
+		// livelli 2-9: messaggi del generale relativi ai diversi livelli
+		$.getJSON("lvl/levels-chat.json", function(data) {
+			newmsg("general", data.text[level - 1], {});
 		});
 	} else {
-		// livello finale
-		$.getJSON("lvl/final-chat.json", function(data){
-			var txt;
-			
-			txt = data.text[0];
-			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			
-			timeoutID1 = window.setTimeout(function() {
-				txt = data.text[1];
-				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			}, 8800);
-		
-			timeoutID2 = window.setTimeout(function() {
-				txt = data.text[2];
-				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			}, 10000);
+		// livello 10: messaggi conclusivi del generale
+		$.getJSON("lvl/final-chat.json", function(data) {
+			newmsg("general", data.text[0], {
+				'callback': function() {
+					newmsg("general", data.text[1], {
+						'startDelay': 1000,
+						'callback': function() {
+							newmsg("general", data.text[2], {
+								'startDelay': 1200
+							});
+						}
+					});
+				}
+			});
 		});
 	}
 }
@@ -232,9 +241,8 @@ function loadHints() {
 	
 	// get hints text from JSON file
 	$.getJSON("lvl/hints-chat.json", function(data){
-		var txt = data.text[level - 1];
-		newmsg("oldman", txt, DEFAULT_TYPE_IT_DELAY);
-		console.log(txt);
+		var txt = data.text[level];
+		newmsg("oldman", txt, {});
 	});
 }
 
@@ -331,17 +339,26 @@ function unlockBadge (badgeId, badgeDescription) {
 	})
 }
 
-function newmsg (character, strings, startDelay) {
+function newmsg (character, strings, options) {
 	var portrait = "<img class='portrait " + character + "' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
 	
 	chat.append(div);
 	chat.scrollTop(chat.height());
-	chat.find("span").last().typeIt({
-		strings: strings,
-		speed: 50,
-		startDelay: startDelay,
-	});
+	if (options['callback']) {
+		chat.find("span").last().typeIt({
+			strings: strings,
+			speed: options['speed'] ? options['speed'] : DEFAULT_TYPE_IT_SPEED,
+			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY,
+			callback: options['callback']
+		});
+	} else {
+		chat.find("span").last().typeIt({
+			strings: strings,
+			speed: options['speed'] ? options['speed'] : DEFAULT_TYPE_IT_SPEED,
+			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY
+		});
+	}
 
 }	
