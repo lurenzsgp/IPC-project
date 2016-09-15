@@ -8,6 +8,7 @@ var canvas = document.querySelector( 'canvas' ),
 var CANVAS_WIDTH  = canvas.width,
   CANVAS_HEIGHT = canvas.height,
   SPEEDMISSILEDEFENSE = 12,
+  NUMBEROFBONUSMISSILE = 3,
   MISSILE = {
     active: 1,
     exploding: 2,
@@ -23,6 +24,7 @@ var levelscore = 0,
   antiMissileBatteries = [],
   playerMissiles = [],
   enemyMissiles = [],
+  bonusMissileDestroyed,
   timerID;
 
 var scoreArray = [<%= levelScore %>];
@@ -66,13 +68,13 @@ var createAntimissileBattery = function () {
 var initDebugLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
-    
+
     // Bottom left position of cities
     createCities();
-    
+
     // Top middle position of anti-missile batteries
     createAntimissileBattery();
-    
+
     initializeLevel();
 };
 
@@ -86,7 +88,7 @@ var initRefactLevel = function (userClick) {
 
     // Bottom left position of cities
     createCities();
-    
+
     // Top middle position of anti-missile batteries
     createAntimissileBattery();
 
@@ -99,7 +101,7 @@ var initRefactLevel = function (userClick) {
 var initDesignLevel = function (userClick) {
     cities = [];
     antiMissileBatteries = [];
-    
+
     // Bottom left position of cities
     createCities();
 
@@ -155,8 +157,9 @@ var initializeHandicapLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
-    createBonusMissiles(3);
+    createBonusMissiles(NUMBEROFBONUSMISSILE);
     drawBeginLevel();
+    bonusMissileDestroyed = 0;
 
     if (level === 8 && isDefined(contrAerea)) {
         delete contrAerea;
@@ -215,11 +218,11 @@ var drawScore = function() {
 // Show message before a level begins
 var drawLevelMessage = function() {
     ctx.fillStyle = '#6d6';
-    
+
     ctx.font =  '20px monaco, consolas';
     ctx.fillText( 'click to start.', 130, 180 );
 
-    ctx.font = 'bold 25px monaco, consolas';    
+    ctx.font = 'bold 25px monaco, consolas';
     ctx.fillStyle = 'white';
     ctx.fillText( 'level ' + level, 130, 150 );
 
@@ -489,7 +492,7 @@ Missile.prototype.draw = function() {
 	} else if( this.state === MISSILE.exploding ||
 			   this.state === MISSILE.imploding ) {
 	  //NEW GRAPHICS
-	  
+
       //explosion color
 	  ctx.fillStyle = this.explodeColor;
 	  ctx.beginPath();
@@ -545,6 +548,11 @@ Missile.prototype.explode = function() {
     }
     if( this.explodeRadius < 0 ) {
         this.state = MISSILE.exploded;
+        if( !this.groundExplosion ) {
+            if ( this instanceof BonusMissile ) {
+                bonusMissileDestroyed ++;
+            }
+        }
     }
 };
 
@@ -924,6 +932,11 @@ var endLevel = function( missilesLeft, citiesSaved ) {
         newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, this time with more committment!"], 500);
     }
 
+// badge destroy all bonus missiles, non dipende dal superamente del livello
+    if (bonusMissileDestroyed === NUMBEROFBONUSMISSILE ) {
+        unlockBadge("Destroy-bonus-missiles", "Destroyed all bonus missiles.");
+    }
+
     // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
     setTimeout( setupNextLevel, 5000, nextLevel );
 };
@@ -955,7 +968,7 @@ var setupNextLevel = function(next) {
 
         // carico la chat
         loadChat();
-        
+
         // carico il codice del livello successivo
         editor.loadCode(level);
     }
