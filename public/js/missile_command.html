@@ -92,9 +92,11 @@ var initRefactLevel = function () {
     createAntimissileBattery();
 
     initializeLevel();
-    if (level === 5 ) {
-        penaltyRechargeAntiMissileBatteries();
-    } else if (level === 6) {
+    // if (level === 5 ) {
+    //     rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+    //     drawBeginLevel();
+    // } else
+    if (level === 6) {
         playerShoot = function ( x, y ) {
             return;
         }
@@ -1087,15 +1089,15 @@ var whichAntiMissileBattery = function( x ) {
 
 // Attach event Listeners to handle the player's input
 var setupListeners = function() {
-    $( '#miscom' ).unbind();
+    $( '#mc-container' ).unbind();
     $( '#mc-container' ).one( 'click', function() {
-      startLevel();
+        startLevel();
 
-      $( '#miscom' ).unbind().click(function( event ) {
-        var mousePos = getMousePos(this, event);
-        playerShoot( mousePos.x, mousePos.y);
-      });
-
+        $( '#miscom' ).unbind();
+        $( '#miscom' ).unbind().click(function( event ) {
+            var mousePos = getMousePos(this, event);
+            playerShoot( mousePos.x, mousePos.y);
+        });
     });
 };
 
