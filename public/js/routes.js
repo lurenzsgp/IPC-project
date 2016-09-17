@@ -68,36 +68,38 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
-		var stats = fs.statSync(req.avatar.path);
-		var filesizeinMB = stats["size"] / 1000000.0;
+		if(req.file){
+			var stats = fs.statSync(req.file.path);
+			var filesizeinMB = stats["size"] / 1000000.0;
 
-		if(filesizeinMB < 5){
-			var file = 'public/img/avatars/' + req.user.get('username');
-			
-			fs.rename(req.file.path, file, function(err) {
-				if (err) {
-					console.log(err);
-					res.send({
-						error: true,
-						message: 'Error. Can\'t upload avatar.',
-						username: req.user.get('username')
-					})
-				} else {
-					console.log("Avatar updated.");
-					res.send({
-						error: false,
-						message: 'Avatar updated.',
-						username: req.user.get('username')
-					})
-				}
-			});
-		}else{
-			//image size too big
-			res.send({
-				error: true,
-				message: 'The avatar size must be smaller than 5 MB.',
-				username: req.user.get('username')
-			})
+			if(filesizeinMB < 5){
+				var file = 'public/img/avatars/' + req.user.get('username');
+				
+				fs.rename(req.file.path, file, function(err) {
+					if (err) {
+						console.log(err);
+						res.send({
+							error: true,
+							message: 'Error. Can\'t upload avatar.',
+							username: req.user.get('username')
+						})
+					} else {
+						console.log("Avatar updated.");
+						res.send({
+							error: false,
+							message: 'Avatar updated.',
+							username: req.user.get('username')
+						})
+					}
+				});
+			}else{
+				//image size too big
+				res.send({
+					error: true,
+					message: 'The avatar size must be smaller than 5 MB.',
+					username: req.user.get('username')
+				})
+			}
 		}
 	});
 	

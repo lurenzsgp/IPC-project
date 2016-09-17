@@ -1,6 +1,6 @@
 var editor = {};
+var DEFAULT_TYPE_IT_SPEED = 50;
 var DEFAULT_TYPE_IT_DELAY = 500;
-var timeoutID1, timeoutID2;
 
 function startTutorial(){
 	introJs().setOptions({
@@ -12,7 +12,7 @@ function startTutorial(){
 			  	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<h4>Greetings, Recruit!<h4>"+
-			  		"<p>Welcome to <strong>Fortess Bastiani</strong>.</p>" +
+			  		"<p>Welcome to <strong>Fortress Bastiani</strong>.</p>" +
 			  		"<p>Your job here is to fix and operate the anti-missile system. I'll give you a quick introduction so you can get to work as soon as possible.</p>"+
 			  		"<p>We don't have much time, the Enemy will strike soon!</p>" +
 		  		"</div>"
@@ -31,7 +31,7 @@ function startTutorial(){
               	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This is the <b>Editor</b>.</p>" +
-			  		"<p>Here you can look at the system's code and fix its problems in order to stop the attacks.</p>"+
+			  		"<p>Here you can look at the system code and fix its problems in order to stop the attacks.</p>"+
 		  		"</div>",
               	position: "bottom"
               },
@@ -105,19 +105,32 @@ $(document).ready(function () {
 	// attiva i popover
 	$('[data-toggle="popover"]').popover();
 
-	// attiva Intro.JS o carica la chat del livello corrente
-	if (level === 1) {
-		startTutorial();
-	} else {
-		loadChat();
-	}
-
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
 
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
+
+	editor.execCode = editor.execCode.bind(editor);
+	editor.resetCode = editor.resetCode.bind(editor);
+    $("#ButtonExecCode").click(function() {
+	    var panel = editor.addPanel("bottom", "Code updated.");
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+		editor.execCode();
+	});
+    $("#ButtonResetCode").click(function () {
+		var panel = editor.addPanel("bottom", "Code reloaded.");
+		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+		editor.resetCode();
+	});
+
+	// attiva Intro.JS o carica la chat del livello corrente
+	if (level === 1) {
+		startTutorial();
+	} else {
+		loadChat();
+	}
 
 	// Missile Command
     missileCommand(true);
@@ -153,19 +166,6 @@ $(document).ready(function () {
 		})
 	  }
 	}
-
-	editor.execCode = editor.execCode.bind(editor);
-	editor.resetCode = editor.resetCode.bind(editor);
-    $("#ButtonExecCode").click(function() {
-	    var panel = editor.addPanel("bottom", "Code updated.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
-		editor.execCode();
-	});
-    $("#ButtonResetCode").click(function () {
-		var panel = editor.addPanel("bottom", "Code reloaded.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
-		editor.resetCode();
-	});
 });
 
 $("#level-selector").find('.btn').click( function() {
@@ -189,8 +189,6 @@ $("#load-level-btn").click(function(){
 	var lvl = $(".btn-primary").text();
 	level = parseInt(lvl);
 
-	window.clearTimeout(timeoutID1);
-	window.clearTimeout(timeoutID2);
 	loadChat();
 	editor.loadCode(level);
 	stopLevel();
@@ -201,31 +199,47 @@ function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
 
-	// get chat text from JSON file
-	if (level !== 10) {
-		$.getJSON("lvl/levels-chat.json", function(data){
-			var txt = data.text[level - 1];
-			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
+	// get chat texts from JSON file
+	if (level === 1) {
+		// livello 1: primo messaggio del generale + introduzione del vecchio pazzo
+		$.getJSON("lvl/levels-chat.json", function(data) {
+			newmsg("general", data.text[level - 1], {
+				'callback': function() {
+					$.getJSON("lvl/hints-chat.json", function(hints) {
+						newmsg("oldman", hints.text[0], {
+							'startDelay': 1500
+						});
+					});
+				}
+			});
+		});
+	} else if (level !== 10) {
+		// livelli 2-9: messaggi del generale relativi ai diversi livelli
+		$.getJSON("lvl/levels-chat.json", function(data) {
+			newmsg("general", data.text[level - 1], {});
 		});
 	} else {
-		// livello finale
-		$.getJSON("lvl/final-chat.json", function(data){
-			var txt;
-
-			txt = data.text[0];
-			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-
-			timeoutID1 = window.setTimeout(function() {
-				txt = data.text[1];
-				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			}, 8800);
-
-			timeoutID2 = window.setTimeout(function() {
-				txt = data.text[2];
-				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			}, 10000);
+		// livello 10: messaggi conclusivi del generale
+		$.getJSON("lvl/final-chat.json", function(finalData) {
+			newmsg("general", finalData.text[0], {
+				'callback': function() {
+					newmsg("general", finalData.text[1], {
+						'startDelay': 1000,
+						'callback': function() {
+							newmsg("general", finalData.text[2], {
+								'startDelay': 1200
+							});
+						}
+					});
+				}
+			});
 		});
 	}
+	/*
+		FIXME: se si passa dal livello 10 a un livello precedente il testo del 2^ e del 3^
+		messaggio finale del generale vengono mostrati dopo il testo corretto relativo al
+		livello selezionato
+	*/
 }
 
 function loadHints() {
@@ -233,9 +247,8 @@ function loadHints() {
 
 	// get hints text from JSON file
 	$.getJSON("lvl/hints-chat.json", function(data){
-		var txt = data.text[level - 1];
-		newmsg("oldman", txt, DEFAULT_TYPE_IT_DELAY);
-		console.log(txt);
+		var txt = data.text[level];
+		newmsg("oldman", txt, {});
 	});
 }
 
@@ -323,26 +336,35 @@ function enableBadge (name) {
 }
 
 function unlockBadge (badgeId, badgeDescription) {
-	$.post('/checkBadge', { name: badgeId}, function (badge) {
+	$.post('/checkBadge', { name: badgeId }, function (badge) {
 		if (!badge.unlock) {
-			$.post('/unlockBadge', { name: badgeId});
+			$.post('/unlockBadge', { name: badgeId });
 			$("#badgesModal").modal();
-			$("#badge-description").append(badgeDescription);
+			$("#badge-description").text(badgeDescription);
 		}
 	})
 }
 
-function newmsg (character, strings, startDelay) {
-	var portrait = "<img class='portrait " + character + "' src='/img/" + character + ".png'/>";
+function newmsg (character, strings, options) {
+	var portrait = "<img class='" + character + " portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
 
 	chat.append(div);
 	chat.scrollTop(chat.height());
-	chat.find("span").last().typeIt({
-		strings: strings,
-		speed: 50,
-		startDelay: startDelay,
-	});
+	if (options['callback']) {
+		chat.find("span").last().typeIt({
+			strings: strings,
+			speed: options['speed'] ? options['speed'] : DEFAULT_TYPE_IT_SPEED,
+			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY,
+			callback: options['callback']
+		});
+	} else {
+		chat.find("span").last().typeIt({
+			strings: strings,
+			speed: options['speed'] ? options['speed'] : DEFAULT_TYPE_IT_SPEED,
+			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY
+		});
+	}
 
 }

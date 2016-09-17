@@ -264,35 +264,6 @@ var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBon
     ctx.fillText( 'Cities Saved: ' + citiesSaved, 230, 277 );
 };
 
-// // Show simple graphic at end of game
-// var drawEndGame = function() {
-//     ctx.fillStyle = '#635e77';
-//     ctx.fillRect( 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT );
-//
-//     // Yellow hexagon
-//     ctx.fillStyle = '#a24a4a';
-//     ctx.beginPath();
-//     ctx.moveTo( 255, 30  );
-//     ctx.lineTo( 396, 89  );
-//     ctx.lineTo( 455, 230 );
-//     ctx.lineTo( 396, 371 );
-//     ctx.lineTo( 255, 430 );
-//     ctx.lineTo( 114, 371 );
-//     ctx.lineTo( 55,  230 );
-//     ctx.lineTo( 114, 89  );
-//     ctx.closePath();
-//     ctx.fill();
-//
-//     ctx.fillStyle = 'white';
-//     ctx.font = '60px monaco, consolas';
-//     ctx.fillText( 'game == over', 70, 260 );
-//
-//     ctx.fillStyle = 'yellow';
-//     ctx.font = '26px monaco, consolas';
-//     ctx.fillText( 'game.score == ' + score, 80, 20 );
-//     ctx.fillText( 'onclick(game.restart())', 80, 458 );
-// };
-
 // Draw all active cities
 var drawCities = function() {
     $.each( cities, function( index, city ) {
@@ -328,7 +299,6 @@ var drawBackground = function() {
 
     // Yellow area at bottom of screen for cities and
     // anti missile batteries
-
 
     var grdd=ctx.createLinearGradient(0,340,0,550);
     grdd.addColorStop(0,"tan");
@@ -471,8 +441,8 @@ AntiMissileBattery.prototype.draw = function() {
 	}
 };
 
-// Constructor for a Missile, which may be the player's missile or
-// the enemy's missile.
+// Constructor for a Missile, which may be the player's missile,
+// the enemy's missile or a bonus missile.
 // The options argument used to create the missile is expected to
 // have startX, startY, endX, and endY to define the missile's path
 // as well as color and trailColor for the missile's appearance
@@ -605,7 +575,6 @@ function PlayerMissile( source, endX, endY ) {
 // Make PlayerMissile inherit from Missile
 PlayerMissile.prototype = Object.create( Missile.prototype );
 PlayerMissile.prototype.constructor = PlayerMissile;
-
 
 // Update the location and/or state of this missile of the player
 PlayerMissile.prototype.update = function() {
@@ -764,7 +733,7 @@ EnemyMissile.prototype.update = function() {
     }
 };
 
-// Constructor for the Bonus's Missile, which is a subclass of Missile
+// Constructor for the Bonus Missile, which is a subclass of Missile
 // and uses Missile's constructor
 function BonusMissile( targets ) {
     var startX = rand( 0, CANVAS_WIDTH ),
@@ -908,7 +877,9 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     var nextLevel = citiesSaved === 6 ? true : false;
 
     if (!nextLevel) {
-        console.log("[Messaggio dal comandante] Riprova, non devi perdere nessuna torretta");
+        console.log("[Messaggio dal comandante] Riprova, non devi perdere nessuna torretta.");
+    } else {
+    	console.log("[Messaggio dal comandante] Ottimo lavoro, recluta.");
     }
     drawEndLevel( missilesLeft, missilesBonus,
                   citiesSaved, citiesBonus );
@@ -921,6 +892,14 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     }, 2000);
 
     if (nextLevel) {
+    	newmsg("general", ["You did a good job, Recruit.","The war, however, is still going and the enemy could attack again at any moment."], {
+    		'speed': 120,
+    		'callback': function() {    			
+				// settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
+				setTimeout( setupNextLevel, 2000, nextLevel );
+    		}
+    	});
+    
         // controllo i badge
         switch (level) {
             case 3:
@@ -943,16 +922,13 @@ var endLevel = function( missilesLeft, citiesSaved ) {
         }
     } else {
         // livello non superato
-        newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, this time with more committment!"], 500);
+        newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, this time with more committment!"], {});
     }
 
-// badge destroy all bonus missiles, non dipende dal superamente del livello
+	// badge destroy all bonus missiles, non dipende dal superamente del livello
     if (bonusMissileDestroyed === NUMBEROFBONUSMISSILE ) {
         unlockBadge("Destroy-bonus-missiles", "Destroyed all bonus missiles.");
     }
-
-    // settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
-    setTimeout( setupNextLevel, 5000, nextLevel );
 };
 
 // Move to the next level
