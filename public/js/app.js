@@ -194,7 +194,7 @@ $("#load-level-btn").click(function(){
 	loadChat();
 	editor.loadCode(level);
 	stopLevel();
-	missileCommand(false);
+	missileCommand();
 });
 
 function loadChat() {

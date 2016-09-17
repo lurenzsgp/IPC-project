@@ -35,19 +35,18 @@ var contrAerea;
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
 // Create cities and anti missile batteries at the start of the game
-var missileCommand = function(userClick) {
+var missileCommand = function() {
     if (3 < level && level < 7) {
-        initRefactLevel(userClick);
+        initRefactLevel();
     } else if (6 < level && level < 11) {
-        initDesignLevel(userClick);
+        initDesignLevel();
     } else {
-        initDebugLevel(userClick);
+        initDebugLevel();
     }
 
     levelscore = 0;
-    if (!userClick) {
-        setupListeners();
-    }
+
+    setupListeners();
 };
 
 var createCities = function () {
@@ -65,7 +64,7 @@ var createAntimissileBattery = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
 }
 
-var initDebugLevel = function (userClick) {
+var initDebugLevel = function () {
     cities = [];
     antiMissileBatteries = [];
 
@@ -82,7 +81,7 @@ var penaltyCreateCities = function () {
     return;
 }
 
-var initRefactLevel = function (userClick) {
+var initRefactLevel = function () {
     cities = [];
     antiMissileBatteries = [];
 
@@ -93,12 +92,16 @@ var initRefactLevel = function (userClick) {
     createAntimissileBattery();
 
     initializeLevel();
-    if (!userClick && (level === 5 || level === 6)) {
-        editor.execCode();
+    if (level === 5 ) {
+        penaltyRechargeAntiMissileBatteries();
+    } else if (level === 6) {
+        playerShoot = function ( x, y ) {
+            return;
+        }
     }
 };
 
-var initDesignLevel = function (userClick) {
+var initDesignLevel = function () {
     cities = [];
     antiMissileBatteries = [];
 
@@ -108,16 +111,14 @@ var initDesignLevel = function (userClick) {
     // Top middle position of anti-missile batteries
     createAntimissileBattery();
 
-    if (!userClick && level === 7) {
-        editor.execCode();
-    }
-    if (level >= 8) {
-            if (level === 9) {
-                contrAerea = new AutoAntiMissileDefense();
-            }
-        initializeHandicapLevel();
-    } else {
+    if (level === 7) {
+        rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
         initializeLevel();
+    } else { // level >= 8
+        if (level === 9) {
+            contrAerea = new AutoAntiMissileDefense();
+        }
+        initializeHandicapLevel();
     }
 };
 
@@ -974,7 +975,7 @@ var setupNextLevel = function(next) {
     }
 
     // inizializzo il gioco per il livello corrente
-    missileCommand(false);
+    missileCommand();
 };
 
     // Get missiles left in all anti missile batteries at the end of a level

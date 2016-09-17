@@ -312,7 +312,7 @@ Editor.prototype.resetCode = function () {
 	this.loadCode(level);
     // riavvio il livello
     stopLevel();
-    missileCommand(false);
+    missileCommand();
 }
 
 Editor.prototype.applySolution = function () {
@@ -369,6 +369,6 @@ Editor.prototype.execCode = function () {
 
     // riavvio il livello
     stopLevel();
-    missileCommand(false);
+    missileCommand();
 
 }
