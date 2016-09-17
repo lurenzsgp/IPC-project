@@ -35,11 +35,11 @@ var contrAerea;
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
 // Create cities and anti missile batteries at the start of the game
-var missileCommand = function() {
+var missileCommand = function(checkLevel) {
     if (3 < level && level < 7) {
-        initRefactLevel();
+        initRefactLevel(checkLevel);
     } else if (6 < level && level < 11) {
-        initDesignLevel();
+        initDesignLevel(checkLevel);
     } else {
         initDebugLevel();
     }
@@ -81,7 +81,7 @@ var penaltyCreateCities = function () {
     return;
 }
 
-var initRefactLevel = function () {
+var initRefactLevel = function (checkLevel) {
     cities = [];
     antiMissileBatteries = [];
 
@@ -92,18 +92,20 @@ var initRefactLevel = function () {
     createAntimissileBattery();
 
     initializeLevel();
-    // if (level === 5 ) {
-    //     rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
-    //     drawBeginLevel();
-    // } else
-    if (level === 6) {
-        playerShoot = function ( x, y ) {
-            return;
+    if (checkLevel) {
+        if (level === 5 ) {
+            rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+            drawBeginLevel();
+        } else
+        if (level === 6) {
+            playerShoot = function ( x, y ) {
+                return;
+            }
         }
     }
 };
 
-var initDesignLevel = function () {
+var initDesignLevel = function (checkLevel) {
     cities = [];
     antiMissileBatteries = [];
 
@@ -114,7 +116,9 @@ var initDesignLevel = function () {
     createAntimissileBattery();
 
     if (level === 7) {
-        rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+        if (checkLevel) {
+            rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+        }
         initializeLevel();
     } else { // level >= 8
         if (level === 9) {
@@ -133,6 +137,12 @@ var handicapRechargeAntiMissileBatteries = function () {
 var penaltyRechargeAntiMissileBatteries = function () {
     $.each( antiMissileBatteries, function( index, amb ) {
       amb.missilesLeft = 1;
+    });
+};
+
+var correctRechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 10;
     });
 };
 
@@ -977,7 +987,7 @@ var setupNextLevel = function(next) {
     }
 
     // inizializzo il gioco per il livello corrente
-    missileCommand();
+    missileCommand(next);
 };
 
     // Get missiles left in all anti missile batteries at the end of a level
@@ -1090,10 +1100,10 @@ var whichAntiMissileBattery = function( x ) {
 // Attach event Listeners to handle the player's input
 var setupListeners = function() {
     $( '#mc-container' ).unbind();
+    $( '#miscom' ).unbind();
     $( '#mc-container' ).one( 'click', function() {
         startLevel();
 
-        $( '#miscom' ).unbind();
         $( '#miscom' ).unbind().click(function( event ) {
             var mousePos = getMousePos(this, event);
             playerShoot( mousePos.x, mousePos.y);

@@ -120,7 +120,7 @@ $(document).ready(function () {
     editor.loadCode(level);
 
 	// Missile Command
-    missileCommand();
+    missileCommand(true);
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -194,7 +194,7 @@ $("#load-level-btn").click(function(){
 	loadChat();
 	editor.loadCode(level);
 	stopLevel();
-	missileCommand();
+	missileCommand(true);
 });
 
 function loadChat() {

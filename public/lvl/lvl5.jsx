@@ -26,14 +26,14 @@ f = editor.getCode();
 if (f.body.indexOf("for") !== -1) {
     console.log("Devi rendere il sistema di ricarica antimissilistico piu' rapido");
     missile = 1;
+} else {
+    rechargeAntiMissileBatteries = correctRechargeAntiMissileBatteries;
 }
 
-$.each(antiMissileBatteries, function( index, amb ) {
-  amb.missilesLeft = missile;
-});
+
 
 if (missile === 1) {
-    throw "myException"; 
+    throw "myException";
 }
 
 #END_OF_GOAL_FUNCTION#
