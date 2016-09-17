@@ -193,13 +193,14 @@ $("#load-level-btn").click(function(){
 	window.clearTimeout(timeoutID2);
 	loadChat();
 	editor.loadCode(level);
-	missileCommand(true);
+	stopLevel();
+	missileCommand(false);
 });
 
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
-	
+
 	// get chat text from JSON file
 	if (level !== 10) {
 		$.getJSON("lvl/levels-chat.json", function(data){
@@ -210,15 +211,15 @@ function loadChat() {
 		// livello finale
 		$.getJSON("lvl/final-chat.json", function(data){
 			var txt;
-			
+
 			txt = data.text[0];
 			newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
-			
+
 			timeoutID1 = window.setTimeout(function() {
 				txt = data.text[1];
 				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
 			}, 8800);
-		
+
 			timeoutID2 = window.setTimeout(function() {
 				txt = data.text[2];
 				newmsg("general", txt, DEFAULT_TYPE_IT_DELAY);
@@ -229,7 +230,7 @@ function loadChat() {
 
 function loadHints() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
-	
+
 	// get hints text from JSON file
 	$.getJSON("lvl/hints-chat.json", function(data){
 		var txt = data.text[level - 1];
@@ -335,7 +336,7 @@ function newmsg (character, strings, startDelay) {
 	var portrait = "<img class='portrait " + character + "' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
-	
+
 	chat.append(div);
 	chat.scrollTop(chat.height());
 	chat.find("span").last().typeIt({
@@ -344,4 +345,4 @@ function newmsg (character, strings, startDelay) {
 		startDelay: startDelay,
 	});
 
-}	
+}
