@@ -31,6 +31,7 @@ var scoreArray = [<%= levelScore %>];
 var score = <%= score %>;
 
 var contrAerea;
+var undef;
 
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
@@ -159,7 +160,7 @@ var initializeLevel = function() {
     enemyMissiles = [];
     createEmemyMissiles();
     if (isDefined(contrAerea)) {
-        delete contrAerea;
+        contrAerea = undef;
     }
     drawBeginLevel();
 };
@@ -175,7 +176,7 @@ var initializeHandicapLevel = function() {
     bonusMissileDestroyed = 0;
 
     if (level === 8 && isDefined(contrAerea)) {
-        delete contrAerea;
+        contrAerea = undef;
     }
 
     if (isDefined(contrAerea)) {

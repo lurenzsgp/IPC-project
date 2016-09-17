@@ -16,7 +16,7 @@ testFunction(2);
 editor.defineFunction();
 
 var penaltyCreateBonusMissiles = function(n) {
-    return;
+    return n;
 };
 
 console.log("Controllo che il numero di missili sia in funzione del parametro");
