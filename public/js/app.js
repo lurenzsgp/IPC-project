@@ -133,7 +133,7 @@ $(document).ready(function () {
 	}
 
 	// Missile Command
-    missileCommand();
+    missileCommand(true);
 
 	// CodeMirror: addon Autocomplete
 	if (typeof Promise !== undefined) {
@@ -191,13 +191,14 @@ $("#load-level-btn").click(function(){
 
 	loadChat();
 	editor.loadCode(level);
+	stopLevel();
 	missileCommand(true);
 });
 
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
-	
+
 	// get chat texts from JSON file
 	if (level === 1) {
 		// livello 1: primo messaggio del generale + introduzione del vecchio pazzo
@@ -243,7 +244,7 @@ function loadChat() {
 
 function loadHints() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
-	
+
 	// get hints text from JSON file
 	$.getJSON("lvl/hints-chat.json", function(data){
 		var txt = data.text[level];
@@ -348,7 +349,7 @@ function newmsg (character, strings, options) {
 	var portrait = "<img class='" + character + " portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"
 	var chat = $('#chat-body');
-	
+
 	chat.append(div);
 	chat.scrollTop(chat.height());
 	if (options['callback']) {
@@ -366,4 +367,4 @@ function newmsg (character, strings, options) {
 		});
 	}
 
-}	
+}

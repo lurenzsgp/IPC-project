@@ -311,6 +311,7 @@ Editor.prototype.replacePanel = function(form) {
 Editor.prototype.resetCode = function () {
 	this.loadCode(level);
     // riavvio il livello
+    stopLevel();
     missileCommand(true);
 }
 
@@ -362,10 +363,12 @@ Editor.prototype.execCode = function () {
     } catch(e) {
         console.log(e);
         /*fermare il liello */
+        // TODO aggiungere messaggio del vecchio
         return;
     }
 
     // riavvio il livello
-    missileCommand(true);
+    stopLevel();
+    missileCommand(false);
 
 }
