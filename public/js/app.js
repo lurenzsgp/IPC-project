@@ -33,7 +33,7 @@ function startTutorial(){
 			  		"<p>This is the <b>Editor</b>.</p>" +
 			  		"<p>Here you can look at the system code and fix its problems in order to stop the attacks.</p>"+
 		  		"</div>",
-              	position: "bottom"
+              	position: "left"
               },
               {
               	element: document.querySelector('#ButtonExecCode'),

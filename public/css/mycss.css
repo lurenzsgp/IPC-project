@@ -89,9 +89,7 @@ margin-left: 0;
   border-radius: 0px !important;
 }
 
-.floating-buttons .btn{
-	margin: .5em;
-}
+
 
 .modal-body .row, .modal-body .progress, .modal-body .table{
 	margin-bottom: 3em;
@@ -285,7 +283,7 @@ hr{
   margin: 60px auto ;
   padding: 0px;
   z-index: -10;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .game {
@@ -295,20 +293,6 @@ hr{
   box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.4);
 }
 
-.floating-buttons{
-  position: relative;
-  z-index: 5;
-}
-.floating-buttons button{
-  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.3);
-  font-size: 200%;
-  border-radius: 100%;
-  filter: brightness(80%);
-}
-
-.floating-buttons button:hover{
-  filter: brightness(120%);
-}
 
 .badge-table{
 	text-align:center;
@@ -323,13 +307,7 @@ a, button:focus{
   outline: none !important;
 }
 
-.CodeMirror{
-  height: auto !important;
-  box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
-  position: fixed;
-  margin: 0;
-  top: 0;
-}
+
 
 #mc-container{
   text-align: center;
@@ -389,7 +367,8 @@ a, button:focus{
 }
 
 .panel-heading{
-  font-weight: 700;
+  font-weight: 300;
+  color: #666 !important;
   font-size: 120%;
 }
 
@@ -464,4 +443,43 @@ img.oldman{
 
 img.recruit{
   background-color: tan;
+}
+
+#code-panel{
+  margin: 0px auto;
+  padding: 0px;
+}
+
+
+#code-body{
+  padding: 0px;
+  margin: 0px;
+}
+
+#editor-container{
+  margin: 0px;
+  padding: 1px 0px 0px 0px;
+}
+
+.CodeMirror{
+  height: 722px !important;
+  position: fixed;
+  margin: 0px;
+  top: 0;
+}
+
+.floating-buttons{
+  float: right;
+  z-index: 5;
+  margin: -5px;
+}
+.floating-buttons button{
+  border-radius: 0px;
+  font-size: 100%;
+  padding: 5px 25px;
+  margin-left: 0px;
+  filter: saturate(.7);
+}
+.floating-buttons button:hover{
+  filter: saturate(1.3);
 }
