@@ -34,7 +34,7 @@ var contrAerea;
 var undef;
 
 var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
-    {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430}, ];
+    {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430} ];
 // Create cities and anti missile batteries at the start of the game
 var missileCommand = function(checkLevel) {
     if (3 < level && level < 7) {
@@ -641,7 +641,6 @@ AutoAntiMissileDefense.prototype.shoot = function () {
             this.pointedMissiles.push(missile);
         }
 
-        // TODO il missile e' sparato nella direzione giusta ma fuori schermo
         var target = findTarget(missile, source);
         playerMissiles.push( new PlayerMissile( source, target.x, target.y ) );
     }).bind(this));
@@ -894,12 +893,12 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     if (nextLevel) {
     	newmsg("general", ["You did a good job, Recruit.","The war, however, is still going and the enemy could attack again at any moment."], {
     		'speed': 120,
-    		'callback': function() {    			
+    		'callback': function() {
 				// settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
 				setTimeout( setupNextLevel, 2000, nextLevel );
     		}
     	});
-    
+
         // controllo i badge
         switch (level) {
             case 3:

@@ -1,6 +1,6 @@
-/* Enable auto-aim feature. */
+// Enable auto-aim feature.
 
-/* Calculate the distance between the two points 'p' and 'q' using 'Math' object. */
+// Calculate the distance between the two points 'p' and 'q' using 'Math' object.
 var pointDistance = function (p, q) {
 #BEGIN_EDITABLE#
 
@@ -8,6 +8,70 @@ var pointDistance = function (p, q) {
 #END_EDITABLE#
 };
 
+// Costruttore del sistema di difesa automatica verso i missili nemici
+function AutoAntiMissileDefense () {
+    this.whatchedMissiles = [];
+    this.pointedMissiles = [];
+}
+
+// Inizializza i parametri
+AutoAntiMissileDefense.prototype.initialize = function () {
+    this.whatchedMissiles = [];
+    this.pointedMissiles = [];
+};
+
+// Seleziona i missili idonei per essere colpiti
+AutoAntiMissileDefense.prototype.detectMissile = function () {
+    $.each(enemyMissiles, (function (index, missile) {
+        if (missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
+            this.whatchedMissiles.push(missile);
+        }
+    }).bind(this));
+};
+
+// Prepara il missile da lanciare contro i missili nemici
+AutoAntiMissileDefense.prototype.shoot = function () {
+    this.detectMissile();
+
+    $.each(this.whatchedMissiles, (function (index, missile) {
+        if (!isDefined(missile) || missile.state !== MISSILE.active) {
+            return true;
+        }
+        // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
+        var source = whichAntiMissileBattery( missile.endX );
+        if( source === -1 ){ // No missiles left
+            return false;
+        } else {
+            this.whatchedMissiles.splice(index, 1);
+            this.pointedMissiles.push(missile);
+        }
+
+        var target = findTarget(missile, source);
+        playerMissiles.push( new PlayerMissile( source, target.x, target.y ) );
+    }).bind(this));
+};
+
+function pitagoraTheorem (a, b) {
+    return Math.sqrt( Math.pow(a, 2) + Math.pow(b, 2) );
+}
+
+function findTarget (missile, source) {
+    var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
+    var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
+    while (true) {
+        var yShoot = missile.y + missile.dy * t;
+        var xShoot = missile.x + missile.dx * t;
+        var t2 = missileSpeed(xShoot - antiMissileBatteries[source].x, yShoot - antiMissileBatteries[source].y);
+        if ((t).toFixed(9) === (t2).toFixed(9)) {
+            return {x: xShoot, y: yShoot + 10};
+        } else {
+            var distanceAttack = pointDistance({x: missile.x, y: missile.y}, {x: xShoot, y: yShoot});
+            var distanceDefense = pointDistance({x: xShoot, y: yShoot}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
+            distance = distanceAttack + distanceDefense;
+            t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
+        }
+    }
+}
 #START_OF_GOAL_FUNCTION#
 var p = {x: rand(50, 370), y: rand(50, 370)};
 var q = {x: rand(50, 370), y: rand(50, 370)};
