@@ -1,4 +1,6 @@
-/* Create a certain number of bonus missiles */
+var NUMBEROFBONUSMISSILE = 3;
+
+// Create a certain number of bonus missiles
 var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
 #BEGIN_EDITABLE#
@@ -9,7 +11,15 @@ var createBonusMissiles = function(numberOfMissiles) {
 #END_EDITABLE#
 };
 
-
+// Reset various variables at the start of a new level
+var initializeHandicapLevel = function() {
+    handicapRechargeAntiMissileBatteries();
+    playerMissiles = [];
+    enemyMissiles = [];
+    createEmemyMissiles();
+    createBonusMissiles(NUMBEROFBONUSMISSILE);
+    drawBeginLevel();
+};
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(2);

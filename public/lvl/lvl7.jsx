@@ -1,10 +1,26 @@
-/* Refill of missiles in anti-missile emplacements. */
+var antiMissileBatteries = [];
+
+// Refill of missiles in anti-missile emplacements.
 var rechargeAntiMissileBatteries = function () {
 #BEGIN_EDITABLE#
 
 /* The 'antiMissileBatteries' array is composed of the three anti-missile emplacements. Initialize to 10 the 'missilesLeft' field of each array element. */
 
 #END_EDITABLE#
+};
+
+// Constructor for an Anti Missile Battery
+function AntiMissileBattery( x, y ) {
+	this.x = x;
+	this.y = y;
+	this.missilesLeft = 1;
+}
+
+// Initialize the antiMissileBatteries array with 3 element
+var createAntimissileBattery = function () {
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
 };
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");

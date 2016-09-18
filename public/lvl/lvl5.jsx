@@ -1,4 +1,4 @@
-/* Check for the presence of missiles in anti-missile emplacements. */
+// Check for the presence of missiles in anti-missile emplacements.
 AntiMissileBattery.prototype.hasMissile = function() {
     var rocket = false;
 #BEGIN_EDITABLE#
@@ -13,6 +13,13 @@ AntiMissileBattery.prototype.hasMissile = function() {
 #END_EDITABLE#
     return rocket;
 };
+
+// Constructor for an Anti Missile Battery
+function AntiMissileBattery( x, y ) {
+	this.x = x;
+	this.y = y;
+	this.missilesLeft = 1;
+}
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testBattery = new AntiMissileBattery(elementPos[0].x,  elementPos[0].y);

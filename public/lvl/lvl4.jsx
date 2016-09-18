@@ -1,4 +1,6 @@
-/* Initialize the six cities. */
+var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410}, {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430} ];
+
+// Initialize the six cities.
 var createCities = function () {
 #BEGIN_EDITABLE#
 
@@ -6,6 +8,13 @@ var createCities = function () {
     cities.push( new City( elementPos[8].x,  elementPos[8].y) );
 #END_EDITABLE#
 };
+
+// Constructor for a City
+function City( x, y ) {
+	this.x = x;
+	this.y = y;
+	this.active = true;
+}
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction();
