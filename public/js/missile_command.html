@@ -248,7 +248,7 @@ var drawLevelMessage = function() {
 // Show bonus points at end of a level
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
     drawGameState();
-    var bonus = (missilesLeft * missilesBonus) + (citiesSaved * citiesBonus);
+    var bonus = missilesBonus + citiesBonus;
     ctx.fillStyle = '#6d6';
     ctx.font = 'bold 25px monaco, consolas';
     ctx.fillText( 'BONUS POINTS: ' +  bonus, 150, 149 );
