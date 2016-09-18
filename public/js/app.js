@@ -94,7 +94,7 @@ function startTutorial(){
               }
             ]
 	}).oncomplete(function() {
-		unlockBadge("Tutorial", "Tutorial complete");
+		unlockBadge("Tutorial", "You completed the tutorial");
 		loadChat();
 	}).onexit(function() {
 		loadChat();
@@ -182,6 +182,7 @@ $("#level-selector").find('.btn').click( function() {
 			$(".level-description").append("<p>" + value +"</p>");
 		});
 	});
+	// TODO aggiungere testo per il livello 10
 });
 
 $("#load-level-btn").click(function(){
@@ -307,6 +308,8 @@ console.log("Updating the user's avatar...");
 		processData: false,
 		type: 'POST',
 		success: function(data){
+			$('#accountModal').modal('hide');
+			unlockBadge("Upload-photo", "Complete the dashboard with your photo.");
 			if (data.error) {
 				$('#imgAlert').removeClass().addClass('alert alert-dismissible fade in alert-danger');
 				$('#imgAlert > p').text(data.message);
