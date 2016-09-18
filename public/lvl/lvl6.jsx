@@ -1,25 +1,25 @@
 // Create a missile that will be shot at the indicated location.
 var playerShoot = function( x, y ) {
     var source = whichAntiMissileBattery( x );
-    if( source === -1 ){ // No missiles left
-      return;
+    if( source === -1 ){
+		// No missiles left
+		return;
     }
 #BEGIN_EDITABLE#
+
+    /* Old code, now useless */
     for (var i=0; i<400; i++) {
-        /* old code, now useless */
         if ( y === i) {
             /* missile height found */
             var height = i;
         }
     }
 
-	/* when the altitude of the missile is between 50 and 370 then shoot the defensive missile */
+	/* When the altitude of the missile is between 50 and 370 then shoot the defensive missile */
     if( y > 10 ) {
         if( y < 400 ) {
             if( y <= 370 ) {
                 if( y >= 50 ) {
-                    /* do nothing */
-
                     playerMissiles.push( new PlayerMissile( source, x, y ) );
                 }
             }
@@ -27,6 +27,7 @@ var playerShoot = function( x, y ) {
     }
 #END_EDITABLE#
 };
+
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(100,100);

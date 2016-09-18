@@ -18,7 +18,7 @@ PlayerMissile.prototype.update = function() {
 };
 
 // Constructor for a Missile, which may be the player's missile or the enemy's missile.
-// The options argument used to create the missile is expected to have startX, startY, endX, and endY to define the missile's path as well as color and trailColor for the missile's appearance
+// The options argument used to create the missile is expected to have startX, startY, endX, and endY to define the missile's path as well as color and trailColor for the missile's appearance.
 function Missile( options ) {
   this.startX = options.startX;
   this.startY = options.startY;

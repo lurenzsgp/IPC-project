@@ -892,7 +892,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 
     if (nextLevel) {
     	newmsg("general", ["You did a good job, Recruit.","The war, however, is still going and the enemy could attack again at any moment."], {
-    		'speed': 120,
+    		'speed': 30,
     		'callback': function() {
 				// settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
 				setTimeout( setupNextLevel, 2000, nextLevel );

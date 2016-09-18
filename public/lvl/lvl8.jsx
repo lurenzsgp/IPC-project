@@ -1,11 +1,11 @@
-var NUMBEROFBONUSMISSILE = 3;
+var NUMBEROFBONUSMISSILES = 3;
 
 // Create a certain number of bonus missiles
 var createBonusMissiles = function(numberOfMissiles) {
     var targets = viableTargets();
 #BEGIN_EDITABLE#
 
-    /* You can add a total of numberOfMissiles bonus missiles to the 'enemyMissiles' array using the 'BonusMissile(targets)' constructor. */
+    /* You can add a total of NUMBEROFBONUSMISSILES bonus missiles to the 'enemyMissiles' array using the 'BonusMissile(targets)' constructor. */
     /* You can add elements to an array by using the 'array#push(element)' function. */
 
 #END_EDITABLE#
@@ -17,7 +17,7 @@ var initializeHandicapLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
-    createBonusMissiles(NUMBEROFBONUSMISSILE);
+    createBonusMissiles(NUMBEROFBONUSMISSILES);
     drawBeginLevel();
 };
 #START_OF_GOAL_FUNCTION#

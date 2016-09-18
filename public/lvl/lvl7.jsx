@@ -4,29 +4,29 @@ var antiMissileBatteries = [];
 var rechargeAntiMissileBatteries = function () {
 #BEGIN_EDITABLE#
 
-/* The 'antiMissileBatteries' array is composed of the three anti-missile emplacements. Initialize to 10 the 'missilesLeft' field of each array element. */
+	/* The 'antiMissileBatteries' array is composed of the three anti-missile emplacements. Initialize to 10 the 'missilesLeft' field of each array element. */
 
 #END_EDITABLE#
 };
 
-// Constructor for an Anti Missile Battery
+// Constructor for an Anti-Missile Battery
 function AntiMissileBattery( x, y ) {
 	this.x = x;
 	this.y = y;
 	this.missilesLeft = 1;
 }
 
-// Initialize the antiMissileBatteries array with 3 element
+// Initialize the 'antiMissileBatteries' array with 3 element
 var createAntimissileBattery = function () {
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
-    antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
+    antiMissileBatteries.push( new AntiMissileBattery( elementPos[0].x, elementPos[0].y) );
+    antiMissileBatteries.push( new AntiMissileBattery( elementPos[1].x, elementPos[1].y) );
+    antiMissileBatteries.push( new AntiMissileBattery( elementPos[2].x, elementPos[2].y) );
 };
+
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction();
 editor.defineFunction();
-
 
 console.log("Controllo la presenza di parole chiave nella funzione");
 var f = editor.getCode();

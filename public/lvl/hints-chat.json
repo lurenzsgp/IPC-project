@@ -1,15 +1,15 @@
 {
 	"text" : [
-		["You are the new Recruit, aren't you?","I was operating in this Fortress since... I can't remember when.","I still know how the system code works, though."],
-		["Missiles are slow? Someone must have messed up the speed settings. Look for it, it should be around 12 or something."],
+		["You are the new Recruit, aren't you?","I was operating in this Fortress since... I can't remember when.","I still remember quite well how the system code works, though."],
+		["Missiles are slow? Someone must have messed up the speed settings. Look for it, it should be around 12 or something..."],
 		["It looks like someone pulled a prank on you and made the missiles go random... haha!"],
 		["The explosion command is not executing, maybe it's because of the rust... It looks like a comment."],
-		["Hey kid! Have you already tried to use a for cycle?"],
-		["You see all those loops there? Do you think they have any reason to be there?"],
-		["I think you can write all that code in a couple of lines! Try to specify all your condition together."],
-		["level 7"],
-		["level 8"],
-		["level 9"],
+		["Hey kid! Have you already tried to use a <i>for</i> cycle?"],
+		["You see all those loops there? Do you think is there any reason to be there?"],
+		["I think you can write all that working code in a couple of lines! Try to specify all your condition together."],
+		["Hint for level 7"],
+		["Hint for level 8"],
+		["Hint for level 9","I'm sure you know how to use "],
 		["There's nothing else that I can teach you.","The Army is counting on YOU to <b>defeat</b> the Enemy!"]
 	]
 }
