@@ -21,12 +21,13 @@
 
 			<div class="form">
 				<form class="login-form" action="/signup" method="post">
+					<p style="color: steelblue; font-size: 110%;">To create an account you just need to choose an <strong>username</strong> and a <strong>password</strong></p>
                     <% if (message.length > 0) { %>
                         <div class="alert alert-danger"> <%= message %> </div>
                     <% } %>
 					<input type="text" placeholder="username" name="username" <% if (username.length > 0) { %> value="<%= username %>" <% } %>/>
 					<input type="password" placeholder="password" name="password" />
-					<button type="submit">Sign up</button>
+					<button type="submit" style="background-color: steelblue;">Sign up</button>
 					<p class="message">
 						Already registered? <a href="/login">Login now</a>
 					</p>

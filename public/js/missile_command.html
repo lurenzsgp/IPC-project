@@ -248,7 +248,7 @@ var drawLevelMessage = function() {
 // Show bonus points at end of a level
 var drawEndLevel = function( missilesLeft, missilesBonus, citiesSaved, citiesBonus ) {
     drawGameState();
-    var bonus = (missilesLeft * missilesBonus) + (citiesSaved * citiesBonus);
+    var bonus = missilesBonus + citiesBonus;
     ctx.fillStyle = '#6d6';
     ctx.font = 'bold 25px monaco, consolas';
     ctx.fillText( 'BONUS POINTS: ' +  bonus, 150, 149 );
@@ -892,7 +892,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
 
     if (nextLevel) {
     	newmsg("general", ["You did a good job, Recruit.","The war, however, is still going and the enemy could attack again at any moment."], {
-    		'speed': 120,
+    		'speed': 30,
     		'callback': function() {
 				// settare il tempo in modo da far comparire tutta il testo prima della chiamata alla funzione
 				setTimeout( setupNextLevel, 2000, nextLevel );

@@ -1,4 +1,4 @@
-// Create a missile that will be shot at the indicated location.
+// Create a missile that will be shot at the location indicated by 'x' and 'y'.
 var playerShoot = function( x, y ) {
   if( y >= 50 && y <= 370 ) {
     var source = whichAntiMissileBattery( x );
@@ -6,6 +6,8 @@ var playerShoot = function( x, y ) {
       return;
     }
 #BEGIN_EDITABLE#
+
+	/* Now shoot! */
 	playerMissiles.push( new PlayerMissile(source, x + rand(-75,75), y - rand(0, 150)));
 #END_EDITABLE#
   }
@@ -27,6 +29,7 @@ var setupListeners = function() {
         playerShoot( mousePos.x, mousePos.y);
     });
 };
+
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(100,100);

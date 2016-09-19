@@ -8,28 +8,28 @@ var pointDistance = function (p, q) {
 #END_EDITABLE#
 };
 
-// Costruttore del sistema di difesa automatica verso i missili nemici
+// Constructor for the automatic defense system against Enemy's missiles.
 function AutoAntiMissileDefense () {
     this.whatchedMissiles = [];
     this.pointedMissiles = [];
 }
 
-// Inizializza i parametri
+// Initializes the parameters
 AutoAntiMissileDefense.prototype.initialize = function () {
     this.whatchedMissiles = [];
     this.pointedMissiles = [];
 };
 
-// Seleziona i missili idonei per essere colpiti
+// Select suitable Enemy's missiles to hit
 AutoAntiMissileDefense.prototype.detectMissile = function () {
     $.each(enemyMissiles, (function (index, missile) {
-        if (missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
+        if ( missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
             this.whatchedMissiles.push(missile);
         }
     }).bind(this));
 };
 
-// Prepara il missile da lanciare contro i missili nemici
+// Prepare the defensive missile to be launched against enemy missiles
 AutoAntiMissileDefense.prototype.shoot = function () {
     this.detectMissile();
 
@@ -37,7 +37,8 @@ AutoAntiMissileDefense.prototype.shoot = function () {
         if (!isDefined(missile) || missile.state !== MISSILE.active) {
             return true;
         }
-        // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
+
+        // Select the nearest anti-missile defense station to target enemy missiles
         var source = whichAntiMissileBattery( missile.endX );
         if( source === -1 ){ // No missiles left
             return false;
@@ -51,13 +52,14 @@ AutoAntiMissileDefense.prototype.shoot = function () {
     }).bind(this));
 };
 
-function pitagoraTheorem (a, b) {
+function pitagoraTheorem(a, b) {
     return Math.sqrt( Math.pow(a, 2) + Math.pow(b, 2) );
 }
 
-function findTarget (missile, source) {
+function findTarget(missile, source) {
     var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
     var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
+
     while (true) {
         var yShoot = missile.y + missile.dy * t;
         var xShoot = missile.x + missile.dx * t;
@@ -72,6 +74,7 @@ function findTarget (missile, source) {
         }
     }
 }
+
 #START_OF_GOAL_FUNCTION#
 var p = {x: rand(50, 370), y: rand(50, 370)};
 var q = {x: rand(50, 370), y: rand(50, 370)};
