@@ -7,9 +7,9 @@
 		["Hey kid! Have you already tried to use a for cycle?"],
 		["You see all those loops there? Do you think they have any reason to be there?"],
 		["I think you can write all that code in a couple of lines! Try to specify all your condition together."],
-		["level 7"],
-		["level 8"],
-		["level 9"],
+		["Prova a dire al drone quanti missili mettere in ogni postazione antimissilistica", "Ogni postazione puo' essere identificata con un indice"],
+		["Fai attenzione ad aggiungere Il numero esatto di missili bonus.", "per creare un nuovo missile ti basta usare il comando new"],
+		["Cerca l'invocazione della funzione per capire come sono p e q.", "Se non ti ricordi come usare la classe Math, prova a guardare i livelli passati"],
 		["There's nothing else that I can teach you.","The Army is counting on YOU to <b>defeat</b> the Enemy!"]
 	]
 }
