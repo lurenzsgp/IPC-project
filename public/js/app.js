@@ -224,14 +224,18 @@ function loadChat() {
 		$.getJSON("lvl/final-chat.json", function(finalData) {
 			newmsg("general", finalData.text[0], {
 				'callback': function() {
-					newmsg("general", finalData.text[1], {
-						'startDelay': 1000,
-						'callback': function() {
-							newmsg("general", finalData.text[2], {
-								'startDelay': 1200
-							});
-						}
-					});
+					if (level === 10) {
+						newmsg("general", finalData.text[1], {
+							'startDelay': 1000,
+							'callback': function() {
+								if (level === 10) {
+									newmsg("general", finalData.text[2], {
+										'startDelay': 1200
+									});
+								}
+							}
+						});
+					}
 				}
 			});
 		});
