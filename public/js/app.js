@@ -182,7 +182,6 @@ $("#level-selector").find('.btn').click( function() {
 			$(".level-description").append("<p>" + value +"</p>");
 		});
 	});
-	// TODO aggiungere testo per il livello 10
 });
 
 $("#load-level-btn").click(function(){
@@ -240,11 +239,6 @@ function loadChat() {
 			});
 		});
 	}
-	/*
-		FIXME: se si passa dal livello 10 a un livello precedente il testo del 2^ e del 3^
-		messaggio finale del generale vengono mostrati dopo il testo corretto relativo al
-		livello selezionato
-	*/
 }
 
 function loadHints() {
