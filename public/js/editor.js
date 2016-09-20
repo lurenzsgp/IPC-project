@@ -363,7 +363,7 @@ Editor.prototype.execCode = function () {
     } catch(e) {
         console.log(e);
         /*fermare il liello */
-        newmsg("oldman", ["I think that are some syntax errors in your code...", "Check it and try to execute it again."], {});
+        newmsg("oldman", ["I think that are some syntax errors in your code...", "Or maybe it's only slow.", "Check it and try to execute it again."], {});
     }
 
     // riavvio il livello

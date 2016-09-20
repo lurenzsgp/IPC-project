@@ -29,16 +29,9 @@ delete testBattery;
 editor.defineFunction();
 
 console.log("controllo se l'utente ha rimosso i cicli");
-var missile = 10;
 f = editor.getCode();
 if (f.body.indexOf("for") !== -1) {
     console.log("Devi rendere il sistema di ricarica antimissilistico piu' rapido");
-    missile = 1;
-} else {
-    rechargeAntiMissileBatteries = correctRechargeAntiMissileBatteries;
-}
-
-if (missile === 1) {
     throw "myException";
 }
 

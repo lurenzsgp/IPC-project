@@ -92,10 +92,10 @@ var initRefactLevel = function (checkLevel) {
 
     initializeLevel();
     if (checkLevel) {
-        if (level === 5 ) {
-            rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
-            drawBeginLevel();
-        } else
+        // if (level === 5 ) {
+        //     rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+        //     drawBeginLevel();
+        // } else
         if (level === 6) {
             playerShoot = function ( x, y ) {
                 return;
@@ -185,7 +185,7 @@ var initializeHandicapLevel = function() {
 // Create a certain number of enemy missiles based on the game level
 var createEmemyMissiles = function() {
     var targets = viableTargets(),
-        numMissiles = ( level !== 9 ) ? level + 16 : 30;
+        numMissiles = ( level >= 9 ) ? level + 16 : 30;
     for( var i = 0; i < numMissiles; i++ ) {
         enemyMissiles.push( new EnemyMissile(targets) );
     }

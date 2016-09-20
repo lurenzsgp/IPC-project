@@ -187,6 +187,7 @@ $("#level-selector").find('.btn').click( function() {
 $("#load-level-btn").click(function(){
 	editor.applySolution();
 	var lvl = $(".btn-primary").text();
+
 	level = parseInt(lvl);
 
 	loadChat();
@@ -206,9 +207,11 @@ function loadChat() {
 			newmsg("general", data.text[level - 1], {
 				'callback': function() {
 					$.getJSON("lvl/hints-chat.json", function(hints) {
-						newmsg("oldman", hints.text[0], {
-							'startDelay': 1500
-						});
+						if (maxLevel === 1) {
+							newmsg("oldman", hints.text[0], {
+								'startDelay': 1500
+							});
+						}
 					});
 				}
 			});
