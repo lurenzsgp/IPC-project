@@ -440,6 +440,18 @@ img.oldman{
   background-color: hsl(146,35%,80%);
 }
 
+img.system{
+  background-color: steelblue;
+}
+.msg.system{
+  background-color: lightsteelblue;
+}
+img.system2{
+  background-color: steelblue;
+}
+.msg.system2{
+  background-color: lightsteelblue;
+}
 
 img.recruit{
   background-color: tan;

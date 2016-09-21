@@ -115,13 +115,15 @@ $(document).ready(function () {
 	editor.execCode = editor.execCode.bind(editor);
 	editor.resetCode = editor.resetCode.bind(editor);
     $("#ButtonExecCode").click(function() {
-	    var panel = editor.addPanel("bottom", "Code updated.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+	    //var panel = editor.addPanel("bottom", "Code updated.");
+	    newmsg("system","CODE UPDATED",{});
+		//window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.execCode();
 	});
     $("#ButtonResetCode").click(function () {
-		var panel = editor.addPanel("bottom", "Code reloaded.");
-		window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
+		//var panel = editor.addPanel("bottom", "Code reloaded.");
+	    newmsg("system","CODE REVERTED",{});
+		//window.setTimeout(editor.removePanels.bind(editor), 3000, panel.id);
 		editor.resetCode();
 	});
 
