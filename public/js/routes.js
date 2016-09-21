@@ -4,6 +4,7 @@ var fs = require('fs');
 var multer = require('multer');
 var upload = multer({dest: 'public/img/avatars/'});
 var Bookshelf = require('bookshelf').mysqlAuth;
+var http = require("http");
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
@@ -66,7 +67,7 @@ module.exports = function(app, passport) {
             console.log("Error while saving: " + err);
         });
     });
-	
+	/*
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
 		if(req.file){
 			var stats = fs.statSync(req.file.path);
@@ -102,6 +103,47 @@ module.exports = function(app, passport) {
 			}
 		}
 	});
+	*/
+	
+	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
+		if(req.file){
+			console.log(req.file);
+			var stats = fs.statSync(req.file.path);
+			var filesizeinMB = stats["size"] / 1000000.0;
+
+			if(filesizeinMB < 5){
+				avatar64 = Buffer.from(req.file.path, 'base64');
+				
+				var options = {
+					host: 'api.imgur.com',
+					path: '/3/image',
+					method: 'POST',
+					body: {
+						'image': avatar64,
+						'album': 'P7JxA'
+					}
+				}
+				
+				var req = http.request(options, function(res) {
+					console.log('Status: ' + res.statusCode);
+					
+					res.setEncoding('utf8');
+					
+					res.on('data', function (body) {
+						console.log('Body: ' + body);
+					});
+				})
+			}else{
+					//image size too big
+				res.send({
+					error: true,
+					message: 'The avatar size must be smaller than 5 MB.',
+					username: req.user.get('username')
+				})
+			}
+		}
+	});
+	
 	
 	app.get('/deleteAvatar', function(req,res){
 		var file = 'public/img/avatars/' + req.user.get('username');
