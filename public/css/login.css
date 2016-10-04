@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import 'https://fonts.googleapis.com/css?family=Roboto:700,400,300,100';
 
 .login-page {
   width: 360px;
@@ -105,16 +105,17 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
-  background: #2c3e50; /* fallback for old browsers */
-  background: -webkit-linear-gradient(bottom, #eee, #aaa);
-  background: -moz-linear-gradient(bottom, #eee, #aaa);
-  background: -o-linear-gradient(bottom, #eee, #aaa);
-  background: linear-gradient(to bottom, #eee, #aaa);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;  
-  background-size: 150%;
+
+body{
+  background: #ddd;
+  background: -moz-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee), color-stop(100%, #bbb)) no-repeat center center fixed;
+  background: -webkit-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -o-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: -ms-linear-gradient(top, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background: linear-gradient(to bottom, #eee 0%, #bbb 100%) no-repeat center center fixed;
+  background-size: cover;
+  opacity: 1;
 }
 
 .footer{
