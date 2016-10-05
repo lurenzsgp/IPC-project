@@ -95,7 +95,7 @@ function startTutorial(){
             ]
 	}).oncomplete(function() {
 		unlockBadge("Tutorial", "You completed the tutorial");
-		loadChat();
+		// loadChat();
 	}).onexit(function() {
 		loadChat();
 	}).start();

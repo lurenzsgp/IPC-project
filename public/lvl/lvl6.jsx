@@ -35,8 +35,8 @@ editor.defineFunction();
 
 console.log("controllo la lunghezza del corpo della funzione");
 var f = editor.getCode();
-if (f.numLines > 7) { // 7 sono le righe del corpo della funzione
-    console.log("troppe righe!!! Devono essere massimo 9");
+if (f.numLines > 8) { // 7 sono le righe del corpo della funzione
+    console.log("troppe righe!!! Devono essere massimo 10");
     playerShoot = function ( x, y ) {
         return;
     }
