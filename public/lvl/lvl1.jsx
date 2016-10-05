@@ -6,7 +6,7 @@ var missileSpeed = function ( xDistance, yDistance ) {
 
     var distancePerFrame = 1;
 #END_EDITABLE#
-	
+
 	/* The speed is the ratio of stroke distance and distance traveled in each frame. */
     return distance / distancePerFrame;
 };

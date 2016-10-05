@@ -28,7 +28,7 @@ console.log("controllo se il codice utente soddisfa le richieste del livello");
 var f = this.getCode();
 if (f.body.indexOf('for') === -1) {
     console.log("Non e' stato utilizzato il ciclo for!");
-    return;
+    throw "myException";
 }
 
 
@@ -37,12 +37,14 @@ createCities();
 
 if (cities.length != 6) {
     console.log("Le citta' devono essere 6");
-    return;
+    createCities = createCity8;
+    throw "myException";
 }
 
 if (cities[0].x !== elementPos[3].x || cities[5].x !== elementPos[8].x) {
     console.log("Le citta' sono in posizioni sbagliate");
-    return;
+    createCities = createCity8;
+    throw "myException";
 }
 
 #END_OF_GOAL_FUNCTION#
