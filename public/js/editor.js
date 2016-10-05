@@ -351,19 +351,20 @@ Editor.prototype.defineFunction = function (fName) {
 Editor.prototype.execCode = function () {
     try {
         this.defineFunction("testFunction");
+
+        var f = this.getCode();
+        // esegui la goal function per vedere se il livello puo' ritenersi superato
+        try {
+            this.goalFunction(f.name);
+        } catch(e) {
+            console.log(e);
+            newmsg("oldman", ["I think that are some syntax or logic errors in your code...", "Or maybe it's only slow.", "Check it and try to execute it again."], {});
+        }
     } catch (e) {
         console.log(e);
-        return;
+        newmsg("system",["FATAL ERROR OCCURED!", "I CAN'T EXECUTE YOUR CODE DUE SYNTAX ERRORS."],{});
     }
 
-    var f = this.getCode();
-    // esegui la goal function per vedere se il livello puo' ritenersi superato
-    try {
-        this.goalFunction(f.name);
-    } catch(e) {
-        console.log(e);
-        newmsg("oldman", ["I think that are some syntax or logic errors in your code...", "Or maybe it's only slow.", "Check it and try to execute it again."], {});
-    }
 
     // riavvio il livello
     stopLevel();
