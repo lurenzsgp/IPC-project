@@ -40,6 +40,7 @@ function startTutorial(){
               	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This button allows you to <b>execute</b> the code once you modify it.</p>" +
+			  		"<p>You can also use it to restart a level.</p>" +
 		  		"</div>",
               	position: "left"
               },
