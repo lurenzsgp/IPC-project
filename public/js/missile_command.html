@@ -178,7 +178,7 @@ var initializeHandicapLevel = function() {
     drawBeginLevel();
     bonusMissileDestroyed = 0;
 
-    if (level === 8 && isDefined(contrAerea)) {
+    if (level !== 9 && isDefined(contrAerea)) {
         contrAerea = undef;
     }
 
