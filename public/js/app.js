@@ -371,5 +371,5 @@ function newmsg (character, strings, options) {
 			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY
 		});
 	}
-	chat.scrollTop(chat[0].scrollHeight());
+	chat.scrollTop(chat[0].scrollHeight);
 }
