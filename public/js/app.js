@@ -171,6 +171,7 @@ $(document).ready(function () {
 	}
 });
 
+// carica i livelli precedenti nella sezione Levels
 $("#level-selector").find('.btn').click( function() {
 	$(".btn-primary").removeClass('btn-primary');
 	$(this).addClass('btn-primary');
@@ -187,6 +188,7 @@ $("#level-selector").find('.btn').click( function() {
 	});
 });
 
+// carica il livello precedente selezionato dall'utente
 $("#load-level-btn").click(function(){
 	editor.applySolution();
 	var lvl = $(".btn-primary").text();
@@ -199,6 +201,7 @@ $("#load-level-btn").click(function(){
 	missileCommand(true);
 });
 
+// carica dinamicamente la chat del generale relativa al livello corrente
 function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
@@ -247,6 +250,7 @@ function loadChat() {
 	}
 }
 
+// carica dinamicamente il suggerimento relativo al livello corrente
 function loadHints() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 
@@ -257,6 +261,7 @@ function loadHints() {
 	});
 }
 
+// carica dinamicamente la sezione User della home page
 $('#user').click(function () {
 	var levelWidth = (maxLevel - 1) / 9 * 100;
 	$('.progress-bar').attr("aria-valuenow", levelWidth).width(levelWidth + "%").text(Math.round(levelWidth) + "%");
@@ -285,6 +290,7 @@ $(function(){
     });
 });
 
+// elimina l'avatar utente
 $('#buttonDeleteAvatar').click( function(){
 	$.get('/deleteAvatar', function(data){
 		if (data.error) {
@@ -300,9 +306,10 @@ $('#buttonDeleteAvatar').click( function(){
 	});
 });
 
+// carica nuovo avatar utente
 $('#inputAvatarFile').on("change", function(){
-var data = new FormData($('#formUpdateAvatar')[0]);
-console.log("Updating the user's avatar...");
+	var data = new FormData($('#formUpdateAvatar')[0]);
+	console.log("Updating the user's avatar...");
 
 	jQuery.ajax({
 		url: '/updateAvatar',
@@ -328,10 +335,11 @@ console.log("Updating the user's avatar...");
 	});
 });
 
+// sblocca i nuovi livelli sulla base del massimo livello raggiunto
 $('#levels').click(function () {
 	var button = $('#level-selector > div > a');
 	$.each(button, function (index, el) {
-		if (index < level ) {
+		if (index < level)  {
 			$(el).removeClass('disabled');
 		}
 	})
@@ -342,6 +350,7 @@ function enableBadge (name) {
 	$('[name="' + name + '"]').removeClass('badge-lock');
 }
 
+// sblocca il badge su DB, associandolo all'utente
 function unlockBadge (badgeId, badgeDescription) {
 	$.post('/checkBadge', { name: badgeId }, function (badge) {
 		if (!badge.unlock) {
@@ -352,6 +361,7 @@ function unlockBadge (badgeId, badgeDescription) {
 	})
 }
 
+// mostra un nuovo messaggio nella chat
 function newmsg (character, strings, options) {
 	var portrait = "<img class='" + character + " portrait' src='/img/" + character + ".png'/>";
 	var div = "<div class='msg " + character + "'>" + portrait + "<span></span>" +"</div>"

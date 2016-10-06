@@ -93,7 +93,7 @@ module.exports = function(app, passport) {
 					}
 				});
 			}else{
-				//image size too big
+				// immagine troppo grande
 				res.send({
 					error: true,
 					message: 'The avatar size must be smaller than 5 MB.',
@@ -136,6 +136,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// carica i dati dell'utente
     app.get('/getUserData', function(req,res) {
         res.send({
 			username: req.user.get('username'),
@@ -161,6 +162,7 @@ module.exports = function(app, passport) {
         });
     });
 
+	// associa il badge all'utente
     app.post('/unlockBadge', function(req, res) {
         new data.ApiBadge({ name: req.body.name }).fetch().then(function (badge) {
             if (badge !== null) {
@@ -193,6 +195,7 @@ module.exports = function(app, passport) {
         });
     });
 
+	// carica i badge gia' sbloccati
     app.get('/getUserBadge', function(req, res) {
         Bookshelf.knex('badges_users')
         .join('badges', 'badges.id', '=', 'badges_users.badge_id')
@@ -203,7 +206,7 @@ module.exports = function(app, passport) {
         });
     });
 
-	// TODO eliminare nella versione definitiva
+	// mostra in chiaro i dati degli utenti. Accessibile solo tramite URL diretto
     app.get('/user', function(req, res) {
       new data.ApiUser().fetchAll().then(function(users) {
           res.send(users.toJSON());
@@ -213,6 +216,7 @@ module.exports = function(app, passport) {
         });
     });
 
+	// mostra in chiaro i dati dei badge. Accessibile solo tramite URL diretto
     app.get('/badge', function(req, res) {
       new data.ApiBadge().fetchAll().then(function(badge) {
           res.send(badge.toJSON());
@@ -222,6 +226,7 @@ module.exports = function(app, passport) {
         });
     });
 
+	// mostra in chiaro i dati dei badge sbloccati dagli utenti. Accessibile solo tramite URL diretto
     app.get('/userBadge', function(req, res) {
       new data.ApiUserBadge().fetchAll().then(function(badge) {
           res.send(badge.toJSON());
