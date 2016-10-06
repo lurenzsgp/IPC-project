@@ -924,6 +924,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
         }
     } else {
         // livello non superato
+        setTimeout( setupNextLevel, 2000, nextLevel );
         newmsg("general", ["We can't afford to lose ANY facility.", "Try again, Recruit, this time with more committment!"], {});
     }
 
