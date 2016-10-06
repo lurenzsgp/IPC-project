@@ -357,7 +357,6 @@ function newmsg (character, strings, options) {
 	var chat = $('#chat-body');
 
 	chat.append(div);
-	chat.scrollTop(chat.height());
 	if (options['callback']) {
 		chat.find("span").last().typeIt({
 			strings: strings,
@@ -372,5 +371,5 @@ function newmsg (character, strings, options) {
 			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY
 		});
 	}
-
+	chat.scrollTop(chat.height());
 }
