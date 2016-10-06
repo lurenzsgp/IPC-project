@@ -296,6 +296,7 @@ $('#buttonDeleteAvatar').click( function(){
 	});
 });
 
+
 $('#inputAvatarFile').on("change", function(){
 var data = new FormData($('#formUpdateAvatar')[0]);
 console.log("Updating the user's avatar...");
@@ -323,6 +324,7 @@ console.log("Updating the user's avatar...");
 		}
 	});
 });
+
 
 $('#levels').click(function () {
 	var button = $('#level-selector > div > a');

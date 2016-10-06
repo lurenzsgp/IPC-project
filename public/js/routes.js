@@ -105,6 +105,7 @@ module.exports = function(app, passport) {
 	});
 	*/
 	
+	
 	app.post('/updateAvatar',  upload.single('avatar'), function(req,res){
 		if(req.file){
 			console.log(req.file);
@@ -112,7 +113,9 @@ module.exports = function(app, passport) {
 			var filesizeinMB = stats["size"] / 1000000.0;
 
 			if(filesizeinMB < 5){
-				avatar64 = Buffer.from(req.file.path, 'base64');
+				// convert avatar into base64 string
+				var bitmap = fs.readFileSync(req.file.path);
+				avatar64 = new Buffer(bitmap).toString('base64');
 				
 				var options = {
 					host: 'api.imgur.com',
@@ -124,7 +127,7 @@ module.exports = function(app, passport) {
 					}
 				}
 				
-				var req = http.request(options, function(res) {
+				var req = http.post(options, function(res) {
 					console.log('Status: ' + res.statusCode);
 					
 					res.setEncoding('utf8');
@@ -134,7 +137,7 @@ module.exports = function(app, passport) {
 					});
 				})
 			}else{
-					//image size too big
+				//image size too big
 				res.send({
 					error: true,
 					message: 'The avatar size must be smaller than 5 MB.',
