@@ -40,6 +40,7 @@ function startTutorial(){
               	intro: "<img src='img/general.png' class='portrait general'/>"+
 			  	"<div class='tutorial'>"+
 			  		"<p>This button allows you to <b>execute</b> the code once you modify it.</p>" +
+			  		"<p>You can also use it to restart a level.</p>" +
 		  		"</div>",
               	position: "left"
               },
@@ -357,7 +358,6 @@ function newmsg (character, strings, options) {
 	var chat = $('#chat-body');
 
 	chat.append(div);
-	chat.scrollTop(chat.height());
 	if (options['callback']) {
 		chat.find("span").last().typeIt({
 			strings: strings,
@@ -372,5 +372,5 @@ function newmsg (character, strings, options) {
 			startDelay: options['startDelay'] ? options['startDelay'] : DEFAULT_TYPE_IT_DELAY
 		});
 	}
-
+	chat.scrollTop(chat[0].scrollHeight);
 }
