@@ -48,3 +48,9 @@ if (correctMissileSpeed(100,100) > missileSpeed(100,100)) {
     missileSpeed = correctMissileSpeed;
 }
 #END_OF_GOAL_FUNCTION#
+
+#LINE_GENERAL#
+["<b>WE ARE UNDER ATTACK!</b>"," ","There's something wrong with our missiles, they are really slow and we can't stop the enemy.","We need ALL our facilities to remain intact.","<b>Fix it now</b> or we won't make it!"]
+
+#LINE_OLDMAN#
+["Missiles are slow? Someone must have messed up the speed settings. Look for it, it should be around 12 or something..."]

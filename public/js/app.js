@@ -109,6 +109,8 @@ $(document).ready(function () {
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
 
+	// Gamelevel
+	gamelevel = new Gamelevel();
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
@@ -180,6 +182,8 @@ $("#level-selector").find('.btn').click( function() {
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
 
+// se togliamo il file con le chat di tutti i livelli questa spiegazione non e' piu accessibile
+
 	$.getJSON("lvl/levels-chat.json", function(data){
 		$.each(data.text[lvl - 1], function(index, value){
 			$(".level-description").append("<p>" + value +"</p>");
@@ -193,8 +197,8 @@ $("#load-level-btn").click(function(){
 
 	level = parseInt(lvl);
 
-	loadChat();
 	editor.loadCode(level);
+	loadChat();
 	stopLevel();
 	missileCommand(true);
 });
@@ -203,22 +207,31 @@ function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
 
+	newmsg("general", gamelevel.generalMessage, {
+		'callback': function() {
+			if (maxLevel === 1) {
+				newmsg("oldman", gamelevel.oldmanMessage, {
+					'startDelay': 1500
+				});
+			}
+		}
+	});
 	// get chat texts from JSON file
 	if (level === 1) {
-		// livello 1: primo messaggio del generale + introduzione del vecchio pazzo
-		$.getJSON("lvl/levels-chat.json", function(data) {
-			newmsg("general", data.text[level - 1], {
-				'callback': function() {
-					$.getJSON("lvl/hints-chat.json", function(hints) {
-						if (maxLevel === 1) {
-							newmsg("oldman", hints.text[0], {
-								'startDelay': 1500
-							});
-						}
-					});
-				}
-			});
-		});
+		// // livello 1: primo messaggio del generale + introduzione del vecchio pazzo
+		// $.getJSON("lvl/levels-chat.json", function(data) {
+		// 	newmsg("general", data.text[level - 1], {
+		// 		'callback': function() {
+		// 			$.getJSON("lvl/hints-chat.json", function(hints) {
+		// 				if (maxLevel === 1) {
+		// 					newmsg("oldman", hints.text[0], {
+		// 						'startDelay': 1500
+		// 					});
+		// 				}
+		// 			});
+		// 		}
+		// 	});
+		// });
 	} else if (level !== 10) {
 		// livelli 2-9: messaggi del generale relativi ai diversi livelli
 		$.getJSON("lvl/levels-chat.json", function(data) {

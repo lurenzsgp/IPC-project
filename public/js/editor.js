@@ -1,11 +1,15 @@
 // Editor class
 var self;
 
+var Gamelevel = function () {};
+
 var Editor = function () {
     // variables
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
+        'line_general_chat':'#LINE_GENERAL#',
+        'line_oldman_chat':'#LINE_OLDMAN#',
         'start_goal_function':'#START_OF_GOAL_FUNCTION#',
         'end_goal_function':'#END_OF_GOAL_FUNCTION#'
     };
@@ -138,6 +142,14 @@ Editor.prototype.preprocessor = function (code) {
             lineArray.splice(i,1);
             inGoalFunctionBlock = false;
             i--;
+        } else if (currentLine.indexOf(this.symbols.line_general_chat) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.generalMessage = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_oldman_chat) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.oldmanMessage = " + lineArray.splice(i,1) + ";");
+            i--;
         }
         // everything else
         else {
@@ -156,7 +168,7 @@ Editor.prototype.preprocessor = function (code) {
         }
     }
 
-	Editor.prototype.goalFunction = new Function("f", goalString);
+	Gamelevel.prototype.goalFunction = new Function("f", goalString);
 
     return lineArray.join("\n");
 };
@@ -355,7 +367,7 @@ Editor.prototype.execCode = function () {
         var f = this.getCode();
         // esegui la goal function per vedere se il livello puo' ritenersi superato
         try {
-            this.goalFunction(f.name);
+            gamelevel.goalFunction(f.name);
         } catch(e) {
             console.log(e);
             newmsg("oldman", ["I think that are some syntax or logic errors in your code...", "Or maybe it's only slow.", "Check it and try to execute it again."], {});
