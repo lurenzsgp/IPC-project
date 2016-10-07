@@ -54,3 +54,10 @@ if (correctMissileSpeed(100,100) > missileSpeed(100,100)) {
 
 #LINE_OLDMAN#
 ["Missiles are slow? Someone must have messed up the speed settings. Look for it, it should be around 12 or something..."]
+
+#LINE_AMOUNT_DEFENSE_MISSILES#
+10
+#LINE_AMOUNT_ENEMY_MISSILES#
+15
+#LINE_SPEED_ENEMY_MISSILES#
+2

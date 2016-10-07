@@ -216,48 +216,6 @@ function loadChat() {
 			}
 		}
 	});
-	// get chat texts from JSON file
-	if (level === 1) {
-		// // livello 1: primo messaggio del generale + introduzione del vecchio pazzo
-		// $.getJSON("lvl/levels-chat.json", function(data) {
-		// 	newmsg("general", data.text[level - 1], {
-		// 		'callback': function() {
-		// 			$.getJSON("lvl/hints-chat.json", function(hints) {
-		// 				if (maxLevel === 1) {
-		// 					newmsg("oldman", hints.text[0], {
-		// 						'startDelay': 1500
-		// 					});
-		// 				}
-		// 			});
-		// 		}
-		// 	});
-		// });
-	} else if (level !== 10) {
-		// livelli 2-9: messaggi del generale relativi ai diversi livelli
-		$.getJSON("lvl/levels-chat.json", function(data) {
-			newmsg("general", data.text[level - 1], {});
-		});
-	} else {
-		// livello 10: messaggi conclusivi del generale
-		$.getJSON("lvl/final-chat.json", function(finalData) {
-			newmsg("general", finalData.text[0], {
-				'callback': function() {
-					if (level === 10) {
-						newmsg("general", finalData.text[1], {
-							'startDelay': 1000,
-							'callback': function() {
-								if (level === 10) {
-									newmsg("general", finalData.text[2], {
-										'startDelay': 1200
-									});
-								}
-							}
-						});
-					}
-				}
-			});
-		});
-	}
 }
 
 function loadHints() {

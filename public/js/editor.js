@@ -10,6 +10,9 @@ var Editor = function () {
         'end_line':'#END_EDITABLE#',
         'line_general_chat':'#LINE_GENERAL#',
         'line_oldman_chat':'#LINE_OLDMAN#',
+        'line_defense_missiles':'#LINE_AMOUNT_DEFENSE_MISSILES#',
+        'line_amount_missiles':'#LINE_AMOUNT_ENEMY_MISSILES#',
+        'line_speed_missiles':'#LINE_SPEED_ENEMY_MISSILES#',
         'start_goal_function':'#START_OF_GOAL_FUNCTION#',
         'end_goal_function':'#END_OF_GOAL_FUNCTION#'
     };
@@ -149,6 +152,18 @@ Editor.prototype.preprocessor = function (code) {
         } else if (currentLine.indexOf(this.symbols.line_oldman_chat) === 0) {
             lineArray.splice(i,1);
             eval("Gamelevel.prototype.oldmanMessage = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_defense_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesDefense = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_speed_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesSpeed = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_amount_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesAmount = " + lineArray.splice(i,1) + ";");
             i--;
         }
         // everything else
