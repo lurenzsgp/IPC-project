@@ -6,7 +6,6 @@ var canvas = document.querySelector( 'canvas' ),
 var CANVAS_WIDTH  = canvas.width,
   CANVAS_HEIGHT = canvas.height,
   SPEEDMISSILEDEFENSE = 12,
-  NUMBEROFBONUSMISSILE = 3,
   MISSILE = {
     active: 1,
     exploding: 2,
@@ -35,13 +34,16 @@ var elementPos = [{x: 35, y:410}, {x: 255, y:410}, {x: 475, y:410},
     {x: 80, y:430}, {x: 130, y:430}, {x: 180, y:430}, {x: 300, y:430}, {x: 350, y:430}, {x: 400, y:430} ];
 // Create cities and anti missile batteries at the start of the game
 var missileCommand = function(checkLevel) {
-    if (3 < level && level < 7) {
-        initRefactLevel(checkLevel);
-    } else if (6 < level && level < 11) {
-        initDesignLevel(checkLevel);
-    } else {
-        initDebugLevel();
-    }
+    cities = [];
+    antiMissileBatteries = [];
+
+    // Bottom left position of cities
+    createCities();
+
+    // Top middle position of anti-missile batteries
+    createAntimissileBattery();
+
+    initializeLevel();
 
     levelscore = 0;
 
@@ -61,28 +63,6 @@ var createAntimissileBattery = function () {
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[0].x,  elementPos[0].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[1].x,  elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery(  elementPos[2].x,  elementPos[2].y) );
-}
-
-var initDebugLevel = function () {
-    cities = [];
-    antiMissileBatteries = [];
-
-    // Bottom left position of cities
-    createCities();
-
-    // Top middle position of anti-missile batteries
-    createAntimissileBattery();
-
-    initializeLevel();
-};
-
-function createCity8 () {
-    cities = [];
-    cities.push( new City( elementPos[8].x,  elementPos[8].y) );
-}
-
-var penaltyCreateCities = function () {
-    return;
 }
 
 var initRefactLevel = function (checkLevel) {
@@ -132,24 +112,6 @@ var initDesignLevel = function (checkLevel) {
     }
 };
 
-var handicapRechargeAntiMissileBatteries = function () {
-    $.each( antiMissileBatteries, function( index, amb ) {
-      amb.missilesLeft = 5;
-    });
-};
-
-var penaltyRechargeAntiMissileBatteries = function () {
-    $.each( antiMissileBatteries, function( index, amb ) {
-      amb.missilesLeft = 1;
-    });
-};
-
-var correctRechargeAntiMissileBatteries = function () {
-    $.each( antiMissileBatteries, function( index, amb ) {
-      amb.missilesLeft = 10;
-    });
-};
-
 var rechargeAntiMissileBatteries = function () {
     $.each( antiMissileBatteries, function( index, amb ) {
       amb.missilesLeft = gamelevel.missilesDefense;
@@ -162,29 +124,8 @@ var initializeLevel = function() {
     playerMissiles = [];
     enemyMissiles = [];
     createEmemyMissiles();
-    if (isDefined(contrAerea)) {
-        contrAerea = undef;
-    }
+    createBonusMissiles(gamelevel.missilesBonus);
     drawBeginLevel();
-};
-
-// Reset various variables at the start of a new level
-var initializeHandicapLevel = function() {
-    handicapRechargeAntiMissileBatteries();
-    playerMissiles = [];
-    enemyMissiles = [];
-    createEmemyMissiles();
-    createBonusMissiles(NUMBEROFBONUSMISSILE);
-    drawBeginLevel();
-    bonusMissileDestroyed = 0;
-
-    if (level !== 9 && isDefined(contrAerea)) {
-        contrAerea = undef;
-    }
-
-    if (isDefined(contrAerea)) {
-        contrAerea.initialize();
-    }
 };
 
 // Create a certain number of enemy missiles based on the game level
@@ -605,81 +546,6 @@ var playerShoot = function( x, y ) {
       playerMissiles.push( new PlayerMissile( source, x, y ) );
     }
 };
-
-// Costruttore del sistema di difesa automatica verso i missili nemici
-function AutoAntiMissileDefense () {
-    this.whatchedMissiles = [];
-    this.pointedMissiles = [];
-};
-
-// Inizializza i parametri
-AutoAntiMissileDefense.prototype.initialize = function () {
-    this.whatchedMissiles = [];
-    this.pointedMissiles = [];
-};
-
-// Seleziona i missili idonei per essere colpiti
-AutoAntiMissileDefense.prototype.detectMissile = function () {
-    $.each(enemyMissiles, (function (index, missile) {
-        if (missile instanceof EnemyMissile && !this.pointedMissiles.includes(missile) && !this.whatchedMissiles.includes(missile) && missile.y > 50 ) {
-            this.whatchedMissiles.push(missile);
-        }
-    }).bind(this));
-};
-
-// Prepara il missile da lanciare contro i missili nemici
-AutoAntiMissileDefense.prototype.shoot = function () {
-    this.detectMissile();
-
-    $.each(this.whatchedMissiles, (function (index, missile) {
-        if (!isDefined(missile) || missile.state !== MISSILE.active) {
-            return true;
-        }
-        // seleziono la postazione antimissilistica piu' vicina al bersaglio del missile nemico
-        var source = whichAntiMissileBattery( missile.endX );
-        if( source === -1 ){ // No missiles left
-            return false;
-        } else {
-            this.whatchedMissiles.splice(index, 1);
-            this.pointedMissiles.push(missile);
-        }
-
-        var target = findTarget(missile, source);
-        playerMissiles.push( new PlayerMissile( source, target.x, target.y ) );
-    }).bind(this));
-};
-
-var pitagoraTheorem = function (a, b) {
-    return Math.sqrt( Math.pow(a, 2) + Math.pow(b, 2) );
-};
-
-var pointDistance = function (p, q) {
-    return Math.sqrt( Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2) );
-};
-
-var penaltyFindTarget = function (missile, source) {
-    return {x: rand(50, 370), y: rand(50, 370)};
-};
-
-function correctFindTarget (missile, source) {
-    var distance = pointDistance({x: missile.x, y: missile.y}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
-    var t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
-    while (true) {
-        var yShoot = missile.y + missile.dy * t;
-        var xShoot = missile.x + missile.dx * t;
-        var t2 = missileSpeed(xShoot - antiMissileBatteries[source].x, yShoot - antiMissileBatteries[source].y);
-        if ((t).toFixed(9) === (t2).toFixed(9)) {
-            return {x: xShoot, y: yShoot + 10};
-        } else {
-            var distanceAttack = pointDistance({x: missile.x, y: missile.y}, {x: xShoot, y: yShoot});
-            var distanceDefense = pointDistance({x: xShoot, y: yShoot}, {x: antiMissileBatteries[source].x, y: antiMissileBatteries[source].y});
-            distance = distanceAttack + distanceDefense;
-            t = distance / (SPEEDMISSILEDEFENSE + pitagoraTheorem(missile.dx, missile.dy) );
-        }
-    }
-}
-
-var findTarget = penaltyFindTarget;
 
 // Constructor for the Enemy's Missile, which is a subclass of Missile
 // and uses Missile's constructor

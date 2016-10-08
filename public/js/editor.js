@@ -12,9 +12,12 @@ var Editor = function () {
         'line_oldman_chat':'#LINE_OLDMAN#',
         'line_defense_missiles':'#LINE_AMOUNT_DEFENSE_MISSILES#',
         'line_amount_missiles':'#LINE_AMOUNT_ENEMY_MISSILES#',
+        'line_bonus_missiles':'#LINE_AMOUNT_BONUS_MISSILES#',
         'line_speed_missiles':'#LINE_SPEED_ENEMY_MISSILES#',
         'start_goal_function':'#START_OF_GOAL_FUNCTION#',
-        'end_goal_function':'#END_OF_GOAL_FUNCTION#'
+        'end_goal_function':'#END_OF_GOAL_FUNCTION#',
+        'start_init_function':'#START_OF_INIT_FUNCTION#',
+        'end_init_function':'#END_OF_INIT_FUNCTION#'
     };
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -70,6 +73,7 @@ Editor.prototype.loadCode = function (lvl) {
 
     this.cm.refresh();
 	this.defineFunction();
+    gamelevel.initFunction();
 }
 
 Editor.prototype.getCode = function () {
@@ -117,9 +121,11 @@ Editor.prototype.preprocessor = function (code) {
 
     this.editableLines = [];
     var goalString = "";
+    var initString = "";
     var lineArray = code.split("\n");
     var inEditableBlock = false;
     var inGoalFunctionBlock = false;
+    var inInitFunctionBlock = false;
 
     for (var i = 0; i < lineArray.length; i++) {
         var currentLine = lineArray[i];
@@ -133,17 +139,21 @@ Editor.prototype.preprocessor = function (code) {
             lineArray.splice(i,1);
             i--;
             inEditableBlock = false;
-        }
-        // process start of GoalFunction()
-        else if (currentLine.indexOf(this.symbols.start_goal_function) === 0) {
+        } else if (currentLine.indexOf(this.symbols.start_goal_function) === 0) {
             lineArray.splice(i,1);
             inGoalFunctionBlock = true;
             i--;
-        }
-        // process end of GoalFunction()
-        else if (currentLine.indexOf(this.symbols.end_goal_function) === 0) {
+        } else if (currentLine.indexOf(this.symbols.end_goal_function) === 0) {
             lineArray.splice(i,1);
             inGoalFunctionBlock = false;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.start_init_function) === 0) {
+            lineArray.splice(i,1);
+            inInitFunctionBlock = true;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.end_init_function) === 0) {
+            lineArray.splice(i,1);
+            inInitFunctionBlock = false;
             i--;
         } else if (currentLine.indexOf(this.symbols.line_general_chat) === 0) {
             lineArray.splice(i,1);
@@ -165,6 +175,10 @@ Editor.prototype.preprocessor = function (code) {
             lineArray.splice(i,1);
             eval("Gamelevel.prototype.missilesAmount = " + lineArray.splice(i,1) + ";");
             i--;
+        } else if (currentLine.indexOf(this.symbols.line_bonus_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesBonus = " + lineArray.splice(i,1) + ";");
+            i--;
         }
         // everything else
         else {
@@ -180,10 +194,21 @@ Editor.prototype.preprocessor = function (code) {
                 lineArray.splice(i,1);
                 i--;
             }
+
+            // save initFunction() code
+            if (inGoalFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
+                initString += currentLine;
+                lineArray.splice(i,1);
+                i--;
+            }
         }
     }
 
 	Gamelevel.prototype.goalFunction = new Function("f", goalString);
+    Gamelevel.prototype.initFunction = new Function("f", initString);
 
     return lineArray.join("\n");
 };
@@ -374,6 +399,7 @@ Editor.prototype.defineFunction = function (fName) {
     eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
 }
 
+function testFunction () {}
 // Rende eseguibile la funzione scritta nell'editor e poi esegue la goal function
 Editor.prototype.execCode = function () {
     try {
@@ -396,5 +422,4 @@ Editor.prototype.execCode = function () {
     // riavvio il livello
     stopLevel();
     missileCommand(false);
-
 }

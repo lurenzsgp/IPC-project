@@ -30,6 +30,10 @@ function PlayerMissile( source, endX, endY ) {
     amb.missilesLeft--;
 }
 
+#START_OF_INIT_FUNCTION#
+
+#END_OF_INIT_FUNCTION#
+
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(100,100);
@@ -57,6 +61,8 @@ if (correctMissileSpeed(100,100) > missileSpeed(100,100)) {
 
 #LINE_AMOUNT_DEFENSE_MISSILES#
 10
+#LINE_AMOUNT_BONUS_MISSILES#
+0
 #LINE_AMOUNT_ENEMY_MISSILES#
 15
 #LINE_SPEED_ENEMY_MISSILES#
