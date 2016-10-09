@@ -196,7 +196,7 @@ Editor.prototype.preprocessor = function (code) {
             }
 
             // save initFunction() code
-            if (inGoalFunctionBlock) {
+            if (inInitFunctionBlock) {
 
 				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
 
