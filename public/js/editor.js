@@ -17,7 +17,9 @@ var Editor = function () {
         'start_goal_function':'#START_OF_GOAL_FUNCTION#',
         'end_goal_function':'#END_OF_GOAL_FUNCTION#',
         'start_init_function':'#START_OF_INIT_FUNCTION#',
-        'end_init_function':'#END_OF_INIT_FUNCTION#'
+        'end_init_function':'#END_OF_INIT_FUNCTION#',
+        'start_solution_code':'#START_OF_SOLUTION_CODE#',
+        'end_solution_code':'#END_OF_SOLUTION_CODE#'
     };
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -122,10 +124,12 @@ Editor.prototype.preprocessor = function (code) {
     this.editableLines = [];
     var goalString = "";
     var initString = "";
+    var solutionString = "";
     var lineArray = code.split("\n");
     var inEditableBlock = false;
     var inGoalFunctionBlock = false;
     var inInitFunctionBlock = false;
+    var inSolutionFunctionBlock = false;
 
     for (var i = 0; i < lineArray.length; i++) {
         var currentLine = lineArray[i];
@@ -154,6 +158,14 @@ Editor.prototype.preprocessor = function (code) {
         } else if (currentLine.indexOf(this.symbols.end_init_function) === 0) {
             lineArray.splice(i,1);
             inInitFunctionBlock = false;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.start_solution_code) === 0) {
+            lineArray.splice(i,1);
+            inSolutionFunctionBlock = true;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.end_solution_code) === 0) {
+            lineArray.splice(i,1);
+            inSolutionFunctionBlock = false;
             i--;
         } else if (currentLine.indexOf(this.symbols.line_general_chat) === 0) {
             lineArray.splice(i,1);
@@ -204,11 +216,22 @@ Editor.prototype.preprocessor = function (code) {
                 lineArray.splice(i,1);
                 i--;
             }
+
+            // save initFunction() code
+            if (inSolutionFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
+                solutionString += currentLine;
+                lineArray.splice(i,1);
+                i--;
+            }
         }
     }
 
 	Gamelevel.prototype.goalFunction = new Function("f", goalString);
     Gamelevel.prototype.initFunction = new Function("f", initString);
+    Gamelevel.prototype.solutionFunction = new Function("f", solutionString);
 
     return lineArray.join("\n");
 };
@@ -365,19 +388,6 @@ Editor.prototype.resetCode = function () {
     // riavvio il livello
     stopLevel();
     missileCommand(true);
-}
-
-Editor.prototype.applySolution = function () {
-    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-	var f = this.getCode();
-
-    eval("f.body = solution" + level + ";");
-	// devo ridefinire la funzione
-	// console.log(f.name);
-	// console.log(f.args);
-	// console.log(f.body);
-
-    eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
 }
 
 Editor.prototype.defineFunction = function (fName) {

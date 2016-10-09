@@ -795,7 +795,7 @@ var endLevel = function( missilesLeft, citiesSaved ) {
     }
 
 	// badge destroy all bonus missiles, non dipende dal superamente del livello
-    if (bonusMissileDestroyed === NUMBEROFBONUSMISSILE ) {
+    if (bonusMissileDestroyed === gamelevel.missilesBonus ) {
         unlockBadge("Destroy-bonus-missiles", "Destroyed all bonus missiles.");
     }
 };

@@ -29,11 +29,9 @@ function PlayerMissile( source, endX, endY ) {
     this.dy = yDistance / scale;
     amb.missilesLeft--;
 }
-
 #START_OF_INIT_FUNCTION#
 
 #END_OF_INIT_FUNCTION#
-
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(100,100);
@@ -52,13 +50,21 @@ if (correctMissileSpeed(100,100) > missileSpeed(100,100)) {
     missileSpeed = correctMissileSpeed;
 }
 #END_OF_GOAL_FUNCTION#
+#START_OF_SOLUTION_CODE#
+missileSpeed = function ( xDistance, yDistance ) {
 
+    var distance = Math.sqrt( Math.pow(xDistance, 2) + Math.pow(yDistance, 2) );
+
+    var distancePerFrame = 12;
+
+	/* The speed is the ratio of stroke distance and distance traveled in each frame. */
+    return distance / distancePerFrame;
+};
+#END_OF_SOLUTION_CODE#
 #LINE_GENERAL#
 ["<b>WE ARE UNDER ATTACK!</b>"," ","There's something wrong with our missiles, they are really slow and we can't stop the enemy.","We need ALL our facilities to remain intact.","<b>Fix it now</b> or we won't make it!"]
-
 #LINE_OLDMAN#
 ["Missiles are slow? Someone must have messed up the speed settings. Look for it, it should be around 12 or something..."]
-
 #LINE_AMOUNT_DEFENSE_MISSILES#
 10
 #LINE_AMOUNT_BONUS_MISSILES#

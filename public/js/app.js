@@ -192,7 +192,7 @@ $("#level-selector").find('.btn').click( function() {
 });
 
 $("#load-level-btn").click(function(){
-	editor.applySolution();
+	gamelevel.solutionFunction();
 	var lvl = $(".btn-primary").text();
 
 	level = parseInt(lvl);
