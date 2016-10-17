@@ -20,14 +20,15 @@ var initializeHandicapLevel = function() {
     createBonusMissiles(NUMBEROFBONUSMISSILES);
     drawBeginLevel();
 };
+#START_OF_INIT_FUNCTION#
+var penaltyCreateBonusMissiles = function(n) {
+    return;
+};
+#END_OF_INIT_FUNCTION#
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(2);
 editor.defineFunction();
-
-var penaltyCreateBonusMissiles = function(n) {
-    return n;
-};
 
 console.log("Controllo che il numero di missili sia in funzione del parametro");
 var f = editor.getCode();
@@ -46,9 +47,29 @@ $.each(enemyMissiles, function ( index, missile) {
     }
 });
 
-if (count > 3) {
+if (count > gamelevel.missilesBonus) {
     console.log("Hai aggiunto troppi missili bonus!!!");
     createBonusMissiles = penaltyCreateBonusMissiles;
 }
 
 #END_OF_GOAL_FUNCTION#
+#START_OF_SOLUTION_CODE#
+createBonusMissiles = function(n) {
+    var targets = viableTargets();
+    for( var i = 0; i < n; i++ ) {
+        enemyMissiles.push( new BonusMissile(targets) );
+    }
+};
+#END_OF_SOLUTION_CODE#
+#LINE_GENERAL#
+["SOLDIER!","We have been at war for so long.","We have to distribute the remaining missiles between the anti-missile emplacements.","<b>The supplies are coming from the sky</b>, be careful not to set them off!"]
+#LINE_OLDMAN#
+["Creating a new missile is easy, just use the <b>new</b> command.","Be careful adding the exact number of bonus missiles..."]
+#LINE_AMOUNT_DEFENSE_MISSILES#
+10
+#LINE_AMOUNT_BONUS_MISSILES#
+4
+#LINE_AMOUNT_ENEMY_MISSILES#
+40
+#LINE_SPEED_ENEMY_MISSILES#
+2

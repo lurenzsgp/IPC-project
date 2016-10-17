@@ -21,6 +21,9 @@ function AntiMissileBattery( x, y ) {
 	this.y = y;
 	this.missilesLeft = 1;
 }
+#START_OF_INIT_FUNCTION#
+
+#END_OF_INIT_FUNCTION#
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testBattery = new AntiMissileBattery(elementPos[0].x,  elementPos[0].y);
@@ -36,3 +39,20 @@ if (f.body.indexOf("for") !== -1) {
 }
 
 #END_OF_GOAL_FUNCTION#
+#START_OF_SOLUTION_CODE#
+AntiMissileBattery.prototype.hasMissile = function() {
+                return !!this.missilesLeft;
+};
+#END_OF_SOLUTION_CODE#
+#LINE_GENERAL#
+["You know why we're going to lose this war? ","Because THE ENEMY is fast and efficient! ","Our system instead is <b>slow</b> and stupid.","It's your fault! <b>DO SOMETHING ABOUT IT!</b>"]
+#LINE_OLDMAN#
+["You see all those loops there? Do you think is there any reason to be there?"]
+#LINE_AMOUNT_DEFENSE_MISSILES#
+10
+#LINE_AMOUNT_BONUS_MISSILES#
+0
+#LINE_AMOUNT_ENEMY_MISSILES#
+15
+#LINE_SPEED_ENEMY_MISSILES#
+2
