@@ -107,7 +107,7 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
 	//attiva i tooltip di bootstrap sulla classe btn
-    $('.btn').tooltip()
+    $('.btn').tooltip();
 
 	// Index
 	$.ajax({
@@ -118,6 +118,25 @@ $(document).ready(function () {
           levelIndex = data;
 	  }
     });
+
+	// Navigatore livelli
+	for (var i=1; i<= levelIndex.level.length; i++) {
+		$('#level-selector div.btn-group').append("<a type=\"button\" role=\"button\" class=\"btn btn-default disabled\">" + i + "</a>");
+	}
+	
+	$("#level-selector div.btn-group a.btn").click( function() {
+		$(".btn-primary").removeClass('btn-primary');
+		$(this).addClass('btn-primary');
+
+		var lvl = $(this).text();
+
+		$('.level-description').children('h3').html("Level " + lvl.toString());
+		$(".level-description").children("p").html("");
+
+		$.each(levelIndex.level[lvl - 1].description, function(index, value){
+			$(".level-description").append("<p>" + value +"</p>");
+		});
+	});
 
 	// Gamelevel
 	gamelevel = new Gamelevel();
@@ -181,20 +200,6 @@ $(document).ready(function () {
 		})
 	  }
 	}
-});
-
-$("#level-selector").find('.btn').click( function() {
-	$(".btn-primary").removeClass('btn-primary');
-	$(this).addClass('btn-primary');
-
-	var lvl = $(this).text();
-
-	$('.level-description').children('h3').html("Level " + lvl.toString());
-	$(".level-description").children("p").html("");
-
-	$.each(levelIndex.level[lvl - 1].description, function(index, value){
-		$(".level-description").append("<p>" + value +"</p>");
-	});
 });
 
 $("#load-level-btn").click(function(){
