@@ -17,6 +17,7 @@ var CANVAS_WIDTH  = canvas.width,
 var levelscore = 0,
   level = <%= level %>,
   maxLevel = <%= level %>,
+  levelIndex = {},
   cities = [],
   antiMissileBatteries = [],
   playerMissiles = [],
@@ -764,7 +765,7 @@ var setupNextLevel = function(next) {
         });
 
         // aumento il livello
-        if (level < 10) {
+        if (level < levelIndex.level.length) {
             level++;
         }
 

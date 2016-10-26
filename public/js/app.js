@@ -109,6 +109,16 @@ $(document).ready(function () {
 	//attiva i tooltip di bootstrap sulla classe btn
     $('.btn').tooltip()
 
+	// Index
+	$.ajax({
+      url: "lvl/index.json",
+      async: false,
+      dataType: "json",
+      success: function (data){
+          levelIndex = data;
+	  }
+    });
+
 	// Gamelevel
 	gamelevel = new Gamelevel();
 	// CodeMirror
@@ -131,7 +141,7 @@ $(document).ready(function () {
 	});
 
 	// attiva Intro.JS o carica la chat del livello corrente
-	if (level === 1) {
+	if (maxLevel === 1) {
 		startTutorial();
 	} else {
 		loadChat();
@@ -182,12 +192,8 @@ $("#level-selector").find('.btn').click( function() {
 	$('.level-description').children('h3').html("Level " + lvl.toString());
 	$(".level-description").children("p").html("");
 
-// se togliamo il file con le chat di tutti i livelli questa spiegazione non e' piu accessibile
-
-	$.getJSON("lvl/levels-chat.json", function(data){
-		$.each(data.text[lvl - 1], function(index, value){
-			$(".level-description").append("<p>" + value +"</p>");
-		});
+	$.each(levelIndex.level[lvl - 1].description, function(index, value){
+		$(".level-description").append("<p>" + value +"</p>");
 	});
 });
 
@@ -210,7 +216,7 @@ function loadChat() {
 	newmsg("general", gamelevel.generalMessage, {
 		'callback': function() {
 			if (maxLevel === 1) {
-				newmsg("oldman", gamelevel.oldmanMessage, {
+				newmsg("oldman", ["You are the new Recruit, aren't you?","I was operating in this Fortress since... I can't remember when.","I still remember quite well how the system code works, though."], {
 					'startDelay': 1500
 				});
 			}
@@ -221,11 +227,7 @@ function loadChat() {
 function loadHints() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 
-	// get hints text from JSON file
-	$.getJSON("lvl/hints-chat.json", function(data){
-		var txt = data.text[level];
-		newmsg("oldman", txt, {});
-	});
+	newmsg("oldman", gamelevel.oldmanMessage, {});
 }
 
 $('#user').click(function () {

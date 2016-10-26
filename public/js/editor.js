@@ -48,8 +48,14 @@ Editor.prototype.resize = function (h,w) {
 Editor.prototype.loadCode = function (lvl) {
     var code = "";
 
+    if (lvl > levelIndex.level.length) {
+        lvl = 1;
+        level = lvl;
+        maxLevel = levelIndex.level.length;
+    }
+
     $.ajax({
-      url: "lvl/lvl" + lvl + ".jsx",
+      url: "lvl/" + levelIndex.level[lvl - 1].file,
       async: false,
       dataType: "text",
       success: function (data){
