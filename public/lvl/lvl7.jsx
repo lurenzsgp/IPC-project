@@ -22,7 +22,14 @@ var createAntimissileBattery = function () {
     antiMissileBatteries.push( new AntiMissileBattery( elementPos[1].x, elementPos[1].y) );
     antiMissileBatteries.push( new AntiMissileBattery( elementPos[2].x, elementPos[2].y) );
 };
-
+#START_OF_INIT_FUNCTION#
+function penaltyRechargeAntiMissileBatteries () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = 1;
+    });
+};
+rechargeAntiMissileBatteries = penaltyRechargeAntiMissileBatteries;
+#END_OF_INIT_FUNCTION#
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction();
@@ -45,3 +52,23 @@ if (antiMissileBatteries[0].missilesLeft !== 10 || antiMissileBatteries[1].missi
 
 console.log("inizializzo il livello");
 #END_OF_GOAL_FUNCTION#
+
+#START_OF_SOLUTION_CODE#
+rechargeAntiMissileBatteries = function () {
+    $.each( antiMissileBatteries, function( index, amb ) {
+      amb.missilesLeft = gamelevel.missilesDefense;
+    });
+};
+#END_OF_SOLUTION_CODE#
+#LINE_GENERAL#
+["The ammunition of the day finally arrived...","But our warehouse workers are on strike!"," ","Recruit, program the drone in order to <b>automatically restock</b> the defense stations!"]
+#LINE_OLDMAN#
+["Try telling the drone how many missiles to put in each antimissile battery.","Each battery can be identified with an index."]
+#LINE_AMOUNT_DEFENSE_MISSILES#
+10
+#LINE_AMOUNT_BONUS_MISSILES#
+0
+#LINE_AMOUNT_ENEMY_MISSILES#
+15
+#LINE_SPEED_ENEMY_MISSILES#
+2

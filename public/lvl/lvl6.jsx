@@ -27,7 +27,11 @@ var playerShoot = function( x, y ) {
     }
 #END_EDITABLE#
 };
-
+#START_OF_INIT_FUNCTION#
+playerShoot = function ( x, y ) {
+    return;
+}
+#END_OF_INIT_FUNCTION#
 #START_OF_GOAL_FUNCTION#
 console.log("controllo la presenza di errori nell'editor");
 testFunction(100,100);
@@ -51,3 +55,26 @@ if (f.body.indexOf('50') === -1 || f.body.indexOf('370') === -1) {
 }
 
 #END_OF_GOAL_FUNCTION#
+#START_OF_SOLUTION_CODE#
+playerShoot = function( x, y ) {
+    if( y >= 50 && y <= 370 ) {
+      var source = whichAntiMissileBattery( x );
+      if( source === -1 ){
+        return;
+      }
+      playerMissiles.push( new PlayerMissile( source, x, y ) );
+    }
+};
+#END_OF_SOLUTION_CODE#
+#LINE_GENERAL#
+["Last attack fried our system memory and now there's not enough space for the system code... ","I'm not a tech guy but that code looks really bloated. ","<b>CLEAN IT UP, SOLDIER!</b>"]
+#LINE_OLDMAN#
+["I think you can write all that working code in a couple of lines! Try to specify all your condition together."]
+#LINE_AMOUNT_DEFENSE_MISSILES#
+10
+#LINE_AMOUNT_BONUS_MISSILES#
+0
+#LINE_AMOUNT_ENEMY_MISSILES#
+15
+#LINE_SPEED_ENEMY_MISSILES#
+2

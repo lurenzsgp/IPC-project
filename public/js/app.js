@@ -107,8 +107,39 @@ $(document).ready(function () {
 	$('[data-toggle="popover"]').popover();
 
 	//attiva i tooltip di bootstrap sulla classe btn
-    $('.btn').tooltip()
+    $('.btn').tooltip();
 
+	// Index
+	$.ajax({
+      url: "lvl/index.json",
+      async: false,
+      dataType: "json",
+      success: function (data){
+          levelIndex = data;
+	  }
+    });
+
+	// Navigatore livelli
+	for (var i=1; i<= levelIndex.level.length; i++) {
+		$('#level-selector div.btn-group').append("<a type=\"button\" role=\"button\" class=\"btn btn-default disabled\">" + i + "</a>");
+	}
+
+	$("#level-selector div.btn-group a.btn").click( function() {
+		$(".btn-primary").removeClass('btn-primary');
+		$(this).addClass('btn-primary');
+
+		var lvl = $(this).text();
+
+		$('.level-description').children('h3').html("Level " + lvl.toString());
+		$(".level-description").children("p").html("");
+
+		$.each(levelIndex.level[lvl - 1].description, function(index, value){
+			$(".level-description").append("<p>" + value +"</p>");
+		});
+	});
+
+	// Gamelevel
+	gamelevel = new Gamelevel();
 	// CodeMirror
     editor = new Editor();
     editor.loadCode(level);
@@ -129,7 +160,7 @@ $(document).ready(function () {
 	});
 
 	// attiva Intro.JS o carica la chat del livello corrente
-	if (level === 1) {
+	if (maxLevel === 1) {
 		startTutorial();
 	} else {
 		loadChat();
@@ -171,32 +202,15 @@ $(document).ready(function () {
 	}
 });
 
-// carica i livelli precedenti nella sezione Levels
-$("#level-selector").find('.btn').click( function() {
-	$(".btn-primary").removeClass('btn-primary');
-	$(this).addClass('btn-primary');
 
-	var lvl = $(this).text();
-
-	$('.level-description').children('h3').html("Level " + lvl.toString());
-	$(".level-description").children("p").html("");
-
-	$.getJSON("lvl/levels-chat.json", function(data){
-		$.each(data.text[lvl - 1], function(index, value){
-			$(".level-description").append("<p>" + value +"</p>");
-		});
-	});
-});
-
-// carica il livello precedente selezionato dall'utente
 $("#load-level-btn").click(function(){
-	editor.applySolution();
+	gamelevel.solutionFunction();
 	var lvl = $(".btn-primary").text();
 
 	level = parseInt(lvl);
 
-	loadChat();
 	editor.loadCode(level);
+	loadChat();
 	stopLevel();
 	missileCommand(true);
 });
@@ -206,59 +220,22 @@ function loadChat() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 	$("#chat-body").html("");
 
-	// get chat texts from JSON file
-	if (level === 1) {
-		// livello 1: primo messaggio del generale + introduzione del vecchio pazzo
-		$.getJSON("lvl/levels-chat.json", function(data) {
-			newmsg("general", data.text[level - 1], {
-				'callback': function() {
-					$.getJSON("lvl/hints-chat.json", function(hints) {
-						if (maxLevel === 1) {
-							newmsg("oldman", hints.text[0], {
-								'startDelay': 1500
-							});
-						}
-					});
-				}
-			});
-		});
-	} else if (level !== 10) {
-		// livelli 2-9: messaggi del generale relativi ai diversi livelli
-		$.getJSON("lvl/levels-chat.json", function(data) {
-			newmsg("general", data.text[level - 1], {});
-		});
-	} else {
-		// livello 10: messaggi conclusivi del generale
-		$.getJSON("lvl/final-chat.json", function(finalData) {
-			newmsg("general", finalData.text[0], {
-				'callback': function() {
-					if (level === 10) {
-						newmsg("general", finalData.text[1], {
-							'startDelay': 1000,
-							'callback': function() {
-								if (level === 10) {
-									newmsg("general", finalData.text[2], {
-										'startDelay': 1200
-									});
-								}
-							}
-						});
-					}
-				}
-			});
-		});
-	}
+	newmsg("general", gamelevel.generalMessage, {
+		'callback': function() {
+			if (maxLevel === 1) {
+				newmsg("oldman", ["You are the new Recruit, aren't you?","I was operating in this Fortress since... I can't remember when.","I still remember quite well how the system code works, though."], {
+					'startDelay': 1500
+				});
+			}
+		}
+	});
 }
 
 // carica dinamicamente il suggerimento relativo al livello corrente
 function loadHints() {
 	$("#chat-panel > .panel-heading").html("Level " + level);
 
-	// get hints text from JSON file
-	$.getJSON("lvl/hints-chat.json", function(data){
-		var txt = data.text[level];
-		newmsg("oldman", txt, {});
-	});
+	newmsg("oldman", gamelevel.oldmanMessage, {});
 }
 
 // carica dinamicamente la sezione User della home page

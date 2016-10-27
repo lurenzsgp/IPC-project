@@ -1,13 +1,25 @@
 // Editor class
 var self;
 
+var Gamelevel = function () {};
+
 var Editor = function () {
     // variables
     this.symbols = {
         'begin_line':'#BEGIN_EDITABLE#',
         'end_line':'#END_EDITABLE#',
+        'line_general_chat':'#LINE_GENERAL#',
+        'line_oldman_chat':'#LINE_OLDMAN#',
+        'line_defense_missiles':'#LINE_AMOUNT_DEFENSE_MISSILES#',
+        'line_amount_missiles':'#LINE_AMOUNT_ENEMY_MISSILES#',
+        'line_bonus_missiles':'#LINE_AMOUNT_BONUS_MISSILES#',
+        'line_speed_missiles':'#LINE_SPEED_ENEMY_MISSILES#',
         'start_goal_function':'#START_OF_GOAL_FUNCTION#',
-        'end_goal_function':'#END_OF_GOAL_FUNCTION#'
+        'end_goal_function':'#END_OF_GOAL_FUNCTION#',
+        'start_init_function':'#START_OF_INIT_FUNCTION#',
+        'end_init_function':'#END_OF_INIT_FUNCTION#',
+        'start_solution_code':'#START_OF_SOLUTION_CODE#',
+        'end_solution_code':'#END_OF_SOLUTION_CODE#'
     };
     this.editableLines = [];
     this.cm = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -36,8 +48,13 @@ Editor.prototype.resize = function (h,w) {
 Editor.prototype.loadCode = function (lvl) {
     var code = "";
 
+    if (lvl > levelIndex.level.length) {
+        lvl = 1;
+        level = lvl;
+    }
+
     $.ajax({
-      url: "lvl/lvl" + lvl + ".jsx",
+      url: "lvl/" + levelIndex.level[lvl - 1].file,
       async: false,
       dataType: "text",
       success: function (data){
@@ -63,6 +80,7 @@ Editor.prototype.loadCode = function (lvl) {
 
     this.cm.refresh();
 	this.defineFunction();
+    gamelevel.initFunction();
 }
 
 Editor.prototype.getCode = function () {
@@ -110,9 +128,13 @@ Editor.prototype.preprocessor = function (code) {
 
     this.editableLines = [];
     var goalString = "";
+    var initString = "";
+    var solutionString = "";
     var lineArray = code.split("\n");
     var inEditableBlock = false;
     var inGoalFunctionBlock = false;
+    var inInitFunctionBlock = false;
+    var inSolutionFunctionBlock = false;
 
     for (var i = 0; i < lineArray.length; i++) {
         var currentLine = lineArray[i];
@@ -126,17 +148,53 @@ Editor.prototype.preprocessor = function (code) {
             lineArray.splice(i,1);
             i--;
             inEditableBlock = false;
-        }
-        // process start of GoalFunction()
-        else if (currentLine.indexOf(this.symbols.start_goal_function) === 0) {
+        } else if (currentLine.indexOf(this.symbols.start_goal_function) === 0) {
             lineArray.splice(i,1);
             inGoalFunctionBlock = true;
             i--;
-        }
-        // process end of GoalFunction()
-        else if (currentLine.indexOf(this.symbols.end_goal_function) === 0) {
+        } else if (currentLine.indexOf(this.symbols.end_goal_function) === 0) {
             lineArray.splice(i,1);
             inGoalFunctionBlock = false;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.start_init_function) === 0) {
+            lineArray.splice(i,1);
+            inInitFunctionBlock = true;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.end_init_function) === 0) {
+            lineArray.splice(i,1);
+            inInitFunctionBlock = false;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.start_solution_code) === 0) {
+            lineArray.splice(i,1);
+            inSolutionFunctionBlock = true;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.end_solution_code) === 0) {
+            lineArray.splice(i,1);
+            inSolutionFunctionBlock = false;
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_general_chat) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.generalMessage = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_oldman_chat) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.oldmanMessage = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_defense_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesDefense = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_speed_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesSpeed = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_amount_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesAmount = " + lineArray.splice(i,1) + ";");
+            i--;
+        } else if (currentLine.indexOf(this.symbols.line_bonus_missiles) === 0) {
+            lineArray.splice(i,1);
+            eval("Gamelevel.prototype.missilesBonus = " + lineArray.splice(i,1) + ";");
             i--;
         }
         // everything else
@@ -153,10 +211,32 @@ Editor.prototype.preprocessor = function (code) {
                 lineArray.splice(i,1);
                 i--;
             }
+
+            // save initFunction() code
+            if (inInitFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
+                initString += currentLine;
+                lineArray.splice(i,1);
+                i--;
+            }
+
+            // save initFunction() code
+            if (inSolutionFunctionBlock) {
+
+				currentLine = currentLine.replace(/(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g, ""); // rimuove i commenti
+
+                solutionString += currentLine;
+                lineArray.splice(i,1);
+                i--;
+            }
         }
     }
 
-	Editor.prototype.goalFunction = new Function("f", goalString);
+	Gamelevel.prototype.goalFunction = new Function("f", goalString);
+    Gamelevel.prototype.initFunction = new Function("f", initString);
+    Gamelevel.prototype.solutionFunction = new Function("f", solutionString);
 
     return lineArray.join("\n");
 };
@@ -315,19 +395,6 @@ Editor.prototype.resetCode = function () {
     missileCommand(true);
 }
 
-Editor.prototype.applySolution = function () {
-    // leggi il codice dall'editor e sostituiscilo all'interno di missile command
-	var f = this.getCode();
-
-    eval("f.body = solution" + level + ";");
-	// devo ridefinire la funzione
-	// console.log(f.name);
-	// console.log(f.args);
-	// console.log(f.body);
-
-    eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
-}
-
 Editor.prototype.defineFunction = function (fName) {
     // leggi il codice dall'editor e sostituiscilo all'interno di missile command
 	var f = this.getCode();
@@ -347,6 +414,7 @@ Editor.prototype.defineFunction = function (fName) {
     eval(f.name + " = new Function('" + f.args.join(',') +"', '" + f.body +"')");
 }
 
+function testFunction () {}
 // Rende eseguibile la funzione scritta nell'editor e poi esegue la goal function
 Editor.prototype.execCode = function () {
     try {
@@ -355,7 +423,7 @@ Editor.prototype.execCode = function () {
         var f = this.getCode();
         // esegui la goal function per vedere se il livello puo' ritenersi superato
         try {
-            this.goalFunction(f.name);
+            gamelevel.goalFunction(f.name);
         } catch(e) {
             console.log(e);
             newmsg("oldman", ["I think that are some syntax or logic errors in your code...", "Or maybe it's only slow.", "Check it and try to execute it again."], {});
@@ -369,5 +437,4 @@ Editor.prototype.execCode = function () {
     // riavvio il livello
     stopLevel();
     missileCommand(false);
-
 }
