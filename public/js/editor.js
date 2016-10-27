@@ -51,7 +51,6 @@ Editor.prototype.loadCode = function (lvl) {
     if (lvl > levelIndex.level.length) {
         lvl = 1;
         level = lvl;
-        maxLevel = levelIndex.level.length;
     }
 
     $.ajax({
